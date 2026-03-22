@@ -112,23 +112,24 @@ jobs:
         chmod +x Amplitron.app/Contents/MacOS/Amplitron
         cp -r assets Amplitron.app/Contents/MacOS/assets || true
         cp -r assets Amplitron.app/Contents/Resources/ || true
-        cat > Amplitron.app/Contents/Info.plist << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>CFBundleExecutable</key><string>Amplitron</string>
-  <key>CFBundleIdentifier</key><string>com.amplitron.app</string>
-  <key>CFBundleName</key><string>Amplitron</string>
-  <key>CFBundleVersion</key><string>${{ needs.create-release.outputs.version }}</string>
-  <key>CFBundleShortVersionString</key><string>${{ needs.create-release.outputs.version }}</string>
-  <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleIconFile</key><string>icon</string>
-  <key>NSHighResolutionCapable</key><true/>
-  <key>NSMicrophoneUsageDescription</key><string>Amplitron needs microphone access for guitar input.</string>
-</dict>
-</plist>
-EOF
+        VERSION="${{ needs.create-release.outputs.version }}"
+        cat > Amplitron.app/Contents/Info.plist <<PLIST
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+          <key>CFBundleExecutable</key><string>Amplitron</string>
+          <key>CFBundleIdentifier</key><string>com.amplitron.app</string>
+          <key>CFBundleName</key><string>Amplitron</string>
+          <key>CFBundleVersion</key><string>${VERSION}</string>
+          <key>CFBundleShortVersionString</key><string>${VERSION}</string>
+          <key>CFBundlePackageType</key><string>APPL</string>
+          <key>CFBundleIconFile</key><string>icon</string>
+          <key>NSHighResolutionCapable</key><true/>
+          <key>NSMicrophoneUsageDescription</key><string>Amplitron needs microphone access for guitar input.</string>
+        </dict>
+        </plist>
+        PLIST
 
     - name: Ad-hoc Codesign
       run: codesign --force --deep --sign - Amplitron.app
