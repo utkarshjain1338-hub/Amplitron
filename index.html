@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amplitron - Professional Guitar Amp Simulator</title>
     <meta name="description" content="Amplitron is a professional guitar amp simulator with real-time audio processing, 9 studio-quality effects, and ultra-low latency.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <style>
         * {
             margin: 0;
@@ -41,6 +43,18 @@
             text-align: center;
             padding: 60px 20px 40px;
             background: linear-gradient(180deg, rgba(200, 168, 74, 0.1) 0%, transparent 100%);
+        }
+
+        .header-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            filter: drop-shadow(0 4px 16px rgba(200, 168, 74, 0.3));
+        }
+
+        .header-icon img {
+            width: 100%;
+            height: 100%;
         }
 
         .logo {
@@ -299,6 +313,9 @@
 <body>
     <div class="container">
         <header>
+            <div class="header-icon">
+                <img src="icon.svg" alt="Amplitron">
+            </div>
             <h1 class="logo">AMPLITRON</h1>
             <p class="tagline">Professional Guitar Amp Simulator</p>
             <p style="color: var(--text-dim); font-size: 1.1rem;">
@@ -350,11 +367,11 @@
                     <div class="platform-icon">🪟</div>
                     <h3>Windows</h3>
                     <p class="version">Windows 10/11 (64-bit)</p>
-                    <a href="https://github.com/sudip-mondal-2002/Amplitron/releases/latest/download/Amplitron-Windows-x64.zip" class="download-btn">
-                        Download for Windows
+                    <a href="https://github.com/sudip-mondal-2002/Amplitron/releases/latest/download/Amplitron-Windows-Setup.exe" class="download-btn">
+                        Download Installer
                     </a>
                     <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-dim);">
-                        Includes all dependencies
+                        .exe installer &mdash; includes shortcuts &amp; uninstaller
                     </p>
                 </div>
 
@@ -362,11 +379,11 @@
                     <div class="platform-icon">🍎</div>
                     <h3>macOS</h3>
                     <p class="version">macOS 10.15 Catalina or later</p>
-                    <a href="https://github.com/sudip-mondal-2002/Amplitron/releases/latest/download/Amplitron-macOS-Universal.tar.gz" class="download-btn">
-                        Download for macOS
+                    <a href="https://github.com/sudip-mondal-2002/Amplitron/releases/latest/download/Amplitron-macOS.dmg" class="download-btn">
+                        Download DMG
                     </a>
                     <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-dim);">
-                        Universal binary (Intel + Apple Silicon)
+                        Disk image &mdash; drag to Applications
                     </p>
                 </div>
 
@@ -375,10 +392,10 @@
                     <h3>Linux</h3>
                     <p class="version">Ubuntu 20.04+ / Fedora 35+ / Arch</p>
                     <a href="https://github.com/sudip-mondal-2002/Amplitron/releases/latest/download/Amplitron-Linux-x64.tar.gz" class="download-btn">
-                        Download for Linux
+                        Download Archive
                     </a>
                     <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-dim);">
-                        Requires PortAudio & SDL2
+                        .tar.gz with launcher script
                     </p>
                 </div>
             </div>
@@ -408,20 +425,23 @@
             <div class="install-steps">
                 <h4>Windows</h4>
                 <ol>
-                    <li>Download <code>Amplitron-Windows-x64.zip</code></li>
-                    <li>Extract the ZIP file to your desired location</li>
-                    <li>Run <code>Amplitron.exe</code></li>
+                    <li>Download <code>Amplitron-Windows-Setup.exe</code></li>
+                    <li>Run the installer &mdash; follow the setup wizard</li>
+                    <li>Launch from the <strong>Start Menu</strong> or <strong>Desktop shortcut</strong></li>
                     <li>Connect your guitar interface and start playing!</li>
                 </ol>
+                <p style="margin-top: 12px; font-size: 0.85rem; color: var(--text-dim);">
+                    To uninstall, use <strong>Add or Remove Programs</strong> in Windows Settings.
+                </p>
             </div>
 
             <div class="install-steps">
                 <h4>macOS</h4>
                 <ol>
-                    <li>Download <code>Amplitron-macOS-Universal.tar.gz</code></li>
-                    <li>Extract the archive (double-click or use <code>tar -xzf</code>)</li>
-                    <li>Drag <code>Amplitron.app</code> to your Applications folder</li>
-                    <li>Right-click and select "Open" (first time only, to bypass Gatekeeper)</li>
+                    <li>Download <code>Amplitron-macOS.dmg</code></li>
+                    <li>Open the disk image</li>
+                    <li>Drag <strong>Amplitron</strong> to the <strong>Applications</strong> folder</li>
+                    <li>Right-click and select &ldquo;Open&rdquo; (first time only, to bypass Gatekeeper)</li>
                     <li>Grant microphone permissions when prompted</li>
                 </ol>
             </div>
@@ -430,8 +450,9 @@
                 <h4>Linux</h4>
                 <ol>
                     <li>Install dependencies:
-                        <br><code>sudo apt install portaudio19-dev libsdl2-2.0-0</code> (Ubuntu/Debian)
+                        <br><code>sudo apt install libportaudio2 libsdl2-2.0-0</code> (Ubuntu/Debian)
                         <br><code>sudo dnf install portaudio SDL2</code> (Fedora)
+                        <br><code>sudo pacman -S portaudio sdl2</code> (Arch)
                     </li>
                     <li>Download <code>Amplitron-Linux-x64.tar.gz</code></li>
                     <li>Extract: <code>tar -xzf Amplitron-Linux-x64.tar.gz</code></li>
