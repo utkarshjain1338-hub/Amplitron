@@ -158,14 +158,22 @@ jobs:
       uses: mymindstorm/setup-emsdk@v14
       with:
         version: 3.1.51
+        actions-cache-folder: emsdk-cache
 
-    - name: Setup ImGui
-      run: git clone --depth 1 --branch v1.90.1 https://github.com/ocornut/imgui.git external/imgui
+    - name: Cache Emscripten ports & system libs
+      uses: actions/cache@v4
+      with:
+        path: ~/.emscripten_cache
+        key: emsdk-cache-3.1.51-${{ runner.os }}-${{ hashFiles('CMakeLists.txt') }}
+        restore-keys: |
+          emsdk-cache-3.1.51-${{ runner.os }}-
 
-    - name: Setup NanoSVG
+    - name: Setup External Dependencies
       run: |
-        curl -sL -o external/nanosvg.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvg.h
-        curl -sL -o external/nanosvgrast.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvgrast.h
+        git clone --depth 1 --branch v1.90.1 https://github.com/ocornut/imgui.git external/imgui &
+        curl -sL -o external/nanosvg.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvg.h &
+        curl -sL -o external/nanosvgrast.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvgrast.h &
+        wait
 
     - name: Build WASM
       run: |
@@ -198,31 +206,28 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
-        update: true
-        install: >-
-          mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-portaudio
-          mingw-w64-x86_64-SDL2
-          make
-          git
+        update: false
+        pacboy: >-
+          gcc:p
+          cmake:p
+          portaudio:p
+          SDL2:p
+        install: make git
 
-    - name: Setup ImGui
-      shell: msys2 {0}
-      run: git clone --depth 1 --branch v1.90.1 https://github.com/ocornut/imgui.git external/imgui
-
-    - name: Setup NanoSVG
+    - name: Setup External Dependencies
       shell: msys2 {0}
       run: |
-        curl -sL -o external/nanosvg.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvg.h
-        curl -sL -o external/nanosvgrast.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvgrast.h
+        git clone --depth 1 --branch v1.90.1 https://github.com/ocornut/imgui.git external/imgui &
+        curl -sL -o external/nanosvg.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvg.h &
+        curl -sL -o external/nanosvgrast.h https://raw.githubusercontent.com/memononen/nanosvg/master/src/nanosvgrast.h &
+        wait
 
     - name: Build
       shell: msys2 {0}
       run: |
         mkdir -p build && cd build
         cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-        make -j8
+        make -j$NUMBER_OF_PROCESSORS
 
     - name: Run Tests
       shell: msys2 {0}
