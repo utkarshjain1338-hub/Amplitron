@@ -179,8 +179,11 @@ test.describe('Canvas Rendering', () => {
       await overlay.click();
     }
 
-    // Allow at least one rAF to fire
-    await page.waitForTimeout(500);
+    // Wait until the canvas has been given non-zero dimensions by the Emscripten runtime
+    await page.waitForFunction(() => {
+      const canvas = document.getElementById('canvas') as HTMLCanvasElement | null;
+      return canvas !== null && canvas.width > 0 && canvas.height > 0;
+    }, { timeout: 10_000 });
 
     const { width, height } = await page.locator('#canvas').evaluate(
       (el: HTMLCanvasElement) => ({ width: el.width, height: el.height })
@@ -278,8 +281,15 @@ test.describe('SharedArrayBuffer & Service Worker', () => {
   }) => {
     await page.goto('/');
 
-    // Give the browser time to complete service-worker registration
-    await page.waitForTimeout(2_000);
+    // Wait for the service worker to become active (or confirm there is none registered)
+    await page.waitForFunction(async () => {
+      try {
+        await navigator.serviceWorker.ready;
+        return true;
+      } catch {
+        return false;
+      }
+    }, { timeout: 15_000 });
 
     const [crossOriginIsolated, swCount] = await page.evaluate(async () => {
       const regs = await navigator.serviceWorker.getRegistrations();
