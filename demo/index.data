@@ -70,6 +70,30 @@
       }
     },
     {
+      "type": "Phaser",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.5,
+        "Depth": 0.7,
+        "Stages": 0.0,
+        "Feedback": 0.5,
+        "Mix": 0.5
+      }
+    },
+    {
+      "type": "Flanger",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.3,
+        "Depth": 2.0,
+        "Delay": 1.0,
+        "Feedback": 0.7,
+        "Mix": 0.5
+      }
+    },
+    {
       "type": "Delay",
       "enabled": true,
       "mix": 1.0,
@@ -174,6 +198,30 @@
         "Rate": 1.5,
         "Depth": 5.0,
         "Level": 0.5
+      }
+    },
+    {
+      "type": "Phaser",
+      "enabled": true,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.8,
+        "Depth": 0.8,
+        "Stages": 0.0,
+        "Feedback": 0.45,
+        "Mix": 0.5
+      }
+    },
+    {
+      "type": "Flanger",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.3,
+        "Depth": 2.0,
+        "Delay": 1.0,
+        "Feedback": 0.7,
+        "Mix": 0.5
       }
     },
     {
@@ -284,6 +332,30 @@
       }
     },
     {
+      "type": "Phaser",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.5,
+        "Depth": 0.7,
+        "Stages": 0.0,
+        "Feedback": 0.5,
+        "Mix": 0.5
+      }
+    },
+    {
+      "type": "Flanger",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.3,
+        "Depth": 2.0,
+        "Delay": 1.0,
+        "Feedback": 0.7,
+        "Mix": 0.5
+      }
+    },
+    {
       "type": "Delay",
       "enabled": true,
       "mix": 1.0,
@@ -388,6 +460,30 @@
         "Rate": 0.8,
         "Depth": 12.0,
         "Level": 0.75
+      }
+    },
+    {
+      "type": "Phaser",
+      "enabled": false,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.2,
+        "Depth": 0.9,
+        "Stages": 2.0,
+        "Feedback": 0.6,
+        "Mix": 0.5
+      }
+    },
+    {
+      "type": "Flanger",
+      "enabled": true,
+      "mix": 1.0,
+      "params": {
+        "Rate": 0.15,
+        "Depth": 4.0,
+        "Delay": 2.0,
+        "Feedback": 0.65,
+        "Mix": 0.4
       }
     },
     {
