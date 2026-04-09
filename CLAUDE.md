@@ -38,12 +38,17 @@ The undo/redo state-tracking agent.
 * **Role:** Maintains a stack-based history of all user actions (parameter changes, pedal additions/removals, reordering) to enable full undo/redo functionality.
 * **Responsibilities:** Recording commands, executing undo/redo, managing the history stack with proper cleanup when new actions branch off from a past state.
 
-### 1.6 The Spectrum Analyzer Agent (`spectrum_analyzer.cpp`)
+### 1.6 The Snapshot Manager Agent (`snapshot_manager.h`, `gui_snapshots.h/.cpp`)
+The in-session A/B/C/D board-state switching agent.
+* **Role:** Stores up to 4 complete board configurations in memory for instant, glitch-free recall during a live performance session — without any file I/O.
+* **Responsibilities:** Capturing the full effect chain state (effect instances, enabled/mix flags, all parameter values, input/output gains) into numbered slots; restoring a slot via `RecallSnapshotCommand` (undoable via Ctrl+Z); and rendering the [A][B][C][D] toolbar row with visual indication of the active slot. Left-click on an empty slot saves, left-click on a filled slot recalls; Ctrl/Cmd+1–4 recalls; right-click opens a context menu (Save / Clear).
+
+### 1.7 The Spectrum Analyzer Agent (`spectrum_analyzer.cpp`)
 The frequency-domain visualization agent.
 * **Role:** Performs real-time frequency analysis of the audio signal and renders a visual spectrum display in the GUI.
 * **Responsibilities:** Accepting audio data from the lock-free SPSC queue, computing frequency bins, and rendering the spectrum graph.
 
-### 1.7 The Recorder Agent (`recorder.cpp`)
+### 1.8 The Recorder Agent (`recorder.cpp`)
 The WAV recording agent.
 * **Role:** Captures processed audio output and writes it to WAV files on disk.
 * **Responsibilities:** Managing recording state (start/stop), writing WAV headers, buffering audio data, and flushing to disk.
@@ -134,5 +139,5 @@ At the end of any task that meaningfully changes the system architecture, update
 
 ---
 **Maintained by:** [@sudip-mondal-2002](https://github.com/sudip-mondal-2002)
-**Architecture Reference** — 16 DSP effects, 7 system agents
+**Architecture Reference** — 16 DSP effects, 8 system agents
 

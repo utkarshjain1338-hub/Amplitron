@@ -447,7 +447,7 @@ jobs:
         retention-days: 1
 
   build-ios:
-    name: Build iOS App (Simulator)
+    name: Build iOS App (Device)
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v6
@@ -488,14 +488,14 @@ jobs:
           -G Xcode \
           -S . -B build-ios
 
-    - name: Build (iOS Simulator, no codesign)
+    - name: Build (iOS Device, no codesign)
       run: |
         set -o pipefail
         xcodebuild \
           -project build-ios/Amplitron.xcodeproj \
           -scheme Amplitron \
           -configuration Release \
-          -sdk iphonesimulator \
+          -sdk iphoneos \
           -derivedDataPath ios-derived \
           ONLY_ACTIVE_ARCH=YES \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
@@ -508,7 +508,7 @@ jobs:
         APP=$(find ios-derived/Build/Products -name "Amplitron.app" -type d | head -1)
         echo "App bundle: $APP"
 
-        # Binary must exist and be a valid Mach-O (arm64 simulator slice)
+        # Binary must exist and be a valid Mach-O arm64 device binary
         BINARY="$APP/Amplitron"
         file "$BINARY"
         lipo -info "$BINARY" | grep -E "arm64" \

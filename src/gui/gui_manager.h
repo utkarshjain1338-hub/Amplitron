@@ -8,6 +8,7 @@
 #include "gui/gui_recording.h"
 #include "gui/gui_tuner.h"
 #include "gui/gui_analyzer.h"
+#include "gui/gui_snapshots.h"
 #include <thread>
 #include <mutex>
 #include <string>
@@ -70,6 +71,7 @@ private:
     GuiRecording gui_recording_;
     GuiTuner gui_tuner_;
     GuiAnalyzer gui_analyzer_;
+    GuiSnapshots gui_snapshots_;
 
     // Update checking
     void check_for_updates();

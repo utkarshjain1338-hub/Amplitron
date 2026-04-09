@@ -388,6 +388,72 @@ private:
 };
 
 /**
+ * @brief Command that applies a stored in-session snapshot (A/B/C/D) to the engine.
+ *
+ * Semantically identical to LoadPresetCommand but describes itself as
+ * "Recall Snapshot" in the undo/redo menu. Constructed from a pair of
+ * SnapshotManager::BoardSnapshot values (before/after) by GuiSnapshots.
+ */
+class RecallSnapshotCommand : public Command {
+public:
+    using EffectSnapshot = LoadPresetCommand::EffectSnapshot;
+
+    RecallSnapshotCommand(AudioEngine& engine,
+                          std::vector<EffectSnapshot> before_effects,
+                          float before_input_gain, float before_output_gain,
+                          std::vector<EffectSnapshot> after_effects,
+                          float after_input_gain, float after_output_gain)
+        : engine_(engine),
+          before_effects_(std::move(before_effects)),
+          before_input_gain_(before_input_gain),
+          before_output_gain_(before_output_gain),
+          after_effects_(std::move(after_effects)),
+          after_input_gain_(after_input_gain),
+          after_output_gain_(after_output_gain) {}
+
+    /** @brief Restore the after-recall state (redo). */
+    void execute() override {
+        apply_state(after_effects_, after_input_gain_, after_output_gain_);
+    }
+
+    /** @brief Restore the before-recall state (undo). */
+    void undo() override {
+        apply_state(before_effects_, before_input_gain_, before_output_gain_);
+    }
+
+    /** @brief Return "Recall Snapshot". */
+    const char* description() const override { return "Recall Snapshot"; }
+
+private:
+    void apply_state(const std::vector<EffectSnapshot>& state,
+                     float input_gain, float output_gain) {
+        std::vector<std::shared_ptr<Effect>> new_effects;
+        new_effects.reserve(state.size());
+        for (const auto& snap : state) {
+            snap.effect->set_enabled(snap.enabled);
+            snap.effect->set_mix(snap.mix);
+            auto& params = snap.effect->params();
+            for (int i = 0; i < static_cast<int>(params.size()) &&
+                            i < static_cast<int>(snap.param_values.size()); ++i) {
+                params[i].value = snap.param_values[i];
+            }
+            new_effects.push_back(snap.effect);
+        }
+        engine_.restore_effects_state(std::move(new_effects));
+        engine_.set_input_gain(input_gain);
+        engine_.set_output_gain(output_gain);
+    }
+
+    AudioEngine& engine_;
+    std::vector<EffectSnapshot> before_effects_;
+    float before_input_gain_;
+    float before_output_gain_;
+    std::vector<EffectSnapshot> after_effects_;
+    float after_input_gain_;
+    float after_output_gain_;
+};
+
+/**
  * @brief Command that removes every effect from the signal chain at once.
  *
  * Captures the full chain state before clearing so that undo() can restore it.

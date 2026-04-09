@@ -129,6 +129,7 @@ set(APP_SOURCES
     src/gui/pedal_board.cpp
     src/gui/pedal_widget.cpp
     src/gui/command_history.cpp
+    src/gui/gui_snapshots.cpp
 )
 
 # --- Platform-specific sources (selected at configure time) ---
@@ -343,6 +344,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/test_recorder.cpp
         tests/test_theme.cpp
         tests/test_command_history.cpp
+        tests/test_snapshot_manager.cpp
     )
 
     # Effect + core sources needed by tests (no GUI, no main)

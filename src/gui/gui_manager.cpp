@@ -39,7 +39,8 @@ GuiManager::GuiManager(AudioEngine& engine)
       gui_presets_(engine, command_history_),
       gui_recording_(engine),
       gui_tuner_(engine, std::make_shared<TunerPedal>()),
-      gui_analyzer_(engine) {}
+      gui_analyzer_(engine),
+      gui_snapshots_(engine, command_history_) {}
 
 GuiManager::~GuiManager() {
     shutdown();
@@ -175,6 +176,7 @@ bool GuiManager::initialize(int width, int height) {
 
     pedal_board_ = std::make_unique<PedalBoard>(engine_, command_history_);
     gui_presets_.set_pedal_board(pedal_board_.get());
+    gui_snapshots_.set_pedal_board(pedal_board_.get());
 
     PresetManager::load_config();
 
@@ -227,7 +229,7 @@ bool GuiManager::run_frame() {
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    // Keyboard shortcuts for undo/redo
+    // Keyboard shortcuts for undo/redo and snapshot save
     {
         ImGuiIO& io = ImGui::GetIO();
         if (!io.WantTextInput) {
@@ -245,6 +247,18 @@ bool GuiManager::run_frame() {
             if (mod && !io.KeyShift && ImGui::IsKeyPressed(ImGuiKey_Y)) {
                 if (command_history_.redo() && pedal_board_) {
                     pedal_board_->rebuild_widgets();
+                }
+            }
+            // Ctrl/Cmd+1–4: recall snapshot slot A–D
+            static const ImGuiKey digit_keys[4] = {
+                ImGuiKey_1, ImGuiKey_2, ImGuiKey_3, ImGuiKey_4
+            };
+            for (int i = 0; i < 4; ++i) {
+                if (mod && !io.KeyShift && ImGui::IsKeyPressed(digit_keys[i])) {
+                    if (gui_snapshots_.manager().has_slot(i)) {
+                        gui_snapshots_.recall_slot(i);
+                        if (pedal_board_) pedal_board_->rebuild_widgets();
+                    }
                 }
             }
         }
@@ -270,6 +284,11 @@ bool GuiManager::run_frame() {
 
     // Recording controls (above pedal board)
     gui_recording_.render_controls();
+
+    ImGui::Separator();
+
+    // In-session snapshots (A/B/C/D slot row)
+    gui_snapshots_.render();
 
     ImGui::Separator();
 
