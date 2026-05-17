@@ -15,7 +15,7 @@ void GuiRecording::render_controls() {
 
     // Robustly calculate baseline heights using actual ImGui metrics
     // to prevent clipping when padding or font sizes change independently.
-    float base_h = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f;
+    float base_h = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f + ImGui::GetStyle().WindowBorderSize * 2.0f;
     float panel_height = is_recording ? (base_h + 80.0f) : base_h;
     
     // Kept font_scale for waveform scaling

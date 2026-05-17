@@ -44,7 +44,7 @@ void GuiSnapshots::recall_slot(int slot) {
 
 void GuiSnapshots::render() {
     // Scale the baseline bar size based on actual style metrics
-    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f;
+    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f + ImGui::GetStyle().WindowBorderSize * 2.0f;
     
     ImGui::BeginChild("SnapshotBar", ImVec2(0, bar_height), true,
                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);

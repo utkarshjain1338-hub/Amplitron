@@ -76,7 +76,7 @@ int PedalBoard::find_amp_index() const {
 /** @brief Render the toolbar (add/reset) and the scrollable signal chain area. */
 void PedalBoard::render() {
     // Calculate robust dynamic height based on actual style metrics
-    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f;
+    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f + ImGui::GetStyle().WindowBorderSize * 2.0f;
     ImGui::BeginChild("PedalToolbar", ImVec2(0, bar_height), true,
                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
