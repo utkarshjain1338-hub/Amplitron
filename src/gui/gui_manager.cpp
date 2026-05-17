@@ -94,14 +94,24 @@ bool GuiManager::initialize(int width, int height) {
     ImGui::StyleColorsDark();
     Theme::ApplyStyle();
 
-    // --- DPI scaling and font loading ---
+// --- DPI scaling and font loading ---
     float dpi_scale = 1.0f;
+    #ifdef __EMSCRIPTEN__
+    // Query the browser's high-DPI resolution rendering multiplier directly
+    dpi_scale = emscripten_get_device_pixel_ratio();
+    
+    // Explicitly tell the canvas element to scale its dimensions to match the DPI scale
+    emscripten_set_canvas_element_size("#canvas", 
+        static_cast<int>(window_width_ * dpi_scale), 
+        static_cast<int>(window_height_ * dpi_scale));
+    #else
     {
         int draw_w = window_width_, draw_h = window_height_;
         SDL_GL_GetDrawableSize(window_, &draw_w, &draw_h);
         if (window_width_ > 0)
             dpi_scale = static_cast<float>(draw_w) / static_cast<float>(window_width_);
     }
+    #endif
 
     {
         const float base_font_size = 14.0f;
