@@ -73,7 +73,14 @@ int PedalBoard::find_amp_index() const {
 
 /** @brief Render the toolbar (add/reset) and the scrollable signal chain area. */
 void PedalBoard::render() {
-    ImGui::BeginChild("PedalToolbar", ImVec2(0, 40), true);
+    // Calculate uniform dynamic height matching snapshot bar
+    float font_scale = ImGui::GetFontSize() / 14.0f;
+    float bar_height = 42.0f * font_scale;
+
+    // FIX: Enforce uniform styling properties and completely suppress vertical scrollbars
+    ImGui::BeginChild("PedalToolbar", ImVec2(0, bar_height), true,
+                       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
     // Vertically center the single button row so top and bottom padding are equal
     {
         float avail = ImGui::GetContentRegionAvail().y;
@@ -103,12 +110,10 @@ void PedalBoard::render() {
     }
     ImGui::SameLine();
 
-    ImGui::SameLine();
-
     // Amp selector (separate dropdown to switch model)
     render_amp_selector();
-
     ImGui::SameLine();
+
     int pedal_count = static_cast<int>(engine_.effects().size());
     ImGui::TextColored(Theme::TextSecondary(),
         "  %d effects | Drag knobs to adjust", pedal_count);

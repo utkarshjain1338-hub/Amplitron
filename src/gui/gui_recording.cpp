@@ -13,9 +13,13 @@ void GuiRecording::render_controls() {
     bool is_paused = rec.is_paused();
     bool has_unsaved = rec.has_unsaved();
 
-    float panel_height = is_recording ? 120.0f : 46.0f;
+    // Dynamically calculate baseline heights using the loaded font scale factor 
+    float font_scale = ImGui::GetFontSize() / 14.0f;
+    float panel_height = is_recording ? (126.0f * font_scale) : (52.0f * font_scale);
+
+    // FIX: Enforce fixed-height layout properties with strict scrollbars suppression flags
     ImGui::BeginChild("RecordingPanel", ImVec2(0, panel_height), true,
-                       ImGuiWindowFlags_NoScrollbar);
+                       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
     if (is_recording) {
         // === RECORDING ACTIVE ===
@@ -95,7 +99,7 @@ void GuiRecording::render_controls() {
 
         ImVec2 wave_pos = ImGui::GetCursorScreenPos();
         float wave_w = ImGui::GetContentRegionAvail().x;
-        float wave_h = 50.0f;
+        float wave_h = 50.0f * font_scale; 
 
         ImDrawList* draw = ImGui::GetWindowDrawList();
 
@@ -147,6 +151,18 @@ void GuiRecording::render_controls() {
             float offset = std::max(0.0f, (avail - row_h) * 0.5f);
             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + offset);
         }
+
+        // FIX: Centrally align the saved recording context blocks
+        {
+            float content_w = ImGui::CalcTextSize("Recording complete").x;
+            content_w += ImGui::CalcTextSize("  999.9 s  |  ").x;
+            content_w += 100.0f + 80.0f; // Exact fixed size width budgets for the Save/Discard buttons
+            content_w += (ImGui::GetStyle().ItemSpacing.x * 3.0f);
+
+            float start_x = (ImGui::GetContentRegionAvail().x - content_w) * 0.5f;
+            if (start_x > 0.0f) ImGui::SetCursorPosX(start_x);
+        }
+
         ImGui::TextColored(Theme::Gold(), "Recording complete");
         ImGui::SameLine();
         ImGui::Text("  %.1f s  |  ", rec.get_duration());
@@ -201,7 +217,6 @@ void GuiRecording::render_save_dialog(bool& show) {
         return;
     }
 
-    // Launch native save dialog (runs on this frame, blocks briefly)
     recording_save_pending_ = false;
     show = false;
 
