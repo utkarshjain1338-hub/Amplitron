@@ -75,11 +75,8 @@ int PedalBoard::find_amp_index() const {
 
 /** @brief Render the toolbar (add/reset) and the scrollable signal chain area. */
 void PedalBoard::render() {
-    // Calculate uniform dynamic height matching snapshot bar.
-    // GetFontSize() returns raw pixel size; multiply by FontGlobalScale to get visual size.
-    float font_scale = ImGui::GetFontSize() / 14.0f;
-    float bar_height = 42.0f * font_scale;
-
+    // Calculate robust dynamic height based on actual style metrics
+    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f;
     ImGui::BeginChild("PedalToolbar", ImVec2(0, bar_height), true,
                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 

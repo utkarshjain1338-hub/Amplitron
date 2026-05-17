@@ -43,13 +43,9 @@ void GuiSnapshots::recall_slot(int slot) {
 }
 
 void GuiSnapshots::render() {
-    // Scale the baseline bar size based on visual font metrics.
-    // GetFontSize() returns raw pixel size (e.g. 28px on Mac Retina),
-    // multiply by FontGlobalScale to get the visual size used for layout.
-    float visual_font_size = ImGui::GetFontSize() * ImGui::GetIO().FontGlobalScale;
-    float font_scale = visual_font_size / 14.0f;
-    float bar_height = 36.0f * font_scale;
-
+    // Scale the baseline bar size based on actual style metrics
+    float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f;
+    
     ImGui::BeginChild("SnapshotBar", ImVec2(0, bar_height), true,
                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
