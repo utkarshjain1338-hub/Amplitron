@@ -51,6 +51,7 @@ public:
 private:
     static constexpr int kMaxSeconds = 60;
     static constexpr float kMinLoopSeconds = 0.10f;
+    static constexpr float kLoopLevelSmoothingSeconds = 0.02f;
 
     enum CommandBits : uint32_t {
         CmdRecordToggle  = 1u << 0,
@@ -73,6 +74,9 @@ private:
     int record_pos_ = 0;
     int playhead_ = 0;
     int loop_length_ = 0;
+
+    float loop_level_smoothed_ = 0.80f;
+    float loop_level_alpha_ = 0.0f;
 
     // UI-visible atomics (written from audio thread, read by GUI thread).
     std::atomic<uint32_t> ui_state_{static_cast<uint32_t>(State::Empty)};
@@ -103,4 +107,3 @@ private:
 };
 
 } // namespace Amplitron
-

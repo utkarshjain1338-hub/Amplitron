@@ -14,11 +14,15 @@ Looper::Looper() {
         {"Crossfade",  5.0f,  0.0f, 20.0f, 5.0f,  "ms", "Crossfade length at the loop boundary to reduce clicks/pops."},
     };
     ensure_capacity();
+    const float sr = static_cast<float>(std::max(sample_rate_, 1));
+    loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));
     reset();
 }
 
 void Looper::set_sample_rate(int sample_rate) {
     Effect::set_sample_rate(sample_rate);
+    const float sr = static_cast<float>(std::max(sample_rate_, 1));
+    loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));
     ensure_capacity();
     reset();
 }
@@ -38,6 +42,7 @@ void Looper::reset() {
     record_pos_ = 0;
     playhead_ = 0;
     loop_length_ = 0;
+    loop_level_smoothed_ = clamp(params_[0].value, 0.0f, 1.0f);
     pending_commands_.store(0, std::memory_order_relaxed);
     publish_ui_snapshot();
 }
@@ -164,7 +169,7 @@ void Looper::process_stereo(float* left, float* right, int num_samples) {
 void Looper::process_core(float* left, float* right, int num_samples, bool stereo) {
     apply_pending_commands();
 
-    const float loop_level = clamp(params_[0].value, 0.0f, 1.0f);
+    const float loop_level_target = clamp(params_[0].value, 0.0f, 1.0f);
     const int cap = max_samples_;
     if (cap <= 0) {
         publish_ui_snapshot();
@@ -187,6 +192,8 @@ void Looper::process_core(float* left, float* right, int num_samples, bool stere
         (state_rt_ == State::Playing || state_rt_ == State::Overdubbing)) {
         const int xf = crossfade_samples_rt();
         for (int i = 0; i < num_samples; ++i) {
+            loop_level_smoothed_ += loop_level_alpha_ * (loop_level_target - loop_level_smoothed_);
+            const float loop_level = loop_level_smoothed_;
             const int pos = playhead_;
             float loop_l = buffer_l_[pos];
             float loop_r = (stereo && right) ? buffer_r_[pos] : loop_l;
@@ -223,6 +230,9 @@ void Looper::process_core(float* left, float* right, int num_samples, bool stere
             ++playhead_;
             if (playhead_ >= loop_length_) playhead_ = 0;
         }
+    } else {
+        // Keep smoothing responsive even when not actively mixing the loop.
+        loop_level_smoothed_ += loop_level_alpha_ * (loop_level_target - loop_level_smoothed_);
     }
 
     publish_ui_snapshot();
