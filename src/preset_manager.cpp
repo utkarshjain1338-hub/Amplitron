@@ -1,6 +1,5 @@
 #include "preset_manager.h"
 #include "preset_manager_impl.h"
-
 #include <iostream>
 #include <ctime>
 #include <sys/stat.h>
@@ -84,6 +83,20 @@ std::string get_user_presets_dir() {
     if (!home) return "";
     return std::string(home) + "/.config/amplitron/presets";
 #endif
+}
+
+std::string PresetManager::apply_migrations(const std::string& raw_json_string) {
+    if (raw_json_string.find("\"version\"") == std::string::npos) {
+        std::cout << "[Preset Migration] Upgrading legacy unversioned preset format to Version 2" << std::endl;
+        
+        std::string patched = raw_json_string;
+        size_t last_bracket = patched.find_last_of("}");
+        if (last_bracket != std::string::npos) {
+            patched.insert(last_bracket, ",\n  \"version\": 2,\n  \"input_gain\": 0.7,\n  \"output_gain\": 0.8");
+        }
+        return patched;
+    }
+    return raw_json_string;
 }
 
 } // namespace Amplitron
