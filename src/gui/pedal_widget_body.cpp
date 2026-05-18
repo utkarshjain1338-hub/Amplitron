@@ -377,6 +377,7 @@ void PedalWidget::render_looper_display(ImVec2 p0, float pedal_width) {
     if (!effect_->params().empty()) {
         float& level = effect_->params()[0].value;
         ImGui::SetCursorScreenPos(ImVec2(p0.x + 15, display_y));
+        ImGui::SetNextItemWidth(bar_w);
         char slider_id[64];
         std::snprintf(slider_id, sizeof(slider_id), "##looper_level_%d", index_);
         float old_val = level;
