@@ -106,6 +106,7 @@ void PedalBoard::render_signal_chain() {
 
     // Reserve space so the child window's content size matches the drawn chain.
     // Add only a small tail so the end jack isn't flush against the edge.
+    ImGui::SetCursorPos(ImVec2(0, 0));
     ImGui::Dummy(ImVec2(total_width + 8.0f, 340));
 }
 
