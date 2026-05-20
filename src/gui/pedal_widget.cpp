@@ -6,7 +6,6 @@
 #include "gui/command_history.h"
 #include "audio/effects/tuner.h"
 #include "audio/effects/amp_simulator.h"
-#include "audio/effects/ir_cabinet.h"
 #include "gui/file_dialog.h"
 #include <cstring>
 #include <cmath>
@@ -42,6 +41,10 @@ bool PedalWidget::render() {
 
     ImVec2 cursor = ImGui::GetCursorScreenPos();
     ImDrawList* dl = ImGui::GetWindowDrawList();
+    bool is_amp = (std::strcmp(effect_->name(), "Amp Sim") == 0);
+    bool enabled = effect_->is_enabled();
+    bool is_looper = !is_amp && (std::strcmp(effect_->name(), "Looper") == 0);
+    bool is_cabinet = !is_amp && (std::strcmp(effect_->name(), "Cabinet") == 0);
 
     // Pedal body
     ImVec2 p0 = cursor;
@@ -71,10 +74,8 @@ bool PedalWidget::render() {
         render_tuner_display(dl, p0, pedal_width);
     }
 
-    // --- IR Cabinet custom display ---
-    bool is_ir_cab = !is_amp && (std::strcmp(effect_->name(), "IR Cabinet") == 0);
-    if (is_ir_cab) {
-        render_ir_cabinet_display(p0, pedal_width);
+    if (is_cabinet) {
+        render_cabinet_ir_display(p0, pedal_width);
     }
 
     if (is_looper) {
@@ -82,7 +83,8 @@ bool PedalWidget::render() {
     } else if (is_mb_comp) {
         render_multiband_compressor_display(dl, p0, pedal_width);
     } else {
-        render_knobs(dl, p0, pedal_width, is_amp, is_tuner, is_ir_cab);
+        bool shift_knobs_down = is_cabinet;
+        render_knobs(dl, p0, pedal_width, is_amp, is_tuner, shift_knobs_down);
     }
 
     render_footswitch_and_extras(dl, p0, p1, pedal_width, pedal_height, is_amp, enabled, should_remove);
@@ -140,7 +142,7 @@ void PedalWidget::render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2
     bool is_looper = !is_amp && (std::strcmp(effect_->name(), "Looper") == 0);
 
     // LED tooltip — hover area over the LED indicator
-    if (!is_amp && !is_looper) {
+    if (!is_amp) {
         float led_x = p0.x + pedal_width - 25;
         float led_y = p0.y + 20;
         ImGui::SetCursorScreenPos(ImVec2(led_x - 10, led_y - 10));
@@ -152,7 +154,7 @@ void PedalWidget::render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2
     }
 
     // Footswitch (toggle on/off) — amps are always on, no footswitch
-    if (!is_amp && !is_looper) {
+    if (!is_amp) {
         float switch_y = p0.y + pedal_height - Theme::SWITCH_BOTTOM_OFFSET;
         float switch_x = p0.x + (pedal_width - 50) / 2;
         ImGui::SetCursorScreenPos(ImVec2(switch_x, switch_y));
