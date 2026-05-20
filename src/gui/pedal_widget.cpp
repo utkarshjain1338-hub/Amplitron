@@ -32,15 +32,16 @@ bool PedalWidget::render() {
 
     ImGui::PushID(index_);
 
-    float pedal_width = Theme::PEDAL_WIDTH;
+    bool is_amp = (std::strcmp(effect_->name(), "Amp Sim") == 0);
+    bool is_mb_comp = (std::strcmp(effect_->name(), "MultiBand Compressor") == 0);
+    bool enabled = effect_->is_enabled();
+    bool is_looper = !is_amp && (std::strcmp(effect_->name(), "Looper") == 0);
+
+    float pedal_width = is_mb_comp ? (Theme::PEDAL_WIDTH * 2.2f) : Theme::PEDAL_WIDTH;
     float pedal_height = Theme::PEDAL_HEIGHT;
 
     ImVec2 cursor = ImGui::GetCursorScreenPos();
     ImDrawList* dl = ImGui::GetWindowDrawList();
-
-    bool is_amp = (std::strcmp(effect_->name(), "Amp Sim") == 0);
-    bool enabled = effect_->is_enabled();
-    bool is_looper = !is_amp && (std::strcmp(effect_->name(), "Looper") == 0);
 
     // Pedal body
     ImVec2 p0 = cursor;
@@ -78,6 +79,8 @@ bool PedalWidget::render() {
 
     if (is_looper) {
         render_looper_display(p0, pedal_width);
+    } else if (is_mb_comp) {
+        render_multiband_compressor_display(dl, p0, pedal_width);
     } else {
         render_knobs(dl, p0, pedal_width, is_amp, is_tuner, is_ir_cab);
     }
