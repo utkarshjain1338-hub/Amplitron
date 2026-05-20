@@ -18,8 +18,21 @@
 #include <dirent.h>
 #define MKDIR(path) mkdir(path, 0755)
 #endif
-
+#ifdef _EMSCRIPTEN_
+#include <emscripten.h>
 namespace Amplitron {
+    std::string PresetManager::get_user_presets_dir() {
+        char* result = (char*)EM_ASM_PTR({
+            return stringToNewUTF8(
+                window._amplitronPresetDir || 'preset'
+            );
+        })
+        std::string dir(result);
+        free(result);
+        return dir;
+    }
+}
+#endif
 
 void append_json_files(const std::string& dir,
                        std::vector<std::string>& result) {
