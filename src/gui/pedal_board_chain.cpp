@@ -334,6 +334,10 @@ void PedalBoard::render_signal_chain() {
         }
     }
 
+    // Fix ImGui cursor bounds warnings after free panning
+    ImGui::SetCursorPos(ImVec2(0, 0));
+    ImGui::Dummy(canvas_size);
+
     draw_list->PopClipRect();
 }
 
