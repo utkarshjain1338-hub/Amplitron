@@ -26,13 +26,16 @@ namespace Amplitron {
             return stringToNewUTF8(
                 window._amplitronPresetDir || 'preset'
             );
-        })
+        });
         std::string dir(result);
         free(result);
         return dir;
     }
 }
 #endif
+
+namespace Amplitron {
+
 void append_json_files(const std::string& dir,
                        std::vector<std::string>& result) {
     try {
