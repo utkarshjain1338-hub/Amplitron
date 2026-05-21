@@ -31,7 +31,7 @@ public:
      * @brief Render the pedal widget for one frame.
      * @return true if the user clicked the remove button and the pedal should be deleted.
      */
-    bool render();
+    bool render(float zoom = 1.0f);
 
     /** @brief Return the current chain index. */
     int get_index() const { return index_; }
@@ -71,6 +71,13 @@ private:
     void render_cabinet_ir_display(ImVec2 p0, float pedal_width);
     void render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp, bool is_tuner, bool shift_knobs_down);
     void render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool& should_remove);
+    void render_amp_cabinet(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, float zoom);
+    void render_standard_pedal(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, bool enabled, float zoom);
+    void render_tuner_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom);
+    void render_looper_display(ImVec2 p0, float pedal_width, float zoom);
+    void render_ir_cabinet_display(ImVec2 p0, float pedal_width, float zoom);
+    void render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp, bool is_tuner, bool is_ir_cab, float zoom);
+    void render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool& should_remove, float zoom);
 
     AudioEngine& engine_;
     std::shared_ptr<Effect> effect_;
