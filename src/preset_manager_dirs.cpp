@@ -33,7 +33,6 @@ namespace Amplitron {
     }
 }
 #endif
-
 void append_json_files(const std::string& dir,
                        std::vector<std::string>& result) {
     try {
