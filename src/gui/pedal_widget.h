@@ -63,14 +63,6 @@ private:
     void render_toggle(const char* label, bool* value);
 
     // Render helpers for decomposing the huge render() function
-    void render_amp_cabinet(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height);
-    void render_standard_pedal(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, bool enabled);
-    void render_tuner_display(ImDrawList* dl, ImVec2 p0, float pedal_width);
-    void render_looper_display(ImVec2 p0, float pedal_width);
-    void render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width);
-    void render_cabinet_ir_display(ImVec2 p0, float pedal_width);
-    void render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp, bool is_tuner, bool shift_knobs_down);
-    void render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool& should_remove);
     void render_amp_cabinet(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, float zoom);
     void render_standard_pedal(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, bool enabled, float zoom);
     void render_tuner_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom);
@@ -78,6 +70,7 @@ private:
     void render_ir_cabinet_display(ImVec2 p0, float pedal_width, float zoom);
     void render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp, bool is_tuner, bool is_ir_cab, float zoom);
     void render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool& should_remove, float zoom);
+    void render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width);
 
     AudioEngine& engine_;
     std::shared_ptr<Effect> effect_;
