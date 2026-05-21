@@ -206,9 +206,13 @@ void PedalBoard::render_signal_chain() {
                 ImGui::InvisibleButton("in_pin", ImVec2(20.0f * ui_state.zoom, 20.0f * ui_state.zoom));
                 
                 // Check if hovered while releasing a dragged wire
-                if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem) && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+                ImVec2 mouse_pos = ImGui::GetMousePos();
+                float dist_sq = pow(mouse_pos.x - pin_pos.x, 2) + pow(mouse_pos.y - pin_pos.y, 2);
+                if (dist_sq < pow(15.0f * ui_state.zoom, 2) && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+                    printf("MANUAL DROP HOVER DETECTED! src: %d, dest: %d\n", ui_state.active_src_pin_id, pin_id);
                     if (ui_state.active_src_pin_id != -1) {
-                        audio_graph.add_link(ui_state.active_src_pin_id, pin_id);
+                        int res = audio_graph.add_link(ui_state.active_src_pin_id, pin_id);
+                        printf("add_link returned: %d\n", res);
                         engine_.commit_graph_changes();
                         ui_state.active_src_pin_id = -1;
                     }

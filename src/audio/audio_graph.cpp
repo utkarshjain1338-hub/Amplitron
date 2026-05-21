@@ -38,6 +38,7 @@ int AudioGraph::add_link(int source_pin_id, int dest_pin_id) {
     // Prevent duplicate connections between the exact same pair of pins
     for (const auto& existing_link : links_) {
         if (existing_link.source_pin_id == source_pin_id && existing_link.dest_pin_id == dest_pin_id) {
+            printf("add_link failed: duplicate link\n");
             return existing_link.id; 
         }
     }
@@ -45,6 +46,7 @@ int AudioGraph::add_link(int source_pin_id, int dest_pin_id) {
     // Enforce that each input pin can only have ONE incoming link
     for (const auto& existing_link : links_) {
         if (existing_link.dest_pin_id == dest_pin_id) {
+            printf("add_link failed: Input pin %d already in use!\n", dest_pin_id);
             return -1; // Pin already in use!
         }
     }
@@ -62,6 +64,7 @@ int AudioGraph::add_link(int source_pin_id, int dest_pin_id) {
                 }
             }
             if (out_count >= 1) {
+                printf("add_link failed: Output pin %d already has an outgoing connection!\n", source_pin_id);
                 return -1; // Each output pin can only have 1 outgoing connection!
             }
         }
@@ -76,6 +79,7 @@ int AudioGraph::add_link(int source_pin_id, int dest_pin_id) {
 
     // Validate if the new patch wire forms an impossible audio loop feedback cycle
     if (!rebuild_topology()) {
+        printf("add_link failed: forms an impossible audio loop feedback cycle!\n");
         // If a feedback loop is detected, pop the dangerous link back off to keep the engine safe
         links_.pop_back();
         rebuild_topology();
