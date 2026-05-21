@@ -206,7 +206,7 @@ void PedalBoard::render_signal_chain() {
                 ImGui::InvisibleButton("in_pin", ImVec2(20.0f * ui_state.zoom, 20.0f * ui_state.zoom));
                 
                 // Check if hovered while releasing a dragged wire
-                if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+                if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem) && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
                     if (ui_state.active_src_pin_id != -1) {
                         audio_graph.add_link(ui_state.active_src_pin_id, pin_id);
                         engine_.commit_graph_changes();
