@@ -1449,6 +1449,8 @@ TEST(multiband_compressor_independent_band_compression) {
     ASSERT_GT(mbc.get_gain_reduction_db(2), 1.0f);
     ASSERT_NEAR(mbc.get_gain_reduction_db(0), 0.0f, 1e-4f);
     ASSERT_NEAR(mbc.get_gain_reduction_db(1), 0.0f, 1e-4f);
+}
+
 // Tempo / BPM Syncing Tests
 // ============================================================
 
