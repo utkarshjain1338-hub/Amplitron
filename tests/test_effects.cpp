@@ -555,6 +555,7 @@ TEST(all_effects_handle_silence) {
     std::vector<std::shared_ptr<Effect>> effects = {
         std::make_shared<NoiseGate>(),
         std::make_shared<Compressor>(),
+        std::make_shared<MultiBandCompressor>(),
         std::make_shared<Overdrive>(),
         std::make_shared<Distortion>(),
         std::make_shared<Equalizer>(),
@@ -585,6 +586,7 @@ TEST(all_effects_reset_without_crash) {
     std::vector<std::shared_ptr<Effect>> effects = {
         std::make_shared<NoiseGate>(),
         std::make_shared<Compressor>(),
+        std::make_shared<MultiBandCompressor>(),
         std::make_shared<Overdrive>(),
         std::make_shared<Distortion>(),
         std::make_shared<Equalizer>(),
@@ -621,6 +623,7 @@ TEST(all_effects_handle_different_sample_rates) {
     std::vector<std::shared_ptr<Effect>> effects = {
         std::make_shared<NoiseGate>(),
         std::make_shared<Compressor>(),
+        std::make_shared<MultiBandCompressor>(),
         std::make_shared<Overdrive>(),
         std::make_shared<Distortion>(),
         std::make_shared<Equalizer>(),
@@ -1464,8 +1467,8 @@ TEST(delay_calculates_correct_time_from_bpm) {
     dl.params()[0].value = 490.0f; 
     
     // Trigger the BPM sync
-    dl.set_transport_state(120.0f); 
  
+
     // At 120 BPM, a quarter note is 500.0 ms (60000 / 120)
     ASSERT_NEAR(dl.params()[0].value, 500.0f, 0.01f);
 }

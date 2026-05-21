@@ -403,7 +403,7 @@ void PedalWidget::render_looper_display(ImVec2 p0, float pedal_width, float zoom
     }
 }
 
-void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width) {
+void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom) {
     auto* mb_comp = dynamic_cast<MultiBandCompressor*>(effect_.get());
     if (!mb_comp) return;
 
@@ -411,12 +411,12 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
     if (params.size() < 18) return;
 
     // Outer boundaries
-    ImVec2 p1 = ImVec2(p0.x + pedal_width, p0.y + Theme::PEDAL_HEIGHT);
+    ImVec2 p1 = ImVec2(p0.x + pedal_width, p0.y + Theme::PEDAL_HEIGHT * zoom);
 
     // Dynamic horizontal divider separating header/plate and controls
-    dl->AddLine(ImVec2(p0.x + 8.0f, p0.y + 48.0f), ImVec2(p1.x - 8.0f, p0.y + 48.0f), Theme::BORDER_DARK, 1.0f);
+    dl->AddLine(ImVec2(p0.x + 8.0f * zoom, p0.y + 48.0f * zoom), ImVec2(p1.x - 8.0f * zoom, p0.y + 48.0f * zoom), Theme::BORDER_DARK, 1.0f * zoom);
 
-    float col_width = (pedal_width - 24.0f) / 3.0f;
+    float col_width = (pedal_width - 24.0f * zoom) / 3.0f;
 
     // --- REUSABLE KNOB HELPER (LAMBDA) ---
     auto render_mb_knob = [&](ImDrawList* dl, ImVec2 center, int pi, float radius, const char* label_prefix) {
@@ -424,7 +424,8 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         char label[64];
         std::snprintf(label, sizeof(label), "##knob_%s_%d_%d_%s", effect_->name(), index_, pi, label_prefix);
 
-        float knob_hit_size = radius * Theme::KNOB_HIT_MULT;
+        float r = radius * zoom;
+        float knob_hit_size = r * Theme::KNOB_HIT_MULT;
 
         ImGui::SetCursorScreenPos(ImVec2(center.x - knob_hit_size * 0.5f, center.y - knob_hit_size * 0.5f));
         ImGui::SetNextItemAllowOverlap();
@@ -549,7 +550,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         float normalized = (param.value - param.min_val) / range;
         constexpr float ARC_START = 2.356f;
         constexpr float ARC_RANGE = 4.712f;
-        float track_radius = radius + 2.5f;
+        float track_radius = r + 2.5f * zoom;
         int segments = 30;
         for (int s = 0; s < segments; ++s) {
             float t0 = static_cast<float>(s) / segments;
@@ -563,12 +564,12 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
             dl->AddLine(
                 ImVec2(center.x + std::cos(a0) * track_radius, center.y + std::sin(a0) * track_radius),
                 ImVec2(center.x + std::cos(a1) * track_radius, center.y + std::sin(a1) * track_radius),
-                seg_color, 2.0f);
+                seg_color, 2.0f * zoom);
         }
 
         ImU32 knob_bg = is_active ? Theme::KNOB_ACTIVE : (is_hovered ? Theme::KNOB_HOVER : Theme::KNOB_FACE);
-        dl->AddCircleFilled(center, radius, Theme::KNOB_BG);
-        dl->AddCircleFilled(center, radius - 1.0f, knob_bg);
+        dl->AddCircleFilled(center, r, Theme::KNOB_BG);
+        dl->AddCircleFilled(center, r - 1.0f * zoom, knob_bg);
 
 #ifndef AMPLITRON_NO_MIDI
         if (gui_midi_ && gui_midi_->midi().is_learning() &&
@@ -577,17 +578,17 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
             float time = static_cast<float>(ImGui::GetTime());
             float alpha = (std::sin(time * 2.0f * 3.14159f * 10.0f) + 1.0f) * 0.5f;
             ImU32 outline_col = ImGui::ColorConvertFloat4ToU32(ImVec4(0.2f, 0.6f, 1.0f, 0.4f + alpha * 0.6f));
-            dl->AddCircle(center, radius + 3.0f, outline_col, 0, 2.0f);
+            dl->AddCircle(center, r + 3.0f * zoom, outline_col, 0, 2.0f * zoom);
         }
 #endif
 
         float pointer_angle = ARC_START + normalized * ARC_RANGE;
-        float ptr_inner = radius * 0.25f;
-        float ptr_outer = radius - 2.0f;
+        float ptr_inner = r * 0.25f;
+        float ptr_outer = r - 2.0f * zoom;
         ImVec2 ptr_from = ImVec2(center.x + std::cos(pointer_angle) * ptr_inner, center.y + std::sin(pointer_angle) * ptr_inner);
         ImVec2 ptr_to = ImVec2(center.x + std::cos(pointer_angle) * ptr_outer, center.y + std::sin(pointer_angle) * ptr_outer);
         ImU32 ptr_color = is_active ? Theme::ACCENT_GOLD_HOT : Theme::ACCENT_GOLD;
-        dl->AddLine(ptr_from, ptr_to, ptr_color, 2.0f);
+        dl->AddLine(ptr_from, ptr_to, ptr_color, 2.0f * zoom);
 
         // Tooltip
         if (is_hovered || is_active) {
@@ -611,13 +612,13 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
 
         ImVec2 text_size = ImGui::CalcTextSize(short_name);
         dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.85f,
-                    ImVec2(center.x - text_size.x * 0.5f, center.y + radius + 5.0f),
+                    ImVec2(center.x - text_size.x * 0.5f, center.y + r + 5.0f * zoom),
                     Theme::TEXT_SECONDARY, short_name);
 
         std::string val_display = Theme::formatParameterValue(param.value, param.unit);
         ImVec2 val_size = ImGui::CalcTextSize(val_display.c_str());
         dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.75f,
-                    ImVec2(center.x - val_size.x * 0.5f, center.y - radius - 13.0f),
+                    ImVec2(center.x - val_size.x * 0.5f, center.y - r - 13.0f * zoom),
                     is_active ? Theme::ACCENT_GOLD_HOT : Theme::TEXT_DIM, val_display.c_str());
     };
 
@@ -627,16 +628,16 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         char label[64];
         std::snprintf(label, sizeof(label), "##slider_%s_%d_%d_%s", effect_->name(), index_, pi, label_prefix);
 
-        float track_top = p0.y + 90.0f;
-        float track_bottom = p0.y + 260.0f;
+        float track_top = p0.y + 90.0f * zoom;
+        float track_bottom = p0.y + 260.0f * zoom;
         float range = param.max_val - param.min_val;
         float normalized = (param.value - param.min_val) / range;
         float handle_y = track_bottom - normalized * (track_bottom - track_top);
 
         // Click-and-drag detection box
-        ImGui::SetCursorScreenPos(ImVec2(track_x - 12.0f, track_top));
+        ImGui::SetCursorScreenPos(ImVec2(track_x - 12.0f * zoom, track_top));
         ImGui::SetNextItemAllowOverlap();
-        ImGui::InvisibleButton(label, ImVec2(24.0f, track_bottom - track_top));
+        ImGui::InvisibleButton(label, ImVec2(24.0f * zoom, track_bottom - track_top));
 
         bool is_hovered = ImGui::IsItemHovered();
         bool is_active = ImGui::IsItemActive();
@@ -723,7 +724,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         }
 
         // Draw track vertical line
-        dl->AddRectFilled(ImVec2(track_x - 1.5f, track_top), ImVec2(track_x + 1.5f, track_bottom), Theme::KNOB_TRACK_OFF, 1.5f);
+        dl->AddRectFilled(ImVec2(track_x - 1.5f * zoom, track_top), ImVec2(track_x + 1.5f * zoom, track_bottom), Theme::KNOB_TRACK_OFF, 1.5f * zoom);
 
         // Draw Ticks & Labels
         if (pi == 0) { // Low crossover (50 to 1000 Hz)
@@ -731,7 +732,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
             for (float hz : tick_hzs) {
                 float norm = (hz - param.min_val) / range;
                 float ty = track_bottom - norm * (track_bottom - track_top);
-                dl->AddLine(ImVec2(track_x - 4.0f, ty), ImVec2(track_x, ty), Theme::BORDER_LIGHT, 1.0f);
+                dl->AddLine(ImVec2(track_x - 4.0f * zoom, ty), ImVec2(track_x, ty), Theme::BORDER_LIGHT, 1.0f * zoom);
                 
                 char tick_lbl[16];
                 if (hz >= 1000.0f) std::snprintf(tick_lbl, sizeof(tick_lbl), "1k");
@@ -739,7 +740,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
 
                 ImVec2 tsz = ImGui::CalcTextSize(tick_lbl);
                 dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.65f,
-                            ImVec2(track_x - 6.0f - tsz.x, ty - tsz.y * 0.5f),
+                            ImVec2(track_x - 6.0f * zoom - tsz.x, ty - tsz.y * 0.5f),
                             Theme::TEXT_DIM, tick_lbl);
             }
         } else { // High crossover (1000 to 15000 Hz)
@@ -747,7 +748,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
             for (float hz : tick_hzs) {
                 float norm = (hz - param.min_val) / range;
                 float ty = track_bottom - norm * (track_bottom - track_top);
-                dl->AddLine(ImVec2(track_x, ty), ImVec2(track_x + 4.0f, ty), Theme::BORDER_LIGHT, 1.0f);
+                dl->AddLine(ImVec2(track_x, ty), ImVec2(track_x + 4.0f * zoom, ty), Theme::BORDER_LIGHT, 1.0f * zoom);
 
                 char tick_lbl[16];
                 if (hz >= 1000.0f) std::snprintf(tick_lbl, sizeof(tick_lbl), "%.0fk", hz / 1000.0f);
@@ -755,7 +756,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
 
                 ImVec2 tsz = ImGui::CalcTextSize(tick_lbl);
                 dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.65f,
-                            ImVec2(track_x + 6.0f, ty - tsz.y * 0.5f),
+                            ImVec2(track_x + 6.0f * zoom, ty - tsz.y * 0.5f),
                             Theme::TEXT_DIM, tick_lbl);
             }
         }
@@ -765,23 +766,23 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         ImU32 handle_bg = is_active ? Theme::KNOB_ACTIVE : (is_hovered ? Theme::KNOB_HOVER : Theme::KNOB_FACE);
         ImU32 border_col = (is_active || is_hovered) ? Theme::ACCENT_GOLD_HOT : Theme::ACCENT_GOLD;
 
-        dl->AddRectFilled(ImVec2(track_x - 8.0f, handle_y - 5.0f), ImVec2(track_x + 8.0f, handle_y + 5.0f), Theme::KNOB_BG, 3.0f);
-        dl->AddRectFilled(ImVec2(track_x - 7.0f, handle_y - 4.0f), ImVec2(track_x + 7.0f, handle_y + 4.0f), handle_bg, 2.0f);
-        dl->AddRect(ImVec2(track_x - 8.0f, handle_y - 5.0f), ImVec2(track_x + 8.0f, handle_y + 5.0f), border_col, 3.0f, 0, 1.5f);
-        dl->AddCircleFilled(handle_center, 2.0f, border_col);
+        dl->AddRectFilled(ImVec2(track_x - 8.0f * zoom, handle_y - 5.0f * zoom), ImVec2(track_x + 8.0f * zoom, handle_y + 5.0f * zoom), Theme::KNOB_BG, 3.0f * zoom);
+        dl->AddRectFilled(ImVec2(track_x - 7.0f * zoom, handle_y - 4.0f * zoom), ImVec2(track_x + 7.0f * zoom, handle_y + 4.0f * zoom), handle_bg, 2.0f * zoom);
+        dl->AddRect(ImVec2(track_x - 8.0f * zoom, handle_y - 5.0f * zoom), ImVec2(track_x + 8.0f * zoom, handle_y + 5.0f * zoom), border_col, 3.0f * zoom, 0, 1.5f * zoom);
+        dl->AddCircleFilled(handle_center, 2.0f * zoom, border_col);
 
         // Value text at the top of the track
         std::string val_str = Theme::formatParameterValue(param.value, param.unit);
         ImVec2 vsz = ImGui::CalcTextSize(val_str.c_str());
         dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.75f,
-                    ImVec2(track_x - vsz.x * 0.5f, track_top - vsz.y - 4.0f),
+                    ImVec2(track_x - vsz.x * 0.5f, track_top - vsz.y - 4.0f * zoom),
                     is_active ? Theme::ACCENT_GOLD_HOT : Theme::TEXT_SECONDARY, val_str.c_str());
 
         // Header text above the value
         const char* s_name = (pi == 0) ? "Low X" : "High X";
         ImVec2 nsz = ImGui::CalcTextSize(s_name);
         dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.75f,
-                    ImVec2(track_x - nsz.x * 0.5f, track_top - vsz.y - nsz.y - 6.0f),
+                    ImVec2(track_x - nsz.x * 0.5f, track_top - vsz.y - nsz.y - 6.0f * zoom),
                     Theme::TEXT_DIM, s_name);
 
         if (is_hovered || is_active) {
@@ -799,23 +800,23 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
     int band_param_offsets[3] = { 2, 7, 12 };
 
     for (int b = 0; b < 3; ++b) {
-        float col_left = p0.x + 12.0f + b * col_width;
+        float col_left = p0.x + 12.0f * zoom + b * col_width;
         float col_center = col_left + col_width * 0.5f;
 
         // Title
         ImVec2 tsz = ImGui::CalcTextSize(titles[b]);
         dl->AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.9f,
-                    ImVec2(col_center - tsz.x * 0.5f, p0.y + 55.0f),
+                    ImVec2(col_center - tsz.x * 0.5f, p0.y + 55.0f * zoom),
                     Theme::TEXT_PRIMARY, titles[b]);
 
         // Horizontal Gain Reduction Meter
-        float meter_y = p0.y + 76.0f;
-        float meter_h = 7.0f;
-        float meter_w = col_width - 24.0f;
-        float meter_x = col_left + 12.0f;
+        float meter_y = p0.y + 76.0f * zoom;
+        float meter_h = 7.0f * zoom;
+        float meter_w = col_width - 24.0f * zoom;
+        float meter_x = col_left + 12.0f * zoom;
 
-        dl->AddRectFilled(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::METER_BG, 3.0f);
-        dl->AddRect(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::BORDER_DARK, 3.0f, 0, 1.0f);
+        dl->AddRectFilled(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::METER_BG, 3.0f * zoom);
+        dl->AddRect(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::BORDER_DARK, 3.0f * zoom, 0, 1.0f * zoom);
 
         float gr_db = mb_comp->get_gain_reduction_db(b);
         float norm_gr = clamp(gr_db / 20.0f, 0.0f, 1.0f);
@@ -827,7 +828,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
             if (gr_db > 12.0f) fill_color = Theme::METER_RED;
             else if (gr_db > 6.0f) fill_color = Theme::METER_YELLOW;
 
-            dl->AddRectFilled(ImVec2(fill_x0, meter_y + 1.0f), ImVec2(fill_x1 - 1.0f, meter_y + meter_h - 1.0f), fill_color, 2.0f);
+            dl->AddRectFilled(ImVec2(fill_x0, meter_y + 1.0f * zoom), ImVec2(fill_x1 - 1.0f * zoom, meter_y + meter_h - 1.0f * zoom), fill_color, 2.0f * zoom);
         }
 
         // GR Meter Ticks
@@ -835,7 +836,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         for (float db : tick_dbs) {
             float t_norm = -db / 20.0f;
             float tx = meter_x + meter_w * (1.0f - t_norm);
-            dl->AddLine(ImVec2(tx, meter_y), ImVec2(tx, meter_y + meter_h + 2.0f), Theme::BORDER_MID, 1.0f);
+            dl->AddLine(ImVec2(tx, meter_y), ImVec2(tx, meter_y + meter_h + 2.0f * zoom), Theme::BORDER_MID, 1.0f * zoom);
         }
 
         // Render Knobs
@@ -846,26 +847,26 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
         float kx_right = col_left + col_width * 0.72f;
 
         // Row 1: Threshold & Ratio
-        render_mb_knob(dl, ImVec2(kx_left, p0.y + 120.0f), p_offset + 0, k_radius, "thresh");
-        render_mb_knob(dl, ImVec2(kx_right, p0.y + 120.0f), p_offset + 1, k_radius, "ratio");
+        render_mb_knob(dl, ImVec2(kx_left, p0.y + 120.0f * zoom), p_offset + 0, k_radius, "thresh");
+        render_mb_knob(dl, ImVec2(kx_right, p0.y + 120.0f * zoom), p_offset + 1, k_radius, "ratio");
 
         // Row 2: Attack & Release
-        render_mb_knob(dl, ImVec2(kx_left, p0.y + 185.0f), p_offset + 2, k_radius, "attack");
-        render_mb_knob(dl, ImVec2(kx_right, p0.y + 185.0f), p_offset + 3, k_radius, "release");
+        render_mb_knob(dl, ImVec2(kx_left, p0.y + 185.0f * zoom), p_offset + 2, k_radius, "attack");
+        render_mb_knob(dl, ImVec2(kx_right, p0.y + 185.0f * zoom), p_offset + 3, k_radius, "release");
 
         // Row 3: Makeup (Centered)
-        render_mb_knob(dl, ImVec2(col_center, p0.y + 248.0f), p_offset + 4, k_radius, "makeup");
+        render_mb_knob(dl, ImVec2(col_center, p0.y + 248.0f * zoom), p_offset + 4, k_radius, "makeup");
     }
 
     // --- RENDER 2 INTERACTIVE CROSSOVER SLIDERS ---
-    float x1 = p0.x + 12.0f + col_width;
-    float x2 = p0.x + 12.0f + 2.0f * col_width;
+    float x1 = p0.x + 12.0f * zoom + col_width;
+    float x2 = p0.x + 12.0f * zoom + 2.0f * col_width;
 
     render_xover_slider(dl, x1, 0, "low", true);
     render_xover_slider(dl, x2, 1, "high", false);
 
     // --- RENDER GLOBAL OUT GAIN ---
-    render_mb_knob(dl, ImVec2(p0.x + pedal_width - 40.0f, p0.y + Theme::PEDAL_HEIGHT - Theme::SWITCH_BOTTOM_OFFSET + 10.0f), 17, 13.0f, "outgain");
+    render_mb_knob(dl, ImVec2(p0.x + pedal_width - 40.0f * zoom, p0.y + Theme::PEDAL_HEIGHT * zoom - Theme::SWITCH_BOTTOM_OFFSET * zoom + 10.0f * zoom), 17, 13.0f, "outgain");
 }
 
 } // namespace Amplitron
