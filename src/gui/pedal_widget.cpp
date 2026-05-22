@@ -79,7 +79,7 @@ bool PedalWidget::render(float zoom) {
     if (is_looper) {
         render_looper_display(p0, pedal_width, zoom);
     } else if (is_mb_comp) {
-        render_multiband_compressor_display(dl, p0, pedal_width);
+        render_multiband_compressor_display(dl, p0, pedal_width, zoom);
     } else {
         render_knobs(dl, p0, pedal_width, is_amp, is_tuner, is_ir_cab, zoom);
     }
