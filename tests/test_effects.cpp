@@ -1465,7 +1465,7 @@ TEST(delay_calculates_correct_time_from_bpm) {
     
     // Trigger the BPM sync
     dl.set_transport_state(120.0f); 
-
+ 
     // At 120 BPM, a quarter note is 500.0 ms (60000 / 120)
     ASSERT_NEAR(dl.params()[0].value, 500.0f, 0.01f);
 }
