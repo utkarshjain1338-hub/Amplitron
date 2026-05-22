@@ -118,7 +118,7 @@ jobs:
 
       - name: Generate Coverage Report
         run: |
-          lcov --capture --directory build --output-file coverage.info --ignore-errors mismatch,gcov
+          lcov --capture --directory build --output-file coverage.info --ignore-errors mismatch,gcov,source
           lcov --remove coverage.info \
             '/usr/*' \
             '*/external/*' \
