@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -85,22 +85,22 @@
 <span id="L23"><span class="lineNum">      23</span>              : // only if the target hardware has an unusually noisy input stage.</span>
 <span id="L24"><span class="lineNum">      24</span>              : static constexpr float FLIP_HYSTERESIS = 0.002f;</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">          12 : Octaver::Octaver() {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          48 :     params_ = {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">          13 : Octaver::Octaver() {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          52 :     params_ = {</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         {&quot;Oct -1&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span>
 <span id="L29"><span class="lineNum">      29</span>              :          &quot;Level of the sub-octave (one octave below). Produces a thick, organ-like low tone.&quot;},</span>
 <span id="L30"><span class="lineNum">      30</span>              :         {&quot;Oct +1&quot;, 0.0f, 0.0f, 1.0f, 0.0f, &quot;&quot;,</span>
 <span id="L31"><span class="lineNum">      31</span>              :          &quot;Level of the upper octave (one octave above). Adds a bright, shimmery harmonic.&quot;},</span>
 <span id="L32"><span class="lineNum">      32</span>              :         {&quot;Dry&quot;,    0.7f, 0.0f, 1.0f, 0.7f, &quot;&quot;,</span>
 <span id="L33"><span class="lineNum">      33</span>              :          &quot;Level of the original dry signal blended with the octave voices.&quot;},</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          48 :     };</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          12 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          36 : }</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          52 :     };</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          13 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          39 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          24 : void Octaver::set_sample_rate(int sample_rate) {</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          24 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          24 :     reset();</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          24 : }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          25 : void Octaver::set_sample_rate(int sample_rate) {</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          25 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          25 :     reset();</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         136 : void Octaver::process(float* buffer, int num_samples) {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         136 :     if (!enabled_) return;</span></span>
@@ -164,16 +164,16 @@
 <span id="L102"><span class="lineNum">     102</span>              :     }</span>
 <span id="L103"><span class="lineNum">     103</span>              : }</span>
 <span id="L104"><span class="lineNum">     104</span>              : </span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">          63 : void Octaver::reset() {</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">          63 :     prev_sample_ = 0.0f;</span></span>
-<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          63 :     flipflop_ = 1.0f;</span></span>
-<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          63 :     dc_x1_ = 0.0f;</span></span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          63 :     dc_y1_ = 0.0f;</span></span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">          63 :     envelope_ = 0.0f;</span></span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          63 :     oct_down_smooth_ = params_[P_OCT_DOWN].value;</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          63 :     oct_up_smooth_ = params_[P_OCT_UP].value;</span></span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          63 :     dry_smooth_ = params_[P_DRY].value;</span></span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          63 : }</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">          64 : void Octaver::reset() {</span></span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">          64 :     prev_sample_ = 0.0f;</span></span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          64 :     flipflop_ = 1.0f;</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          64 :     dc_x1_ = 0.0f;</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          64 :     dc_y1_ = 0.0f;</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">          64 :     envelope_ = 0.0f;</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          64 :     oct_down_smooth_ = params_[P_OCT_DOWN].value;</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          64 :     oct_up_smooth_ = params_[P_OCT_UP].value;</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          64 :     dry_smooth_ = params_[P_DRY].value;</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          64 : }</span></span>
 <span id="L115"><span class="lineNum">     115</span>              : </span>
 <span id="L116"><span class="lineNum">     116</span>              : } // namespace Amplitron</span>
         </pre>

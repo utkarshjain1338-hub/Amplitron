@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -67,16 +67,16 @@
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : static EffectRegistrar&lt;WahPedal&gt; reg(&quot;Wah&quot;);</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">          13 : WahPedal::WahPedal() {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          91 :     params_ = {</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">          14 : WahPedal::WahPedal() {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          98 :     params_ = {</span></span>
 <span id="L10"><span class="lineNum">      10</span>              :         {&quot;Mode&quot;,        0.0f,  0.0f,   1.0f,  0.0f, &quot;&quot;,   &quot;0 = Manual sweep; 1 = Auto-wah driven by envelope follower.&quot;},</span>
 <span id="L11"><span class="lineNum">      11</span>              :         {&quot;Sweep&quot;,       0.5f,  0.0f,   1.0f,  0.5f, &quot;&quot;,   &quot;Manual wah sweep position. Heel-down (0) = low frequency; toe-down (1) = high frequency. Active in Manual mode.&quot;},</span>
 <span id="L12"><span class="lineNum">      12</span>              :         {&quot;Resonance&quot;,   3.5f,  1.0f,   8.0f,  3.5f, &quot;Q&quot;,  &quot;Bandpass filter Q factor. Higher values give a sharper, more vocal wah character.&quot;},</span>
 <span id="L13"><span class="lineNum">      13</span>              :         {&quot;Sensitivity&quot;, 0.5f,  0.0f,   1.0f,  0.5f, &quot;&quot;,   &quot;How strongly the input signal amplitude drives the sweep in Auto-wah mode.&quot;},</span>
 <span id="L14"><span class="lineNum">      14</span>              :         {&quot;Attack&quot;,      5.0f,  1.0f,  50.0f,  5.0f, &quot;ms&quot;, &quot;Envelope follower attack time. Faster values track transients more aggressively.&quot;},</span>
 <span id="L15"><span class="lineNum">      15</span>              :         {&quot;Release&quot;,   100.0f, 20.0f, 500.0f, 100.0f, &quot;ms&quot;, &quot;Envelope follower release time. Controls how quickly the filter falls back after a note dies.&quot;},</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          91 :     };</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          39 : }</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          98 :     };</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          42 : }</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          13 : void WahPedal::process(float* buffer, int num_samples) {</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          13 :     if (!enabled_) return;</span></span>

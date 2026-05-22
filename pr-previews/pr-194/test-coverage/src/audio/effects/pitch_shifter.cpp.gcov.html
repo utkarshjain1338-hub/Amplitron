@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -76,25 +76,25 @@
 <span id="L14"><span class="lineNum">      14</span>              : // Grain window size in seconds (~23 ms at 48kHz = 1024 samples)</span>
 <span id="L15"><span class="lineNum">      15</span>              : static constexpr float GRAIN_WINDOW_SEC = 0.023f;</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">           8 : PitchShifter::PitchShifter() {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          32 :     params_ = {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">           9 : PitchShifter::PitchShifter() {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          36 :     params_ = {</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :         {&quot;Shift&quot;, 0.0f, -12.0f, 12.0f, 0.0f, &quot;st&quot;,</span>
 <span id="L20"><span class="lineNum">      20</span>              :          &quot;Pitch shift in semitones. Negative shifts down, positive shifts up. 12 = one octave.&quot;},</span>
 <span id="L21"><span class="lineNum">      21</span>              :         {&quot;Fine&quot;,  0.0f, -50.0f, 50.0f, 0.0f, &quot;ct&quot;,</span>
 <span id="L22"><span class="lineNum">      22</span>              :          &quot;Fine-tune adjustment in cents (hundredths of a semitone) for precise detuning.&quot;},</span>
 <span id="L23"><span class="lineNum">      23</span>              :         {&quot;Mix&quot;,   0.0f,   0.0f,  1.0f, 0.0f, &quot;&quot;,</span>
 <span id="L24"><span class="lineNum">      24</span>              :          &quot;Dry/wet blend. 0 = fully dry, 1 = fully pitch-shifted.&quot;},</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          32 :     };</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           8 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          24 : }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          36 :     };</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           9 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          27 : }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          16 : void PitchShifter::set_sample_rate(int sample_rate) {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          16 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          16 :     buf_size_ = static_cast&lt;int&gt;(sample_rate * GRAIN_WINDOW_SEC * 2.0f);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          16 :     if (buf_size_ &lt; 256) buf_size_ = 256;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          16 :     grain_buf_.assign(buf_size_, 0.0f);</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          16 :     reset();</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          16 : }</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          17 : void PitchShifter::set_sample_rate(int sample_rate) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          17 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          17 :     buf_size_ = static_cast&lt;int&gt;(sample_rate * GRAIN_WINDOW_SEC * 2.0f);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          17 :     if (buf_size_ &lt; 256) buf_size_ = 256;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          17 :     grain_buf_.assign(buf_size_, 0.0f);</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          17 :     reset();</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          17 : }</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">       35328 : float PitchShifter::read_linear(float phase) const {</span></span>
 <span id="L38"><span class="lineNum">      38</span>              :     // Wrap phase into [0, buf_size_)</span>
@@ -173,16 +173,16 @@
 <span id="L111"><span class="lineNum">     111</span>              :     }</span>
 <span id="L112"><span class="lineNum">     112</span>              : }</span>
 <span id="L113"><span class="lineNum">     113</span>              : </span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          24 : void PitchShifter::reset() {</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          24 :     std::fill(grain_buf_.begin(), grain_buf_.end(), 0.0f);</span></span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          24 :     write_pos_ = 0;</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          25 : void PitchShifter::reset() {</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          25 :     std::fill(grain_buf_.begin(), grain_buf_.end(), 0.0f);</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          25 :     write_pos_ = 0;</span></span>
 <span id="L117"><span class="lineNum">     117</span>              :     // Start tap B offset by half the buffer from tap A</span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          24 :     read_phase_a_ = 0.0f;</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          24 :     read_phase_b_ = static_cast&lt;float&gt;(buf_size_) * 0.5f;</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          24 :     shift_smooth_ = params_[P_SHIFT].value;</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          24 :     fine_smooth_ = params_[P_FINE].value;</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          24 :     mix_smooth_ = params_[P_MIX].value;</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          24 : }</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          25 :     read_phase_a_ = 0.0f;</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          25 :     read_phase_b_ = static_cast&lt;float&gt;(buf_size_) * 0.5f;</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          25 :     shift_smooth_ = params_[P_SHIFT].value;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          25 :     fine_smooth_ = params_[P_FINE].value;</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          25 :     mix_smooth_ = params_[P_MIX].value;</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
 <span id="L125"><span class="lineNum">     125</span>              : } // namespace Amplitron</span>
         </pre>

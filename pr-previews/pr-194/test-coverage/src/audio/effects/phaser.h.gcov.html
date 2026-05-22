@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -84,24 +84,25 @@
 <span id="L22"><span class="lineNum">      22</span>              :     void set_sample_rate(int sample_rate) override;</span>
 <span id="L23"><span class="lineNum">      23</span>              :     void reset() override;</span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC tlaBgGNC">           1 :     const char* name() const override { return &quot;Phaser&quot;; }</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           8 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
-<span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span>              : private:</span>
-<span id="L28"><span class="lineNum">      28</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
-<span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span>              :     float lfo_phase_ = 0.0f;</span>
-<span id="L31"><span class="lineNum">      31</span>              :     float feedback_state_   = 0.0f;</span>
-<span id="L32"><span class="lineNum">      32</span>              :     float feedback_state_r_ = 0.0f;  // right-channel APF feedback</span>
-<span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span>              :     static constexpr int MAX_STAGES = 12;</span>
-<span id="L35"><span class="lineNum">      35</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_xprev_{};</span>
-<span id="L36"><span class="lineNum">      36</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_yprev_{};</span>
-<span id="L37"><span class="lineNum">      37</span>              :     // Right-channel APF state — LFO is 180° out of phase for stereo sweep</span>
-<span id="L38"><span class="lineNum">      38</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_xprev_r_{};</span>
-<span id="L39"><span class="lineNum">      39</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_yprev_r_{};</span>
-<span id="L40"><span class="lineNum">      40</span>              : };</span>
-<span id="L41"><span class="lineNum">      41</span>              : </span>
-<span id="L42"><span class="lineNum">      42</span>              : } // namespace Amplitron</span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :     const char* type_id() const override { return &quot;Phaser&quot;; }</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           8 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span>              : private:</span>
+<span id="L29"><span class="lineNum">      29</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span>              :     float lfo_phase_ = 0.0f;</span>
+<span id="L32"><span class="lineNum">      32</span>              :     float feedback_state_   = 0.0f;</span>
+<span id="L33"><span class="lineNum">      33</span>              :     float feedback_state_r_ = 0.0f;  // right-channel APF feedback</span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              :     static constexpr int MAX_STAGES = 12;</span>
+<span id="L36"><span class="lineNum">      36</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_xprev_{};</span>
+<span id="L37"><span class="lineNum">      37</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_yprev_{};</span>
+<span id="L38"><span class="lineNum">      38</span>              :     // Right-channel APF state — LFO is 180° out of phase for stereo sweep</span>
+<span id="L39"><span class="lineNum">      39</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_xprev_r_{};</span>
+<span id="L40"><span class="lineNum">      40</span>              :     std::array&lt;float, MAX_STAGES&gt; apf_yprev_r_{};</span>
+<span id="L41"><span class="lineNum">      41</span>              : };</span>
+<span id="L42"><span class="lineNum">      42</span>              : </span>
+<span id="L43"><span class="lineNum">      43</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

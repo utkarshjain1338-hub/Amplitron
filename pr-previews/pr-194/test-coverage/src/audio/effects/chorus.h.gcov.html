@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -79,19 +79,20 @@
 <span id="L17"><span class="lineNum">      17</span>              :     void set_transport_state(float bpm) override;</span>
 <span id="L18"><span class="lineNum">      18</span>              :     void reset() override;</span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">           6 :     const char* name() const override { return &quot;Chorus&quot;; }</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           3 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
-<span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span>              : private:</span>
-<span id="L23"><span class="lineNum">      23</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
-<span id="L24"><span class="lineNum">      24</span>              :     std::vector&lt;float&gt; delay_buffer_;</span>
-<span id="L25"><span class="lineNum">      25</span>              :     int write_pos_ = 0;</span>
-<span id="L26"><span class="lineNum">      26</span>              :     float lfo_phase_ = 0.0f;</span>
-<span id="L27"><span class="lineNum">      27</span>              :     int max_delay_samples_ = 0;</span>
-<span id="L28"><span class="lineNum">      28</span>              :     float last_bpm_=0.0f; //shortcut if bpm not changed.</span>
-<span id="L29"><span class="lineNum">      29</span>              :     float smoothed_rate_ = 1.5f;</span>
-<span id="L30"><span class="lineNum">      30</span>              : };</span>
-<span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span>              : } // namespace Amplitron</span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           1 :     const char* type_id() const override { return &quot;Chorus&quot;; }</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           3 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              : private:</span>
+<span id="L24"><span class="lineNum">      24</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
+<span id="L25"><span class="lineNum">      25</span>              :     std::vector&lt;float&gt; delay_buffer_;</span>
+<span id="L26"><span class="lineNum">      26</span>              :     int write_pos_ = 0;</span>
+<span id="L27"><span class="lineNum">      27</span>              :     float lfo_phase_ = 0.0f;</span>
+<span id="L28"><span class="lineNum">      28</span>              :     int max_delay_samples_ = 0;</span>
+<span id="L29"><span class="lineNum">      29</span>              :     float last_bpm_=0.0f; //shortcut if bpm not changed.</span>
+<span id="L30"><span class="lineNum">      30</span>              :     float smoothed_rate_ = 1.5f;</span>
+<span id="L31"><span class="lineNum">      31</span>              : };</span>
+<span id="L32"><span class="lineNum">      32</span>              : </span>
+<span id="L33"><span class="lineNum">      33</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

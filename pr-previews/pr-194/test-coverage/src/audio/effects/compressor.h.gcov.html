@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -77,17 +77,18 @@
 <span id="L15"><span class="lineNum">      15</span>              :     Compressor();</span>
 <span id="L16"><span class="lineNum">      16</span>              :     void process(float* buffer, int num_samples) override;</span>
 <span id="L17"><span class="lineNum">      17</span>              :     void reset() override;</span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          12 :     const char* name() const override { return &quot;Compressor&quot;; }</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           5 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span>              : private:</span>
-<span id="L22"><span class="lineNum">      22</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
-<span id="L23"><span class="lineNum">      23</span>              :     EnvelopeFollower env_;</span>
-<span id="L24"><span class="lineNum">      24</span>              :     float smoothed_attack_ms_ = 5.0f;    // matches default param</span>
-<span id="L25"><span class="lineNum">      25</span>              :     float smoothed_release_ms_ = 100.0f; // matches default param</span>
-<span id="L26"><span class="lineNum">      26</span>              : };</span>
-<span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span>              : } // namespace Amplitron</span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          11 :     const char* name() const override { return &quot;Compressor&quot;; }</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :     const char* type_id() const override { return &quot;Compressor&quot;; }</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           5 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L21"><span class="lineNum">      21</span>              : </span>
+<span id="L22"><span class="lineNum">      22</span>              : private:</span>
+<span id="L23"><span class="lineNum">      23</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
+<span id="L24"><span class="lineNum">      24</span>              :     EnvelopeFollower env_;</span>
+<span id="L25"><span class="lineNum">      25</span>              :     float smoothed_attack_ms_ = 5.0f;    // matches default param</span>
+<span id="L26"><span class="lineNum">      26</span>              :     float smoothed_release_ms_ = 100.0f; // matches default param</span>
+<span id="L27"><span class="lineNum">      27</span>              : };</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -67,22 +67,22 @@
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : static EffectRegistrar&lt;Delay&gt; reg(&quot;Delay&quot;);</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">          28 : Delay::Delay() {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         140 :     params_ = {</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">          29 : Delay::Delay() {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         145 :     params_ = {</span></span>
 <span id="L10"><span class="lineNum">      10</span>              :         {&quot;Time&quot;,     350.0f, 10.0f, 2000.0f, 350.0f, &quot;ms&quot;, &quot;Time interval between each echo. Sets the tempo of the delay repeats.&quot;},</span>
 <span id="L11"><span class="lineNum">      11</span>              :         {&quot;Feedback&quot;,   0.4f,  0.0f,    0.95f,  0.4f, &quot;&quot;, &quot;Amount of the delayed signal fed back into the input. Higher values create more repeats.&quot;},</span>
 <span id="L12"><span class="lineNum">      12</span>              :         {&quot;Tone&quot;,       0.7f,  0.0f,    1.0f,   0.7f, &quot;&quot;, &quot;High-frequency damping on the repeats. Lower values create darker, tape-like echoes.&quot;},</span>
 <span id="L13"><span class="lineNum">      13</span>              :         {&quot;Level&quot;,      0.5f,  0.0f,    1.0f,   0.5f, &quot;&quot;, &quot;Mix volume of the delay repeats added to your dry signal.&quot;},</span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         140 :     };</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          28 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          84 : }</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         145 :     };</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          29 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          87 : }</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          64 : void Delay::set_sample_rate(int sample_rate) {</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          64 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          64 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * 2.5f); // max 2.5s</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          64 :     delay_buffer_.resize(max_delay_samples_, 0.0f);</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          64 :     write_pos_ = 0;</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          64 : }</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          65 : void Delay::set_sample_rate(int sample_rate) {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          65 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          65 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * 2.5f); // max 2.5s</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          65 :     delay_buffer_.resize(max_delay_samples_, 0.0f);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          65 :     write_pos_ = 0;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          65 : }</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           8 : void Delay::process(float* buffer, int num_samples) {</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           8 :     if (!enabled_) return;</span></span>

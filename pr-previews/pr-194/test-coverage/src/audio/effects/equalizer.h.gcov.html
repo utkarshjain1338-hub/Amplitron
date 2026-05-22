@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-22 15:10:30</td>
+            <td class="headerValue">2026-05-22 15:32:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -77,32 +77,33 @@
 <span id="L15"><span class="lineNum">      15</span>              :     void process(float* buffer, int num_samples) override;</span>
 <span id="L16"><span class="lineNum">      16</span>              :     void set_sample_rate(int sample_rate) override;</span>
 <span id="L17"><span class="lineNum">      17</span>              :     void reset() override;</span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          17 :     const char* name() const override { return &quot;Equalizer&quot;; }</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          26 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span>              : private:</span>
-<span id="L22"><span class="lineNum">      22</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
-<span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span>              :     Biquad low_shelf_;</span>
-<span id="L25"><span class="lineNum">      25</span>              :     Biquad mid_peak_;</span>
-<span id="L26"><span class="lineNum">      26</span>              :     Biquad high_shelf_;</span>
-<span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span>              :     // One-pole smoothing states (avoids zipper noise on UI parameter jumps)</span>
-<span id="L29"><span class="lineNum">      29</span>              :     float bass_state_ = 0.0f;</span>
-<span id="L30"><span class="lineNum">      30</span>              :     float mid_state_ = 0.0f;</span>
-<span id="L31"><span class="lineNum">      31</span>              :     float treble_state_ = 0.0f;</span>
-<span id="L32"><span class="lineNum">      32</span>              :     float presence_state_ = 0.0f;</span>
-<span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span>              :     // Cached parameter values for dirty-check</span>
-<span id="L35"><span class="lineNum">      35</span>              :     float cached_bass_ = -999.0f;</span>
-<span id="L36"><span class="lineNum">      36</span>              :     float cached_mid_ = -999.0f;</span>
-<span id="L37"><span class="lineNum">      37</span>              :     float cached_treble_ = -999.0f;</span>
-<span id="L38"><span class="lineNum">      38</span>              :     float cached_presence_ = -999.0f;</span>
-<span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span>              :     void recompute_coefficients_if_dirty();</span>
-<span id="L41"><span class="lineNum">      41</span>              : };</span>
-<span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span>              : } // namespace Amplitron</span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          16 :     const char* name() const override { return &quot;Equalizer&quot;; }</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :     const char* type_id() const override { return &quot;Equalizer&quot;; }</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          26 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L21"><span class="lineNum">      21</span>              : </span>
+<span id="L22"><span class="lineNum">      22</span>              : private:</span>
+<span id="L23"><span class="lineNum">      23</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
+<span id="L24"><span class="lineNum">      24</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span>              :     Biquad low_shelf_;</span>
+<span id="L26"><span class="lineNum">      26</span>              :     Biquad mid_peak_;</span>
+<span id="L27"><span class="lineNum">      27</span>              :     Biquad high_shelf_;</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              :     // One-pole smoothing states (avoids zipper noise on UI parameter jumps)</span>
+<span id="L30"><span class="lineNum">      30</span>              :     float bass_state_ = 0.0f;</span>
+<span id="L31"><span class="lineNum">      31</span>              :     float mid_state_ = 0.0f;</span>
+<span id="L32"><span class="lineNum">      32</span>              :     float treble_state_ = 0.0f;</span>
+<span id="L33"><span class="lineNum">      33</span>              :     float presence_state_ = 0.0f;</span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              :     // Cached parameter values for dirty-check</span>
+<span id="L36"><span class="lineNum">      36</span>              :     float cached_bass_ = -999.0f;</span>
+<span id="L37"><span class="lineNum">      37</span>              :     float cached_mid_ = -999.0f;</span>
+<span id="L38"><span class="lineNum">      38</span>              :     float cached_treble_ = -999.0f;</span>
+<span id="L39"><span class="lineNum">      39</span>              :     float cached_presence_ = -999.0f;</span>
+<span id="L40"><span class="lineNum">      40</span>              : </span>
+<span id="L41"><span class="lineNum">      41</span>              :     void recompute_coefficients_if_dirty();</span>
+<span id="L42"><span class="lineNum">      42</span>              : };</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
