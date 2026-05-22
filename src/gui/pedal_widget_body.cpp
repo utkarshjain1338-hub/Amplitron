@@ -841,7 +841,7 @@ void PedalWidget::render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0,
 
         // Render Knobs
         int p_offset = band_param_offsets[b];
-        float k_radius = 12.0f;
+        float k_radius = 12.0f * zoom;
 
         float kx_left = col_left + col_width * 0.28f;
         float kx_right = col_left + col_width * 0.72f;
