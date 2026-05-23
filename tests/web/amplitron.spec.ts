@@ -16,13 +16,12 @@ import { test, expect, Page, ConsoleMessage } from '@playwright/test';
 
 // Emscripten injects `Module` into the page's global scope at runtime.
 // Declare it here so TypeScript doesn't report ts(2304) errors.
+// Overloads narrow the return type based on the `returnType` string literal.
 declare const Module: {
-  ccall(
-    ident: string,
-    returnType: string | null,
-    argTypes: string[],
-    args: (number | string | boolean | null)[]
-  ): number | boolean | string | null;
+  ccall(ident: string, returnType: 'number', argTypes: string[], args: (number | string | boolean)[]): number;
+  ccall(ident: string, returnType: 'boolean', argTypes: string[], args: (number | string | boolean)[]): boolean;
+  ccall(ident: string, returnType: 'string', argTypes: string[], args: (number | string | boolean)[]): string;
+  ccall(ident: string, returnType: null, argTypes: string[], args: (number | string | boolean)[]): void;
 };
 
 
