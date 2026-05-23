@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-23 10:28:23</td>
+            <td class="headerValue">2026-05-23 11:21:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -104,11 +104,11 @@
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           6 : void Recorder::writer_thread_func() {</span></span>
 <span id="L44"><span class="lineNum">      44</span>              :     while (true) {</span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          14 :         int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          14 :         int64_t wp = ring_write_pos_.load(std::memory_order_acquire);</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          14 :         int64_t available = wp - rp;</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          15 :         int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          15 :         int64_t wp = ring_write_pos_.load(std::memory_order_acquire);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          15 :         int64_t available = wp - rp;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          14 :         if (available &gt; 0) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          15 :         if (available &gt; 0) {</span></span>
 <span id="L50"><span class="lineNum">      50</span>              :             // Drain available samples: convert float -&gt; int16 PCM and write to disk</span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          22 :             while (available &gt; 0) {</span></span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          34 :                 int chunk = static_cast&lt;int&gt;(std::min(available,</span></span>
@@ -127,12 +127,12 @@
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           5 :             ring_read_pos_.store(rp, std::memory_order_release);</span></span>
 <span id="L66"><span class="lineNum">      66</span>              :         } else {</span>
 <span id="L67"><span class="lineNum">      67</span>              :             // No data available — exit if stopped, otherwise poll briefly</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           9 :             if (!writer_running_.load(std::memory_order_acquire)) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          10 :             if (!writer_running_.load(std::memory_order_acquire)) {</span></span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           6 :                 break;</span></span>
 <span id="L70"><span class="lineNum">      70</span>              :             }</span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           3 :             std::this_thread::sleep_for(std::chrono::milliseconds(5));</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           4 :             std::this_thread::sleep_for(std::chrono::milliseconds(5));</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :         }</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           8 :     }</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           9 :     }</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaUNC tlaBgUNC">           0 : void Recorder::get_waveform(float* out, int count) const {</span></span>
