@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">75.4&nbsp;%</td>
-            <td class="headerCovTableEntry">167</td>
-            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntryMed">75.9&nbsp;%</td>
+            <td class="headerCovTableEntry">174</td>
+            <td class="headerCovTableEntry">132</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 16:55:26</td>
+            <td class="headerValue">2026-05-24 17:13:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">85.7&nbsp;%</td>
@@ -203,120 +203,132 @@
 <span id="L141"><span class="lineNum">     141</span>              :             }</span>
 <span id="L142"><span class="lineNum">     142</span>              :         }</span>
 <span id="L143"><span class="lineNum">     143</span>              :         </span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           1 :         main_graph_ = std::move(new_graph);</span></span>
-<span id="L145"><span class="lineNum">     145</span>              :         </span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           1 :         dummy_effects_.clear();</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           4 :         for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           3 :             if (node.pedal) {</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           2 :                 dummy_effects_.push_back(node.pedal);</span></span>
+<span id="L144"><span class="lineNum">     144</span>              :         // Auto-heal missing output nodes (caused by bugs in the Modular Add Pedal logic)</span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           1 :         bool has_output = false;</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           2 :         for (const auto&amp; node : new_graph.get_nodes()) {</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           2 :             if (node.is_graph_output) {</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           1 :                 has_output = true;</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           1 :                 break;</span></span>
 <span id="L150"><span class="lineNum">     150</span>              :             }</span>
 <span id="L151"><span class="lineNum">     151</span>              :         }</span>
-<span id="L152"><span class="lineNum">     152</span>              :         </span>
-<span id="L153"><span class="lineNum">     153</span>              :         // Push topology to audio thread without deadlocking (we already hold effect_mutex_)</span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           1 :         auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           1 :         new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           1 :         new_executor-&gt;compile(main_graph_);</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           1 :         main_executor_ = new_executor;</span></span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           1 :         topology_dirty_.store(true, std::memory_order_release);</span></span>
-<span id="L159"><span class="lineNum">     159</span>              :         </span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :         return;</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           1 :     }</span></span>
-<span id="L162"><span class="lineNum">     162</span>              :     </span>
-<span id="L163"><span class="lineNum">     163</span>              :     // Legacy Array Hydration</span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC tlaBgUNC">           0 :     if (j.contains(&quot;effects&quot;)) {</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC">           0 :         for (const auto&amp; fx_data : j[&quot;effects&quot;]) {</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaUNC">           0 :             std::string name = fx_data[&quot;name&quot;];</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaUNC">           0 :             for (auto&amp; fx : dummy_effects_) {</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaUNC">           0 :                 if (fx &amp;&amp; std::string(fx-&gt;name()) == name) {</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC">           0 :                     fx-&gt;set_params(fx_data[&quot;params&quot;]);</span></span>
-<span id="L170"><span class="lineNum">     170</span>              :                 }</span>
-<span id="L171"><span class="lineNum">     171</span>              :             }</span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L173"><span class="lineNum">     173</span>              :     }</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
-<span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span>              : // --- Existing Methods ---</span>
-<span id="L177"><span class="lineNum">     177</span>              : </span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC tlaBgUNC">           0 : void AudioEngine::set_buffer_size(int size) {</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :     size = std::max(MIN_BUFFER_SIZE, std::min(MAX_BUFFER_SIZE, size));</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :     int prev_size = buffer_size_;</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :     bool was_running = running_;</span></span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :     if (was_running) stop();</span></span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaUNC">           0 :     buffer_size_ = size;</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :     if (was_running) {</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :         if (!start()) {</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 :             last_error_ = &quot;Failed with buffer size &quot; + std::to_string(size) + &quot;. Reverting.&quot;;</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC">           0 :             buffer_size_ = prev_size;</span></span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaUNC">           0 :             start();</span></span>
-<span id="L190"><span class="lineNum">     190</span>              :         } else {</span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :             last_error_.clear();</span></span>
-<span id="L192"><span class="lineNum">     192</span>              :         }</span>
-<span id="L193"><span class="lineNum">     193</span>              :     }</span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 : }</span></span>
-<span id="L195"><span class="lineNum">     195</span>              : </span>
-<span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span>              : </span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC tlaBgGNC">           1 : void AudioEngine::set_sample_rate(int rate) {</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           1 :     int prev_rate = sample_rate_;</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 :     bool was_running = running_;</span></span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">           1 :     if (was_running) stop();</span></span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           1 :     sample_rate_ = rate;</span></span>
-<span id="L203"><span class="lineNum">     203</span>              :     </span>
-<span id="L204"><span class="lineNum">     204</span>              :     {</span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">           1 :         std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
-<span id="L206"><span class="lineNum">     206</span>              :         // FIX: Iterate over the nodes in the new AudioGraph</span>
-<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">           1 :         for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC tlaBgUNC">           0 :             if (node.pedal) { // Check if it's a standard effect and not a bare merge node</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :                 node.pedal-&gt;set_sample_rate(rate);</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC">           0 :                 node.pedal-&gt;reset();</span></span>
-<span id="L211"><span class="lineNum">     211</span>              :             }</span>
-<span id="L212"><span class="lineNum">     212</span>              :         }</span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC tlaBgGNC">           1 :         if (tuner_tap_) {</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC tlaBgUNC">           0 :             tuner_tap_-&gt;set_sample_rate(rate);</span></span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaUNC">           0 :             tuner_tap_-&gt;reset();</span></span>
-<span id="L216"><span class="lineNum">     216</span>              :         }</span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
-<span id="L218"><span class="lineNum">     218</span>              :     </span>
-<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           1 :     if (was_running) {</span></span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaUNC tlaBgUNC">           0 :         if (!start()) {</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC">           0 :             last_error_ = &quot;Failed with sample rate &quot; + std::to_string(rate) + &quot; Hz. Reverting.&quot;;</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC">           0 :             sample_rate_ = prev_rate;</span></span>
-<span id="L224"><span class="lineNum">     224</span>              :             </span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC">           0 :             std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
-<span id="L226"><span class="lineNum">     226</span>              :             // FIX: Revert the sample rates using the graph nodes</span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaUNC">           0 :             for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaUNC">           0 :                 if (node.pedal) {</span></span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :                     node.pedal-&gt;set_sample_rate(prev_rate);</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :                     node.pedal-&gt;reset();</span></span>
-<span id="L231"><span class="lineNum">     231</span>              :                 }</span>
-<span id="L232"><span class="lineNum">     232</span>              :             }</span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaUNC">           0 :             if (tuner_tap_) {</span></span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaUNC">           0 :                 tuner_tap_-&gt;set_sample_rate(prev_rate);</span></span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaUNC">           0 :                 tuner_tap_-&gt;reset();</span></span>
-<span id="L236"><span class="lineNum">     236</span>              :             }</span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaUNC">           0 :             start();</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaUNC">           0 :         } else {</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :             last_error_.clear();</span></span>
-<span id="L240"><span class="lineNum">     240</span>              :         }</span>
-<span id="L241"><span class="lineNum">     241</span>              :     }</span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">         219 : void AudioEngine::commit_graph_changes() {</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">         219 :     std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
-<span id="L245"><span class="lineNum">     245</span>              :     </span>
-<span id="L246"><span class="lineNum">     246</span>              :     // 1. Create a brand new executor (so we don't mutate memory the audio thread is currently reading)</span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">         219 :     auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">         219 :     new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
-<span id="L249"><span class="lineNum">     249</span>              :     </span>
-<span id="L250"><span class="lineNum">     250</span>              :     // 2. Compile the latest UI graph into the new executor</span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         219 :     new_executor-&gt;compile(main_graph_);</span></span>
-<span id="L252"><span class="lineNum">     252</span>              :     </span>
-<span id="L253"><span class="lineNum">     253</span>              :     // 3. Promote it to the main slot. The audio thread will grab it on the next try_lock!</span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">         219 :     main_executor_ = new_executor;</span></span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         219 :     topology_dirty_.store(true, std::memory_order_release);</span></span>
-<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">         219 : }</span></span>
-<span id="L257"><span class="lineNum">     257</span>              : }</span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           1 :         if (!has_output &amp;&amp; !new_graph.get_nodes().empty()) {</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaUNC tlaBgUNC">           0 :             new_graph.set_node_as_output(new_graph.get_nodes().back().id, true);</span></span>
+<span id="L154"><span class="lineNum">     154</span>              :         }</span>
+<span id="L155"><span class="lineNum">     155</span>              : </span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC tlaBgGNC">           1 :         main_graph_ = std::move(new_graph);</span></span>
+<span id="L157"><span class="lineNum">     157</span>              :         </span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           1 :         dummy_effects_.clear();</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           4 :         for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           3 :             if (node.pedal) {</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           2 :                 dummy_effects_.push_back(node.pedal);</span></span>
+<span id="L162"><span class="lineNum">     162</span>              :             }</span>
+<span id="L163"><span class="lineNum">     163</span>              :         }</span>
+<span id="L164"><span class="lineNum">     164</span>              :         </span>
+<span id="L165"><span class="lineNum">     165</span>              :         // Push topology to audio thread without deadlocking (we already hold effect_mutex_)</span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           1 :         auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :         new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           1 :         new_executor-&gt;compile(main_graph_);</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           1 :         main_executor_ = new_executor;</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           1 :         topology_dirty_.store(true, std::memory_order_release);</span></span>
+<span id="L171"><span class="lineNum">     171</span>              :         </span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           1 :         return;</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L174"><span class="lineNum">     174</span>              :     </span>
+<span id="L175"><span class="lineNum">     175</span>              :     // Legacy Array Hydration</span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC tlaBgUNC">           0 :     if (j.contains(&quot;effects&quot;)) {</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :         for (const auto&amp; fx_data : j[&quot;effects&quot;]) {</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 :             std::string name = fx_data[&quot;name&quot;];</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :             for (auto&amp; fx : dummy_effects_) {</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :                 if (fx &amp;&amp; std::string(fx-&gt;name()) == name) {</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :                     fx-&gt;set_params(fx_data[&quot;params&quot;]);</span></span>
+<span id="L182"><span class="lineNum">     182</span>              :                 }</span>
+<span id="L183"><span class="lineNum">     183</span>              :             }</span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L185"><span class="lineNum">     185</span>              :     }</span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
+<span id="L187"><span class="lineNum">     187</span>              : </span>
+<span id="L188"><span class="lineNum">     188</span>              : // --- Existing Methods ---</span>
+<span id="L189"><span class="lineNum">     189</span>              : </span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC tlaBgUNC">           0 : void AudioEngine::set_buffer_size(int size) {</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :     size = std::max(MIN_BUFFER_SIZE, std::min(MAX_BUFFER_SIZE, size));</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     int prev_size = buffer_size_;</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :     bool was_running = running_;</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :     if (was_running) stop();</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 :     buffer_size_ = size;</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaUNC">           0 :     if (was_running) {</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaUNC">           0 :         if (!start()) {</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC">           0 :             last_error_ = &quot;Failed with buffer size &quot; + std::to_string(size) + &quot;. Reverting.&quot;;</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaUNC">           0 :             buffer_size_ = prev_size;</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaUNC">           0 :             start();</span></span>
+<span id="L202"><span class="lineNum">     202</span>              :         } else {</span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaUNC">           0 :             last_error_.clear();</span></span>
+<span id="L204"><span class="lineNum">     204</span>              :         }</span>
+<span id="L205"><span class="lineNum">     205</span>              :     }</span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L207"><span class="lineNum">     207</span>              : </span>
+<span id="L208"><span class="lineNum">     208</span>              : </span>
+<span id="L209"><span class="lineNum">     209</span>              : </span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC tlaBgGNC">           1 : void AudioEngine::set_sample_rate(int rate) {</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">           1 :     int prev_rate = sample_rate_;</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">           1 :     bool was_running = running_;</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">           1 :     if (was_running) stop();</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">           1 :     sample_rate_ = rate;</span></span>
+<span id="L215"><span class="lineNum">     215</span>              :     </span>
+<span id="L216"><span class="lineNum">     216</span>              :     {</span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">           1 :         std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
+<span id="L218"><span class="lineNum">     218</span>              :         // FIX: Iterate over the nodes in the new AudioGraph</span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           1 :         for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaUNC tlaBgUNC">           0 :             if (node.pedal) { // Check if it's a standard effect and not a bare merge node</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC">           0 :                 node.pedal-&gt;set_sample_rate(rate);</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC">           0 :                 node.pedal-&gt;reset();</span></span>
+<span id="L223"><span class="lineNum">     223</span>              :             }</span>
+<span id="L224"><span class="lineNum">     224</span>              :         }</span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC tlaBgGNC">           1 :         if (tuner_tap_) {</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC tlaBgUNC">           0 :             tuner_tap_-&gt;set_sample_rate(rate);</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaUNC">           0 :             tuner_tap_-&gt;reset();</span></span>
+<span id="L228"><span class="lineNum">     228</span>              :         }</span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
+<span id="L230"><span class="lineNum">     230</span>              :     </span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           1 :     if (was_running) {</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaUNC tlaBgUNC">           0 :         if (!start()) {</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaUNC">           0 :             last_error_ = &quot;Failed with sample rate &quot; + std::to_string(rate) + &quot; Hz. Reverting.&quot;;</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaUNC">           0 :             sample_rate_ = prev_rate;</span></span>
+<span id="L236"><span class="lineNum">     236</span>              :             </span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaUNC">           0 :             std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
+<span id="L238"><span class="lineNum">     238</span>              :             // FIX: Revert the sample rates using the graph nodes</span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :             for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :                 if (node.pedal) {</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaUNC">           0 :                     node.pedal-&gt;set_sample_rate(prev_rate);</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :                     node.pedal-&gt;reset();</span></span>
+<span id="L243"><span class="lineNum">     243</span>              :                 }</span>
+<span id="L244"><span class="lineNum">     244</span>              :             }</span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaUNC">           0 :             if (tuner_tap_) {</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC">           0 :                 tuner_tap_-&gt;set_sample_rate(prev_rate);</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaUNC">           0 :                 tuner_tap_-&gt;reset();</span></span>
+<span id="L248"><span class="lineNum">     248</span>              :             }</span>
+<span id="L249"><span class="lineNum">     249</span> <span class="tlaUNC">           0 :             start();</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC">           0 :         } else {</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaUNC">           0 :             last_error_.clear();</span></span>
+<span id="L252"><span class="lineNum">     252</span>              :         }</span>
+<span id="L253"><span class="lineNum">     253</span>              :     }</span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         219 : void AudioEngine::commit_graph_changes() {</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">         219 :     std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
+<span id="L257"><span class="lineNum">     257</span>              :     </span>
+<span id="L258"><span class="lineNum">     258</span>              :     // 1. Create a brand new executor (so we don't mutate memory the audio thread is currently reading)</span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">         219 :     auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         219 :     new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
+<span id="L261"><span class="lineNum">     261</span>              :     </span>
+<span id="L262"><span class="lineNum">     262</span>              :     // 2. Compile the latest UI graph into the new executor</span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">         219 :     new_executor-&gt;compile(main_graph_);</span></span>
+<span id="L264"><span class="lineNum">     264</span>              :     </span>
+<span id="L265"><span class="lineNum">     265</span>              :     // 3. Promote it to the main slot. The audio thread will grab it on the next try_lock!</span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">         219 :     main_executor_ = new_executor;</span></span>
+<span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">         219 :     topology_dirty_.store(true, std::memory_order_release);</span></span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">         219 : }</span></span>
+<span id="L269"><span class="lineNum">     269</span>              : }</span>
         </pre>
               </td>
             </tr>
