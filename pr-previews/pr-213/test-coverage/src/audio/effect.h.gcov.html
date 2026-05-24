@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 08:16:01</td>
+            <td class="headerValue">2026-05-24 08:22:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">88.2&nbsp;%</td>
@@ -85,7 +85,7 @@
 <span id="L23"><span class="lineNum">      23</span>              : // Common interface for all mono/stereo audio effects in the pedal chain.</span>
 <span id="L24"><span class="lineNum">      24</span>              : class Effect {</span>
 <span id="L25"><span class="lineNum">      25</span>              : public:</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         347 :     virtual ~Effect() = default;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         351 :     virtual ~Effect() = default;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     // Process a mono buffer in place.</span>
 <span id="L29"><span class="lineNum">      29</span>              :     virtual void process(float* buffer, int num_samples) = 0;</span>
@@ -98,7 +98,7 @@
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span>              :     // Update the processing sample rate before audio starts or after device changes.</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         447 :     virtual void set_sample_rate(int sample_rate) { sample_rate_ = sample_rate; }</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         450 :     virtual void set_sample_rate(int sample_rate) { sample_rate_ = sample_rate; }</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span>              :     // Clear delay lines, envelopes, filters, and other effect state.</span>
 <span id="L42"><span class="lineNum">      42</span>              :     virtual void reset() = 0;</span>
