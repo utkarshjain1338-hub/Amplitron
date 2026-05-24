@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">96.8&nbsp;%</td>
+            <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
             <td class="headerCovTableEntry">187</td>
-            <td class="headerCovTableEntry">181</td>
+            <td class="headerCovTableEntry">182</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 08:22:23</td>
+            <td class="headerValue">2026-05-24 08:48:48</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -121,25 +121,25 @@
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           6 :     pending_commands_.fetch_or(CmdPlayToggle, std::memory_order_relaxed);</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           6 : void Looper::request_overdub_toggle() {</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           6 :     pending_commands_.fetch_or(CmdOverdubToggle, std::memory_order_relaxed);</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           6 : }</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           7 : void Looper::request_overdub_toggle() {</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           7 :     pending_commands_.fetch_or(CmdOverdubToggle, std::memory_order_relaxed);</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           7 : }</span></span>
 <span id="L65"><span class="lineNum">      65</span>              : </span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           2 : void Looper::request_clear() {</span></span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           2 :     pending_commands_.fetch_or(CmdClear, std::memory_order_relaxed);</span></span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           2 : }</span></span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          76 : int Looper::crossfade_samples_rt(float ms) const {</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          76 :     const int xf = static_cast&lt;int&gt;(std::round((ms / 1000.0f) * static_cast&lt;float&gt;(sample_rate_)));</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          76 :     return std::clamp(xf, 0, std::max(loop_length_ / 2, 0));</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          95 : int Looper::crossfade_samples_rt(float ms) const {</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          95 :     const int xf = static_cast&lt;int&gt;(std::round((ms / 1000.0f) * static_cast&lt;float&gt;(sample_rate_)));</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          95 :     return std::clamp(xf, 0, std::max(loop_length_ / 2, 0));</span></span>
 <span id="L73"><span class="lineNum">      73</span>              : }</span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         160 : void Looper::publish_ui_snapshot() {</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         160 :     ui_state_.store(static_cast&lt;uint32_t&gt;(state_rt_), std::memory_order_relaxed);</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         160 :     ui_has_loop_.store(has_loop_rt_ ? 1 : 0, std::memory_order_relaxed);</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         160 :     ui_loop_length_samples_.store(loop_length_, std::memory_order_relaxed);</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         160 :     ui_playhead_samples_.store(playhead_, std::memory_order_relaxed);</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         160 : }</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         179 : void Looper::publish_ui_snapshot() {</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         179 :     ui_state_.store(static_cast&lt;uint32_t&gt;(state_rt_), std::memory_order_relaxed);</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         179 :     ui_has_loop_.store(has_loop_rt_ ? 1 : 0, std::memory_order_relaxed);</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         179 :     ui_loop_length_samples_.store(loop_length_, std::memory_order_relaxed);</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         179 :     ui_playhead_samples_.store(playhead_, std::memory_order_relaxed);</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         179 : }</span></span>
 <span id="L81"><span class="lineNum">      81</span>              : </span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           3 : void Looper::clear_loop_rt() {</span></span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           3 :     has_loop_rt_ = false;</span></span>
@@ -178,10 +178,10 @@
 <span id="L116"><span class="lineNum">     116</span>              :     }</span>
 <span id="L117"><span class="lineNum">     117</span>              : }</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           5 : void Looper::toggle_overdub_rt() {</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">           5 :     if (!has_loop_rt_) return;</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           5 :     if (state_rt_ == State::Overdubbing) {</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           1 :         state_rt_ = State::Playing;</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           6 : void Looper::toggle_overdub_rt() {</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">           6 :     if (!has_loop_rt_) return;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           6 :     if (state_rt_ == State::Overdubbing) {</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           2 :         state_rt_ = State::Playing;</span></span>
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           4 :     } else if (state_rt_ == State::Playing) {</span></span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           3 :         state_rt_ = State::Overdubbing;</span></span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           1 :     } else if (state_rt_ == State::Idle) {</span></span>
@@ -189,15 +189,15 @@
 <span id="L127"><span class="lineNum">     127</span>              :     }</span>
 <span id="L128"><span class="lineNum">     128</span>              : }</span>
 <span id="L129"><span class="lineNum">     129</span>              : </span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          99 : void Looper::apply_pending_commands() {</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          99 :     const uint32_t cmds = pending_commands_.exchange(0, std::memory_order_relaxed);</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          99 :     if (cmds == 0) return;</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">         118 : void Looper::apply_pending_commands() {</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">         118 :     const uint32_t cmds = pending_commands_.exchange(0, std::memory_order_relaxed);</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">         118 :     if (cmds == 0) return;</span></span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          43 :     if (cmds &amp; CmdClear) {</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          44 :     if (cmds &amp; CmdClear) {</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           2 :         clear_loop_rt();</span></span>
 <span id="L136"><span class="lineNum">     136</span>              :     }</span>
 <span id="L137"><span class="lineNum">     137</span>              : </span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          43 :     if (cmds &amp; CmdRecordToggle) {</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          44 :     if (cmds &amp; CmdRecordToggle) {</span></span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          29 :         if (state_rt_ == State::Recording) {</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">          13 :             stop_recording_rt_and_play_rt();</span></span>
 <span id="L141"><span class="lineNum">     141</span>              :         } else {</span>
@@ -205,7 +205,7 @@
 <span id="L143"><span class="lineNum">     143</span>              :         }</span>
 <span id="L144"><span class="lineNum">     144</span>              :     }</span>
 <span id="L145"><span class="lineNum">     145</span>              : </span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          43 :     if (cmds &amp; CmdPlayToggle) {</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          44 :     if (cmds &amp; CmdPlayToggle) {</span></span>
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           6 :         if (state_rt_ == State::Recording) {</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           1 :             stop_recording_rt_and_play_rt();</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           5 :         } else if (state_rt_ == State::Empty || state_rt_ == State::Idle ||</span></span>
@@ -214,9 +214,9 @@
 <span id="L152"><span class="lineNum">     152</span>              :         }</span>
 <span id="L153"><span class="lineNum">     153</span>              :     }</span>
 <span id="L154"><span class="lineNum">     154</span>              : </span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          43 :     if (cmds &amp; CmdOverdubToggle) {</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           6 :         if (state_rt_ != State::Recording) {</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           5 :             toggle_overdub_rt();</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          44 :     if (cmds &amp; CmdOverdubToggle) {</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           7 :         if (state_rt_ != State::Recording) {</span></span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           6 :             toggle_overdub_rt();</span></span>
 <span id="L158"><span class="lineNum">     158</span>              :         }</span>
 <span id="L159"><span class="lineNum">     159</span>              :     }</span>
 <span id="L160"><span class="lineNum">     160</span>              : }</span>
@@ -230,28 +230,28 @@
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          87 :     process_core(buffer, nullptr, num_samples, false);</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : }</span>
 <span id="L170"><span class="lineNum">     170</span>              : </span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          11 : void Looper::process_stereo(float* left, float* right, int num_samples) {</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          11 :     if (!enabled_) {</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          30 : void Looper::process_stereo(float* left, float* right, int num_samples) {</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          30 :     if (!enabled_) {</span></span>
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC tlaBgUNC">           0 :         apply_pending_commands();</span></span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         publish_ui_snapshot();</span></span>
 <span id="L175"><span class="lineNum">     175</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L176"><span class="lineNum">     176</span>              :     }</span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          11 :     process_core(left, right, num_samples, true);</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          30 :     process_core(left, right, num_samples, true);</span></span>
 <span id="L178"><span class="lineNum">     178</span>              : }</span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          98 : void Looper::process_core(float* left, float* right, int num_samples, bool stereo) {</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">          98 :     apply_pending_commands();</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         117 : void Looper::process_core(float* left, float* right, int num_samples, bool stereo) {</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         117 :     apply_pending_commands();</span></span>
 <span id="L182"><span class="lineNum">     182</span>              : </span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">          98 :     const float loop_level_target = clamp(params_[0].value, 0.0f, 1.0f);</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          98 :     const float crossfade_target_ms = clamp(params_[1].value, 0.0f, 20.0f);</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          98 :     crossfade_ms_smoothed_ += crossfade_alpha_ * (crossfade_target_ms - crossfade_ms_smoothed_);</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">          98 :     const int cap = max_samples_;</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">          98 :     if (cap &lt;= 0) {</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         117 :     const float loop_level_target = clamp(params_[0].value, 0.0f, 1.0f);</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         117 :     const float crossfade_target_ms = clamp(params_[1].value, 0.0f, 20.0f);</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         117 :     crossfade_ms_smoothed_ += crossfade_alpha_ * (crossfade_target_ms - crossfade_ms_smoothed_);</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         117 :     const int cap = max_samples_;</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         117 :     if (cap &lt;= 0) {</span></span>
 <span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC tlaBgUNC">           0 :         publish_ui_snapshot();</span></span>
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L190"><span class="lineNum">     190</span>              :     }</span>
 <span id="L191"><span class="lineNum">     191</span>              : </span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC tlaBgGNC">          98 :     if (state_rt_ == State::Recording) {</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC tlaBgGNC">         117 :     if (state_rt_ == State::Recording) {</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">       94301 :         for (int i = 0; i &lt; num_samples; ++i) {</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">       94285 :             if (record_pos_ &gt;= cap) {</span></span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           1 :                 stop_recording_rt_and_play_rt();</span></span>
@@ -263,54 +263,54 @@
 <span id="L201"><span class="lineNum">     201</span>              :         }</span>
 <span id="L202"><span class="lineNum">     202</span>              :     }</span>
 <span id="L203"><span class="lineNum">     203</span>              : </span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">          98 :     if (has_loop_rt_ &amp;&amp; loop_length_ &gt; 0 &amp;&amp;</span></span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">          79 :         (state_rt_ == State::Playing || state_rt_ == State::Overdubbing)) {</span></span>
-<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          76 :         const int xf = crossfade_samples_rt(crossfade_ms_smoothed_);</span></span>
-<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">       25256 :         for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">       25180 :             loop_level_smoothed_ += loop_level_alpha_ * (loop_level_target - loop_level_smoothed_);</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">       25180 :             const float loop_level = loop_level_smoothed_;</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">       25180 :             const int pos = playhead_;</span></span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">       25180 :             float loop_l = buffer_l_[pos];</span></span>
-<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">       25180 :             float loop_r = (stereo &amp;&amp; right) ? buffer_r_[pos] : loop_l;</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         117 :     if (has_loop_rt_ &amp;&amp; loop_length_ &gt; 0 &amp;&amp;</span></span>
+<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">          98 :         (state_rt_ == State::Playing || state_rt_ == State::Overdubbing)) {</span></span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          95 :         const int xf = crossfade_samples_rt(crossfade_ms_smoothed_);</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">       30139 :         for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">       30044 :             loop_level_smoothed_ += loop_level_alpha_ * (loop_level_target - loop_level_smoothed_);</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">       30044 :             const float loop_level = loop_level_smoothed_;</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">       30044 :             const int pos = playhead_;</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">       30044 :             float loop_l = buffer_l_[pos];</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">       30044 :             float loop_r = (stereo &amp;&amp; right) ? buffer_r_[pos] : loop_l;</span></span>
 <span id="L213"><span class="lineNum">     213</span>              : </span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">       25180 :             if (xf &gt; 0 &amp;&amp; pos &gt;= loop_length_ - xf) {</span></span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">         481 :                 const int t = pos - (loop_length_ - xf); // 0..xf-1</span></span>
-<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">         481 :                 const float w_end = static_cast&lt;float&gt;(xf - t) / static_cast&lt;float&gt;(xf);</span></span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         481 :                 const float w_start = 1.0f - w_end;</span></span>
-<span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">         481 :                 const int start_pos = t;</span></span>
-<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">         481 :                 loop_l = buffer_l_[pos] * w_end + buffer_l_[start_pos] * w_start;</span></span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">         481 :                 if (stereo &amp;&amp; right) {</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC tlaBgUNC">           0 :                     loop_r = buffer_r_[pos] * w_end + buffer_r_[start_pos] * w_start;</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">       30044 :             if (xf &gt; 0 &amp;&amp; pos &gt;= loop_length_ - xf) {</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">         721 :                 const int t = pos - (loop_length_ - xf); // 0..xf-1</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">         721 :                 const float w_end = static_cast&lt;float&gt;(xf - t) / static_cast&lt;float&gt;(xf);</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         721 :                 const float w_start = 1.0f - w_end;</span></span>
+<span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">         721 :                 const int start_pos = t;</span></span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">         721 :                 loop_l = buffer_l_[pos] * w_end + buffer_l_[start_pos] * w_start;</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">         721 :                 if (stereo &amp;&amp; right) {</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">         240 :                     loop_r = buffer_r_[pos] * w_end + buffer_r_[start_pos] * w_start;</span></span>
 <span id="L222"><span class="lineNum">     222</span>              :                 } else {</span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC tlaBgGNC">         481 :                     loop_r = loop_l;</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">         481 :                     loop_r = loop_l;</span></span>
 <span id="L224"><span class="lineNum">     224</span>              :                 }</span>
 <span id="L225"><span class="lineNum">     225</span>              :             }</span>
 <span id="L226"><span class="lineNum">     226</span>              : </span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">       25180 :             const float in_l = left[i];</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">       25180 :             const float in_r = (stereo &amp;&amp; right) ? right[i] : in_l;</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">       30044 :             const float in_l = left[i];</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">       30044 :             const float in_r = (stereo &amp;&amp; right) ? right[i] : in_l;</span></span>
 <span id="L229"><span class="lineNum">     229</span>              : </span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">       25180 :             float out_l = in_l + loop_l * loop_level;</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">       25180 :             float out_r = in_r + loop_r * loop_level;</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">       30044 :             float out_l = in_l + loop_l * loop_level;</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">       30044 :             float out_r = in_r + loop_r * loop_level;</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">       25180 :             if (state_rt_ == State::Overdubbing) {</span></span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">        3584 :                 buffer_l_[pos] = soft_clip(buffer_l_[pos] + in_l);</span></span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">        3584 :                 if (stereo &amp;&amp; right) {</span></span>
-<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">         512 :                     buffer_r_[pos] = soft_clip(buffer_r_[pos] + in_r);</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">       30044 :             if (state_rt_ == State::Overdubbing) {</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">        8192 :                 buffer_l_[pos] = soft_clip(buffer_l_[pos] + in_l);</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">        8192 :                 if (stereo &amp;&amp; right) {</span></span>
+<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">        5120 :                     buffer_r_[pos] = soft_clip(buffer_r_[pos] + in_r);</span></span>
 <span id="L237"><span class="lineNum">     237</span>              :                 }</span>
 <span id="L238"><span class="lineNum">     238</span>              :             }</span>
 <span id="L239"><span class="lineNum">     239</span>              : </span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">       25180 :             left[i] = soft_clip(out_l);</span></span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">       25180 :             if (stereo &amp;&amp; right) right[i] = soft_clip(out_r);</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">       30044 :             left[i] = soft_clip(out_l);</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">       30044 :             if (stereo &amp;&amp; right) right[i] = soft_clip(out_r);</span></span>
 <span id="L242"><span class="lineNum">     242</span>              : </span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">       25180 :             ++playhead_;</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">       25180 :             if (playhead_ &gt;= loop_length_) playhead_ = 0;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">       30044 :             ++playhead_;</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">       30044 :             if (playhead_ &gt;= loop_length_) playhead_ = 0;</span></span>
 <span id="L245"><span class="lineNum">     245</span>              :         }</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          76 :     } else {</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          95 :     } else {</span></span>
 <span id="L247"><span class="lineNum">     247</span>              :         // Keep smoothing responsive even when not actively mixing the loop.</span>
 <span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          22 :         loop_level_smoothed_ += loop_level_alpha_ * (loop_level_target - loop_level_smoothed_);</span></span>
 <span id="L249"><span class="lineNum">     249</span>              :     }</span>
 <span id="L250"><span class="lineNum">     250</span>              : </span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          98 :     publish_ui_snapshot();</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         117 :     publish_ui_snapshot();</span></span>
 <span id="L252"><span class="lineNum">     252</span>              : }</span>
 <span id="L253"><span class="lineNum">     253</span>              : </span>
 <span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           6 : std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, Looper::State s)</span></span>
