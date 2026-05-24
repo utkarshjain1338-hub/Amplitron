@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 08:00:30</td>
+            <td class="headerValue">2026-05-24 08:10:54</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -69,10 +69,10 @@
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : namespace Amplitron {</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           6 : std::vector&lt;float&gt; resample_linear(const std::vector&lt;float&gt;&amp; input,</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           7 : std::vector&lt;float&gt; resample_linear(const std::vector&lt;float&gt;&amp; input,</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :                                    int from_rate, int to_rate) {</span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           6 :     if (input.empty() || from_rate &lt;= 0 || to_rate &lt;= 0 || from_rate == to_rate)</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           2 :         return input;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           7 :     if (input.empty() || from_rate &lt;= 0 || to_rate &lt;= 0 || from_rate == to_rate)</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           3 :         return input;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           4 :     double ratio = static_cast&lt;double&gt;(from_rate) / static_cast&lt;double&gt;(to_rate);</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :     size_t out_len = static_cast&lt;size_t&gt;(</span>
@@ -97,15 +97,15 @@
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC tlaBgGNC">           4 :     return output;</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           4 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          15 : WavData load_wav_file(const std::string&amp; filepath,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          16 : WavData load_wav_file(const std::string&amp; filepath,</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                       int target_sample_rate,</span>
 <span id="L40"><span class="lineNum">      40</span>              :                       int max_length_samples) {</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          15 :     WavData result;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          16 :     WavData result;</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span>              :     drwav wav;</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          15 :     if (!drwav_init_file(&amp;wav, filepath.c_str(), nullptr)) {</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           4 :         std::cerr &lt;&lt; &quot;Cabinet IR: failed to open WAV file: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           4 :         return result;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          16 :     if (!drwav_init_file(&amp;wav, filepath.c_str(), nullptr)) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           5 :         std::cerr &lt;&lt; &quot;Cabinet IR: failed to open WAV file: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           5 :         return result;</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :     }</span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          11 :     result.sample_rate = static_cast&lt;int&gt;(wav.sampleRate);</span></span>
