@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 14:56:04</td>
+            <td class="headerValue">2026-05-25 06:44:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -83,17 +83,17 @@
 <span id="L21"><span class="lineNum">      21</span>              :     ConvolutionKernel(const std::vector&lt;float&gt;&amp; ir_samples, int block_size);</span>
 <span id="L22"><span class="lineNum">      22</span>              :     ~ConvolutionKernel();</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC tlaBgGNC">           8 :     int block_size() const { return block_size_; }</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           4 :     int fft_size() const { return fft_size_; }</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           4 :     int num_partitions() const { return num_partitions_; }</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           6 :     int ir_length() const { return ir_length_; }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC tlaBgGNC">        1040 :     int block_size() const { return block_size_; }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">        1024 :     int fft_size() const { return fft_size_; }</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">        1025 :     int num_partitions() const { return num_partitions_; }</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">        2034 :     int ir_length() const { return ir_length_; }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     // Access the i-th partition in frequency domain.</span>
 <span id="L30"><span class="lineNum">      30</span>              :     // Returns fft_size complex values as kiss_fft_cpx array.</span>
 <span id="L31"><span class="lineNum">      31</span>              :     const void* partition_freq(int index) const;</span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              :     // Time-domain IR (for direct convolution fallback)</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           2 :     const std::vector&lt;float&gt;&amp; ir_time_domain() const { return ir_time_; }</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">        1011 :     const std::vector&lt;float&gt;&amp; ir_time_domain() const { return ir_time_; }</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
 <span id="L36"><span class="lineNum">      36</span>              :     // Metadata</span>
 <span id="L37"><span class="lineNum">      37</span>              :     std::string source_path;</span>
@@ -132,7 +132,7 @@
 <span id="L70"><span class="lineNum">      70</span>              :     // Reset all internal state.</span>
 <span id="L71"><span class="lineNum">      71</span>              :     void reset();</span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          11 :     bool has_kernel() const { return kernel_ != nullptr; }</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">        2017 :     bool has_kernel() const { return kernel_ != nullptr; }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
 <span id="L75"><span class="lineNum">      75</span>              : private:</span>
 <span id="L76"><span class="lineNum">      76</span>              :     std::shared_ptr&lt;const ConvolutionKernel&gt; kernel_;</span>
