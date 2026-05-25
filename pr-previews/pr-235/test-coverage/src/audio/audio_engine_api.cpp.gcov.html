@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 10:00:38</td>
+            <td class="headerValue">2026-05-25 10:10:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -66,13 +66,13 @@
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : namespace Amplitron {</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">          71 : void AudioEngine::set_input_gain(float gain) {</span></span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          71 :     AudioCommand cmd{};</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          71 :     cmd.type = AudioCommand::SetInputGain;</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          71 :     cmd.value = gain;</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          71 :     command_queue_.try_push(cmd);</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          71 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          71 : }</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">          72 : void AudioEngine::set_input_gain(float gain) {</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          72 :     AudioCommand cmd{};</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          72 :     cmd.type = AudioCommand::SetInputGain;</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          72 :     cmd.value = gain;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          72 :     command_queue_.try_push(cmd);</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          72 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          72 : }</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          59 : void AudioEngine::set_output_gain(float gain) {</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          59 :     AudioCommand cmd{};</span></span>
