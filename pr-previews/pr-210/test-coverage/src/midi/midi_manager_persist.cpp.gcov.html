@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 15:07:29</td>
+            <td class="headerValue">2026-05-25 15:24:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -73,7 +73,7 @@
 <span id="L11"><span class="lineNum">      11</span>              : // Persistence — midi_config.json</span>
 <span id="L12"><span class="lineNum">      12</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">           3 : std::string MidiManager::get_config_path() {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">           5 : std::string MidiManager::get_config_path() {</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : #ifdef _WIN32</span>
 <span id="L16"><span class="lineNum">      16</span>              :     const char* appdata = std::getenv(&quot;APPDATA&quot;);</span>
 <span id="L17"><span class="lineNum">      17</span>              :     if (!appdata) return &quot;midi_config.json&quot;;</span>
@@ -85,17 +85,17 @@
 <span id="L23"><span class="lineNum">      23</span>              :     }</span>
 <span id="L24"><span class="lineNum">      24</span>              :     return dir + &quot;\\midi_config.json&quot;;</span>
 <span id="L25"><span class="lineNum">      25</span>              : #else</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :     const char* home = std::getenv(&quot;HOME&quot;);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           3 :     if (!home) return &quot;midi_config.json&quot;;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           3 :     std::string config_dir = std::string(home) + &quot;/.config/amplitron&quot;;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           5 :     const char* home = std::getenv(&quot;HOME&quot;);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           5 :     if (!home) return &quot;midi_config.json&quot;;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           5 :     std::string config_dir = std::string(home) + &quot;/.config/amplitron&quot;;</span></span>
 <span id="L29"><span class="lineNum">      29</span>              :     try {</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           3 :         std::filesystem::create_directories(config_dir);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           5 :         std::filesystem::create_directories(config_dir);</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC tlaBgUNC">           0 :     } catch (...) {</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :         // Ignore errors — will fall back to local path if creation fails</span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">           3 :     return config_dir + &quot;/midi_config.json&quot;;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">           5 :     return config_dir + &quot;/midi_config.json&quot;;</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : #endif</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           5 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           1 : std::string MidiManager::mappings_to_json() const {</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :     nlohmann::ordered_json root = nlohmann::ordered_json::object();</span></span>
@@ -116,29 +116,29 @@
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           2 :     return root.dump(2) + &quot;\n&quot;;</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           1 : }</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           2 : bool MidiManager::mappings_from_json(const std::string&amp; json_str) {</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           2 :     mappings_.clear();</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           4 : bool MidiManager::mappings_from_json(const std::string&amp; json_str) {</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           4 :     mappings_.clear();</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              :     try {</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           2 :         auto j = nlohmann::json::parse(json_str);</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           4 :         auto j = nlohmann::json::parse(json_str);</span></span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           2 :         if (!j.contains(&quot;mappings&quot;) || !j[&quot;mappings&quot;].is_array()) {</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           4 :         if (!j.contains(&quot;mappings&quot;) || !j[&quot;mappings&quot;].is_array()) {</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaUNC tlaBgUNC">           0 :             return false;</span></span>
 <span id="L65"><span class="lineNum">      65</span>              :         }</span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC tlaBgGNC">           6 :         for (const auto&amp; jm : j[&quot;mappings&quot;]) {</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           4 :             MidiMapping m;</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           4 :             m.cc_number    = jm.value(&quot;cc&quot;,      0);</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           4 :             m.midi_channel = jm.value(&quot;channel&quot;, -1);</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           4 :             m.target_type  = static_cast&lt;MidiTargetType&gt;(jm.value(&quot;target&quot;, 0));</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           4 :             m.mode         = static_cast&lt;MidiMappingMode&gt;(jm.value(&quot;mode&quot;,   0));</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           4 :             m.effect_name  = jm.value(&quot;effect&quot;,  std::string{});</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           4 :             m.param_name   = jm.value(&quot;param&quot;,   std::string{});</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           4 :             mappings_.push_back(m);</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           4 :         }</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC tlaBgGNC">          12 :         for (const auto&amp; jm : j[&quot;mappings&quot;]) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           8 :             MidiMapping m;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           8 :             m.cc_number    = jm.value(&quot;cc&quot;,      0);</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           8 :             m.midi_channel = jm.value(&quot;channel&quot;, -1);</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           8 :             m.target_type  = static_cast&lt;MidiTargetType&gt;(jm.value(&quot;target&quot;, 0));</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           8 :             m.mode         = static_cast&lt;MidiMappingMode&gt;(jm.value(&quot;mode&quot;,   0));</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           8 :             m.effect_name  = jm.value(&quot;effect&quot;,  std::string{});</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           8 :             m.param_name   = jm.value(&quot;param&quot;,   std::string{});</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           8 :             mappings_.push_back(m);</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           8 :         }</span></span>
 <span id="L77"><span class="lineNum">      77</span>              : </span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           2 :         return true;</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           2 :     } catch (const nlohmann::json::exception&amp; e) {</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           4 :         return true;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           4 :     } catch (const nlohmann::json::exception&amp; e) {</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaUNC tlaBgUNC">           0 :         std::cerr &lt;&lt; &quot;[midi_config] JSON parse error: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC">           0 :         return false;</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC">           0 :     }</span></span>
@@ -151,16 +151,16 @@
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           1 :     f &lt;&lt; mappings_to_json();</span></span>
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           1 : }</span></span>
 <span id="L91"><span class="lineNum">      91</span>              : </span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           2 : void MidiManager::load_config() {</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           2 :     std::string path = get_config_path();</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           2 :     std::ifstream f(path);</span></span>
-<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           2 :     if (!f.is_open()) return;</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           4 : void MidiManager::load_config() {</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           4 :     std::string path = get_config_path();</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           4 :     std::ifstream f(path);</span></span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           4 :     if (!f.is_open()) return;</span></span>
 <span id="L96"><span class="lineNum">      96</span>              : </span>
 <span id="L97"><span class="lineNum">      97</span>              :     std::string content((std::istreambuf_iterator&lt;char&gt;(f)),</span>
-<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">           2 :                          std::istreambuf_iterator&lt;char&gt;());</span></span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">           4 :                          std::istreambuf_iterator&lt;char&gt;());</span></span>
 <span id="L99"><span class="lineNum">      99</span>              : </span>
-<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           2 :     mappings_from_json(content);</span></span>
-<span id="L101"><span class="lineNum">     101</span> <span class="tlaGNC">           2 : }</span></span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           4 :     mappings_from_json(content);</span></span>
+<span id="L101"><span class="lineNum">     101</span> <span class="tlaGNC">           4 : }</span></span>
 <span id="L102"><span class="lineNum">     102</span>              : </span>
 <span id="L103"><span class="lineNum">     103</span>              : } // namespace Amplitron</span>
 <span id="L104"><span class="lineNum">     104</span>              : </span>
