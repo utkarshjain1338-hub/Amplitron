@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 07:10:28</td>
+            <td class="headerValue">2026-05-25 07:37:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -67,37 +67,37 @@
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : namespace Amplitron {</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">         304 : int AudioGraph::add_node(const std::string &amp;name, NodeRoutingType type,</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">         305 : int AudioGraph::add_node(const std::string &amp;name, NodeRoutingType type,</span></span>
 <span id="L9"><span class="lineNum">       9</span>              :                          std::shared_ptr&lt;Effect&gt; pedal, int num_inputs) {</span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         304 :   DSPNode node;</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         304 :   node.id = next_id_++; // Uses your unified member counter</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         304 :   node.name = name;</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         304 :   node.routing_type = type;</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         304 :   node.pedal = pedal;</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         305 :   DSPNode node;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         305 :   node.id = next_id_++; // Uses your unified member counter</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         305 :   node.name = name;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         305 :   node.routing_type = type;</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         305 :   node.pedal = pedal;</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              :   // Dynamically configure pin structures using the same unified ID pool</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         304 :   if (type == NodeRoutingType::Mixer || type == NodeRoutingType::MergeSum) {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         305 :   if (type == NodeRoutingType::Mixer || type == NodeRoutingType::MergeSum) {</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          11 :     int inputs_to_create = (num_inputs &gt; 0) ? num_inputs : 2;</span></span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          37 :     for (int i = 0; i &lt; inputs_to_create; ++i) {</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          26 :       node.input_pin_ids.push_back(next_id_++);</span></span>
 <span id="L21"><span class="lineNum">      21</span>              :     }</span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          11 :     node.output_pin_ids.push_back(next_id_++); // 1 Output Pin</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         304 :   } else if (type == NodeRoutingType::Splitter) {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         305 :   } else if (type == NodeRoutingType::Splitter) {</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          10 :     node.input_pin_ids.push_back(next_id_++);  // 1 Input Pin</span></span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          10 :     node.output_pin_ids.push_back(next_id_++); // Output Pin Branch A</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          10 :     node.output_pin_ids.push_back(next_id_++); // Output Pin Branch B</span></span>
 <span id="L27"><span class="lineNum">      27</span>              :   } else {</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         283 :     node.input_pin_ids.push_back(next_id_++);</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         283 :     node.output_pin_ids.push_back(next_id_++);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         284 :     node.input_pin_ids.push_back(next_id_++);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         284 :     node.output_pin_ids.push_back(next_id_++);</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :   }</span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         304 :   nodes_.push_back(node);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         305 :   nodes_.push_back(node);</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :   // Auto-recompile topology order whenever a structural block changes</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         304 :   rebuild_topology();</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         305 :   rebuild_topology();</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         304 :   return node.id;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         304 : }</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         305 :   return node.id;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         305 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         110 : int AudioGraph::add_link(int source_pin_id, int dest_pin_id) {</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :     // Prevent duplicate connections between the exact same pair of pins</span>
@@ -199,24 +199,24 @@
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           1 :   return -1; // Pin ID not found in any registered node</span></span>
 <span id="L138"><span class="lineNum">     138</span>              : }</span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         674 : bool AudioGraph::rebuild_topology() {</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         675 : bool AudioGraph::rebuild_topology() {</span></span>
 <span id="L141"><span class="lineNum">     141</span>              :   // Kahn's algorithm or DFS to topologically sort the nodes based on links.</span>
 <span id="L142"><span class="lineNum">     142</span>              :   // Since your test suite cases are already passing, we can use a basic</span>
 <span id="L143"><span class="lineNum">     143</span>              :   // Kahn's sort dependency tracker to map links to execution order.</span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">         674 :   sorted_node_ids_.clear();</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">         675 :   sorted_node_ids_.clear();</span></span>
 <span id="L146"><span class="lineNum">     146</span>              : </span>
 <span id="L147"><span class="lineNum">     147</span>              :   // 1. Forward Reachability BFS</span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">         674 :   std::unordered_set&lt;int&gt; forward_reachable;</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         674 :   std::vector&lt;int&gt; queue;</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">        2240 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">        1566 :     if (node.is_graph_input) {</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">         675 :   std::unordered_set&lt;int&gt; forward_reachable;</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         675 :   std::vector&lt;int&gt; queue;</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">        2242 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">        1567 :     if (node.is_graph_input) {</span></span>
 <span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         523 :       queue.push_back(node.id);</span></span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         523 :       forward_reachable.insert(node.id);</span></span>
 <span id="L154"><span class="lineNum">     154</span>              :     }</span>
 <span id="L155"><span class="lineNum">     155</span>              :   }</span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         674 :   size_t head = 0;</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">        1443 :   while (head &lt; queue.size()) {</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         675 :   size_t head = 0;</span></span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">        1444 :   while (head &lt; queue.size()) {</span></span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">         769 :     int curr = queue[head++];</span></span>
 <span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">         769 :     auto it = std::find_if(nodes_.begin(), nodes_.end(),</span></span>
 <span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">        1158 :                            [&amp;](const DSPNode &amp;n) { return n.id == curr; });</span></span>
@@ -237,16 +237,16 @@
 <span id="L175"><span class="lineNum">     175</span>              :   }</span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
 <span id="L177"><span class="lineNum">     177</span>              :   // 2. Backward Reachability BFS</span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         674 :   std::unordered_set&lt;int&gt; backward_reachable;</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         674 :   queue.clear();</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">        2240 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">        1566 :     if (node.is_graph_output) {</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         675 :   std::unordered_set&lt;int&gt; backward_reachable;</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         675 :   queue.clear();</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">        2242 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">        1567 :     if (node.is_graph_output) {</span></span>
 <span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">         166 :       queue.push_back(node.id);</span></span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         166 :       backward_reachable.insert(node.id);</span></span>
 <span id="L184"><span class="lineNum">     184</span>              :     }</span>
 <span id="L185"><span class="lineNum">     185</span>              :   }</span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         674 :   head = 0;</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         961 :   while (head &lt; queue.size()) {</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         675 :   head = 0;</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         962 :   while (head &lt; queue.size()) {</span></span>
 <span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">         287 :     int curr = queue[head++];</span></span>
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         287 :     auto it = std::find_if(nodes_.begin(), nodes_.end(),</span></span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         594 :                            [&amp;](const DSPNode &amp;n) { return n.id == curr; });</span></span>
@@ -267,20 +267,20 @@
 <span id="L205"><span class="lineNum">     205</span>              :   }</span>
 <span id="L206"><span class="lineNum">     206</span>              : </span>
 <span id="L207"><span class="lineNum">     207</span>              :   // 3. Update is_reachable for all nodes</span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">        2240 :   for (auto &amp;node : nodes_) {</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">        2335 :     node.is_reachable = (forward_reachable.count(node.id) &gt; 0 &amp;&amp;</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">        2242 :   for (auto &amp;node : nodes_) {</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">        2336 :     node.is_reachable = (forward_reachable.count(node.id) &gt; 0 &amp;&amp;</span></span>
 <span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">         769 :                          backward_reachable.count(node.id) &gt; 0);</span></span>
 <span id="L211"><span class="lineNum">     211</span>              :   }</span>
 <span id="L212"><span class="lineNum">     212</span>              : </span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">         674 :   std::unordered_map&lt;int, int&gt; in_degree;</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">         675 :   std::unordered_map&lt;int, int&gt; in_degree;</span></span>
 <span id="L214"><span class="lineNum">     214</span>              : </span>
 <span id="L215"><span class="lineNum">     215</span>              :   // Initialize in-degree count for all active nodes</span>
-<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">        2240 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">        1566 :     in_degree[node.id] = 0;</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">        2242 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">        1567 :     in_degree[node.id] = 0;</span></span>
 <span id="L218"><span class="lineNum">     218</span>              :   }</span>
 <span id="L219"><span class="lineNum">     219</span>              : </span>
 <span id="L220"><span class="lineNum">     220</span>              :   // Calculate how many incoming cables are hooked up to each node</span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">         978 :   for (const auto &amp;link : links_) {</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">         979 :   for (const auto &amp;link : links_) {</span></span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">         304 :     int dest_node = get_node_from_pin(link.dest_pin_id);</span></span>
 <span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">         304 :     if (dest_node != -1) {</span></span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         304 :       in_degree[dest_node]++;</span></span>
@@ -288,26 +288,26 @@
 <span id="L226"><span class="lineNum">     226</span>              :   }</span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :   // Gather all source nodes that have 0 dependencies</span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         674 :   std::vector&lt;int&gt; process_queue;</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">        2240 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">        1566 :     if (in_degree[node.id] == 0) {</span></span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">        1273 :       process_queue.push_back(node.id);</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         675 :   std::vector&lt;int&gt; process_queue;</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">        2242 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">        1567 :     if (in_degree[node.id] == 0) {</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">        1274 :       process_queue.push_back(node.id);</span></span>
 <span id="L233"><span class="lineNum">     233</span>              :     }</span>
 <span id="L234"><span class="lineNum">     234</span>              :   }</span>
 <span id="L235"><span class="lineNum">     235</span>              : </span>
 <span id="L236"><span class="lineNum">     236</span>              :   // Topologically extract nodes from the dependency queue</span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         674 :   head = 0;</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">        2238 :   while (head &lt; process_queue.size()) {</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">        1564 :     int current_node_id = process_queue[head++];</span></span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">        1564 :     sorted_node_ids_.push_back(current_node_id);</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         675 :   head = 0;</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">        2240 :   while (head &lt; process_queue.size()) {</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">        1565 :     int current_node_id = process_queue[head++];</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">        1565 :     sorted_node_ids_.push_back(current_node_id);</span></span>
 <span id="L241"><span class="lineNum">     241</span>              : </span>
 <span id="L242"><span class="lineNum">     242</span>              :     // Decrement dependencies for downstream targets linked to this node</span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">        6770 :     for (const auto &amp;node : nodes_) {</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">        5206 :       if (node.id != current_node_id)</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">        6772 :     for (const auto &amp;node : nodes_) {</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">        5207 :       if (node.id != current_node_id)</span></span>
 <span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">        3642 :         continue;</span></span>
 <span id="L246"><span class="lineNum">     246</span>              : </span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">        3228 :       for (int out_pin : node.output_pin_ids) {</span></span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">        2895 :         for (const auto &amp;link : links_) {</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">        3230 :       for (int out_pin : node.output_pin_ids) {</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">        2896 :         for (const auto &amp;link : links_) {</span></span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">        1231 :           if (link.source_pin_id == out_pin) {</span></span>
 <span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">         302 :             int target_node = get_node_from_pin(link.dest_pin_id);</span></span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         302 :             if (target_node != -1) {</span></span>
@@ -324,13 +324,13 @@
 <span id="L262"><span class="lineNum">     262</span>              : </span>
 <span id="L263"><span class="lineNum">     263</span>              :   // If the sorted list length doesn't match total nodes, an impossible feedback</span>
 <span id="L264"><span class="lineNum">     264</span>              :   // loop exists!</span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">         674 :   if (sorted_node_ids_.size() != nodes_.size()) {</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">         675 :   if (sorted_node_ids_.size() != nodes_.size()) {</span></span>
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">           1 :     return false; // Rejects connection modifications to protect engine</span></span>
 <span id="L267"><span class="lineNum">     267</span>              :                   // stability</span>
 <span id="L268"><span class="lineNum">     268</span>              :   }</span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         673 :   return true; // Topology built successfully!</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">         674 : }</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         674 :   return true; // Topology built successfully!</span></span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">         675 : }</span></span>
 <span id="L272"><span class="lineNum">     272</span>              : </span>
 <span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">          79 : bool AudioGraph::remove_node(int node_id) {</span></span>
 <span id="L274"><span class="lineNum">     274</span>              :   auto it =</span>

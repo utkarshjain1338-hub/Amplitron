@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">86.5&nbsp;%</td>
+            <td class="headerCovTableEntryHi">91.0&nbsp;%</td>
             <td class="headerCovTableEntry">111</td>
-            <td class="headerCovTableEntry">96</td>
+            <td class="headerCovTableEntry">101</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 07:10:28</td>
+            <td class="headerValue">2026-05-25 07:37:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -202,43 +202,43 @@
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           2 :     f &lt;&lt; &quot;\&quot;\n}\n&quot;;</span></span>
 <span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           4 : }</span></span>
 <span id="L142"><span class="lineNum">     142</span>              : </span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           3 : void PresetManager::load_config() {</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           3 :     std::string path = get_config_path();</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           3 :     std::ifstream f(path);</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           3 :     if (!f.is_open()) return;</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           7 : void PresetManager::load_config() {</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           7 :     std::string path = get_config_path();</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           7 :     std::ifstream f(path);</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           7 :     if (!f.is_open()) return;</span></span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
 <span id="L148"><span class="lineNum">     148</span>              :     std::string content((std::istreambuf_iterator&lt;char&gt;(f)),</span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           2 :                         std::istreambuf_iterator&lt;char&gt;());</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           6 :                         std::istreambuf_iterator&lt;char&gt;());</span></span>
 <span id="L150"><span class="lineNum">     150</span>              : </span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           2 :     const std::string key = &quot;\&quot;presets_dir\&quot;&quot;;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           2 :     size_t key_pos = content.find(key);</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           2 :     if (key_pos == std::string::npos) return;</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           6 :     const std::string key = &quot;\&quot;presets_dir\&quot;&quot;;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           6 :     size_t key_pos = content.find(key);</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           6 :     if (key_pos == std::string::npos) return;</span></span>
 <span id="L154"><span class="lineNum">     154</span>              : </span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           2 :     size_t colon = content.find(':', key_pos + key.size());</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           2 :     if (colon == std::string::npos) return;</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           6 :     size_t colon = content.find(':', key_pos + key.size());</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           6 :     if (colon == std::string::npos) return;</span></span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           2 :     size_t quote_open = content.find('&quot;', colon + 1);</span></span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           2 :     if (quote_open == std::string::npos) return;</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           5 :     size_t quote_open = content.find('&quot;', colon + 1);</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           5 :     if (quote_open == std::string::npos) return;</span></span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           2 :     std::string value;</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           2 :     size_t i = quote_open + 1;</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          25 :     while (i &lt; content.size() &amp;&amp; content[i] != '&quot;') {</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          23 :         if (content[i] == '\\' &amp;&amp; i + 1 &lt; content.size()) {</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC tlaBgUNC">           0 :             ++i;</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaUNC">           0 :             if (content[i] == '\\') value += '\\';</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaUNC">           0 :             else if (content[i] == '&quot;') value += '&quot;';</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaUNC">           0 :             else if (content[i] == 'n') value += '\n';</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC">           0 :             else { value += '\\'; value += content[i]; }</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           4 :     std::string value;</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           4 :     size_t i = quote_open + 1;</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          63 :     while (i &lt; content.size() &amp;&amp; content[i] != '&quot;') {</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          59 :         if (content[i] == '\\' &amp;&amp; i + 1 &lt; content.size()) {</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           4 :             ++i;</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           4 :             if (content[i] == '\\') value += '\\';</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           3 :             else if (content[i] == '&quot;') value += '&quot;';</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           2 :             else if (content[i] == 'n') value += '\n';</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           1 :             else { value += '\\'; value += content[i]; }</span></span>
 <span id="L170"><span class="lineNum">     170</span>              :         } else {</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC tlaBgGNC">          23 :             value += content[i];</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          55 :             value += content[i];</span></span>
 <span id="L172"><span class="lineNum">     172</span>              :         }</span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          23 :         ++i;</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          59 :         ++i;</span></span>
 <span id="L174"><span class="lineNum">     174</span>              :     }</span>
 <span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           2 :     if (!value.empty() &amp;&amp; dir_exists(value)) {</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           4 :     if (!value.empty() &amp;&amp; dir_exists(value)) {</span></span>
 <span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">           1 :         custom_presets_dir_ = value;</span></span>
 <span id="L178"><span class="lineNum">     178</span>              :     }</span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           4 : }</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          14 : }</span></span>
 <span id="L180"><span class="lineNum">     180</span>              : </span>
 <span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           7 : std::string PresetManager::get_presets_dir() {</span></span>
 <span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">           7 :     if (!custom_presets_dir_.empty()) {</span></span>

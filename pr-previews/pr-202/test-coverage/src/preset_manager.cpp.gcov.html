@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 07:10:28</td>
+            <td class="headerValue">2026-05-25 07:37:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -94,13 +94,13 @@
 <span id="L32"><span class="lineNum">      32</span>              : std::string PresetManager::last_error_;</span>
 <span id="L33"><span class="lineNum">      33</span>              : std::string PresetManager::custom_presets_dir_;</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC tlaBgGNC">          17 : bool dir_exists(const std::string&amp; path) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC tlaBgGNC">          19 : bool dir_exists(const std::string&amp; path) {</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :     STAT_STRUCT st;</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          33 :     return STAT_FN(path.c_str(), &amp;st) == 0 &amp;&amp;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          35 :     return STAT_FN(path.c_str(), &amp;st) == 0 &amp;&amp;</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : #ifdef _WIN32</span>
 <span id="L39"><span class="lineNum">      39</span>              :            (st.st_mode &amp; _S_IFDIR);</span>
 <span id="L40"><span class="lineNum">      40</span>              : #else</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          33 :            S_ISDIR(st.st_mode);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          35 :            S_ISDIR(st.st_mode);</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : #endif</span>
 <span id="L43"><span class="lineNum">      43</span>              : }</span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
@@ -115,7 +115,7 @@
 <span id="L53"><span class="lineNum">      53</span>              : #endif</span>
 <span id="L54"><span class="lineNum">      54</span>              : }</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           6 : std::string PresetManager::get_config_path() {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          10 : std::string PresetManager::get_config_path() {</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : #ifdef _WIN32</span>
 <span id="L58"><span class="lineNum">      58</span>              :     const char* appdata = std::getenv(&quot;APPDATA&quot;);</span>
 <span id="L59"><span class="lineNum">      59</span>              :     if (!appdata) return &quot;amplitron_config.json&quot;;</span>
@@ -123,13 +123,13 @@
 <span id="L61"><span class="lineNum">      61</span>              :     MKDIR(dir.c_str());</span>
 <span id="L62"><span class="lineNum">      62</span>              :     return dir + &quot;\\config.json&quot;;</span>
 <span id="L63"><span class="lineNum">      63</span>              : #else</span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           6 :     const char* home = std::getenv(&quot;HOME&quot;);</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          12 :     if (!home) return &quot;amplitron_config.json&quot;;</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           3 :     std::string config_dir = std::string(home) + &quot;/.config/amplitron&quot;;</span></span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           3 :     std::filesystem::create_directories(config_dir);</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           3 :     return config_dir + &quot;/config.json&quot;;</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          10 :     const char* home = std::getenv(&quot;HOME&quot;);</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          16 :     if (!home) return &quot;amplitron_config.json&quot;;</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           7 :     std::string config_dir = std::string(home) + &quot;/.config/amplitron&quot;;</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           7 :     std::filesystem::create_directories(config_dir);</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           7 :     return config_dir + &quot;/config.json&quot;;</span></span>
 <span id="L69"><span class="lineNum">      69</span>              : #endif</span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           7 : }</span></span>
 <span id="L71"><span class="lineNum">      71</span>              : </span>
 <span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           6 : std::string get_user_presets_dir() {</span></span>
 <span id="L73"><span class="lineNum">      73</span>              : #ifdef _WIN32</span>

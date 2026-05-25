@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 07:10:28</td>
+            <td class="headerValue">2026-05-25 07:37:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">93.8&nbsp;%</td>
@@ -174,7 +174,7 @@
 <span id="L112"><span class="lineNum">     112</span>              : </span>
 <span id="L113"><span class="lineNum">     113</span>              : </span>
 <span id="L114"><span class="lineNum">     114</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC tlaBgGNC">          33 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC tlaBgGNC">          35 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
 <span id="L116"><span class="lineNum">     116</span>              :     const AudioGraph&amp; graph() const { return main_graph_; }</span>
 <span id="L117"><span class="lineNum">     117</span>              : </span>
 <span id="L118"><span class="lineNum">     118</span>              :     // =========================================================================</span>
@@ -281,10 +281,10 @@
 <span id="L219"><span class="lineNum">     219</span>              : </span>
 <span id="L220"><span class="lineNum">     220</span>              :     </span>
 <span id="L221"><span class="lineNum">     221</span>              :     /** @brief Return the current input gain (atomic relaxed read). */</span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          96 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          97 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span>              :     /** @brief Return the current output gain (atomic relaxed read). */</span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          77 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          78 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L226"><span class="lineNum">     226</span>              : </span>
 <span id="L227"><span class="lineNum">     227</span>              :     /** @brief Toggle the metronome on/off (atomic update). */</span>
 <span id="L228"><span class="lineNum">     228</span>              :     void toggle_metronome();</span>
