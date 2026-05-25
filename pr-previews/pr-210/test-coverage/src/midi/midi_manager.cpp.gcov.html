@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 15:57:20</td>
+            <td class="headerValue">2026-05-25 16:10:29</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -73,11 +73,11 @@
 <span id="L11"><span class="lineNum">      11</span>              : // Construction / destruction</span>
 <span id="L12"><span class="lineNum">      12</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">          30 : MidiManager::MidiManager() = default;</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">          33 : MidiManager::MidiManager() = default;</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          30 : MidiManager::~MidiManager() {</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          30 :     shutdown();</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          30 : }</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          33 : MidiManager::~MidiManager() {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          33 :     shutdown();</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          33 : }</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L21"><span class="lineNum">      21</span>              : // RtMidi callback — runs on RtMidi's internal thread, must be lock-free</span>
@@ -137,13 +137,13 @@
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaUNC">           0 :     return true;</span></span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaUNC">           0 : }</span></span>
 <span id="L77"><span class="lineNum">      77</span>              : </span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC tlaBgGNC">          30 : void MidiManager::shutdown() {</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          30 :     close_port();</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          30 :     if (midi_in_) {</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC tlaBgGNC">          33 : void MidiManager::shutdown() {</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          33 :     close_port();</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          33 :     if (midi_in_) {</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC tlaBgUNC">           0 :         delete static_cast&lt;RtMidiIn*&gt;(midi_in_);</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC">           0 :         midi_in_ = nullptr;</span></span>
 <span id="L83"><span class="lineNum">      83</span>              :     }</span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC tlaBgGNC">          30 : }</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC tlaBgGNC">          33 : }</span></span>
 <span id="L85"><span class="lineNum">      85</span>              : </span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC tlaBgUNC">           0 : std::vector&lt;std::string&gt; MidiManager::get_available_ports() const {</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC">           0 :     std::vector&lt;std::string&gt; result;</span></span>
@@ -192,8 +192,8 @@
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : }</span>
 <span id="L132"><span class="lineNum">     132</span>              : </span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC tlaBgGNC">          30 : void MidiManager::close_port() {</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          30 :     if (!midi_in_ || current_port_ &lt; 0) return;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC tlaBgGNC">          33 : void MidiManager::close_port() {</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          33 :     if (!midi_in_ || current_port_ &lt; 0) return;</span></span>
 <span id="L135"><span class="lineNum">     135</span>              : </span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC tlaBgUNC">           0 :     auto* rt = static_cast&lt;RtMidiIn*&gt;(midi_in_);</span></span>
 <span id="L137"><span class="lineNum">     137</span>              :     try {</span>
