@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-24 18:14:27</td>
+            <td class="headerValue">2026-05-25 07:26:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">88.2&nbsp;%</td>
@@ -85,7 +85,7 @@
 <span id="L23"><span class="lineNum">      23</span>              : // Common interface for all mono/stereo audio effects in the pedal chain.</span>
 <span id="L24"><span class="lineNum">      24</span>              : class Effect {</span>
 <span id="L25"><span class="lineNum">      25</span>              : public:</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         351 :     virtual ~Effect() = default;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         373 :     virtual ~Effect() = default;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     // Process a mono buffer in place.</span>
 <span id="L29"><span class="lineNum">      29</span>              :     virtual void process(float* buffer, int num_samples) = 0;</span>
@@ -98,13 +98,13 @@
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span>              :     // Update the processing sample rate before audio starts or after device changes.</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         450 :     virtual void set_sample_rate(int sample_rate) { sample_rate_ = sample_rate; }</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         472 :     virtual void set_sample_rate(int sample_rate) { sample_rate_ = sample_rate; }</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span>              :     // Clear delay lines, envelopes, filters, and other effect state.</span>
 <span id="L42"><span class="lineNum">      42</span>              :     virtual void reset() = 0;</span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
 <span id="L44"><span class="lineNum">      44</span>              :     // Tempo broadcast receiver.</span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           1 :     virtual void set_transport_state(float /*bpm*/) {}</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           2 :     virtual void set_transport_state(float /*bpm*/) {}</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              :     // Display name used by the pedal board and preset serialization.</span>
 <span id="L48"><span class="lineNum">      48</span>              :     virtual const char* name() const = 0;</span>
@@ -114,11 +114,11 @@
 <span id="L52"><span class="lineNum">      52</span>              :     // Mutable parameter list used by controls and automation.</span>
 <span id="L53"><span class="lineNum">      53</span>              :     virtual std::vector&lt;EffectParam&gt;&amp; params() = 0;</span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC tlaBgGNC">          94 :     void set_enabled(bool enabled) { enabled_ = enabled; }</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         102 :     bool is_enabled() const { return enabled_; }</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC tlaBgGNC">          96 :     void set_enabled(bool enabled) { enabled_ = enabled; }</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         104 :     bool is_enabled() const { return enabled_; }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          80 :     void set_mix(float mix) { mix_ = clamp(mix, 0.0f, 1.0f); }</span></span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          92 :     float get_mix() const { return mix_; }</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          81 :     void set_mix(float mix) { mix_ = clamp(mix, 0.0f, 1.0f); }</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          93 :     float get_mix() const { return mix_; }</span></span>
 <span id="L60"><span class="lineNum">      60</span>              : </span>
 <span id="L61"><span class="lineNum">      61</span>              :     virtual std::shared_ptr&lt;Effect&gt; clone() const;</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
