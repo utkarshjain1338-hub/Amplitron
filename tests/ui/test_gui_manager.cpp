@@ -66,12 +66,13 @@ TEST(gui_manager_private_rendering_methods) {
     GuiManager gui(engine);
 
     // 1. Mute/unmute
-    engine.start();
+    engine.running_ = true; // Headless-safe: bypass physical soundcard start requirement
     gui.toggle_audio_mute_state();
     ASSERT_TRUE(gui.audio_muted_);
+    
+    engine.running_ = false; // Headless-safe: manually update engine state since Pa_Stream is nullptr
     gui.toggle_audio_mute_state();
     ASSERT_FALSE(gui.audio_muted_);
-    engine.stop();
 
     // 2. Render master controls
     gui.render_master_controls();
