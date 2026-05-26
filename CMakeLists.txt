@@ -532,7 +532,16 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/integration/test_audio_engine.cpp
         tests/e2e/test_e2e_preset_workflow.cpp
         tests/ui/test_gui_manager.cpp
-        tests/ui/test_gui_modules.cpp
+        tests/ui/test_pedal_board.cpp
+        tests/ui/test_crash_recovery.cpp
+        tests/ui/test_gui_commands.cpp
+        tests/ui/test_spectrum_analyzer.cpp
+        tests/ui/test_gui_presets.cpp
+        tests/ui/test_gui_snapshots.cpp
+        tests/ui/test_gui_midi.cpp
+        tests/ui/test_gui_recording.cpp
+        tests/ui/test_gui_tuner.cpp
+        tests/ui/test_gui_components.cpp
         tests/unit/test_session_manager.cpp
         tests/unit/test_cli.cpp
         tests/integration/test_main.cpp
@@ -638,7 +647,12 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     # ============================================================
     # DEFINE AMPLITRON_HAS_MIDI AND AMPLITRON_VERSION FOR TEST BUILDS
     # ============================================================
-    target_compile_definitions(amplitron-tests PRIVATE AMPLITRON_HAS_MIDI AMPLITRON_VERSION="${AMPLITRON_VERSION}")
+    target_compile_definitions(amplitron-tests PRIVATE
+        AMPLITRON_HAS_MIDI
+        AMPLITRON_VERSION="${AMPLITRON_VERSION}"
+        AMPLITRON_HEADLESS
+        SDL_MAIN_HANDLED
+    )
 
     target_link_libraries(amplitron-tests PRIVATE
         nlohmann_json::nlohmann_json

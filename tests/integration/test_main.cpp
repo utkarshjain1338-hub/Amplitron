@@ -5,7 +5,15 @@
 #include <string>
 #include <csignal>
 
-// Redefine main to prevent link collisions and test the main function directly
+// On Windows, SDL_main.h (pulled in by SDL.h inside main.cpp) does
+// `#define main SDL_main` unless SDL_MAIN_HANDLED is already defined.
+// That rewrite would overwrite our own `#define main app_main` and leave
+// app_main undeclared — causing the Windows CI build error.  Define
+// SDL_MAIN_HANDLED here, before any SDL headers are transitively included.
+#define SDL_MAIN_HANDLED
+
+// Redefine main → app_main to avoid a linker conflict with the test runner's
+// own main(), then include the production entry-point for black-box testing.
 #define main app_main
 #include "main.cpp"
 #undef main
