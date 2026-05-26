@@ -9,7 +9,7 @@
 #include "test_framework.h"
 #include "gui/CrashRecoveryUI.h"
 
-using namespace Amplitron;
+
 
 TEST(crash_recovery_prompt_returns_false_in_headless_build) {
     // With AMPLITRON_HEADLESS defined, promptRestoreSession() must return false

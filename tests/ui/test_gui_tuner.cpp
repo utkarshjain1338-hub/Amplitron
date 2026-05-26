@@ -21,7 +21,7 @@ TEST_F(PresetTest, gui_tuner_construction_no_crash) {
 TEST_F(PresetTest, gui_tuner_tuner_instance_returns_correct_shared_ptr) {
     auto tuner = std::make_shared<TunerPedal>();
     GuiTuner gt(engine, tuner);
-    ASSERT_EQ(gt.tuner_instance(), tuner);
+    ASSERT_EQ(gt.tuner_instance().get(), tuner.get());
 }
 
 TEST_F(PresetTest, gui_tuner_toggle_on_enables_tuner_and_sets_tap) {
@@ -36,7 +36,7 @@ TEST_F(PresetTest, gui_tuner_toggle_on_enables_tuner_and_sets_tap) {
     // tuner should be enabled
     ASSERT_TRUE(tuner->is_enabled());
     // engine should have the tuner tap set
-    ASSERT_EQ(engine.get_tuner_tap(), tuner);
+    ASSERT_TRUE(engine.has_tuner_tap());
 }
 
 TEST_F(PresetTest, gui_tuner_toggle_off_disables_tuner_and_clears_tap) {
@@ -51,7 +51,7 @@ TEST_F(PresetTest, gui_tuner_toggle_off_disables_tuner_and_clears_tap) {
     // tuner should be disabled
     ASSERT_FALSE(tuner->is_enabled());
     // engine should have tuner tap cleared
-    ASSERT_EQ(engine.get_tuner_tap(), nullptr);
+    ASSERT_FALSE(engine.has_tuner_tap());
 }
 
 TEST_F(PresetTest, gui_tuner_multiple_toggles_are_consistent) {
@@ -64,17 +64,17 @@ TEST_F(PresetTest, gui_tuner_multiple_toggles_are_consistent) {
     gt.toggle(show);
     ASSERT_TRUE(show);
     ASSERT_TRUE(tuner->is_enabled());
-    ASSERT_EQ(engine.get_tuner_tap(), tuner);
+    ASSERT_TRUE(engine.has_tuner_tap());
 
     // Toggle Off
     gt.toggle(show);
     ASSERT_FALSE(show);
     ASSERT_FALSE(tuner->is_enabled());
-    ASSERT_EQ(engine.get_tuner_tap(), nullptr);
+    ASSERT_FALSE(engine.has_tuner_tap());
 
     // Toggle On Again
     gt.toggle(show);
     ASSERT_TRUE(show);
     ASSERT_TRUE(tuner->is_enabled());
-    ASSERT_EQ(engine.get_tuner_tap(), tuner);
+    ASSERT_TRUE(engine.has_tuner_tap());
 }

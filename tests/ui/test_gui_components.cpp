@@ -89,13 +89,13 @@ TEST(get_effect_color_known_effects) {
 
     for (const char* name : effects) {
         const EffectColorEntry* entry = get_effect_color(name);
-        ASSERT_STR_EQ(entry->name, name);
+        ASSERT_EQ(std::string(entry->name), std::string(name));
     }
 }
 
 TEST(get_effect_color_fallback) {
     const EffectColorEntry* entry = get_effect_color("NonExistentFX");
-    ASSERT_STR_EQ(entry->name, "Default");
+    ASSERT_EQ(std::string(entry->name), std::string("Default"));
 }
 
 // ============================================================
