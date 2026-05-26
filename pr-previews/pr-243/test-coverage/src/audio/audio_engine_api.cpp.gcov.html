@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">95.7&nbsp;%</td>
+            <td class="headerCovTableEntryHi">98.6&nbsp;%</td>
             <td class="headerCovTableEntry">70</td>
-            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">69</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 09:23:46</td>
+            <td class="headerValue">2026-05-26 18:22:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -66,21 +66,21 @@
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : namespace Amplitron {</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">          75 : void AudioEngine::set_input_gain(float gain) {</span></span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          75 :     AudioCommand cmd{};</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          75 :     cmd.type = AudioCommand::SetInputGain;</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          75 :     cmd.value = gain;</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          75 :     command_queue_.try_push(cmd);</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          75 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          75 : }</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">          95 : void AudioEngine::set_input_gain(float gain) {</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          95 :     AudioCommand cmd{};</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          95 :     cmd.type = AudioCommand::SetInputGain;</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          95 :     cmd.value = gain;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          95 :     command_queue_.try_push(cmd);</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          95 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          95 : }</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          59 : void AudioEngine::set_output_gain(float gain) {</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          59 :     AudioCommand cmd{};</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          59 :     cmd.type = AudioCommand::SetOutputGain;</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          59 :     cmd.value = gain;</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          59 :     command_queue_.try_push(cmd);</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          59 :     output_gain_.store(gain, std::memory_order_relaxed);</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          59 : }</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          79 : void AudioEngine::set_output_gain(float gain) {</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          79 :     AudioCommand cmd{};</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          79 :     cmd.type = AudioCommand::SetOutputGain;</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          79 :     cmd.value = gain;</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          79 :     command_queue_.try_push(cmd);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          79 :     output_gain_.store(gain, std::memory_order_relaxed);</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          79 : }</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           5 : void AudioEngine::toggle_metronome() {</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           5 :     bool enabled = !metronome_enabled_state_.load(std::memory_order_relaxed);</span></span>
@@ -122,16 +122,16 @@
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           2 :     command_queue_.try_push(cmd);</span></span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           2 : }</span></span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           1 : int AudioEngine::get_suggested_buffer_size() const {</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           1 :     float load = cpu_load_.load(std::memory_order_relaxed);</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           1 :     int current = buffer_size_;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           4 : int AudioEngine::get_suggested_buffer_size() const {</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           4 :     float load = cpu_load_.load(std::memory_order_relaxed);</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           4 :     int current = buffer_size_;</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           1 :     if (load &gt; 0.80f) {</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC tlaBgUNC">           0 :         if (current &lt; MAX_BUFFER_SIZE) {</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaUNC">           0 :             return std::min(current * 2, MAX_BUFFER_SIZE);</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           4 :     if (load &gt; 0.80f) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           3 :         if (current &lt; MAX_BUFFER_SIZE) {</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           3 :             return std::min(current * 2, MAX_BUFFER_SIZE);</span></span>
 <span id="L70"><span class="lineNum">      70</span>              :         }</span>
 <span id="L71"><span class="lineNum">      71</span>              :     }</span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC tlaBgGNC">           1 :     if (load &lt; 0.30f) {</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           1 :     if (load &lt; 0.30f) {</span></span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           1 :         if (current &gt; MIN_BUFFER_SIZE) {</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           1 :             return std::max(current / 2, MIN_BUFFER_SIZE);</span></span>
 <span id="L75"><span class="lineNum">      75</span>              :         }</span>

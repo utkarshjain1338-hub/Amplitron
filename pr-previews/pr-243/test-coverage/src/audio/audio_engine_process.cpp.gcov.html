@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 09:23:46</td>
+            <td class="headerValue">2026-05-26 18:22:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -68,10 +68,10 @@
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          16 : void AudioEngine::update_metronome_timing() {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          16 :     const int bpm = std::max(40, std::min(metronome_bpm_, 240));</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          16 :     metronome_bpm_ = bpm;</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          16 :     if (sample_rate_ &lt;= 0) {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          13 : void AudioEngine::update_metronome_timing() {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          13 :     const int bpm = std::max(40, std::min(metronome_bpm_, 240));</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          13 :     metronome_bpm_ = bpm;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          13 :     if (sample_rate_ &lt;= 0) {</span></span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaUNC tlaBgUNC">           0 :         metronome_samples_per_beat_ = 0.0;</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaUNC">           0 :         metronome_click_phase_inc_ = 0.0f;</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaUNC">           0 :         metronome_click_samples_total_ = 0;</span></span>
@@ -79,22 +79,22 @@
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :         return;</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :     }</span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">          16 :     metronome_samples_per_beat_ = (static_cast&lt;double&gt;(sample_rate_) * 60.0)</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          16 :                                  / static_cast&lt;double&gt;(bpm);</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          16 :     if (metronome_samples_per_beat_ &lt; 1.0) {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">          13 :     metronome_samples_per_beat_ = (static_cast&lt;double&gt;(sample_rate_) * 60.0)</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          13 :                                  / static_cast&lt;double&gt;(bpm);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          13 :     if (metronome_samples_per_beat_ &lt; 1.0) {</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC tlaBgUNC">           0 :         metronome_samples_per_beat_ = 1.0;</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :     }</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">          16 :     constexpr float kClickLengthSec = 0.01f;</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          16 :     const int click_samples = std::max(1, static_cast&lt;int&gt;(sample_rate_ * kClickLengthSec + 0.5f));</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          16 :     metronome_click_samples_total_ = click_samples;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">          13 :     constexpr float kClickLengthSec = 0.01f;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          13 :     const int click_samples = std::max(1, static_cast&lt;int&gt;(sample_rate_ * kClickLengthSec + 0.5f));</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          13 :     metronome_click_samples_total_ = click_samples;</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          16 :     constexpr float kTwoPi = 6.28318530718f;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          16 :     constexpr float kClickFreq = 1000.0f;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          16 :     metronome_click_phase_inc_ = (kTwoPi * kClickFreq) / static_cast&lt;float&gt;(sample_rate_);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          13 :     constexpr float kTwoPi = 6.28318530718f;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          13 :     constexpr float kClickFreq = 1000.0f;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          13 :     metronome_click_phase_inc_ = (kTwoPi * kClickFreq) / static_cast&lt;float&gt;(sample_rate_);</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          16 :     const float target = 0.001f;</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          16 :     metronome_click_decay_ = std::exp(std::log(target) / static_cast&lt;float&gt;(click_samples));</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          13 :     const float target = 0.001f;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          13 :     metronome_click_decay_ = std::exp(std::log(target) / static_cast&lt;float&gt;(click_samples));</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : }</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        1144 : void AudioEngine::process_audio(const float* input, float* output, int frame_count) {</span></span>
@@ -305,13 +305,13 @@
 <span id="L243"><span class="lineNum">     243</span>              : </span>
 <span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">        1144 : void AudioEngine::drain_gain_commands() {</span></span>
 <span id="L245"><span class="lineNum">     245</span>              :     AudioCommand cmd;</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">        1153 :     while (command_queue_.try_peek(cmd)) {</span></span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">          11 :         if (cmd.type == AudioCommand::SetInputGain) {</span></span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">           5 :             command_queue_.try_pop(cmd);</span></span>
-<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           5 :             input_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
-<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">           6 :         } else if (cmd.type == AudioCommand::SetOutputGain) {</span></span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           4 :             command_queue_.try_pop(cmd);</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           4 :             output_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">        1159 :     while (command_queue_.try_peek(cmd)) {</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">          17 :         if (cmd.type == AudioCommand::SetInputGain) {</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">           8 :             command_queue_.try_pop(cmd);</span></span>
+<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           8 :             input_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">           9 :         } else if (cmd.type == AudioCommand::SetOutputGain) {</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           7 :             command_queue_.try_pop(cmd);</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           7 :             output_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
 <span id="L253"><span class="lineNum">     253</span>              :         } else {</span>
 <span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           2 :             break;</span></span>
 <span id="L255"><span class="lineNum">     255</span>              :         }</span>
