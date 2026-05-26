@@ -5,16 +5,15 @@
  * Tests unit-aware parameter formatting, effect color lookups, style applications, and basic
  * settings class rendering using a software ImGui context.
  */
-#define private public
 #include "test_framework.h"
 #include "test_fixtures.h"
+#include <string>
 #include "gui/theme.h"
+#include "gui/file_dialog.h"
+
 #include "audio/audio_engine.h"
 #include "gui/gui_settings.h"
 #include "gui/gui_analyzer.h"
-#include "gui/file_dialog.h"
-#undef private
-#include <string>
 
 using namespace Amplitron;
 

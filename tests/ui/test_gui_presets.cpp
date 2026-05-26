@@ -185,8 +185,15 @@ TEST_F(PresetTest, gui_presets_delete_reduces_count) {
     int before = gp.preset_count();
     ASSERT_GT(before, 0);
 
-    // Find and delete our test preset
-    int idx = gp.selected_preset_index();
+    // Find the exact index of our test preset to delete
+    int idx = -1;
+    for (int i = 0; i < gp.preset_count(); ++i) {
+        if (gp.load_preset_by_index(i) && gp.current_preset_name() == "GuiPresetsDel") {
+            idx = i;
+            break;
+        }
+    }
+    ASSERT_NE(idx, -1);
     ASSERT_TRUE(gp.delete_preset_by_index(idx));
     ASSERT_LT(gp.preset_count(), before);
 }

@@ -8,9 +8,7 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
-#define private public
-#include "gui/pedal_board.h"
-#undef private
+#include <memory>
 #include "gui/pedal_widget.h"
 #include "gui/gui_midi.h"
 #include "gui/command_history.h"
@@ -21,7 +19,10 @@
 #include "audio/effects/cabinet_sim.h"
 #include "audio/effects/looper.h"
 #include "audio/effects/multiband_compressor.h"
-#include <memory>
+
+#define private public
+#include "gui/pedal_board.h"
+#undef private
 
 using namespace Amplitron;
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "test_framework.h"
+#define private public
 #include "audio/audio_engine.h"
+#undef private
 #include "preset_manager.h"
 #include <imgui.h>
 #include <vector>
