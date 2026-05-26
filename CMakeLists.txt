@@ -532,6 +532,10 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/integration/test_audio_engine.cpp
         tests/e2e/test_e2e_preset_workflow.cpp
         tests/ui/test_gui_manager.cpp
+        tests/ui/test_gui_modules.cpp
+        tests/unit/test_session_manager.cpp
+        tests/unit/test_cli.cpp
+        tests/integration/test_main.cpp
     )
 
     # Effect + core sources needed by tests (no GUI, no main)
@@ -583,7 +587,39 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/midi/midi_manager_persist.cpp
     )
 
-    add_executable(amplitron-tests ${TEST_SOURCES} ${CORE_SOURCES} ${KISS_FFT_SOURCES})
+    # GUI + ImGui + platform-specific sources for testing
+    set(TEST_GUI_SOURCES
+        src/gui/gui_manager.cpp
+        src/gui/gui_manager_frame.cpp
+        src/gui/gui_manager_menu.cpp
+        src/gui/gui_manager_update.cpp
+        src/gui/gui_settings.cpp
+        src/gui/gui_presets.cpp
+        src/gui/gui_recording.cpp
+        src/gui/gui_tuner.cpp
+        src/gui/gui_analyzer.cpp
+        src/gui/spectrum_analyzer.cpp
+        src/gui/pedal_board.cpp
+        src/gui/pedal_board_menu.cpp
+        src/gui/pedal_board_chain.cpp
+        src/gui/pedal_widget.cpp
+        src/gui/pedal_widget_body.cpp
+        src/gui/pedal_widget_knobs.cpp
+        src/gui/gui_snapshots.cpp
+        ${IMGUI_SOURCES}
+    )
+    if(EMSCRIPTEN OR IOS OR ANDROID)
+        list(APPEND TEST_GUI_SOURCES src/gui/file_dialog_web.cpp)
+    else()
+        list(APPEND TEST_GUI_SOURCES
+            src/gui/gui_midi.cpp
+            src/gui/file_dialog_native.cpp
+            src/gui/file_dialog_native_open.cpp
+            src/gui/file_dialog_native_folder.cpp
+        )
+    endif()
+
+    add_executable(amplitron-tests ${TEST_SOURCES} ${CORE_SOURCES} ${TEST_GUI_SOURCES} ${KISS_FFT_SOURCES})
 
     target_include_directories(amplitron-tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src
@@ -600,9 +636,9 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     )
 
     # ============================================================
-    # DEFINE AMPLITRON_HAS_MIDI FOR TEST BUILDS
+    # DEFINE AMPLITRON_HAS_MIDI AND AMPLITRON_VERSION FOR TEST BUILDS
     # ============================================================
-    target_compile_definitions(amplitron-tests PRIVATE AMPLITRON_HAS_MIDI)
+    target_compile_definitions(amplitron-tests PRIVATE AMPLITRON_HAS_MIDI AMPLITRON_VERSION="${AMPLITRON_VERSION}")
 
     target_link_libraries(amplitron-tests PRIVATE
         nlohmann_json::nlohmann_json
