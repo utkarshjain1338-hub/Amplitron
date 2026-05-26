@@ -8,6 +8,7 @@
 #include "gui/gui_graph_state.h"
 #include "preset_manager.h"
 #include "test_framework.h"
+#include "test_fixtures.h"
 #include <sys/stat.h>
 
 #include <cstdio>
@@ -34,14 +35,13 @@ static std::string read_file(const std::string &path) {
 // PresetManager tests
 // ============================================================
 
-TEST(preset_get_presets_dir_creates_dir) {
+TEST_F(PresetTest, get_presets_dir_creates_dir) {
   std::string dir = PresetManager::get_presets_dir();
   ASSERT_FALSE(dir.empty());
 }
 
-TEST(preset_save_creates_file) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_creates_file) {
+  register_temp_file("presets/test_save_preset.json");
 
   // Add some effects
   auto ng = std::make_shared<NoiseGate>();
@@ -71,15 +71,10 @@ TEST(preset_save_creates_file) {
   ASSERT_TRUE(json.find("overdrive") != std::string::npos);
   ASSERT_TRUE(json.find("input_gain") != std::string::npos);
   ASSERT_TRUE(json.find("output_gain") != std::string::npos);
-
-  // Cleanup
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_save_and_load_roundtrip) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_and_load_roundtrip) {
+  register_temp_file("presets/test_roundtrip.json");
 
   // Build a signal chain
   auto ng = std::make_shared<NoiseGate>();
@@ -114,8 +109,6 @@ TEST(preset_save_and_load_roundtrip) {
   float orig_input_gain = engine.get_input_gain();
   float orig_output_gain = engine.get_output_gain();
   int orig_effects_count = static_cast<int>(engine.effects().size());
-  std::string orig_effect0_name = engine.effects()[0]->name();
-  bool orig_effect0_enabled = engine.effects()[0]->is_enabled();
 
   // Clear and reload
   // Load into a fresh engine
@@ -147,31 +140,21 @@ TEST(preset_save_and_load_roundtrip) {
   }
   ASSERT_TRUE(found_reverb);
 
-  // Cleanup
-  std::remove(path.c_str());
-  engine.shutdown();
   engine2.shutdown();
 }
 
-TEST(preset_load_nonexistent_fails) {
-  AudioEngine engine;
-  engine.initialize();
-
+TEST_F(PresetTest, load_nonexistent_fails) {
   bool loaded =
       PresetManager::load_preset("presets/does_not_exist_12345.json", engine);
   ASSERT_FALSE(loaded);
-
-  engine.shutdown();
 }
 
-TEST(preset_list_finds_files) {
-  // Save a preset so there's at least one
-  AudioEngine engine;
-  engine.initialize();
-  engine.add_effect(std::make_shared<NoiseGate>());
-
+TEST_F(PresetTest, list_finds_files) {
   std::string dir = PresetManager::get_presets_dir();
   std::string path = dir + "/test_list_preset.json";
+  register_temp_file(path);
+
+  engine.add_effect(std::make_shared<NoiseGate>());
   PresetManager::save_preset(path, "ListTest", "", engine);
 
   auto presets = PresetManager::list_presets();
@@ -184,31 +167,23 @@ TEST(preset_list_finds_files) {
     }
   }
   ASSERT_TRUE(found);
-
-  // Cleanup
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_save_empty_name_still_works) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_empty_name_still_works) {
+  register_temp_file("presets/test_empty_name.json");
   engine.add_effect(std::make_shared<Compressor>());
 
   std::string path = "presets/test_empty_name.json";
   bool ok = PresetManager::save_preset(path, "", "", engine);
   ASSERT_TRUE(ok);
   ASSERT_TRUE(file_exists(path));
-
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_set_presets_dir_copies_bundled_presets) {
-  // Create a temporary test directory
+TEST_F(PresetTest, set_presets_dir_copies_bundled_presets) {
   std::string test_dir = "presets/test_new_presets_dir_detailed";
+  register_temp_dir(test_dir);
 
-// Remove if it exists from a previous run
+  // Remove if it exists from a previous run
 #ifdef _WIN32
   system(("rmdir /s /q \"" + test_dir + "\" >nul 2>&1").c_str());
 #else
@@ -245,15 +220,10 @@ TEST(preset_set_presets_dir_copies_bundled_presets) {
     }
   }
   ASSERT_TRUE(found_valid_preset);
-
-  // Cleanup - reset to default and remove test directory
-  PresetManager::set_presets_dir("");
-  std::filesystem::remove_all(test_dir);
 }
 
-TEST(preset_midi_mappings_roundtrip) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, midi_mappings_roundtrip) {
+  register_temp_file("presets/test_midi_mappings.json");
 
   std::vector<MidiMapping> mappings;
   MidiMapping m1;
@@ -288,9 +258,6 @@ TEST(preset_midi_mappings_roundtrip) {
   AudioEngine engine2;
   engine2.initialize();
 
-  // We can't easily check internal MidiManager state from PresetManager without
-  // passing one, so let's instantiate a MidiManager to see if it receives the
-  // mappings.
   MidiManager midi_manager;
   midi_manager.clear_mappings();
   bool loaded = PresetManager::load_preset(path, engine2, &midi_manager);
@@ -317,13 +284,10 @@ TEST(preset_midi_mappings_roundtrip) {
   ASSERT_EQ(loaded_mappings[1].effect_name, "Overdrive");
   ASSERT_EQ(loaded_mappings[1].param_name, "");
 
-  // Cleanup
-  std::remove(path.c_str());
-  engine.shutdown();
   engine2.shutdown();
 }
 
-TEST(preset_graph_to_json_roundtrip) {
+TEST_F(PresetTest, graph_to_json_roundtrip) {
   GuiGraphState::get_instance().node_positions.clear();
 
   AudioGraph graph;
@@ -366,11 +330,9 @@ TEST(preset_graph_to_json_roundtrip) {
   ASSERT_EQ(loaded_graph.get_links().size(), 2);
 }
 
-TEST(preset_parallel_amp_rig_integration) {
+TEST_F(PresetTest, parallel_amp_rig_integration) {
+  register_temp_file("presets/test_parallel_rig.json");
   GuiGraphState::get_instance().node_positions.clear();
-
-  AudioEngine engine;
-  engine.initialize();
 
   // Clear initial linear nodes
   engine.clear_effects();
@@ -429,12 +391,10 @@ TEST(preset_parallel_amp_rig_integration) {
   }
   ASSERT_TRUE(found_spl);
 
-  std::remove(path.c_str());
-  engine.shutdown();
   engine2.shutdown();
 }
 
-TEST(preset_graph_missing_nodes_throws) {
+TEST_F(PresetTest, graph_missing_nodes_throws) {
   std::string json = R"({
     "format_version": 2,
     "routing": "graph",
@@ -446,7 +406,7 @@ TEST(preset_graph_missing_nodes_throws) {
   ASSERT_FALSE(loaded);
 }
 
-TEST(preset_graph_missing_links_throws) {
+TEST_F(PresetTest, graph_missing_links_throws) {
   std::string json = R"({
     "format_version": 2,
     "routing": "graph",
@@ -471,7 +431,10 @@ static void write_dummy_wav(const std::string &path) {
   out.write(reinterpret_cast<const char *>(data), 4);
 }
 
-TEST(preset_legacy_ir_cabinet_migration) {
+TEST_F(PresetTest, legacy_ir_cabinet_migration) {
+  register_temp_file("test.wav");
+  register_temp_file("presets/test_legacy_ir_cab.json");
+
   write_dummy_wav("test.wav");
   std::string json = R"({
     "format_version": 1,
@@ -493,8 +456,6 @@ TEST(preset_legacy_ir_cabinet_migration) {
   out << json;
   out.close();
 
-  AudioEngine engine;
-  engine.initialize();
   bool loaded = PresetManager::load_preset(path, engine);
   ASSERT_TRUE(loaded);
 
@@ -509,13 +470,11 @@ TEST(preset_legacy_ir_cabinet_migration) {
     }
   }
   ASSERT_TRUE(found_cab);
-
-  std::remove("test.wav");
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_graph_cabinet_ir_loading) {
+TEST_F(PresetTest, graph_cabinet_ir_loading) {
+  register_temp_file("my_ir.wav");
+
   write_dummy_wav("my_ir.wav");
   std::string json = R"({
     "format_version": 2,
@@ -549,10 +508,9 @@ TEST(preset_graph_cabinet_ir_loading) {
     }
   }
   ASSERT_TRUE(found_cab);
-  std::remove("my_ir.wav");
 }
 
-TEST(preset_graph_widened_mixer) {
+TEST_F(PresetTest, graph_widened_mixer) {
   std::string json = R"({
     "format_version": 2,
     "routing": "graph",
@@ -584,15 +542,14 @@ TEST(preset_graph_widened_mixer) {
   ASSERT_TRUE(found_mixer);
 }
 
-TEST(preset_config_roundtrip) {
-  // Save original config to restore later
-  std::string original_dir = PresetManager::get_presets_dir();
+TEST_F(PresetTest, config_roundtrip) {
+  std::string test_dir = "presets_custom_test_dir";
+  register_temp_dir(test_dir);
 
   // Test load_config when it might not exist (shouldn't crash)
   PresetManager::load_config();
 
   // Set custom dir and save
-  std::string test_dir = "presets_custom_test_dir";
   PresetManager::set_presets_dir(test_dir);
   PresetManager::save_config();
 
@@ -602,28 +559,18 @@ TEST(preset_config_roundtrip) {
 
   // It should have loaded our custom dir
   std::string loaded_dir = PresetManager::get_presets_dir();
-  // Path resolution might vary by OS, but it should contain our test dir name
   ASSERT_TRUE(loaded_dir.find(test_dir) != std::string::npos);
-
-  // Cleanup
-  PresetManager::set_presets_dir("");
-  std::filesystem::remove_all(test_dir);
-
-  // We should ideally restore the config here if it was changed, but the test
-  // runner is ephemeral.
 }
 
-TEST(preset_save_preset_data_invalid_path) {
+TEST_F(PresetTest, save_preset_data_invalid_path) {
   PresetData p;
-  // Attempting to save to a non-existent root directory path should fail
   bool saved = PresetManager::save_preset_data(
       "/invalid_path_that_does_not_exist/preset.json", p);
   ASSERT_FALSE(saved);
 }
 
-TEST(preset_load_preset_invalid_json) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, load_preset_invalid_json) {
+  register_temp_file("presets/invalid_preset_test.json");
 
   std::string path = "presets/invalid_preset_test.json";
   std::ofstream f(path);
@@ -632,14 +579,10 @@ TEST(preset_load_preset_invalid_json) {
 
   bool loaded = PresetManager::load_preset(path, engine);
   ASSERT_FALSE(loaded);
-
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_load_preset_graph_failure) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, load_preset_graph_failure) {
+  register_temp_file("presets/invalid_graph_preset.json");
 
   std::string path = "presets/invalid_graph_preset.json";
   std::ofstream f(path);
@@ -649,17 +592,14 @@ TEST(preset_load_preset_graph_failure) {
         "name": "Invalid Graph",
         "nodes": [],
         "links": [{"src_pin": "n1.out0", "dst_pin": "n2.in0"}]
-    })"; // This will fail during graph_from_json because nodes are missing
+    })";
   f.close();
 
   bool loaded = PresetManager::load_preset(path, engine);
   ASSERT_FALSE(loaded);
-
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_graph_from_json_parse_errors) {
+TEST_F(PresetTest, graph_from_json_parse_errors) {
   // 1. Link parsing errors: invalid node ID format
   std::string json1 = R"({
         "format_version": 2,
@@ -709,8 +649,7 @@ TEST(preset_graph_from_json_parse_errors) {
   ASSERT_FALSE(loaded3);
 }
 
-TEST(preset_graph_from_json_node_types) {
-  // Test custom node names mapped properly
+TEST_F(PresetTest, graph_from_json_node_types) {
   std::string json = R"({
         "format_version": 2,
         "routing": "graph",
@@ -738,14 +677,13 @@ extern void append_json_files(const std::string &dir,
                               std::vector<std::string> &result);
 }
 
-TEST(preset_manager_append_json_files_invalid_dir) {
+TEST_F(PresetTest, manager_append_json_files_invalid_dir) {
   std::vector<std::string> results;
-  // We cannot access this directory
   Amplitron::append_json_files("/path/that/does/not/exist", results);
   ASSERT_EQ(results.size(), 0u);
 }
 
-TEST(preset_manager_apply_migrations) {
+TEST_F(PresetTest, manager_apply_migrations) {
   // 1. Valid migration
   std::string json = "{\n  \"name\": \"Test\"\n}";
   std::string migrated = PresetManager::apply_migrations(json);
@@ -767,7 +705,9 @@ TEST(preset_manager_apply_migrations) {
   ASSERT_TRUE(migrated4.find("\"version\"") != std::string::npos);
 }
 
-TEST(preset_manager_config_no_home) {
+TEST_F(PresetTest, manager_config_no_home) {
+  register_temp_file("amplitron_config.json");
+
   // Unset HOME
   const char *old_home = std::getenv("HOME");
   std::string home_str = old_home ? old_home : "";
@@ -777,8 +717,8 @@ TEST(preset_manager_config_no_home) {
   unsetenv("HOME");
 #endif
 
-  PresetManager::save_config(); // This should save to amplitron_config.json
-  PresetManager::load_config(); // This should load from amplitron_config.json
+  PresetManager::save_config();
+  PresetManager::load_config();
 
 #ifdef _WIN32
   if (!home_str.empty()) {
@@ -790,12 +730,9 @@ TEST(preset_manager_config_no_home) {
     setenv("HOME", home_str.c_str(), 1);
   }
 #endif
-
-  // Clean up
-  std::remove("amplitron_config.json");
 }
 
-TEST(preset_manager_get_presets_dir_no_home) {
+TEST_F(PresetTest, manager_get_presets_dir_no_home) {
   PresetManager::set_presets_dir(""); // Clear custom
   const char *old_home = std::getenv("HOME");
   std::string home_str = old_home ? old_home : "";
@@ -820,7 +757,9 @@ TEST(preset_manager_get_presets_dir_no_home) {
 #endif
 }
 
-TEST(preset_manager_save_config_failure) {
+TEST_F(PresetTest, manager_save_config_failure) {
+  register_temp_dir("amplitron_config.json");
+
   const char *old_home = std::getenv("HOME");
   std::string home_str = old_home ? old_home : "";
 #ifdef _WIN32
@@ -834,7 +773,6 @@ TEST(preset_manager_save_config_failure) {
 
   PresetManager::save_config(); // This should fail gracefully
 
-  std::filesystem::remove("amplitron_config.json");
 #ifdef _WIN32
   if (!home_str.empty()) {
     std::string env = "APPDATA=" + home_str;
@@ -847,9 +785,9 @@ TEST(preset_manager_save_config_failure) {
 #endif
 }
 
-TEST(preset_manager_append_json_files_exception) {
-  // Try to append files from a file path instead of a directory
-  // This will cause std::filesystem::directory_iterator to throw
+TEST_F(PresetTest, manager_append_json_files_exception) {
+  register_temp_file("test_fake_dir.txt");
+
   std::ofstream f("test_fake_dir.txt");
   f << "test";
   f.close();
@@ -857,12 +795,13 @@ TEST(preset_manager_append_json_files_exception) {
   std::vector<std::string> results;
   Amplitron::append_json_files("test_fake_dir.txt", results);
   ASSERT_EQ(results.size(), 0u);
-
-  std::remove("test_fake_dir.txt");
 }
 
-TEST(preset_manager_save_factory_presets_write_failure) {
+TEST_F(PresetTest, manager_save_factory_presets_write_failure) {
   std::string test_dir = "presets_readonly_test";
+  register_temp_dir(test_dir);
+  register_temp_file("presets/dummy_factory.json");
+
   std::filesystem::create_directories(test_dir);
 
   // Create a dummy file in presets to act as bundled
@@ -876,18 +815,16 @@ TEST(preset_manager_save_factory_presets_write_failure) {
   chmod(test_dir.c_str(), 0555);
 #endif
 
-  // This should attempt to copy factory presets to test_dir but fail on write
   PresetManager::set_presets_dir(test_dir);
 
-  // Cleanup
 #ifndef _WIN32
   chmod(test_dir.c_str(), 0777);
 #endif
-  std::filesystem::remove_all(test_dir);
-  std::filesystem::remove("presets/dummy_factory.json");
 }
 
-TEST(preset_load_linear_legacy_conversion) {
+TEST_F(PresetTest, load_linear_legacy_conversion) {
+  register_temp_file("presets/legacy_conversion_test.json");
+
   std::string json = R"({
         "format_version": 1,
         "routing": "linear",
@@ -902,18 +839,12 @@ TEST(preset_load_linear_legacy_conversion) {
   f << json;
   f.close();
 
-  AudioEngine engine;
-  engine.initialize();
   bool loaded = PresetManager::load_preset(path, engine);
   ASSERT_TRUE(loaded);
-
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_save_all_effect_types) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_all_effect_types) {
+  register_temp_file("presets/all_effects.json");
 
   engine.clear_effects();
 
@@ -928,13 +859,9 @@ TEST(preset_save_all_effect_types) {
   std::string path = "presets/all_effects.json";
   bool saved = PresetManager::save_preset(path, "All FX", "Test", engine);
   ASSERT_TRUE(saved);
-
-  std::remove(path.c_str());
-  engine.shutdown();
 }
 
-TEST(preset_graph_from_json_add_link_failure) {
-  // 1. Link parsing errors: reusing the same output pin which is illegal
+TEST_F(PresetTest, graph_from_json_add_link_failure) {
   std::string json1 = R"({
         "format_version": 2,
         "routing": "graph",
@@ -955,19 +882,18 @@ TEST(preset_graph_from_json_add_link_failure) {
   ASSERT_FALSE(loaded1);
 }
 
-TEST(preset_save_preset_invalid_path) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_preset_invalid_path) {
   bool saved = PresetManager::save_preset(
       "/invalid_path_that_does_not_exist/preset.json", "Name", "Desc", engine);
   ASSERT_FALSE(saved);
-  engine.shutdown();
 }
 
-TEST(preset_manager_config_parsing_edge_cases) {
+TEST_F(PresetTest, manager_config_parsing_edge_cases) {
+  std::string test_home = "test_home_config";
+  register_temp_dir(test_home);
+
   const char *old_home = std::getenv("HOME");
   std::string home_str = old_home ? old_home : "";
-  std::string test_home = "test_home_config";
   std::filesystem::create_directories(test_home + "/.config/amplitron");
 #ifdef _WIN32
   _putenv(("APPDATA=" + test_home).c_str());
@@ -987,18 +913,10 @@ TEST(preset_manager_config_parsing_edge_cases) {
   // 2. Missing quote
   write_and_load("{\"presets_dir\": value}");
   // 3. Escaped values
-  std::string test_dir = "test_dir_escapes\n\"\\";
-  // We don't actually create this directory on disk because Windows
-  // physically rejects these characters and throws an exception.
-  // The parser will still successfully hit the coverage branches!
-  
-  // Write escaped JSON manually
   write_and_load("{\"presets_dir\": \"test_dir_escapes\\n\\\"\\\\\"}");
-
   // 4. Unknown escape sequence
   write_and_load("{\"presets_dir\": \"test_dir_escapes\\x\"}");
 
-  // Cleanup
 #ifdef _WIN32
   if (!home_str.empty())
     _putenv(("APPDATA=" + home_str).c_str());
@@ -1010,46 +928,39 @@ TEST(preset_manager_config_parsing_edge_cases) {
   else
     unsetenv("HOME");
 #endif
-  std::filesystem::remove_all(test_home);
 }
 
-TEST(preset_load_preset_data_permission_denied) {
+TEST_F(PresetTest, load_preset_data_permission_denied) {
 #ifdef _WIN32
-  // On Windows, opening a directory with ifstream fails, which correctly 
-  // triggers the !file.is_open() branch. (Linux ifstream opens directories but throws on read).
   std::string path = "presets_unreadable_dir_test";
+  register_temp_dir(path);
   std::filesystem::create_directories(path);
 #else
-  // On Linux, we create a file and strip its read permissions.
   std::string path = "presets_unreadable_file_test.json";
+  register_temp_file(path);
   std::ofstream f(path);
   f << "{}";
   f.close();
-  chmod(path.c_str(), 0000); // Unreadable
+  chmod(path.c_str(), 0000);
 #endif
 
-  AudioEngine engine;
   bool loaded = PresetManager::load_preset(path, engine);
   ASSERT_FALSE(loaded);
 
-#ifdef _WIN32
-  std::filesystem::remove(path);
-#else
+#ifndef _WIN32
   chmod(path.c_str(), 0644);
-  std::remove(path.c_str());
 #endif
 }
 
-TEST(preset_save_graph_all_fields) {
-  AudioEngine engine;
-  engine.initialize();
+TEST_F(PresetTest, save_graph_all_fields) {
+  register_temp_file("presets/graph_all_fields.json");
+  register_temp_file("test_ir.wav");
 
   auto comp = std::make_shared<Compressor>();
   engine.graph().add_node("Comp", NodeRoutingType::StandardEffect, comp, 2);
 
   auto cab = std::make_shared<CabinetSim>();
   
-  // Create a minimal 46-byte valid WAV file with 1 sample to satisfy load_ir
   const char wav_header[46] = {
       'R','I','F','F', 38, 0, 0, 0, 'W','A','V','E',
       'f','m','t',' ', 16, 0, 0, 0, 1, 0, 1, 0,
@@ -1061,7 +972,7 @@ TEST(preset_save_graph_all_fields) {
   out.write(wav_header, 46);
   out.close();
 
-  bool ir_loaded = cab->load_ir("test_ir.wav"); // populates metadata
+  bool ir_loaded = cab->load_ir("test_ir.wav");
   ASSERT_TRUE(ir_loaded);
   engine.graph().add_node("Cab", NodeRoutingType::StandardEffect, cab, 1);
 
@@ -1085,8 +996,5 @@ TEST(preset_save_graph_all_fields) {
   }
   ASSERT_TRUE(found_metadata);
 
-  std::remove(path.c_str());
-  std::remove("test_ir.wav");
-  engine.shutdown();
   engine2.shutdown();
 }

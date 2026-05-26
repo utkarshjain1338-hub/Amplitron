@@ -1,4 +1,6 @@
 #include "test_framework.h"
+#include "test_fixtures.h"
+#include "test_mocks.h"
 #include "audio/audio_engine.h"
 #include "audio/effects/distortion.h"
 #include "audio/effects/overdrive.h"
@@ -14,19 +16,13 @@ using namespace Amplitron;
 // audio_engine_process.cpp & audio_engine_api.cpp Tests
 // ---------------------------------------------------------
 
-TEST(AudioEngineProcess_ProcessSilenceGivesZeroOutput) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
+TEST_F(AudioEngineTest, ProcessSilenceGivesZeroOutput) {
     std::vector<float> in(64, 0.0f), out(128, 0.0f);
     engine.process_audio(in.data(), out.data(), 64);
     for (auto s : out) ASSERT_NEAR(s, 0.0f, 1e-6f);
 }
 
-TEST(AudioEngineProcess_InputGainScalesOutput) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
+TEST_F(AudioEngineTest, InputGainScalesOutput) {
     engine.set_input_gain(0.5f);
     engine.set_output_gain(1.0f);
     std::vector<float> in(64, 1.0f), out(128, 0.0f);
@@ -34,11 +30,7 @@ TEST(AudioEngineProcess_InputGainScalesOutput) {
     ASSERT_NEAR(out[0], 0.5f, 0.01f);
 }
 
-TEST(AudioEngineProcess_OutputGainScalesOutput) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
-    // Input gain defaults to 1.0f. Output defaults to 0.8f? Wait, let's explicitly set it.
+TEST_F(AudioEngineTest, OutputGainScalesOutput) {
     engine.set_input_gain(1.0f);
     engine.set_output_gain(0.25f);
     std::vector<float> in(64, 1.0f), out(128, 0.0f);
@@ -47,10 +39,7 @@ TEST(AudioEngineProcess_OutputGainScalesOutput) {
     ASSERT_NEAR(out[1], 0.25f, 0.01f);
 }
 
-TEST(AudioEngineProcess_OutputIsClampedToSafetyLimit) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
+TEST_F(AudioEngineTest, OutputIsClampedToSafetyLimit) {
     engine.set_input_gain(10.0f); // Massive gain to exceed +/- 1.0
     engine.set_output_gain(1.0f);
     std::vector<float> in(64, 1.0f), out(128, 0.0f);
@@ -64,10 +53,7 @@ TEST(AudioEngineProcess_OutputIsClampedToSafetyLimit) {
     ASSERT_NEAR(out[0], -1.0f, 1e-6f);
 }
 
-TEST(AudioEngineProcess_RMSCalculationSilenceVsTone) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
+TEST_F(AudioEngineTest, RMSCalculationSilenceVsTone) {
     engine.set_analyzer_enabled(true);
     
     // Silence
@@ -89,8 +75,7 @@ TEST(AudioEngineProcess_RMSCalculationSilenceVsTone) {
 // audio_engine_chain.cpp Tests
 // ---------------------------------------------------------
 
-TEST(AudioEngineChain_AddAndRemoveEffect) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, AddAndRemoveEffect) {
     ASSERT_EQ(engine.effects().size(), 0u);
     
     auto dist = std::make_shared<Distortion>();
@@ -101,8 +86,7 @@ TEST(AudioEngineChain_AddAndRemoveEffect) {
     ASSERT_EQ(engine.effects().size(), 0u);
 }
 
-TEST(AudioEngineChain_InsertEffect) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, InsertEffect) {
     auto dist = std::make_shared<Distortion>();
     auto od = std::make_shared<Overdrive>();
     
@@ -114,8 +98,7 @@ TEST(AudioEngineChain_InsertEffect) {
     ASSERT_EQ(engine.effects()[1], dist);
 }
 
-TEST(AudioEngineChain_ClearEffects) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, ClearEffects) {
     engine.add_effect(std::make_shared<Distortion>());
     engine.add_effect(std::make_shared<Overdrive>());
     ASSERT_EQ(engine.effects().size(), 2u);
@@ -124,8 +107,7 @@ TEST(AudioEngineChain_ClearEffects) {
     ASSERT_EQ(engine.effects().size(), 0u);
 }
 
-TEST(AudioEngineChain_MoveEffect) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, MoveEffect) {
     auto dist = std::make_shared<Distortion>();
     auto od = std::make_shared<Overdrive>();
     
@@ -161,8 +143,7 @@ TEST(AudioEngineChain_MoveEffect) {
     ASSERT_EQ(engine.effects()[1], snap_1);
 }
 
-TEST(AudioEngineApi_MetronomeState) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, MetronomeState) {
     ASSERT_EQ(engine.get_metronome_enabled(), false);
     engine.toggle_metronome();
     ASSERT_EQ(engine.get_metronome_enabled(), true);
@@ -178,8 +159,6 @@ TEST(AudioEngineApi_MetronomeState) {
     ASSERT_NEAR(engine.get_metronome_volume(), 0.8f, 1e-6f);
     
     // Process audio to cover the metronome click generation in audio_engine_process.cpp
-    engine.initialize();
-    engine.set_buffer_size(64);
     std::vector<float> in(64, 0.0f), out(128, 0.0f);
     
     // Compute deterministic number of process_audio calls
@@ -203,19 +182,13 @@ TEST(AudioEngineApi_MetronomeState) {
     ASSERT_TRUE(clickDetected);
 }
 
-TEST(AudioEngineApi_SuggestedBufferSize) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, SuggestedBufferSize) {
     engine.set_buffer_size(512); // load is 0, so it should suggest half
     int suggested = engine.get_suggested_buffer_size();
     ASSERT_EQ(suggested, 256);
-    
-    // We cannot easily set cpu_load_ directly without friend access or processing massive audio,
-    // but the branch logic is covered for the low-load case.
 }
 
-TEST(AudioEngineApi_CopyAnalyzerSnapshot) {
-    AudioEngine engine;
-    engine.initialize();
+TEST_F(AudioEngineTest, CopyAnalyzerSnapshot) {
     engine.set_buffer_size(1024);
     engine.set_analyzer_enabled(true);
     std::vector<float> in(1024, 0.5f), out(2048, 0.0f);
@@ -237,23 +210,10 @@ TEST(AudioEngineApi_CopyAnalyzerSnapshot) {
     ASSERT_EQ(new_engine.copy_analyzer_snapshot(snap_in.data(), snap_out.data(), 1024), false); // seq == 0
 }
 
-class TestTunerEffect : public Effect {
-public:
-    bool processed = false;
-    TestTunerEffect() : Effect() {}
-    void process(float* /*buffer*/, int /*num_samples*/) override {
-        processed = true;
-    }
-    void reset() override {}
-    const char* name() const override { return "TestTuner"; }
-    std::vector<EffectParam>& params() override { static std::vector<EffectParam> p; return p; }
-};
-
-TEST(AudioEngineChain_TunerTap) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, TunerTap) {
     ASSERT_EQ(engine.has_tuner_tap(), false);
     
-    auto tap = std::make_shared<TestTunerEffect>();
+    auto tap = std::make_shared<MockTunerEffect>();
     engine.set_tuner_tap(tap);
     ASSERT_EQ(engine.has_tuner_tap(), true);
     
@@ -267,8 +227,7 @@ TEST(AudioEngineChain_TunerTap) {
     ASSERT_EQ(engine.has_tuner_tap(), false);
 }
 
-TEST(AudioEngineChain_RestoreEffectsState) {
-    AudioEngine engine;
+TEST_F(AudioEngineTest, RestoreEffectsState) {
     auto dist = std::make_shared<Distortion>();
     auto od = std::make_shared<Overdrive>();
     
@@ -279,11 +238,7 @@ TEST(AudioEngineChain_RestoreEffectsState) {
     ASSERT_EQ(engine.effects()[0], dist);
 }
 
-TEST(AudioEngineApi_CommandQueuePushes) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
-    
+TEST_F(AudioEngineTest, CommandQueuePushes) {
     auto dist = std::make_shared<Distortion>();
     engine.add_effect(dist);
     
@@ -305,11 +260,7 @@ TEST(AudioEngineApi_CommandQueuePushes) {
     ASSERT_NEAR(engine.get_input_gain(), 0.5f, 1e-6f);
 }
 
-TEST(AudioEngineProcess_RecorderBranch) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
-    
+TEST_F(AudioEngineTest, RecorderBranch) {
     auto now = std::chrono::high_resolution_clock::now().time_since_epoch().count();
     std::string temp_file = (std::filesystem::temp_directory_path() / ("test_record_" + std::to_string(now) + ".wav")).string();
     
@@ -330,11 +281,7 @@ TEST(AudioEngineProcess_RecorderBranch) {
     std::filesystem::remove(temp_file);
 }
 
-TEST(AudioEngineProcess_FullCoverageSweep) {
-    AudioEngine engine;
-    engine.initialize();
-    engine.set_buffer_size(64);
-    
+TEST_F(AudioEngineTest, FullCoverageSweep) {
     // 1. Zero/Negative sample rate
     engine.set_sample_rate(0);
     std::vector<float> in(64, 1.5f), out(128, 0.0f);
@@ -367,36 +314,30 @@ TEST(AudioEngineProcess_FullCoverageSweep) {
     engine.toggle_metronome();
     engine.process_audio(in.data(), out.data(), 64);
 }
-TEST(audio_engine_commit_graph_changes_stability) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, commit_graph_changes_stability) {
   for (int i = 0; i < 50; ++i) {
     engine.commit_graph_changes();
   }
-
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_multiple_commit_graph_changes) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, multiple_commit_graph_changes) {
   engine.commit_graph_changes();
   engine.commit_graph_changes();
   engine.commit_graph_changes();
-
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_set_buffer_size_clamps_values) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, set_buffer_size_clamps_values) {
   engine.set_buffer_size(-1);
   ASSERT_TRUE(engine.get_buffer_size() > 0);
 
   engine.set_buffer_size(999999);
   ASSERT_TRUE(engine.get_buffer_size() <= 8192);
 }
-TEST(audio_engine_set_sample_rate_updates_state) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, set_sample_rate_updates_state) {
   engine.set_sample_rate(44100);
   ASSERT_TRUE(engine.get_sample_rate() == 44100);
 
@@ -406,93 +347,57 @@ TEST(audio_engine_set_sample_rate_updates_state) {
   engine.set_sample_rate(96000);
   ASSERT_TRUE(engine.get_sample_rate() == 96000);
 }
-TEST(audio_engine_commit_graph_changes_with_empty_graph) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, commit_graph_changes_with_empty_graph) {
   engine.commit_graph_changes();
-
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_repeated_graph_commits) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, repeated_graph_commits) {
   for (int i = 0; i < 100; ++i) {
     engine.commit_graph_changes();
   }
-
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_graph_commit_after_node_removal) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, graph_commit_after_node_removal) {
   auto& graph = engine.graph();
 
-  int n1 =
-      graph.add_node("A", NodeRoutingType::StandardEffect);
-
-  int n2 =
-      graph.add_node("B", NodeRoutingType::StandardEffect);
+  int n1 = graph.add_node("A", NodeRoutingType::StandardEffect);
+  int n2 = graph.add_node("B", NodeRoutingType::StandardEffect);
 
   auto nodes = graph.get_nodes();
-
-  graph.add_link(nodes[0].output_pin_ids[0],
-                 nodes[1].input_pin_ids[0]);
+  graph.add_link(nodes[0].output_pin_ids[0], nodes[1].input_pin_ids[0]);
 
   ASSERT_TRUE(graph.remove_node(n2));
-
   engine.commit_graph_changes();
 
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_serialize_deserialize_roundtrip) {
-  AudioEngine engine;
 
+TEST_F(AudioEngineTest, serialize_deserialize_roundtrip) {
   auto serialized = engine.serialize();
-
   AudioEngine loaded;
-
   loaded.deserialize(serialized);
-
   auto reserialized = loaded.serialize();
 
   ASSERT_FALSE(serialized.empty());
   ASSERT_FALSE(reserialized.empty());
-
   ASSERT_TRUE(reserialized.contains("effects"));
 }
-TEST(audio_engine_multiple_sample_rate_changes) {
-  AudioEngine engine;
 
-  std::vector<int> rates = {
-      22050,
-      44100,
-      48000,
-      88200,
-      96000
-  };
-
+TEST_F(AudioEngineTest, multiple_sample_rate_changes) {
+  std::vector<int> rates = {22050, 44100, 48000, 88200, 96000};
   for (int rate : rates) {
     engine.set_sample_rate(rate);
   }
-
   ASSERT_TRUE(true);
 }
-TEST(audio_engine_multiple_buffer_size_changes) {
-  AudioEngine engine;
 
-  std::vector<int> sizes = {
-      16,
-      32,
-      64,
-      128,
-      256,
-      512,
-      1024
-  };
-
+TEST_F(AudioEngineTest, multiple_buffer_size_changes) {
+  std::vector<int> sizes = {16, 32, 64, 128, 256, 512, 1024};
   for (int size : sizes) {
     engine.set_buffer_size(size);
   }
-
   ASSERT_TRUE(true);
 }

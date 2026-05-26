@@ -162,8 +162,8 @@ endif()
 set(APP_SOURCES
     src/main.cpp
     src/SessionManager.h
-    src/preset_manager.cpp
-    src/preset_json.cpp
+    src/presets/preset_manager.cpp
+    src/presets/preset_json.cpp
     src/audio/audio_engine.cpp
     src/audio/audio_engine_chain.cpp
     src/audio/audio_engine_process.cpp
@@ -211,8 +211,8 @@ set(APP_SOURCES
     src/gui/pedal_widget_knobs.cpp
     src/gui/command_history.cpp
     src/gui/gui_snapshots.cpp
-    src/preset_manager_dirs.cpp
-    src/preset_manager_io.cpp
+    src/presets/preset_manager_dirs.cpp
+    src/presets/preset_manager_io.cpp
     src/audio/audio_graph.cpp
     src/audio/audio_graph_executor.cpp
 )
@@ -300,6 +300,7 @@ if(EMSCRIPTEN)
 
     target_include_directories(Amplitron PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/presets
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/external/kiss_fft
         ${IMGUI_DIR}
@@ -359,6 +360,7 @@ elseif(ANDROID)
 
     target_include_directories(main PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/presets
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/external/kiss_fft
         ${IMGUI_DIR}
@@ -401,6 +403,7 @@ elseif(IOS)
 
     target_include_directories(Amplitron PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/presets
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/external/kiss_fft
         ${IMGUI_DIR}
@@ -459,6 +462,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
     target_include_directories(Amplitron PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/presets
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/external/kiss_fft
         ${IMGUI_DIR}
@@ -501,34 +505,41 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     # --- Test Target ---
     set(TEST_SOURCES
         tests/test_main.cpp
-        tests/test_common.cpp
-        tests/test_oboe_ring_buffer.cpp
-        tests/test_effects.cpp
-        tests/test_looper.cpp
-        tests/test_preset_manager.cpp
-        tests/test_json_serialization.cpp
-        tests/test_recorder.cpp
-        tests/test_theme.cpp
-        tests/test_command_history.cpp
-        tests/test_snapshot_manager.cpp
-        tests/test_cabinet_sim_ir.cpp
-	tests/test_wav_loader.cpp
-	tests/test_convolution_engine.cpp
-        tests/test_midi_manager.cpp
-        tests/test_unsaved_preset.cpp
-        tests/test_audio_graph.cpp
-        tests/test_metronome.cpp
-        tests/test_gui_manager.cpp
-        tests/test_clipboard_preset.cpp
-        tests/test_audio_engine.cpp
+        tests/unit/test_common.cpp
+        tests/unit/test_oboe_ring_buffer.cpp
+        tests/unit/test_effects_dynamics.cpp
+        tests/unit/test_effects_saturation.cpp
+        tests/unit/test_effects_filter.cpp
+        tests/unit/test_effects_modulation.cpp
+        tests/unit/test_effects_spatial.cpp
+        tests/unit/test_effects_pitch.cpp
+        tests/unit/test_effects_utility.cpp
+        tests/unit/test_looper.cpp
+        tests/unit/test_theme.cpp
+        tests/unit/test_command_history.cpp
+        tests/unit/test_cabinet_sim_ir.cpp
+        tests/unit/test_wav_loader.cpp
+        tests/unit/test_convolution_engine.cpp
+        tests/integration/test_preset_manager.cpp
+        tests/integration/test_json_serialization.cpp
+        tests/integration/test_recorder.cpp
+        tests/integration/test_snapshot_manager.cpp
+        tests/integration/test_midi_manager.cpp
+        tests/integration/test_unsaved_preset.cpp
+        tests/integration/test_audio_graph.cpp
+        tests/integration/test_metronome.cpp
+        tests/integration/test_clipboard_preset.cpp
+        tests/integration/test_audio_engine.cpp
+        tests/e2e/test_e2e_preset_workflow.cpp
+        tests/ui/test_gui_manager.cpp
     )
 
     # Effect + core sources needed by tests (no GUI, no main)
     set(CORE_SOURCES
-        src/preset_manager.cpp
-        src/preset_json.cpp
-        src/preset_manager_dirs.cpp
-        src/preset_manager_io.cpp
+        src/presets/preset_manager.cpp
+        src/presets/preset_json.cpp
+        src/presets/preset_manager_dirs.cpp
+        src/presets/preset_manager_io.cpp
         src/audio/audio_engine.cpp
         src/audio/audio_engine_chain.cpp
         src/audio/audio_engine_process.cpp
@@ -576,6 +587,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
     target_include_directories(amplitron-tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/presets
         ${CMAKE_SOURCE_DIR}/external
         ${CMAKE_SOURCE_DIR}/external/kiss_fft
         ${CMAKE_SOURCE_DIR}/tests
