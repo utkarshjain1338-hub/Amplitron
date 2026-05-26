@@ -1,9 +1,10 @@
 /**
  * @file test_gui_presets.cpp
- * @brief Headless-safe tests for GuiPresets logic (no ImGui rendering).
+ * @brief Headless-safe tests for GuiPresets logic and rendering.
  *
- * Tests non-rendering methods: is_dirty(), mark_clean(), save/load/delete,
- * current_preset_name(), serialise_current_preset_to_json(), etc.
+ * Tests properties, dirty flags, save/load/delete, path sanitation
+ * for filename-unsafe special characters, and ImGui rendering dialogs
+ * using a software ImGui context.
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
@@ -12,6 +13,7 @@
 #include "audio/effects/overdrive.h"
 #include "audio/effects/reverb.h"
 #include "preset_manager.h"
+#include <filesystem>
 #include <string>
 #include <memory>
 
@@ -244,4 +246,47 @@ TEST_F(PresetTest, gui_presets_refresh_preserves_valid_selection) {
 
     gp.refresh_presets(true);  // preserve selection
     ASSERT_GE(gp.selected_preset_index(), 0);
+}
+
+// ============================================================
+// Path Sanitation & Special Characters
+// ============================================================
+
+TEST_F(PresetTest, gui_presets_save_special_characters_sanitization) {
+    PresetManager::set_presets_dir("presets");
+    register_temp_file("presets/My___Cool___Presets___.json");
+
+    CommandHistory history;
+    GuiPresets gp(engine, history);
+
+    // Save with spaces, slashes, backslashes, colons, asterisks
+    bool ok = gp.save_named_preset("My / Cool : Presets? *", "special chars");
+    ASSERT_TRUE(ok);
+
+    gp.refresh_presets(false);
+    
+    // Verify it was correctly sanitized and exists on disk
+    ASSERT_TRUE(std::filesystem::exists("presets/My___Cool___Presets___.json"));
+}
+
+// ============================================================
+// ImGui Dialog Rendering
+// ============================================================
+
+TEST_F(PresetTest, gui_presets_render_save_popup) {
+    ScopedImGuiContext imgui;
+    CommandHistory history;
+    GuiPresets gp(engine, history);
+
+    bool show = true;
+    gp.render_save_popup(show);
+}
+
+TEST_F(PresetTest, gui_presets_render_load_popup) {
+    ScopedImGuiContext imgui;
+    CommandHistory history;
+    GuiPresets gp(engine, history);
+
+    bool show = true;
+    gp.render_load_popup(show);
 }

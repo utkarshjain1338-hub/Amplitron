@@ -1,9 +1,9 @@
 /**
  * @file test_gui_snapshots.cpp
- * @brief Headless-safe tests for GuiSnapshots slot management.
+ * @brief Headless-safe tests for GuiSnapshots slot management and rendering.
  *
- * Tests save_to_slot(), recall_slot(), undo integration, and accessor safety
- * — render() is not called (requires ImGui context).
+ * Tests save_to_slot(), recall_slot(), undo integration, accessor safety,
+ * and ImGui rendering widgets using a software ImGui context.
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
@@ -115,4 +115,16 @@ TEST_F(PresetTest, gui_snapshots_overwrite_existing_slot) {
     gs.save_to_slot(0);  // Overwrite — must not crash
 
     ASSERT_TRUE(gs.manager().has_slot(0));
+}
+
+TEST_F(PresetTest, gui_snapshots_render) {
+    ScopedImGuiContext imgui;
+    CommandHistory history;
+    GuiSnapshots gs(engine, history);
+
+    // Save to slot 0 so it renders as filled
+    gs.save_to_slot(0);
+
+    // Render it!
+    gs.render();
 }

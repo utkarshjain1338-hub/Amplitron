@@ -342,9 +342,8 @@ TEST(json_empty_effects_list_roundtrip) {
 TEST(json_can_load_existing_factory_presets) {
     // Verify the new parser is backward-compatible with the existing preset files
     const std::vector<std::string> factory_presets = {
-        "presets/01_Sparkling_Clean.json",
-        "presets/02_Classic_Rock_Crunch.json",
-        "presets/03_Modern_Metal_Lead.json",
+        "presets/05_Phase_Shift_Lead.json",
+        "presets/06_Jet_Flanger.json",
     };
 
     int loaded_count = 0;

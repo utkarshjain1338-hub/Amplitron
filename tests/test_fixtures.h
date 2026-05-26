@@ -2,6 +2,7 @@
 #include "test_framework.h"
 #include "audio/audio_engine.h"
 #include "preset_manager.h"
+#include <imgui.h>
 #include <vector>
 #include <string>
 #include <cmath>
@@ -10,6 +11,30 @@
 #include <cstdio>
 
 namespace Amplitron {
+
+class ScopedImGuiContext {
+public:
+    ScopedImGuiContext() {
+        ctx_ = ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO();
+        io.DisplaySize = ImVec2(1024, 768);
+        io.DeltaTime = 1.0f / 60.0f;
+        
+        unsigned char* pixels;
+        int width, height;
+        io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+        
+        ImGui::NewFrame();
+    }
+
+    ~ScopedImGuiContext() {
+        ImGui::Render();
+        ImGui::DestroyContext(ctx_);
+    }
+
+private:
+    ImGuiContext* ctx_ = nullptr;
+};
 
 class AudioEngineTest : public TestFramework::Test {
 public:

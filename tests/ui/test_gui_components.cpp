@@ -2,13 +2,14 @@
  * @file test_gui_components.cpp
  * @brief Headless-safe tests for UI components (Theme, EffectColor, GuiSettings).
  *
- * Tests unit-aware parameter formatting, effect color lookups, and basic
- * settings class instantiation.
+ * Tests unit-aware parameter formatting, effect color lookups, style applications, and basic
+ * settings class rendering using a software ImGui context.
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
 #include "gui/theme.h"
 #include "gui/gui_settings.h"
+#include "gui/gui_analyzer.h"
 #include <string>
 
 using namespace Amplitron;
@@ -93,16 +94,49 @@ TEST(get_effect_color_known_effects) {
     }
 }
 
+// ============================================================
+// Theme Style Application
+// ============================================================
+
+TEST_F(PresetTest, theme_apply_style) {
+    ScopedImGuiContext imgui;
+    Theme::ApplyStyle(); // Inside a valid ImGui context, this applies all color configurations!
+}
+
 TEST(get_effect_color_fallback) {
     const EffectColorEntry* entry = get_effect_color("NonExistentFX");
     ASSERT_EQ(std::string(entry->name), std::string("Default"));
 }
 
 // ============================================================
-// GuiSettings Construction
+// GuiSettings Construction and Rendering
 // ============================================================
 
 TEST_F(PresetTest, gui_settings_construction_no_crash) {
     GuiSettings settings(engine);
     (void)settings;
+}
+
+TEST_F(PresetTest, gui_settings_render) {
+    ScopedImGuiContext imgui;
+    GuiSettings settings(engine);
+
+    // Call render(show) to cover all latency sliders, combos, and tables
+    bool show = true;
+    settings.render(show);
+}
+
+// ============================================================
+// GuiAnalyzer Construction and Rendering
+// ============================================================
+
+TEST_F(PresetTest, gui_analyzer_render) {
+    ScopedImGuiContext imgui;
+    GuiAnalyzer analyzer(engine);
+
+    ASSERT_TRUE(analyzer.is_expanded());
+    ASSERT_NEAR(analyzer.analyzer_reserved_height(), 245.0f, 0.01f);
+
+    // Renders input VU, output VU, and spectrum plotter
+    analyzer.render();
 }

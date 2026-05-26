@@ -1,12 +1,12 @@
 /**
  * @file test_gui_midi.cpp
- * @brief Headless-safe tests for GuiMidi mapping info queries.
+ * @brief Headless-safe tests for GuiMidi mapping info queries and ImGui rendering.
  *
- * Only get_mapping_info() and the construction/accessor paths are tested.
- * Methods that call ImGui::* (render, render_learn_menu_item, etc.) are
- * excluded — they require a live ImGui context.
+ * Tests construction, continuous/toggle mapping descriptions, learn popups,
+ * and mapping tables using a software ImGui context.
  */
 #include "test_framework.h"
+#include "test_fixtures.h"
 #include "gui/gui_midi.h"
 #include "midi/midi_manager.h"
 #include <string>
@@ -210,4 +210,53 @@ TEST(gui_midi_mapping_info_first_match_returned) {
     ASSERT_FALSE(info.empty());
     // Should mention CC 1 (first match)
     ASSERT_TRUE(info.find("1") != std::string::npos);
+}
+
+// ============================================================
+// ImGui Dialog and MenuItem Rendering
+// ============================================================
+
+TEST(gui_midi_render_window) {
+    ScopedImGuiContext imgui;
+    MidiManager midi;
+    GuiMidi gm(midi);
+
+    // Renders ports and default settings
+    bool show = true;
+    gm.render(show);
+}
+
+TEST(gui_midi_render_learn_menu_items) {
+    ScopedImGuiContext imgui;
+    MidiManager midi;
+    GuiMidi gm(midi);
+
+    // Call render_learn_menu_item and render_learn_bypass_item
+    gm.render_learn_menu_item("Overdrive", "Drive");
+    gm.render_learn_bypass_item("Overdrive");
+
+    // Add a mapping and call them again to exercise the "Remove Mapping" path!
+    MidiMapping m;
+    m.cc_number   = 12;
+    m.midi_channel = -1;
+    m.target_type  = MidiTargetType::EffectParam;
+    m.effect_name  = "Overdrive";
+    m.param_name   = "Drive";
+    m.mode         = MidiMappingMode::Continuous;
+    midi.add_mapping(m);
+
+    gm.render_learn_menu_item("Overdrive", "Drive");
+    gm.render_remove_mapping_item("Overdrive", "Drive");
+
+    // Bypass mapping
+    MidiMapping mb;
+    mb.cc_number   = 13;
+    mb.midi_channel = -1;
+    mb.target_type  = MidiTargetType::EffectBypass;
+    mb.effect_name  = "Overdrive";
+    mb.param_name   = "";
+    mb.mode         = MidiMappingMode::Toggle;
+    midi.add_mapping(mb);
+
+    gm.render_remove_bypass_item("Overdrive");
 }

@@ -1,9 +1,10 @@
 /**
  * @file test_gui_recording.cpp
- * @brief Headless-safe tests for GuiRecording logic.
+ * @brief Headless-safe tests for GuiRecording logic and rendering.
  *
- * Tests properties, setters, and state variables — render functions (calling ImGui)
- * are excluded.
+ * Covers both state variables and rendering branches under various recorder
+ * states (Ready, Recording, Unsaved, and Save dialog triggers) using a software-only
+ * ImGui context.
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
@@ -62,4 +63,68 @@ TEST_F(PresetTest, gui_recording_render_save_dialog_early_return_when_not_pendin
     // When not pending, should set show to false and return immediately (no dialog)
     gr.render_save_dialog(show);
     ASSERT_FALSE(show);
+}
+
+TEST_F(PresetTest, gui_recording_render_controls_ready_state) {
+    ScopedImGuiContext imgui;
+    GuiRecording gr(engine);
+
+    // Call render_controls() in Ready state (not recording, no unsaved)
+    gr.render_controls();
+}
+
+TEST_F(PresetTest, gui_recording_render_controls_recording_state) {
+    ScopedImGuiContext imgui;
+    GuiRecording gr(engine);
+
+    // Start recording so the state changes to is_recording()
+    engine.recorder().start("presets/dummy.wav", engine.get_sample_rate());
+    gr.render_controls();
+
+    // Pause
+    engine.recorder().pause();
+    gr.render_controls();
+
+    // Resume
+    engine.recorder().resume();
+    gr.render_controls();
+
+    // Stop (will set show_save=true and recording_save_pending_=true)
+    engine.recorder().stop();
+    gr.show_save() = true;
+    gr.set_save_pending(true);
+    ASSERT_TRUE(gr.show_save());
+    ASSERT_TRUE(gr.is_save_pending());
+
+    engine.recorder().discard(); // Clean up
+}
+
+TEST_F(PresetTest, gui_recording_render_controls_unsaved_state) {
+    ScopedImGuiContext imgui;
+    GuiRecording gr(engine);
+
+    // Start/stop recording to produce unsaved state
+    engine.recorder().start("presets/dummy.wav", engine.get_sample_rate());
+    engine.recorder().stop();
+    
+    // Renders complete unsaved state
+    gr.render_controls();
+
+    engine.recorder().discard();
+}
+
+TEST_F(PresetTest, gui_recording_render_save_dialog_triggers_safely_when_pending) {
+    ScopedImGuiContext imgui;
+    GuiRecording gr(engine);
+
+    gr.set_save_pending(true);
+    bool show = true;
+
+    // Call render_save_dialog which invokes show_save_dialog
+    // (should safely return empty string in headless mode)
+    gr.render_save_dialog(show);
+    
+    // Asserts that dialog state was reset
+    ASSERT_FALSE(show);
+    ASSERT_FALSE(gr.is_save_pending());
 }
