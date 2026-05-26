@@ -70,9 +70,9 @@ TEST_F(PresetTest, e2e_preset_workflow_roundtrip_and_processing) {
         }
     }
     ASSERT_EQ(loaded_effects.size(), 3u);
-    ASSERT_EQ(loaded_effects[0]->name(), "Noise Gate");
-    ASSERT_EQ(loaded_effects[1]->name(), "Distortion");
-    ASSERT_EQ(loaded_effects[2]->name(), "Delay");
+    ASSERT_EQ(std::string(loaded_effects[0]->name()), "Noise Gate");
+    ASSERT_EQ(std::string(loaded_effects[1]->name()), "Distortion");
+    ASSERT_EQ(std::string(loaded_effects[2]->name()), "Delay");
 
     ASSERT_TRUE(loaded_effects[0]->is_enabled());
     if (!loaded_effects[0]->params().empty()) {
