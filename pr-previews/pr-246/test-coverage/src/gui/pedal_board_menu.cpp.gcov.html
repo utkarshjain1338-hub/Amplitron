@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryLo">25.2&nbsp;%</td>
             <td class="headerCovTableEntry">119</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">30</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:13:49</td>
+            <td class="headerValue">2026-05-26 16:54:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -88,13 +88,13 @@
 <span id="L26"><span class="lineNum">      26</span>              : </span>
 <span id="L27"><span class="lineNum">      27</span>              : namespace Amplitron {</span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC tlaBgUNC">           0 : void PedalBoard::render_add_pedal_menu() {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaUNC">           0 :     if (ImGui::Button(&quot;+ Add Pedal&quot;)) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :         ImGui::OpenPopup(&quot;AddPedalPopup&quot;);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC tlaBgGNC">           1 : void PedalBoard::render_add_pedal_menu() {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           1 :     if (ImGui::Button(&quot;+ Add Pedal&quot;)) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::OpenPopup(&quot;AddPedalPopup&quot;);</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     }</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :     if (ImGui::BeginPopup(&quot;AddPedalPopup&quot;)) {</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :         ImGui::TextColored(Theme::Gold(), &quot;DRIVE&quot;);</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC tlaBgGNC">           1 :     if (ImGui::BeginPopup(&quot;AddPedalPopup&quot;)) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::TextColored(Theme::Gold(), &quot;DRIVE&quot;);</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :         if (ImGui::MenuItem(&quot;Overdrive&quot;)) {</span></span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :             add_effect_and_show(std::make_shared&lt;Overdrive&gt;());</span></span>
 <span id="L38"><span class="lineNum">      38</span>              :         }</span>
@@ -177,42 +177,42 @@
 <span id="L115"><span class="lineNum">     115</span>              : </span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaUNC">           0 :         ImGui::EndPopup();</span></span>
 <span id="L117"><span class="lineNum">     117</span>              :     }</span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
 <span id="L120"><span class="lineNum">     120</span>              : </span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaUNC">           0 : void PedalBoard::render_amp_selector() {</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaUNC">           0 :     const auto&amp; models = get_amp_models();</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaUNC">           0 :     int amp_idx = find_amp_index();</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           1 : void PedalBoard::render_amp_selector() {</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           1 :     const auto&amp; models = get_amp_models();</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           1 :     int amp_idx = find_amp_index();</span></span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaUNC">           0 :     if (amp_idx &lt; 0) {</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaUNC">           0 :         auto amp = std::make_shared&lt;AmpSimulator&gt;();</span></span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaUNC">           0 :         amp-&gt;params()[0].value = 0.0f;</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :         engine_.add_effect(amp);</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :         rebuild_widgets();</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :         amp_idx = find_amp_index();</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           1 :     if (amp_idx &lt; 0) {</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           1 :         auto amp = std::make_shared&lt;AmpSimulator&gt;();</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           1 :         amp-&gt;params()[0].value = 0.0f;</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">           1 :         engine_.add_effect(amp);</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           1 :         rebuild_widgets();</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           1 :         amp_idx = find_amp_index();</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L132"><span class="lineNum">     132</span>              : </span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaUNC">           0 :     const char* current_label = &quot;Amp&quot;;</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :     int current_model = 0;</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaUNC">           0 :     if (amp_idx &gt;= 0) {</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :         auto&amp; amp_fx = engine_.effects()[amp_idx];</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :         current_model = static_cast&lt;int&gt;(amp_fx-&gt;params()[0].value);</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 :         if (current_model &gt;= 0 &amp;&amp; current_model &lt; static_cast&lt;int&gt;(models.size())) {</span></span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaUNC">           0 :             current_label = models[current_model].name;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           1 :     const char* current_label = &quot;Amp&quot;;</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           1 :     int current_model = 0;</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           1 :     if (amp_idx &gt;= 0) {</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           1 :         auto&amp; amp_fx = engine_.effects()[amp_idx];</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           1 :         current_model = static_cast&lt;int&gt;(amp_fx-&gt;params()[0].value);</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           1 :         if (current_model &gt;= 0 &amp;&amp; current_model &lt; static_cast&lt;int&gt;(models.size())) {</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           1 :             current_label = models[current_model].name;</span></span>
 <span id="L140"><span class="lineNum">     140</span>              :         }</span>
 <span id="L141"><span class="lineNum">     141</span>              :     }</span>
 <span id="L142"><span class="lineNum">     142</span>              : </span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.35f, 0.18f, 0.08f, 1.0f));</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaUNC">           0 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.50f, 0.25f, 0.10f, 1.0f));</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           1 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.35f, 0.18f, 0.08f, 1.0f));</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           1 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.50f, 0.25f, 0.10f, 1.0f));</span></span>
 <span id="L145"><span class="lineNum">     145</span>              :     char amp_label[64];</span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :     std::snprintf(amp_label, sizeof(amp_label), &quot;Amp: %s&quot;, current_label);</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC">           0 :     if (ImGui::Button(amp_label)) {</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 :         ImGui::OpenPopup(&quot;AmpSelectorPopup&quot;);</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           1 :     std::snprintf(amp_label, sizeof(amp_label), &quot;Amp: %s&quot;, current_label);</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           1 :     if (ImGui::Button(amp_label)) {</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::OpenPopup(&quot;AmpSelectorPopup&quot;);</span></span>
 <span id="L149"><span class="lineNum">     149</span>              :     }</span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaUNC">           0 :     ImGui::PopStyleColor(2);</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::PopStyleColor(2);</span></span>
 <span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaUNC">           0 :     if (ImGui::BeginPopup(&quot;AmpSelectorPopup&quot;)) {</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaUNC">           0 :         ImGui::TextColored(ImVec4(0.95f, 0.55f, 0.20f, 1.0f), &quot;AMP MODEL&quot;);</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           1 :     if (ImGui::BeginPopup(&quot;AmpSelectorPopup&quot;)) {</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::TextColored(ImVec4(0.95f, 0.55f, 0.20f, 1.0f), &quot;AMP MODEL&quot;);</span></span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC">           0 :         for (int m = 0; m &lt; static_cast&lt;int&gt;(models.size()); ++m) {</span></span>
 <span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :             bool is_selected = (current_model == m);</span></span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC">           0 :             if (ImGui::MenuItem(models[m].name, models[m].inspiration, is_selected)) {</span></span>
@@ -223,14 +223,14 @@
 <span id="L161"><span class="lineNum">     161</span>              :         }</span>
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaUNC">           0 :         ImGui::EndPopup();</span></span>
 <span id="L163"><span class="lineNum">     163</span>              :     }</span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
 <span id="L165"><span class="lineNum">     165</span>              : </span>
 <span id="L166"><span class="lineNum">     166</span>              : // ============================================================</span>
 <span id="L167"><span class="lineNum">     167</span>              : // MIDI MENU — QUICK STATUS AND ACTIONS</span>
 <span id="L168"><span class="lineNum">     168</span>              : // ============================================================</span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaUNC">           0 : void PedalBoard::render_midi_menu() {</span></span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaUNC">           0 :     if (!gui_midi_) return;</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaUNC">           0 :     auto&amp; midi = gui_midi_-&gt;manager();</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           1 : void PedalBoard::render_midi_menu() {</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           1 :     if (!gui_midi_) return;</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaUNC tlaBgUNC">           0 :     auto&amp; midi = gui_midi_-&gt;manager();</span></span>
 <span id="L172"><span class="lineNum">     172</span>              : </span>
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC">           0 :     if (ImGui::Button(&quot;MIDI&quot;)) {</span></span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         ImGui::OpenPopup(&quot;MidiMenuPopup&quot;);</span></span>

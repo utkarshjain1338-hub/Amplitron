@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:13:49</td>
+            <td class="headerValue">2026-05-26 16:54:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -72,52 +72,52 @@
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span>              : namespace Amplitron {</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">          11 : std::vector&lt;std::string&gt; PresetManager::list_presets() {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          11 :   std::vector&lt;std::string&gt; result;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">          13 : std::vector&lt;std::string&gt; PresetManager::list_presets() {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          13 :   std::vector&lt;std::string&gt; result;</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          11 :   append_json_files(get_presets_dir(), result);</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          13 :   append_json_files(get_presets_dir(), result);</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          11 :   std::string sys_dir = get_system_presets_dir();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          11 :   std::string user_dir = get_presets_dir();</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          11 :   if (!sys_dir.empty() &amp;&amp; dir_exists(sys_dir) &amp;&amp; sys_dir != user_dir) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          13 :   std::string sys_dir = get_system_presets_dir();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          13 :   std::string user_dir = get_presets_dir();</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          13 :   if (!sys_dir.empty() &amp;&amp; dir_exists(sys_dir) &amp;&amp; sys_dir != user_dir) {</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC tlaBgUNC">           0 :     append_json_files(sys_dir, result);</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :   }</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC tlaBgGNC">          22 :   return result;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          11 : }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC tlaBgGNC">          26 :   return result;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          13 : }</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          15 : bool PresetManager::save_preset_data(const std::string &amp;filepath,</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          16 : bool PresetManager::save_preset_data(const std::string &amp;filepath,</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :                                      const PresetData &amp;preset) {</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          15 :   std::string json = to_json_ext(preset);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          16 :   std::string json = to_json_ext(preset);</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          15 :   std::ofstream file(filepath);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          15 :   if (!file.is_open()) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          16 :   std::ofstream file(filepath);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          16 :   if (!file.is_open()) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           2 :     last_error_ = &quot;Could not open file for writing: &quot; + filepath;</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           2 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           2 :     return false;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :   }</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          13 :   file &lt;&lt; json;</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          13 :   file.close();</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          14 :   file &lt;&lt; json;</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          14 :   file.close();</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          13 :   std::cout &lt;&lt; &quot;Preset saved: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          13 :   return true;</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          15 : }</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          14 :   std::cout &lt;&lt; &quot;Preset saved: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          14 :   return true;</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          16 : }</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          13 : bool PresetManager::save_preset(const std::string &amp;filepath,</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          14 : bool PresetManager::save_preset(const std::string &amp;filepath,</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :                                 const std::string &amp;preset_name,</span>
 <span id="L47"><span class="lineNum">      47</span>              :                                 const std::string &amp;description,</span>
 <span id="L48"><span class="lineNum">      48</span>              :                                 AudioEngine &amp;engine,</span>
 <span id="L49"><span class="lineNum">      49</span>              :                                 const std::vector&lt;MidiMapping&gt; &amp;midi_mappings) {</span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          13 :   PresetData preset;</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          13 :   preset.name = preset_name;</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          13 :   preset.description = description;</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          13 :   preset.input_gain = engine.get_input_gain();</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          13 :   preset.output_gain = engine.get_output_gain();</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          13 :   preset.midi_mappings = midi_mappings;</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          13 :   preset.routing = &quot;graph&quot;;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          14 :   PresetData preset;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          14 :   preset.name = preset_name;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          14 :   preset.description = description;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          14 :   preset.input_gain = engine.get_input_gain();</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          14 :   preset.output_gain = engine.get_output_gain();</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          14 :   preset.midi_mappings = midi_mappings;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          14 :   preset.routing = &quot;graph&quot;;</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          13 :   const auto &amp;graph = engine.graph();</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          14 :   const auto &amp;graph = engine.graph();</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          30 :   auto get_pin_name = [&amp;](int pin_id, bool is_input) -&gt; std::string {</span></span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          30 :     int node_id = graph.get_node_from_pin(pin_id);</span></span>
@@ -134,9 +134,9 @@
 <span id="L72"><span class="lineNum">      72</span>              :       }</span>
 <span id="L73"><span class="lineNum">      73</span>              :     }</span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC tlaBgUNC">           0 :     return &quot;&quot;;</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC tlaBgGNC">          13 :   };</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC tlaBgGNC">          14 :   };</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          43 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          44 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          30 :     PresetData::NodeData nd;</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          30 :     nd.id = &quot;n&quot; + std::to_string(node.id);</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
@@ -183,7 +183,7 @@
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          30 :     preset.nodes.push_back(nd);</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          30 :   }</span></span>
 <span id="L123"><span class="lineNum">     123</span>              : </span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          28 :   for (const auto &amp;link : graph.get_links()) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          29 :   for (const auto &amp;link : graph.get_links()) {</span></span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          15 :     std::string src = get_pin_name(link.source_pin_id, false);</span></span>
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          15 :     std::string dst = get_pin_name(link.dest_pin_id, true);</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          15 :     if (!src.empty() &amp;&amp; !dst.empty()) {</span></span>
@@ -191,8 +191,8 @@
 <span id="L129"><span class="lineNum">     129</span>              :     }</span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          15 :   }</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          26 :   return save_preset_data(filepath, preset);</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          28 : }</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          28 :   return save_preset_data(filepath, preset);</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          29 : }</span></span>
 <span id="L134"><span class="lineNum">     134</span>              : </span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          13 : bool PresetManager::load_preset(const std::string &amp;filepath,</span></span>
 <span id="L136"><span class="lineNum">     136</span>              :                                 AudioEngine &amp;engine,</span>

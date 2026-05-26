@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:13:49</td>
+            <td class="headerValue">2026-05-26 16:54:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -74,7 +74,7 @@
 <span id="L12"><span class="lineNum">      12</span>              :  */</span>
 <span id="L13"><span class="lineNum">      13</span>              : class GuiRecording {</span>
 <span id="L14"><span class="lineNum">      14</span>              : public:</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC tlaBgGNC">          11 :     explicit GuiRecording(AudioEngine&amp; engine) : engine_(engine) {}</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC tlaBgGNC">          15 :     explicit GuiRecording(AudioEngine&amp; engine) : engine_(engine) {}</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span>              :     /** @brief Render recording controls (start/stop/pause/waveform). */</span>
 <span id="L18"><span class="lineNum">      18</span>              :     void render_controls();</span>
@@ -83,14 +83,14 @@
 <span id="L21"><span class="lineNum">      21</span>              :     void render_save_dialog(bool&amp; show);</span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span>              :     /** @brief Whether a save dialog is pending. */</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           3 :     bool is_save_pending() const { return recording_save_pending_; }</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :     void set_save_pending(bool pending) { recording_save_pending_ = pending; }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           5 :     bool is_save_pending() const { return recording_save_pending_; }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           5 :     void set_save_pending(bool pending) { recording_save_pending_ = pending; }</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
 <span id="L27"><span class="lineNum">      27</span>              :     /** @brief Access status message for shared display. */</span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           3 :     std::string&amp; status_message() { return status_msg_; }</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              :     /** @brief Whether to show the save dialog. */</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           3 :     bool&amp; show_save() { return show_recording_save_; }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           5 :     bool&amp; show_save() { return show_recording_save_; }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              : private:</span>
 <span id="L34"><span class="lineNum">      34</span>              :     AudioEngine&amp; engine_;</span>

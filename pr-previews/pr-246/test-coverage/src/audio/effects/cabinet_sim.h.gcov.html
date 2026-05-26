@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:13:49</td>
+            <td class="headerValue">2026-05-26 16:54:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -84,9 +84,9 @@
 <span id="L22"><span class="lineNum">      22</span>              :     void process(float* buffer, int num_samples) override;</span>
 <span id="L23"><span class="lineNum">      23</span>              :     void set_sample_rate(int sample_rate) override;</span>
 <span id="L24"><span class="lineNum">      24</span>              :     void reset() override;</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC tlaBgGNC">          10 :     const char* name() const override { return &quot;Cabinet&quot;; }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC tlaBgGNC">          20 :     const char* name() const override { return &quot;Cabinet&quot;; }</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :     const char* type_id() const override { return &quot;Cabinet&quot;; }</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           5 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           6 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     // --- IR management (called from GUI thread) ---</span>
 <span id="L30"><span class="lineNum">      30</span>              :     bool load_ir(const std::string&amp; filepath);</span>
