@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:54:49</td>
+            <td class="headerValue">2026-05-26 17:26:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -87,17 +87,17 @@
 <span id="L25"><span class="lineNum">      25</span>              : </span>
 <span id="L26"><span class="lineNum">      26</span>              : } // namespace</span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          14 : SpectrumAnalyzer::SpectrumAnalyzer() {</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">       28686 :     for (int i = 0; i &lt; FFT_SIZE; ++i) {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">       28672 :         const float phase = (TWO_PI * static_cast&lt;float&gt;(i)) / static_cast&lt;float&gt;(FFT_SIZE - 1);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">       28672 :         window_[i] = 0.5f * (1.0f - std::cos(phase));</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          15 : SpectrumAnalyzer::SpectrumAnalyzer() {</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">       30735 :     for (int i = 0; i &lt; FFT_SIZE; ++i) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">       30720 :         const float phase = (TWO_PI * static_cast&lt;float&gt;(i)) / static_cast&lt;float&gt;(FFT_SIZE - 1);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">       30720 :         window_[i] = 0.5f * (1.0f - std::cos(phase));</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     }</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          14 :     smoothed_input_db_.fill(kMinDb);</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          14 :     smoothed_output_db_.fill(kMinDb);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          14 :     input_peak_db_.fill(kMinDb);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          14 :     output_peak_db_.fill(kMinDb);</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          14 : }</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          15 :     smoothed_input_db_.fill(kMinDb);</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          15 :     smoothed_output_db_.fill(kMinDb);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          15 :     input_peak_db_.fill(kMinDb);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          15 :     output_peak_db_.fill(kMinDb);</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          15 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          34 : void SpectrumAnalyzer::run_fft(std::array&lt;std::complex&lt;float&gt;, FFT_SIZE&gt;&amp; data) const {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">       69632 :     for (int i = 1, j = 0; i &lt; FFT_SIZE; ++i) {</span></span>

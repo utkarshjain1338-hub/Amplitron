@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:54:49</td>
+            <td class="headerValue">2026-05-26 17:26:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">90.0&nbsp;%</td>
@@ -97,18 +97,18 @@
 <span id="L35"><span class="lineNum">      35</span>              :      * @param after_input_gain   Input gain after the load.</span>
 <span id="L36"><span class="lineNum">      36</span>              :      * @param after_output_gain  Output gain after the load.</span>
 <span id="L37"><span class="lineNum">      37</span>              :      */</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">           2 :     LoadPresetCommand(AudioEngine&amp; engine,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">           9 :     LoadPresetCommand(AudioEngine&amp; engine,</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                       std::vector&lt;EffectSnapshot&gt; before_state,</span>
 <span id="L40"><span class="lineNum">      40</span>              :                       float before_input_gain, float before_output_gain,</span>
 <span id="L41"><span class="lineNum">      41</span>              :                       std::vector&lt;EffectSnapshot&gt; after_state,</span>
 <span id="L42"><span class="lineNum">      42</span>              :                       float after_input_gain, float after_output_gain)</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           4 :         : engine_(engine),</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           2 :           before_state_(std::move(before_state)),</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           2 :           before_input_gain_(before_input_gain),</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           2 :           before_output_gain_(before_output_gain),</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           2 :           after_state_(std::move(after_state)),</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           2 :           after_input_gain_(after_input_gain),</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           2 :           after_output_gain_(after_output_gain) {}</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          18 :         : engine_(engine),</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           9 :           before_state_(std::move(before_state)),</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           9 :           before_input_gain_(before_input_gain),</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           9 :           before_output_gain_(before_output_gain),</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           9 :           after_state_(std::move(after_state)),</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           9 :           after_input_gain_(after_input_gain),</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           9 :           after_output_gain_(after_output_gain) {}</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
 <span id="L51"><span class="lineNum">      51</span>              :     /** @brief Restore the after-load state (redo). */</span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           1 :     void execute() override {</span></span>

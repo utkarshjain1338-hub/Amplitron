@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 16:54:49</td>
+            <td class="headerValue">2026-05-26 17:26:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">83.3&nbsp;%</td>
@@ -75,81 +75,81 @@
 <span id="L13"><span class="lineNum">      13</span>              : namespace Amplitron {</span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              : /** @brief Construct PedalWidget and look up color scheme for the effect type. */</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">          30 : PedalWidget::PedalWidget(AudioEngine&amp; engine, std::shared_ptr&lt;Effect&gt; effect, int index)</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          30 :     : engine_(engine), effect_(std::move(effect)), index_(index) {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          30 :     assign_colors();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          30 : }</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">          31 : PedalWidget::PedalWidget(AudioEngine&amp; engine, std::shared_ptr&lt;Effect&gt; effect, int index)</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          31 :     : engine_(engine), effect_(std::move(effect)), index_(index) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          31 :     assign_colors();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          31 : }</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              : /** @brief Look up pedal_color_ and led_color_ from the theme's effect color table. */</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          30 : void PedalWidget::assign_colors() {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          30 :     const auto* entry = get_effect_color(effect_-&gt;name());</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          30 :     pedal_color_ = entry-&gt;pedal_color;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          30 :     led_color_ = entry-&gt;led_color;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          30 : }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          31 : void PedalWidget::assign_colors() {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          31 :     const auto* entry = get_effect_color(effect_-&gt;name());</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          31 :     pedal_color_ = entry-&gt;pedal_color;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          31 :     led_color_ = entry-&gt;led_color;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          31 : }</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              : /** @brief Render the full pedal widget (body, knobs, switch, LED). @return true if remove requested. */</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           8 : bool PedalWidget::render(float zoom) {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           8 :     bool should_remove = false;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          10 : bool PedalWidget::render(float zoom) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          10 :     bool should_remove = false;</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           8 :     ImGui::PushID(index_);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          10 :     ImGui::PushID(index_);</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           8 :     bool is_amp = (std::strcmp(effect_-&gt;name(), &quot;Amp Sim&quot;) == 0);</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           8 :     bool is_mb_comp = (std::strcmp(effect_-&gt;name(), &quot;MultiBand Compressor&quot;) == 0);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           8 :     bool enabled = effect_-&gt;is_enabled();</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           8 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          10 :     bool is_amp = (std::strcmp(effect_-&gt;name(), &quot;Amp Sim&quot;) == 0);</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          10 :     bool is_mb_comp = (std::strcmp(effect_-&gt;name(), &quot;MultiBand Compressor&quot;) == 0);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          10 :     bool enabled = effect_-&gt;is_enabled();</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          10 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           8 :     float pedal_width = is_mb_comp ? (Theme::PEDAL_WIDTH * 2.2f * zoom) : (Theme::PEDAL_WIDTH * zoom);</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           8 :     float pedal_height = Theme::PEDAL_HEIGHT * zoom;</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          10 :     float pedal_width = is_mb_comp ? (Theme::PEDAL_WIDTH * 2.2f * zoom) : (Theme::PEDAL_WIDTH * zoom);</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          10 :     float pedal_height = Theme::PEDAL_HEIGHT * zoom;</span></span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           8 :     ImVec2 cursor = ImGui::GetCursorScreenPos();</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           8 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          10 :     ImVec2 cursor = ImGui::GetCursorScreenPos();</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          10 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
 <span id="L45"><span class="lineNum">      45</span>              :     // Pedal body</span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           8 :     ImVec2 p0 = cursor;</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           8 :     ImVec2 p1 = ImVec2(cursor.x + pedal_width, cursor.y + pedal_height);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          10 :     ImVec2 p0 = cursor;</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          10 :     ImVec2 p1 = ImVec2(cursor.x + pedal_width, cursor.y + pedal_height);</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
 <span id="L49"><span class="lineNum">      49</span>              :     // Shadow</span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           8 :     dl-&gt;AddRectFilled(</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           8 :         ImVec2(p0.x + 4 * zoom, p0.y + 4 * zoom),</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           8 :         ImVec2(p1.x + 4 * zoom, p1.y + 4 * zoom),</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          10 :     dl-&gt;AddRectFilled(</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          10 :         ImVec2(p0.x + 4 * zoom, p0.y + 4 * zoom),</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          10 :         ImVec2(p1.x + 4 * zoom, p1.y + 4 * zoom),</span></span>
 <span id="L53"><span class="lineNum">      53</span>              :         Theme::PEDAL_SHADOW, Theme::ROUNDING_MD * zoom</span>
 <span id="L54"><span class="lineNum">      54</span>              :     );</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           8 :     if (is_amp) {</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           2 :         render_amp_cabinet(dl, p0, p1, pedal_width, pedal_height, zoom);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          10 :     if (is_amp) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           4 :         render_amp_cabinet(dl, p0, p1, pedal_width, pedal_height, zoom);</span></span>
 <span id="L58"><span class="lineNum">      58</span>              :     } else {</span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           6 :         render_standard_pedal(dl, p0, p1, pedal_width, enabled, zoom);</span></span>
 <span id="L60"><span class="lineNum">      60</span>              :     }</span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span>              :     // Dim the pedal body when bypassed so the inactive state is immediately obvious</span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           8 :     if (!enabled &amp;&amp; !is_amp) {</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          10 :     if (!enabled &amp;&amp; !is_amp) {</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaUNC tlaBgUNC">           0 :         dl-&gt;AddRectFilled(p0, p1, Theme::PEDAL_BYPASS_OVERLAY, Theme::ROUNDING_MD * zoom);</span></span>
 <span id="L65"><span class="lineNum">      65</span>              :     }</span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span>              :     // --- Tuner custom display ---</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC tlaBgGNC">           8 :     bool is_tuner = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Tuner&quot;) == 0);</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           8 :     if (is_tuner) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC tlaBgGNC">          10 :     bool is_tuner = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Tuner&quot;) == 0);</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          10 :     if (is_tuner) {</span></span>
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           1 :         render_tuner_display(dl, p0, pedal_width, zoom);</span></span>
 <span id="L71"><span class="lineNum">      71</span>              :     }</span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span>              :     // --- IR Cabinet custom display ---</span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           8 :     bool is_ir_cab = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Cabinet&quot;) == 0);</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           8 :     if (is_ir_cab) {</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          10 :     bool is_ir_cab = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Cabinet&quot;) == 0);</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          10 :     if (is_ir_cab) {</span></span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           1 :         render_ir_cabinet_display(p0, pedal_width, zoom);</span></span>
 <span id="L77"><span class="lineNum">      77</span>              :     }</span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           8 :     if (is_looper) {</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          10 :     if (is_looper) {</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           1 :         render_looper_display(p0, pedal_width, zoom);</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           7 :     } else if (is_mb_comp) {</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           9 :     } else if (is_mb_comp) {</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           1 :         render_multiband_compressor_display(dl, p0, pedal_width, zoom);</span></span>
 <span id="L83"><span class="lineNum">      83</span>              :     } else {</span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           6 :         render_knobs(dl, p0, pedal_width, is_amp, is_tuner, is_ir_cab, zoom);</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           8 :         render_knobs(dl, p0, pedal_width, is_amp, is_tuner, is_ir_cab, zoom);</span></span>
 <span id="L85"><span class="lineNum">      85</span>              :     }</span>
 <span id="L86"><span class="lineNum">      86</span>              : </span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           8 :     render_footswitch_and_extras(dl, p0, p1, pedal_width, pedal_height, is_amp, enabled, should_remove, zoom);</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">          10 :     render_footswitch_and_extras(dl, p0, p1, pedal_width, pedal_height, is_amp, enabled, should_remove, zoom);</span></span>
 <span id="L88"><span class="lineNum">      88</span>              : </span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           8 :     ImGui::PopID();</span></span>
-<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           8 :     return should_remove;</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">          10 :     ImGui::PopID();</span></span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          10 :     return should_remove;</span></span>
 <span id="L91"><span class="lineNum">      91</span>              : }</span>
 <span id="L92"><span class="lineNum">      92</span>              : </span>
 <span id="L93"><span class="lineNum">      93</span>              : </span>
@@ -194,10 +194,10 @@
 <span id="L132"><span class="lineNum">     132</span>              : </span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
 <span id="L134"><span class="lineNum">     134</span>              : </span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           8 : void PedalWidget::render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool&amp; should_remove, float zoom) {</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           8 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          10 : void PedalWidget::render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool&amp; should_remove, float zoom) {</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          10 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
 <span id="L137"><span class="lineNum">     137</span>              :     // LED tooltip — hover area over the LED indicator</span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           8 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          10 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           5 :         float led_x = p0.x + pedal_width - 25 * zoom;</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           5 :         float led_y = p0.y + 20 * zoom;</span></span>
 <span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           5 :         ImGui::SetCursorScreenPos(ImVec2(led_x - 10 * zoom, led_y - 10 * zoom));</span></span>
@@ -209,7 +209,7 @@
 <span id="L147"><span class="lineNum">     147</span>              :     }</span>
 <span id="L148"><span class="lineNum">     148</span>              : </span>
 <span id="L149"><span class="lineNum">     149</span>              :     // Footswitch (toggle on/off) — amps are always on, no footswitch</span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC tlaBgGNC">           8 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC tlaBgGNC">          10 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           5 :         float switch_y = p0.y + pedal_height - Theme::SWITCH_BOTTOM_OFFSET * zoom;</span></span>
 <span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           5 :         float switch_x = p0.x + (pedal_width - 50 * zoom) / 2;</span></span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           5 :         ImGui::SetCursorScreenPos(ImVec2(switch_x, switch_y));</span></span>
@@ -248,7 +248,7 @@
 <span id="L186"><span class="lineNum">     186</span>              :     //     }</span>
 <span id="L187"><span class="lineNum">     187</span>              :     //     ImGui::PopStyleColor(2);</span>
 <span id="L188"><span class="lineNum">     188</span>              :     // }</span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC tlaBgGNC">           8 : }</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC tlaBgGNC">          10 : }</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC tlaBgUNC">           0 : void PedalWidget::commit_param_change(int param_index, float old_val, float new_val) {</span></span>
 <span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     if (!history_) return;</span></span>
