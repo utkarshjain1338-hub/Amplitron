@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 10:27:05</td>
+            <td class="headerValue">2026-05-26 16:13:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
-            <td class="headerCovTableEntry">1</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -75,8 +75,8 @@
 <span id="L13"><span class="lineNum">      13</span>              :  */</span>
 <span id="L14"><span class="lineNum">      14</span>              : class GuiTuner {</span>
 <span id="L15"><span class="lineNum">      15</span>              : public:</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC tlaBgUNC">           0 :     GuiTuner(AudioEngine&amp; engine, std::shared_ptr&lt;TunerPedal&gt; tuner)</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :         : engine_(engine), tuner_(std::move(tuner)) {}</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">           8 :     GuiTuner(AudioEngine&amp; engine, std::shared_ptr&lt;TunerPedal&gt; tuner)</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           8 :         : engine_(engine), tuner_(std::move(tuner)) {}</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span>              :     /** @brief Render the tuner modal. Only call when show is true. */</span>
 <span id="L20"><span class="lineNum">      20</span>              :     void render(bool&amp; show);</span>
@@ -85,7 +85,7 @@
 <span id="L23"><span class="lineNum">      23</span>              :     void toggle(bool&amp; show);</span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span>              :     /** @brief Get the tuner instance for menu bar status display. */</span>
-<span id="L26"><span class="lineNum">      26</span>              :     std::shared_ptr&lt;TunerPedal&gt; tuner_instance() const { return tuner_; }</span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :     std::shared_ptr&lt;TunerPedal&gt; tuner_instance() const { return tuner_; }</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              : private:</span>
 <span id="L29"><span class="lineNum">      29</span>              :     AudioEngine&amp; engine_;</span>

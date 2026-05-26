@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">96.7&nbsp;%</td>
             <td class="headerCovTableEntry">30</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">29</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 10:27:05</td>
+            <td class="headerValue">2026-05-26 16:13:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -75,44 +75,44 @@
 <span id="L13"><span class="lineNum">      13</span>              :  */</span>
 <span id="L14"><span class="lineNum">      14</span>              : class ResetAllCommand : public Command {</span>
 <span id="L15"><span class="lineNum">      15</span>              : public:</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC tlaBgUNC">           0 :     explicit ResetAllCommand(AudioEngine&amp; engine)</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :         : engine_(engine) {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :         auto&amp; effects = engine_.effects();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :         for (auto&amp; fx : effects) {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaUNC">           0 :             std::vector&lt;float&gt; values;</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :             for (const auto&amp; param : fx-&gt;params()) {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :                 values.push_back(param.value);</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">           5 :     explicit ResetAllCommand(AudioEngine&amp; engine)</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           5 :         : engine_(engine) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           5 :         auto&amp; effects = engine_.effects();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          10 :         for (auto&amp; fx : effects) {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           5 :             std::vector&lt;float&gt; values;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          20 :             for (const auto&amp; param : fx-&gt;params()) {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          15 :                 values.push_back(param.value);</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :             }</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 :             saved_values_.push_back(values);</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC">           0 :             saved_enabled_.push_back(fx-&gt;is_enabled());</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           5 :             saved_values_.push_back(values);</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           5 :             saved_enabled_.push_back(fx-&gt;is_enabled());</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           5 :         }</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           5 :     }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC">           0 :     void execute() override {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaUNC">           0 :         auto&amp; effects = engine_.effects();</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :         for (auto&amp; fx : effects) {</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC">           0 :             fx-&gt;reset(); // Resets internal DSP state</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :             auto&amp; p = fx-&gt;params();</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :             for (auto&amp; param : p) {</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :                 param.value = param.default_val;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           6 :     void execute() override {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           6 :         auto&amp; effects = engine_.effects();</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          12 :         for (auto&amp; fx : effects) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 :             fx-&gt;reset(); // Resets internal DSP state</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           6 :             auto&amp; p = fx-&gt;params();</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          24 :             for (auto&amp; param : p) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          18 :                 param.value = param.default_val;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :             }</span>
 <span id="L37"><span class="lineNum">      37</span>              :         }</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           6 :     }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 :     void undo() override {</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :         auto&amp; effects = engine_.effects();</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :         for (size_t i = 0; i &lt; effects.size() &amp;&amp; i &lt; saved_values_.size(); ++i) {</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :             auto&amp; fx = effects[i];</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :             auto&amp; p = fx-&gt;params();</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :             auto&amp; values = saved_values_[i];</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :             for (size_t j = 0; j &lt; p.size() &amp;&amp; j &lt; values.size(); ++j) {</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :                 p[j].value = values[j];</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           2 :     void undo() override {</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           2 :         auto&amp; effects = engine_.effects();</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           4 :         for (size_t i = 0; i &lt; effects.size() &amp;&amp; i &lt; saved_values_.size(); ++i) {</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           2 :             auto&amp; fx = effects[i];</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           2 :             auto&amp; p = fx-&gt;params();</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           2 :             auto&amp; values = saved_values_[i];</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           8 :             for (size_t j = 0; j &lt; p.size() &amp;&amp; j &lt; values.size(); ++j) {</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           6 :                 p[j].value = values[j];</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :             }</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :             fx-&gt;set_enabled(saved_enabled_[i]);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           2 :             fx-&gt;set_enabled(saved_enabled_[i]);</span></span>
 <span id="L50"><span class="lineNum">      50</span>              :         }</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           2 :     }</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :     const char* description() const override { return &quot;Reset All&quot;; }</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Reset All&quot;; }</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span>              : private:</span>
 <span id="L56"><span class="lineNum">      56</span>              :     AudioEngine&amp; engine_;</span>

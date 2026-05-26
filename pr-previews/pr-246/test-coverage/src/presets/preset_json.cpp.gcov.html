@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 10:27:05</td>
+            <td class="headerValue">2026-05-26 16:13:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">94.4&nbsp;%</td>
@@ -120,32 +120,32 @@
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           1 :   }</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L60"><span class="lineNum">      60</span>              : </span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          47 : void to_ordered_json(OrderedJson &amp;j, const PresetData::NodeData &amp;node) {</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          47 :   OrderedJson params_obj = OrderedJson::object();</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         149 :   for (const auto &amp;[name, value] : node.params) {</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">         102 :     params_obj[name] = value;</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          49 : void to_ordered_json(OrderedJson &amp;j, const PresetData::NodeData &amp;node) {</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          49 :   OrderedJson params_obj = OrderedJson::object();</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         154 :   for (const auto &amp;[name, value] : node.params) {</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">         105 :     params_obj[name] = value;</span></span>
 <span id="L65"><span class="lineNum">      65</span>              :   }</span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          47 :   j = OrderedJson::object();</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          47 :   j[&quot;id&quot;] = node.id;</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          47 :   j[&quot;type&quot;] = node.type;</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         329 :   j[&quot;position&quot;] = {{&quot;x&quot;, node.x}, {&quot;y&quot;, node.y}};</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          47 :   j[&quot;enabled&quot;] = node.enabled;</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          47 :   j[&quot;mix&quot;] = node.mix;</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          47 :   if (node.num_inputs &gt; 0) {</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          49 :   j = OrderedJson::object();</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          49 :   j[&quot;id&quot;] = node.id;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          49 :   j[&quot;type&quot;] = node.type;</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         343 :   j[&quot;position&quot;] = {{&quot;x&quot;, node.x}, {&quot;y&quot;, node.y}};</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          49 :   j[&quot;enabled&quot;] = node.enabled;</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          49 :   j[&quot;mix&quot;] = node.mix;</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          49 :   if (node.num_inputs &gt; 0) {</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           4 :     j[&quot;num_inputs&quot;] = node.num_inputs;</span></span>
 <span id="L75"><span class="lineNum">      75</span>              :   }</span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          47 :   if (!node.params.empty()) {</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          31 :     j[&quot;params&quot;] = std::move(params_obj);</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          49 :   if (!node.params.empty()) {</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          32 :     j[&quot;params&quot;] = std::move(params_obj);</span></span>
 <span id="L78"><span class="lineNum">      78</span>              :   }</span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          47 :   if (!node.metadata.empty()) {</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          49 :   if (!node.metadata.empty()) {</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           3 :     OrderedJson metadata_obj = OrderedJson::object();</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           6 :     for (const auto &amp;[key, value] : node.metadata) {</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           3 :       metadata_obj[key] = value;</span></span>
 <span id="L83"><span class="lineNum">      83</span>              :     }</span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           3 :     j[&quot;metadata&quot;] = std::move(metadata_obj);</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           3 :   }</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">         329 : }</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">         343 : }</span></span>
 <span id="L87"><span class="lineNum">      87</span>              : </span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          57 : void from_ordered_json(const OrderedJson &amp;j, PresetData::NodeData &amp;node) {</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">          57 :   node.id = j.value(&quot;id&quot;, std::string{});</span></span>
@@ -179,41 +179,41 @@
 <span id="L117"><span class="lineNum">     117</span>              :   }</span>
 <span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          57 : }</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          24 : void to_ordered_json(OrderedJson &amp;j, const PresetData::LinkData &amp;link) {</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          24 :   j = OrderedJson::object();</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          24 :   j[&quot;src_pin&quot;] = link.src_pin;</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          24 :   j[&quot;dst_pin&quot;] = link.dst_pin;</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          24 : }</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          25 : void to_ordered_json(OrderedJson &amp;j, const PresetData::LinkData &amp;link) {</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          25 :   j = OrderedJson::object();</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          25 :   j[&quot;src_pin&quot;] = link.src_pin;</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          25 :   j[&quot;dst_pin&quot;] = link.dst_pin;</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L125"><span class="lineNum">     125</span>              : </span>
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          25 : void from_ordered_json(const OrderedJson &amp;j, PresetData::LinkData &amp;link) {</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          25 :   link.src_pin = j.value(&quot;src_pin&quot;, std::string{});</span></span>
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          25 :   link.dst_pin = j.value(&quot;dst_pin&quot;, std::string{});</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          51 : void from_ordered_json(const OrderedJson &amp;j, PresetData::EffectData &amp;fx) {</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          51 :   fx.type = j.value(&quot;type&quot;, std::string{});</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          51 :   fx.enabled = j.value(&quot;enabled&quot;, false);</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          51 :   fx.mix = j.value(&quot;mix&quot;, 1.0f);</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          62 : void from_ordered_json(const OrderedJson &amp;j, PresetData::EffectData &amp;fx) {</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          62 :   fx.type = j.value(&quot;type&quot;, std::string{});</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          62 :   fx.enabled = j.value(&quot;enabled&quot;, false);</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          62 :   fx.mix = j.value(&quot;mix&quot;, 1.0f);</span></span>
 <span id="L135"><span class="lineNum">     135</span>              : </span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          51 :   fx.params.clear();</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          51 :   fx.metadata.clear();</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          62 :   fx.params.clear();</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          62 :   fx.metadata.clear();</span></span>
 <span id="L138"><span class="lineNum">     138</span>              : </span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          51 :   if (j.contains(&quot;params&quot;) &amp;&amp; j[&quot;params&quot;].is_object()) {</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         384 :     for (auto it = j[&quot;params&quot;].begin(); it != j[&quot;params&quot;].end(); ++it) {</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         168 :       if (it.value().is_number()) {</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">         167 :         fx.params.emplace_back(it.key(), it.value().get&lt;float&gt;());</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          62 :   if (j.contains(&quot;params&quot;) &amp;&amp; j[&quot;params&quot;].is_object()) {</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         483 :     for (auto it = j[&quot;params&quot;].begin(); it != j[&quot;params&quot;].end(); ++it) {</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         212 :       if (it.value().is_number()) {</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">         211 :         fx.params.emplace_back(it.key(), it.value().get&lt;float&gt;());</span></span>
 <span id="L143"><span class="lineNum">     143</span>              :       }</span>
 <span id="L144"><span class="lineNum">     144</span>              :     }</span>
 <span id="L145"><span class="lineNum">     145</span>              :   }</span>
 <span id="L146"><span class="lineNum">     146</span>              : </span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          51 :   if (j.contains(&quot;metadata&quot;) &amp;&amp; j[&quot;metadata&quot;].is_object()) {</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          62 :   if (j.contains(&quot;metadata&quot;) &amp;&amp; j[&quot;metadata&quot;].is_object()) {</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          11 :     for (auto it = j[&quot;metadata&quot;].begin(); it != j[&quot;metadata&quot;].end(); ++it) {</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           4 :       if (it.value().is_string()) {</span></span>
 <span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           3 :         fx.metadata[it.key()] = it.value().get&lt;std::string&gt;();</span></span>
 <span id="L151"><span class="lineNum">     151</span>              :       }</span>
 <span id="L152"><span class="lineNum">     152</span>              :     }</span>
 <span id="L153"><span class="lineNum">     153</span>              :   }</span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          51 : }</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          62 : }</span></span>
 <span id="L155"><span class="lineNum">     155</span>              : </span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           7 : void to_ordered_json_midi(OrderedJson &amp;j, const MidiMapping &amp;m) {</span></span>
 <span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           7 :   j = OrderedJson::object();</span></span>
@@ -234,73 +234,73 @@
 <span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           7 :   m.param_name = j.value(&quot;param&quot;, std::string{});</span></span>
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           7 : }</span></span>
 <span id="L174"><span class="lineNum">     174</span>              : </span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          28 : void to_ordered_json(OrderedJson &amp;j, const PresetData &amp;preset) {</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          32 : void to_ordered_json(OrderedJson &amp;j, const PresetData &amp;preset) {</span></span>
 <span id="L176"><span class="lineNum">     176</span>              :   // Generate an ISO-8601 timestamp</span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          28 :   std::time_t now = std::time(nullptr);</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          28 :   char timebuf[64] = {};</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          28 :   std::tm tm_info{};</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          32 :   std::time_t now = std::time(nullptr);</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          32 :   char timebuf[64] = {};</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          32 :   std::tm tm_info{};</span></span>
 <span id="L180"><span class="lineNum">     180</span>              : #ifdef _WIN32</span>
 <span id="L181"><span class="lineNum">     181</span>              :   localtime_s(&amp;tm_info, &amp;now);</span>
 <span id="L182"><span class="lineNum">     182</span>              : #else</span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">          28 :   localtime_r(&amp;now, &amp;tm_info);</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">          32 :   localtime_r(&amp;now, &amp;tm_info);</span></span>
 <span id="L184"><span class="lineNum">     184</span>              : #endif</span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          28 :   std::strftime(timebuf, sizeof(timebuf), &quot;%Y-%m-%dT%H:%M:%S&quot;, &amp;tm_info);</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          32 :   std::strftime(timebuf, sizeof(timebuf), &quot;%Y-%m-%dT%H:%M:%S&quot;, &amp;tm_info);</span></span>
 <span id="L186"><span class="lineNum">     186</span>              : </span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">          28 :   OrderedJson effects_arr = OrderedJson::array();</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">          40 :   for (const auto &amp;fx : preset.effects) {</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">          32 :   OrderedJson effects_arr = OrderedJson::array();</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">          44 :   for (const auto &amp;fx : preset.effects) {</span></span>
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">          12 :     OrderedJson jfx;</span></span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">          12 :     to_ordered_json(jfx, fx);</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">          12 :     effects_arr.push_back(std::move(jfx));</span></span>
 <span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">          12 :   }</span></span>
 <span id="L193"><span class="lineNum">     193</span>              : </span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">          28 :   OrderedJson midi_arr = OrderedJson::array();</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">          35 :   for (const auto &amp;m : preset.midi_mappings) {</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">          32 :   OrderedJson midi_arr = OrderedJson::array();</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">          39 :   for (const auto &amp;m : preset.midi_mappings) {</span></span>
 <span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">           7 :     OrderedJson jm;</span></span>
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           7 :     to_ordered_json_midi(jm, m);</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           7 :     midi_arr.push_back(std::move(jm));</span></span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           7 :   }</span></span>
 <span id="L200"><span class="lineNum">     200</span>              : </span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">          28 :   OrderedJson nodes_arr = OrderedJson::array();</span></span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">          75 :   for (const auto &amp;node : preset.nodes) {</span></span>
-<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">          47 :     OrderedJson jn;</span></span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">          47 :     to_ordered_json(jn, node);</span></span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">          47 :     nodes_arr.push_back(std::move(jn));</span></span>
-<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          47 :   }</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">          32 :   OrderedJson nodes_arr = OrderedJson::array();</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">          81 :   for (const auto &amp;node : preset.nodes) {</span></span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">          49 :     OrderedJson jn;</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">          49 :     to_ordered_json(jn, node);</span></span>
+<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">          49 :     nodes_arr.push_back(std::move(jn));</span></span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          49 :   }</span></span>
 <span id="L207"><span class="lineNum">     207</span>              : </span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">          28 :   OrderedJson links_arr = OrderedJson::array();</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">          52 :   for (const auto &amp;link : preset.links) {</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          24 :     OrderedJson jl;</span></span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          24 :     to_ordered_json(jl, link);</span></span>
-<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          24 :     links_arr.push_back(std::move(jl));</span></span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          24 :   }</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">          32 :   OrderedJson links_arr = OrderedJson::array();</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">          57 :   for (const auto &amp;link : preset.links) {</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          25 :     OrderedJson jl;</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          25 :     to_ordered_json(jl, link);</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          25 :     links_arr.push_back(std::move(jl));</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          25 :   }</span></span>
 <span id="L214"><span class="lineNum">     214</span>              : </span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">          28 :   j = OrderedJson::object();</span></span>
-<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">          28 :   j[&quot;format_version&quot;] = 2; // Increased format version for graph presets</span></span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">          28 :   j[&quot;routing&quot;] = preset.routing;</span></span>
-<span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">          28 :   j[&quot;name&quot;] = preset.name;</span></span>
-<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">          28 :   j[&quot;description&quot;] = preset.description;</span></span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">          28 :   j[&quot;saved_at&quot;] = timebuf;</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">          28 :   j[&quot;input_gain&quot;] = preset.input_gain;</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          28 :   j[&quot;output_gain&quot;] = preset.output_gain;</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">          32 :   j = OrderedJson::object();</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">          32 :   j[&quot;format_version&quot;] = 2; // Increased format version for graph presets</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">          32 :   j[&quot;routing&quot;] = preset.routing;</span></span>
+<span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">          32 :   j[&quot;name&quot;] = preset.name;</span></span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">          32 :   j[&quot;description&quot;] = preset.description;</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">          32 :   j[&quot;saved_at&quot;] = timebuf;</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">          32 :   j[&quot;input_gain&quot;] = preset.input_gain;</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          32 :   j[&quot;output_gain&quot;] = preset.output_gain;</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">          28 :   if (preset.routing == &quot;linear&quot;) {</span></span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          10 :     j[&quot;effects&quot;] = std::move(effects_arr);</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">          32 :   if (preset.routing == &quot;linear&quot;) {</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          11 :     j[&quot;effects&quot;] = std::move(effects_arr);</span></span>
 <span id="L226"><span class="lineNum">     226</span>              :   } else {</span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          18 :     j[&quot;nodes&quot;] = std::move(nodes_arr);</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          18 :     j[&quot;links&quot;] = std::move(links_arr);</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          21 :     j[&quot;nodes&quot;] = std::move(nodes_arr);</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          21 :     j[&quot;links&quot;] = std::move(links_arr);</span></span>
 <span id="L229"><span class="lineNum">     229</span>              :   }</span>
 <span id="L230"><span class="lineNum">     230</span>              : </span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          28 :   j[&quot;midi_mappings&quot;] = std::move(midi_arr);</span></span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          28 : }</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          32 :   j[&quot;midi_mappings&quot;] = std::move(midi_arr);</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          32 : }</span></span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          41 : void from_ordered_json(const OrderedJson &amp;j, PresetData &amp;preset) {</span></span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">          41 :   preset.name = j.value(&quot;name&quot;, std::string{});</span></span>
-<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">          41 :   preset.description = j.value(&quot;description&quot;, std::string{});</span></span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">          41 :   preset.routing = j.value(&quot;routing&quot;, std::string{&quot;linear&quot;});</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">          41 :   preset.input_gain = j.value(&quot;input_gain&quot;, 0.7f);</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          41 :   preset.output_gain = j.value(&quot;output_gain&quot;, 0.8f);</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          42 : void from_ordered_json(const OrderedJson &amp;j, PresetData &amp;preset) {</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">          42 :   preset.name = j.value(&quot;name&quot;, std::string{});</span></span>
+<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">          42 :   preset.description = j.value(&quot;description&quot;, std::string{});</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">          42 :   preset.routing = j.value(&quot;routing&quot;, std::string{&quot;linear&quot;});</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">          42 :   preset.input_gain = j.value(&quot;input_gain&quot;, 0.7f);</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          42 :   preset.output_gain = j.value(&quot;output_gain&quot;, 0.8f);</span></span>
 <span id="L240"><span class="lineNum">     240</span>              : </span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          41 :   if (preset.routing == &quot;graph&quot;) {</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          42 :   if (preset.routing == &quot;graph&quot;) {</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          27 :     if (!j.contains(&quot;nodes&quot;) || !j[&quot;nodes&quot;].is_array()) {</span></span>
 <span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           2 :       throw std::invalid_argument(&quot;Malformed graph preset: missing or invalid 'nodes' array&quot;);</span></span>
 <span id="L244"><span class="lineNum">     244</span>              :     }</span>
@@ -309,22 +309,22 @@
 <span id="L247"><span class="lineNum">     247</span>              :     }</span>
 <span id="L248"><span class="lineNum">     248</span>              :   }</span>
 <span id="L249"><span class="lineNum">     249</span>              : </span>
-<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">          37 :   preset.effects.clear();</span></span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          37 :   preset.nodes.clear();</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">          37 :   preset.links.clear();</span></span>
-<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          37 :   preset.midi_mappings.clear();</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">          38 :   preset.effects.clear();</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          38 :   preset.nodes.clear();</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">          38 :   preset.links.clear();</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          38 :   preset.midi_mappings.clear();</span></span>
 <span id="L254"><span class="lineNum">     254</span>              : </span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">          37 :   if (j.contains(&quot;effects&quot;) &amp;&amp; j[&quot;effects&quot;].is_array()) {</span></span>
-<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">          65 :     for (const auto &amp;jfx : j[&quot;effects&quot;]) {</span></span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          51 :       PresetData::EffectData fx;</span></span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          51 :       from_ordered_json(jfx, fx);</span></span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          51 :       if (!fx.type.empty()) {</span></span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          50 :         preset.effects.push_back(std::move(fx));</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">          38 :   if (j.contains(&quot;effects&quot;) &amp;&amp; j[&quot;effects&quot;].is_array()) {</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">          77 :     for (const auto &amp;jfx : j[&quot;effects&quot;]) {</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          62 :       PresetData::EffectData fx;</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          62 :       from_ordered_json(jfx, fx);</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          62 :       if (!fx.type.empty()) {</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          61 :         preset.effects.push_back(std::move(fx));</span></span>
 <span id="L261"><span class="lineNum">     261</span>              :       }</span>
-<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">          51 :     }</span></span>
+<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">          62 :     }</span></span>
 <span id="L263"><span class="lineNum">     263</span>              :   }</span>
 <span id="L264"><span class="lineNum">     264</span>              : </span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          37 :   if (j.contains(&quot;nodes&quot;) &amp;&amp; j[&quot;nodes&quot;].is_array()) {</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          38 :   if (j.contains(&quot;nodes&quot;) &amp;&amp; j[&quot;nodes&quot;].is_array()) {</span></span>
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">          81 :     for (const auto &amp;jn : j[&quot;nodes&quot;]) {</span></span>
 <span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">          57 :       PresetData::NodeData node;</span></span>
 <span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          57 :       from_ordered_json(jn, node);</span></span>
@@ -334,7 +334,7 @@
 <span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">          57 :     }</span></span>
 <span id="L273"><span class="lineNum">     273</span>              :   }</span>
 <span id="L274"><span class="lineNum">     274</span>              : </span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">          37 :   if (j.contains(&quot;links&quot;) &amp;&amp; j[&quot;links&quot;].is_array()) {</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">          38 :   if (j.contains(&quot;links&quot;) &amp;&amp; j[&quot;links&quot;].is_array()) {</span></span>
 <span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">          49 :     for (const auto &amp;jl : j[&quot;links&quot;]) {</span></span>
 <span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">          25 :       PresetData::LinkData link;</span></span>
 <span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">          25 :       from_ordered_json(jl, link);</span></span>
@@ -344,14 +344,14 @@
 <span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">          25 :     }</span></span>
 <span id="L283"><span class="lineNum">     283</span>              :   }</span>
 <span id="L284"><span class="lineNum">     284</span>              : </span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">          37 :   if (j.contains(&quot;midi_mappings&quot;) &amp;&amp; j[&quot;midi_mappings&quot;].is_array()) {</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">          38 :   if (j.contains(&quot;midi_mappings&quot;) &amp;&amp; j[&quot;midi_mappings&quot;].is_array()) {</span></span>
 <span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          27 :     for (const auto &amp;jm : j[&quot;midi_mappings&quot;]) {</span></span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           7 :       MidiMapping m;</span></span>
 <span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           7 :       from_ordered_json_midi(jm, m);</span></span>
 <span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           7 :       preset.midi_mappings.push_back(m);</span></span>
 <span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           7 :     }</span></span>
 <span id="L291"><span class="lineNum">     291</span>              :   }</span>
-<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">          37 : }</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">          38 : }</span></span>
 <span id="L293"><span class="lineNum">     293</span>              : </span>
 <span id="L294"><span class="lineNum">     294</span>              : } // namespace</span>
 <span id="L295"><span class="lineNum">     295</span>              : </span>
@@ -593,22 +593,22 @@
 <span id="L531"><span class="lineNum">     531</span>              : // Public helpers used by PresetManager</span>
 <span id="L532"><span class="lineNum">     532</span>              : // ============================================================</span>
 <span id="L533"><span class="lineNum">     533</span>              : </span>
-<span id="L534"><span class="lineNum">     534</span> <span class="tlaGNC">          28 : std::string to_json_ext(const PresetData &amp;preset) {</span></span>
-<span id="L535"><span class="lineNum">     535</span> <span class="tlaGNC">          28 :   OrderedJson j;</span></span>
-<span id="L536"><span class="lineNum">     536</span> <span class="tlaGNC">          28 :   to_ordered_json(j, preset);</span></span>
-<span id="L537"><span class="lineNum">     537</span> <span class="tlaGNC">          56 :   return j.dump(4) + &quot;\n&quot;;</span></span>
-<span id="L538"><span class="lineNum">     538</span> <span class="tlaGNC">          28 : }</span></span>
+<span id="L534"><span class="lineNum">     534</span> <span class="tlaGNC">          32 : std::string to_json_ext(const PresetData &amp;preset) {</span></span>
+<span id="L535"><span class="lineNum">     535</span> <span class="tlaGNC">          32 :   OrderedJson j;</span></span>
+<span id="L536"><span class="lineNum">     536</span> <span class="tlaGNC">          32 :   to_ordered_json(j, preset);</span></span>
+<span id="L537"><span class="lineNum">     537</span> <span class="tlaGNC">          64 :   return j.dump(4) + &quot;\n&quot;;</span></span>
+<span id="L538"><span class="lineNum">     538</span> <span class="tlaGNC">          32 : }</span></span>
 <span id="L539"><span class="lineNum">     539</span>              : </span>
-<span id="L540"><span class="lineNum">     540</span> <span class="tlaGNC">          44 : bool from_json_ext(const std::string &amp;json_str, PresetData &amp;preset) {</span></span>
+<span id="L540"><span class="lineNum">     540</span> <span class="tlaGNC">          45 : bool from_json_ext(const std::string &amp;json_str, PresetData &amp;preset) {</span></span>
 <span id="L541"><span class="lineNum">     541</span>              :   // Deserialize into a temporary so that a mid-way exception never leaves</span>
 <span id="L542"><span class="lineNum">     542</span>              :   // `preset` in a partially-mutated state.</span>
 <span id="L543"><span class="lineNum">     543</span>              :   try {</span>
-<span id="L544"><span class="lineNum">     544</span> <span class="tlaGNC">          47 :     OrderedJson j = OrderedJson::parse(json_str);</span></span>
-<span id="L545"><span class="lineNum">     545</span> <span class="tlaGNC">          41 :     PresetData tmp;</span></span>
-<span id="L546"><span class="lineNum">     546</span> <span class="tlaGNC">          41 :     from_ordered_json(j, tmp);</span></span>
-<span id="L547"><span class="lineNum">     547</span> <span class="tlaGNC">          37 :     preset = std::move(tmp);</span></span>
-<span id="L548"><span class="lineNum">     548</span> <span class="tlaGNC">          37 :     return true;</span></span>
-<span id="L549"><span class="lineNum">     549</span> <span class="tlaGNC">          52 :   } catch (const nlohmann::json::exception &amp;e) {</span></span>
+<span id="L544"><span class="lineNum">     544</span> <span class="tlaGNC">          48 :     OrderedJson j = OrderedJson::parse(json_str);</span></span>
+<span id="L545"><span class="lineNum">     545</span> <span class="tlaGNC">          42 :     PresetData tmp;</span></span>
+<span id="L546"><span class="lineNum">     546</span> <span class="tlaGNC">          42 :     from_ordered_json(j, tmp);</span></span>
+<span id="L547"><span class="lineNum">     547</span> <span class="tlaGNC">          38 :     preset = std::move(tmp);</span></span>
+<span id="L548"><span class="lineNum">     548</span> <span class="tlaGNC">          38 :     return true;</span></span>
+<span id="L549"><span class="lineNum">     549</span> <span class="tlaGNC">          53 :   } catch (const nlohmann::json::exception &amp;e) {</span></span>
 <span id="L550"><span class="lineNum">     550</span> <span class="tlaGNC">           3 :     std::cerr &lt;&lt; &quot;[preset_json] JSON parse error: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;</span></span>
 <span id="L551"><span class="lineNum">     551</span> <span class="tlaGNC">           3 :     return false;</span></span>
 <span id="L552"><span class="lineNum">     552</span> <span class="tlaGNC">           7 :   } catch (const std::exception &amp;e) {</span></span>

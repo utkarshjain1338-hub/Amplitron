@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryLo">24.1&nbsp;%</td>
             <td class="headerCovTableEntry">87</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">21</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 10:27:05</td>
+            <td class="headerValue">2026-05-26 16:13:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -70,41 +70,41 @@
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              : namespace Amplitron {</span>
 <span id="L10"><span class="lineNum">      10</span>              : </span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaUNC tlaBgUNC">           0 : GuiSnapshots::GuiSnapshots(AudioEngine&amp; engine, CommandHistory&amp; history)</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC">           0 :     : engine_(engine), history_(history) {}</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">          13 : GuiSnapshots::GuiSnapshots(AudioEngine&amp; engine, CommandHistory&amp; history)</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          13 :     : engine_(engine), history_(history) {}</span></span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaUNC">           0 : void GuiSnapshots::save_to_slot(int slot) {</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaUNC">           0 :     manager_.save_slot(slot, engine_);</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC">           0 :     manager_.set_active_slot(slot);</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :     std::snprintf(status_msg_, sizeof(status_msg_), &quot;Saved to %s&quot;,</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :                   SnapshotManager::SLOT_LABELS[slot]);</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :     status_timer_ = STATUS_DISPLAY_SECONDS;</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          11 : void GuiSnapshots::save_to_slot(int slot) {</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          11 :     manager_.save_slot(slot, engine_);</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          11 :     manager_.set_active_slot(slot);</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          11 :     std::snprintf(status_msg_, sizeof(status_msg_), &quot;Saved to %s&quot;,</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          11 :                   SnapshotManager::SLOT_LABELS[slot]);</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          11 :     status_timer_ = STATUS_DISPLAY_SECONDS;</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          11 : }</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 : void GuiSnapshots::recall_slot(int slot) {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :     if (!manager_.has_slot(slot)) return;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           4 : void GuiSnapshots::recall_slot(int slot) {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           4 :     if (!manager_.has_slot(slot)) return;</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span>              :     // Capture before-state for undo</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :     auto before = SnapshotManager::capture(engine_);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :     const auto* after_snap = manager_.get_slot(slot);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :     auto before = SnapshotManager::capture(engine_);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           3 :     const auto* after_snap = manager_.get_slot(slot);</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC">           0 :     history_.execute(std::make_unique&lt;RecallSnapshotCommand&gt;(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :     history_.execute(std::make_unique&lt;RecallSnapshotCommand&gt;(</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :         engine_,</span>
 <span id="L31"><span class="lineNum">      31</span>              :         before.effects, before.input_gain, before.output_gain,</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC">           0 :         after_snap-&gt;effects, after_snap-&gt;input_gain, after_snap-&gt;output_gain</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           3 :         after_snap-&gt;effects, after_snap-&gt;input_gain, after_snap-&gt;output_gain</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :     ));</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :     manager_.set_active_slot(slot);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :     std::snprintf(status_msg_, sizeof(status_msg_), &quot;Recalled %s&quot;,</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :                   SnapshotManager::SLOT_LABELS[slot]);</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :     status_timer_ = STATUS_DISPLAY_SECONDS;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :     manager_.set_active_slot(slot);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           3 :     std::snprintf(status_msg_, sizeof(status_msg_), &quot;Recalled %s&quot;,</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           3 :                   SnapshotManager::SLOT_LABELS[slot]);</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           3 :     status_timer_ = STATUS_DISPLAY_SECONDS;</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC">           0 :     if (pedal_board_) {</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :         pedal_board_-&gt;rebuild_widgets();</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           3 :     if (pedal_board_) {</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC tlaBgUNC">           0 :         pedal_board_-&gt;rebuild_widgets();</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :     }</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC tlaBgGNC">           3 : }</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 : void GuiSnapshots::render() {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC tlaBgUNC">           0 : void GuiSnapshots::render() {</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :     // Scale the baseline bar size based on actual style metrics</span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :     float bar_height = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f + ImGui::GetStyle().WindowBorderSize * 2.0f;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :     </span>

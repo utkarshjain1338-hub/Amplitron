@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 10:27:05</td>
+            <td class="headerValue">2026-05-26 16:13:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -76,47 +76,47 @@
 <span id="L14"><span class="lineNum">      14</span>              :                                         1277 + STEREO_SPREAD, 1356 + STEREO_SPREAD};</span>
 <span id="L15"><span class="lineNum">      15</span>              : static const int ALLPASS_LENGTHS_R[] = {556 + STEREO_SPREAD, 441 + STEREO_SPREAD};</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          37 : Reverb::Reverb() {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         148 :     params_ = {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          43 : Reverb::Reverb() {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         172 :     params_ = {</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :         {&quot;Decay&quot;,  0.6f, 0.1f, 0.99f, 0.6f, &quot;&quot;, &quot;Length of the reverb tail. Higher values simulate larger acoustic spaces like halls or caves.&quot;},</span>
 <span id="L20"><span class="lineNum">      20</span>              :         {&quot;Damp&quot;,   0.4f, 0.0f, 1.0f,  0.4f, &quot;&quot;, &quot;High-frequency damping. Higher values absorb treble faster, simulating softer room materials.&quot;},</span>
 <span id="L21"><span class="lineNum">      21</span>              :         {&quot;Level&quot;,  0.3f, 0.0f, 1.0f,  0.3f, &quot;&quot;, &quot;Mix volume of the reverb effect. Controls how wet or distant the overall sound feels.&quot;},</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         148 :     };</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          37 :     init_filters();</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         111 : }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         172 :     };</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          43 :     init_filters();</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         129 : }</span></span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          42 : void Reverb::set_sample_rate(int sample_rate) {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          42 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          42 :     init_filters();</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          42 : }</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          49 : void Reverb::set_sample_rate(int sample_rate) {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          49 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          49 :     init_filters();</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          49 : }</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          79 : void Reverb::init_filters() {</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          79 :     const float scale = static_cast&lt;float&gt;(sample_rate_) / 44100.0f;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          92 : void Reverb::init_filters() {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          92 :     const float scale = static_cast&lt;float&gt;(sample_rate_) / 44100.0f;</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         395 :     for (int i = 0; i &lt; NUM_COMBS; ++i) {</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         316 :         int len = static_cast&lt;int&gt;(COMB_LENGTHS[i] * scale);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         316 :         combs_[i].buffer.assign(len, 0.0f);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         316 :         combs_[i].write_pos = 0;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         316 :         combs_[i].lp_state = 0.0f;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         460 :     for (int i = 0; i &lt; NUM_COMBS; ++i) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         368 :         int len = static_cast&lt;int&gt;(COMB_LENGTHS[i] * scale);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         368 :         combs_[i].buffer.assign(len, 0.0f);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         368 :         combs_[i].write_pos = 0;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         368 :         combs_[i].lp_state = 0.0f;</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         316 :         int len_r = static_cast&lt;int&gt;(COMB_LENGTHS_R[i] * scale);</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         316 :         combs_r_[i].buffer.assign(len_r, 0.0f);</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         316 :         combs_r_[i].write_pos = 0;</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         316 :         combs_r_[i].lp_state = 0.0f;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         368 :         int len_r = static_cast&lt;int&gt;(COMB_LENGTHS_R[i] * scale);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         368 :         combs_r_[i].buffer.assign(len_r, 0.0f);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         368 :         combs_r_[i].write_pos = 0;</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         368 :         combs_r_[i].lp_state = 0.0f;</span></span>
 <span id="L44"><span class="lineNum">      44</span>              :     }</span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         237 :     for (int i = 0; i &lt; NUM_ALLPASS; ++i) {</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         158 :         int len = static_cast&lt;int&gt;(ALLPASS_LENGTHS[i] * scale);</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         158 :         allpasses_[i].buffer.assign(len, 0.0f);</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         158 :         allpasses_[i].write_pos = 0;</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         158 :         allpasses_[i].feedback = 0.5f;</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         276 :     for (int i = 0; i &lt; NUM_ALLPASS; ++i) {</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         184 :         int len = static_cast&lt;int&gt;(ALLPASS_LENGTHS[i] * scale);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         184 :         allpasses_[i].buffer.assign(len, 0.0f);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         184 :         allpasses_[i].write_pos = 0;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         184 :         allpasses_[i].feedback = 0.5f;</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         158 :         int len_r = static_cast&lt;int&gt;(ALLPASS_LENGTHS_R[i] * scale);</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         158 :         allpasses_r_[i].buffer.assign(len_r, 0.0f);</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         158 :         allpasses_r_[i].write_pos = 0;</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         158 :         allpasses_r_[i].feedback = 0.5f;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         184 :         int len_r = static_cast&lt;int&gt;(ALLPASS_LENGTHS_R[i] * scale);</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         184 :         allpasses_r_[i].buffer.assign(len_r, 0.0f);</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         184 :         allpasses_r_[i].write_pos = 0;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         184 :         allpasses_r_[i].feedback = 0.5f;</span></span>
 <span id="L56"><span class="lineNum">      56</span>              :     }</span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          79 : }</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          92 : }</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          33 : void Reverb::process(float* buffer, int num_samples) {</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          33 :     if (!enabled_) return;</span></span>
@@ -227,26 +227,26 @@
 <span id="L165"><span class="lineNum">     165</span>              :     }</span>
 <span id="L166"><span class="lineNum">     166</span>              : }</span>
 <span id="L167"><span class="lineNum">     167</span>              : </span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          42 : void Reverb::reset() {</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">         210 :     for (auto&amp; c : combs_) {</span></span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         168 :         std::fill(c.buffer.begin(), c.buffer.end(), 0.0f);</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         168 :         c.write_pos = 0;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         168 :         c.lp_state = 0.0f;</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          50 : void Reverb::reset() {</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">         250 :     for (auto&amp; c : combs_) {</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         200 :         std::fill(c.buffer.begin(), c.buffer.end(), 0.0f);</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         200 :         c.write_pos = 0;</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         200 :         c.lp_state = 0.0f;</span></span>
 <span id="L173"><span class="lineNum">     173</span>              :     }</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         210 :     for (auto&amp; c : combs_r_) {</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">         168 :         std::fill(c.buffer.begin(), c.buffer.end(), 0.0f);</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         168 :         c.write_pos = 0;</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         168 :         c.lp_state = 0.0f;</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         250 :     for (auto&amp; c : combs_r_) {</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">         200 :         std::fill(c.buffer.begin(), c.buffer.end(), 0.0f);</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         200 :         c.write_pos = 0;</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         200 :         c.lp_state = 0.0f;</span></span>
 <span id="L178"><span class="lineNum">     178</span>              :     }</span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         126 :     for (auto&amp; a : allpasses_) {</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          84 :         std::fill(a.buffer.begin(), a.buffer.end(), 0.0f);</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">          84 :         a.write_pos = 0;</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         150 :     for (auto&amp; a : allpasses_) {</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         100 :         std::fill(a.buffer.begin(), a.buffer.end(), 0.0f);</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         100 :         a.write_pos = 0;</span></span>
 <span id="L182"><span class="lineNum">     182</span>              :     }</span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         126 :     for (auto&amp; a : allpasses_r_) {</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          84 :         std::fill(a.buffer.begin(), a.buffer.end(), 0.0f);</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          84 :         a.write_pos = 0;</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         150 :     for (auto&amp; a : allpasses_r_) {</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         100 :         std::fill(a.buffer.begin(), a.buffer.end(), 0.0f);</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         100 :         a.write_pos = 0;</span></span>
 <span id="L186"><span class="lineNum">     186</span>              :     }</span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">          42 : }</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">          50 : }</span></span>
 <span id="L188"><span class="lineNum">     188</span>              : </span>
 <span id="L189"><span class="lineNum">     189</span>              : } // namespace Amplitron</span>
         </pre>
