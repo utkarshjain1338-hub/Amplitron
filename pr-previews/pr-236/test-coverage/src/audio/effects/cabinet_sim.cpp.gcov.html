@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 17:37:06</td>
+            <td class="headerValue">2026-05-26 09:41:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -69,60 +69,60 @@
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : static EffectRegistrar&lt;CabinetSim&gt; reg(&quot;Cabinet&quot;);</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          22 : CabinetSim::CabinetSim() {</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          66 :     params_ = {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          28 : CabinetSim::CabinetSim() {</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          84 :     params_ = {</span></span>
 <span id="L12"><span class="lineNum">      12</span>              :         {&quot;Type&quot;,    0.0f, 0.0f, 2.0f, 0.0f, &quot;&quot;, &quot;Speaker cabinet type. 0 = 1x12 (bright/focused), 1 = 2x12 (balanced), 2 = 4x12 (huge low-end).&quot;},</span>
 <span id="L13"><span class="lineNum">      13</span>              :         {&quot;Bright&quot;,  0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;, &quot;Simulates microphone placement. Higher values add a high-frequency resonance peak for more cut.&quot;},</span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          66 :     };</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          84 :     };</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              :     // Default LP at ~5kHz (speaker rolloff)</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          22 :     lp_.b0 = 0.067455f; lp_.b1 = 0.134911f; lp_.b2 = 0.067455f;</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          22 :     lp_.a1 = -1.14298f; lp_.a2 = 0.41280f;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          28 :     lp_.b0 = 0.067455f; lp_.b1 = 0.134911f; lp_.b2 = 0.067455f;</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          28 :     lp_.a1 = -1.14298f; lp_.a2 = 0.41280f;</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span>              :     // Default HP at ~80Hz (low cut)</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          22 :     hp_.b0 = 0.9565f; hp_.b1 = -1.9131f; hp_.b2 = 0.9565f;</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          22 :     hp_.a1 = -1.9112f; hp_.a2 = 0.9150f;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          28 :     hp_.b0 = 0.9565f; hp_.b1 = -1.9131f; hp_.b2 = 0.9565f;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          28 :     hp_.a1 = -1.9112f; hp_.a2 = 0.9150f;</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              :     // Resonance peak ~2kHz</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          22 :     peak_.b0 = 1.05f; peak_.b1 = -1.65f; peak_.b2 = 0.65f;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          22 :     peak_.a1 = -1.65f; peak_.a2 = 0.70f;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          28 :     peak_.b0 = 1.05f; peak_.b1 = -1.65f; peak_.b2 = 0.65f;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          28 :     peak_.a1 = -1.65f; peak_.a2 = 0.70f;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          44 :     bright_smooth_ = params_[1].value;</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          22 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          22 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          22 :     dry_buffer_.reserve(1024);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          88 : }</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          56 :     bright_smooth_ = params_[1].value;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          28 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          28 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          28 :     dry_buffer_.reserve(1024);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         112 : }</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          22 : CabinetSim::~CabinetSim() {</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          28 : CabinetSim::~CabinetSim() {</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :     // Clean up any unconsumed pending kernel</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          22 :     ConvolutionKernel* pending = pending_kernel_.exchange(nullptr);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          22 :     delete pending;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          22 : }</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          28 :     ConvolutionKernel* pending = pending_kernel_.exchange(nullptr);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          28 :     delete pending;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          28 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          12 : int CabinetSim::max_ir_samples() const {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          17 : int CabinetSim::max_ir_samples() const {</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :     // 500ms at current sample rate</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          12 :     return sample_rate_ / 2;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          17 :     return sample_rate_ / 2;</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : }</span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          12 : bool CabinetSim::load_ir(const std::string&amp; filepath) {</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          12 :     WavData wav = load_wav_file(filepath, sample_rate_, max_ir_samples());</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          12 :     if (wav.samples.empty()) return false;</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          17 : bool CabinetSim::load_ir(const std::string&amp; filepath) {</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          17 :     WavData wav = load_wav_file(filepath, sample_rate_, max_ir_samples());</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          17 :     if (wav.samples.empty()) return false;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          10 :     raw_ir_samples_ = wav.samples;</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          10 :     ir_path_ = filepath;</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          15 :     raw_ir_samples_ = wav.samples;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          15 :     ir_path_ = filepath;</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
 <span id="L52"><span class="lineNum">      52</span>              :     // Extract filename from path</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          10 :     size_t sep = filepath.find_last_of(&quot;/\\&quot;);</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          10 :     ir_name_ = (sep != std::string::npos) ? filepath.substr(sep + 1) : filepath;</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          10 :     ir_duration_ms_ = static_cast&lt;float&gt;(raw_ir_samples_.size()) /</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          10 :                       static_cast&lt;float&gt;(sample_rate_) * 1000.0f;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          15 :     size_t sep = filepath.find_last_of(&quot;/\\&quot;);</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          15 :     ir_name_ = (sep != std::string::npos) ? filepath.substr(sep + 1) : filepath;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          15 :     ir_duration_ms_ = static_cast&lt;float&gt;(raw_ir_samples_.size()) /</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          15 :                       static_cast&lt;float&gt;(sample_rate_) * 1000.0f;</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span>              :     // Build kernel with current expected block size, or a reasonable default</span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          10 :     int bs = expected_block_size_ &gt; 0 ? expected_block_size_ : 256;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          10 :     build_kernel(bs);</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          15 :     int bs = expected_block_size_ &gt; 0 ? expected_block_size_ : 256;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          15 :     build_kernel(bs);</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          10 :     return true;</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          12 : }</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          15 :     return true;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          17 : }</span></span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           2 : void CabinetSim::clear_ir() {</span></span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           2 :     raw_ir_samples_.clear();</span></span>
@@ -138,22 +138,22 @@
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           2 :     pending_block_size_.store(0);</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           2 : }</span></span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          10 : bool CabinetSim::has_ir() const {</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          10 :     return !raw_ir_samples_.empty();</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          11 : bool CabinetSim::has_ir() const {</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          11 :     return !raw_ir_samples_.empty();</span></span>
 <span id="L81"><span class="lineNum">      81</span>              : }</span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          10 : void CabinetSim::build_kernel(int block_size) {</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          10 :     if (raw_ir_samples_.empty() || block_size &lt;= 0) return;</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          15 : void CabinetSim::build_kernel(int block_size) {</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          15 :     if (raw_ir_samples_.empty() || block_size &lt;= 0) return;</span></span>
 <span id="L85"><span class="lineNum">      85</span>              : </span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">          10 :     auto* kernel = new ConvolutionKernel(raw_ir_samples_, block_size);</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">          10 :     kernel-&gt;source_path = ir_path_;</span></span>
-<span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          10 :     kernel-&gt;source_name = ir_name_;</span></span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">          10 :     kernel-&gt;duration_ms = ir_duration_ms_;</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">          15 :     auto* kernel = new ConvolutionKernel(raw_ir_samples_, block_size);</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">          15 :     kernel-&gt;source_path = ir_path_;</span></span>
+<span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          15 :     kernel-&gt;source_name = ir_name_;</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">          15 :     kernel-&gt;duration_ms = ir_duration_ms_;</span></span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">          10 :     expected_block_size_ = block_size;</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">          15 :     expected_block_size_ = block_size;</span></span>
 <span id="L92"><span class="lineNum">      92</span>              : </span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          10 :     ConvolutionKernel* old = pending_kernel_.exchange(kernel);</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          10 :     delete old;</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          15 :     ConvolutionKernel* old = pending_kernel_.exchange(kernel);</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          15 :     delete old;</span></span>
 <span id="L95"><span class="lineNum">      95</span>              : }</span>
 <span id="L96"><span class="lineNum">      96</span>              : </span>
 <span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">        2013 : void CabinetSim::check_pending_kernel() {</span></span>
@@ -170,17 +170,17 @@
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">        2013 :     pending_block_size_.store(0);</span></span>
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">        2013 : }</span></span>
 <span id="L110"><span class="lineNum">     110</span>              : </span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          20 : void CabinetSim::set_sample_rate(int sample_rate) {</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          20 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          22 : void CabinetSim::set_sample_rate(int sample_rate) {</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          22 :     Effect::set_sample_rate(sample_rate);</span></span>
 <span id="L113"><span class="lineNum">     113</span>              : </span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          20 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          20 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          22 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          22 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
 <span id="L116"><span class="lineNum">     116</span>              : </span>
 <span id="L117"><span class="lineNum">     117</span>              :     // Reload IR at new sample rate if one is loaded</span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          20 :     if (!ir_path_.empty()) {</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           1 :         load_ir(ir_path_);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          22 :     if (!ir_path_.empty()) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           2 :         load_ir(ir_path_);</span></span>
 <span id="L120"><span class="lineNum">     120</span>              :     }</span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          20 : }</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          22 : }</span></span>
 <span id="L122"><span class="lineNum">     122</span>              : </span>
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        2014 : void CabinetSim::process(float* buffer, int num_samples) {</span></span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        2014 :     if (!enabled_) return;</span></span>
@@ -225,16 +225,16 @@
 <span id="L163"><span class="lineNum">     163</span>              :     }</span>
 <span id="L164"><span class="lineNum">     164</span>              : }</span>
 <span id="L165"><span class="lineNum">     165</span>              : </span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           9 : void CabinetSim::reset() {</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           9 :     lp_.reset();</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           9 :     hp_.reset();</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           9 :     peak_.reset();</span></span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           9 :     conv_engine_.reset();</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           9 :     bright_smooth_ = params_[1].value;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           9 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          11 : void CabinetSim::reset() {</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          11 :     lp_.reset();</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          11 :     hp_.reset();</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">          11 :     peak_.reset();</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">          11 :     conv_engine_.reset();</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          11 :     bright_smooth_ = params_[1].value;</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          11 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC tlaBgUNC">           0 :         dry_buffer_.reserve(1024);</span></span>
 <span id="L174"><span class="lineNum">     174</span>              :     }</span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC tlaBgGNC">           9 : }</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC tlaBgGNC">          11 : }</span></span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
 <span id="L177"><span class="lineNum">     177</span>              : } // namespace Amplitron</span>
         </pre>
