@@ -7,7 +7,9 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
+#define private public
 #include "gui/gui_snapshots.h"
+#undef private
 #include "gui/command_history.h"
 #include "audio/effects/overdrive.h"
 #include <memory>
@@ -122,9 +124,28 @@ TEST_F(PresetTest, gui_snapshots_render) {
     CommandHistory history;
     GuiSnapshots gs(engine, history);
 
-    // Save to slot 0 so it renders as filled
+    // 1. Save to slot 0 (renders as filled)
     gs.save_to_slot(0);
 
-    // Render it!
+    // 2. Clear active slot so we can test non-active filled slot
+    gs.manager().set_active_slot(-1);
+
+    // 3. Render once to exercise non-active filled (slot 0) and empty (slots 1-3) buttons
+    gs.render();
+
+    // 4. Set active slot to 0 and render again (active filled slot)
+    gs.manager().set_active_slot(0);
+    gs.render();
+
+    // 5. Force status timer and message to test status text rendering branch
+    gs.status_timer_ = 1.5f;
+    std::snprintf(gs.status_msg_, sizeof(gs.status_msg_), "Mock Snapshot Notification");
+    gs.render();
+
+    // 6. Test programmatic context menus for slots 0 (filled) and 1 (empty)
+    ImGui::OpenPopup("SnapCtx_0");
+    gs.render();
+
+    ImGui::OpenPopup("SnapCtx_1");
     gs.render();
 }

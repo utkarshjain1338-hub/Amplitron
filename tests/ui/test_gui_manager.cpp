@@ -7,7 +7,9 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
+#define private public
 #include "gui/gui_manager.h"
+#undef private
 
 using namespace Amplitron;
 
@@ -51,6 +53,43 @@ TEST(gui_manager_midi_manager_association) {
 
     // midi_manager() must return a stable reference (same address each call)
     ASSERT_EQ(&gui.midi_manager(), &gui.midi_manager());
+
+    gui.shutdown();
+    engine.shutdown();
+}
+
+TEST(gui_manager_private_rendering_methods) {
+    ScopedImGuiContext imgui;
+    AudioEngine engine;
+    engine.initialize();
+
+    GuiManager gui(engine);
+
+    // 1. Mute/unmute
+    engine.start();
+    gui.toggle_audio_mute_state();
+    ASSERT_TRUE(gui.audio_muted_);
+    gui.toggle_audio_mute_state();
+    ASSERT_FALSE(gui.audio_muted_);
+    engine.stop();
+
+    // 2. Render master controls
+    gui.render_master_controls();
+
+    // 3. Render menu bar (without update)
+    gui.render_menu_bar();
+
+    // 4. Render menu bar with a simulated update
+    {
+        std::lock_guard<std::mutex> lock(gui.update_mutex_);
+        gui.has_new_release_ = true;
+        gui.new_release_version_ = "v9.9.9";
+        gui.new_release_url_ = "https://github.com/example/Amplitron";
+    }
+    gui.render_menu_bar();
+
+    // 5. Test check_for_updates (runs popen, handles failure/success gracefully)
+    gui.check_for_updates();
 
     gui.shutdown();
     engine.shutdown();

@@ -221,8 +221,47 @@ TEST(gui_midi_render_window) {
     MidiManager midi;
     GuiMidi gm(midi);
 
-    // Renders ports and default settings
+    // 1. Continuous parameter mapping
+    MidiMapping m1;
+    m1.cc_number = 10;
+    m1.midi_channel = 1;
+    m1.target_type = MidiTargetType::EffectParam;
+    m1.effect_name = "Overdrive";
+    m1.param_name = "Drive";
+    m1.mode = MidiMappingMode::Continuous;
+    midi.add_mapping(m1);
+
+    // 2. Toggle bypass mapping
+    MidiMapping m2;
+    m2.cc_number = 11;
+    m2.midi_channel = -1; // "All"
+    m2.target_type = MidiTargetType::EffectBypass;
+    m2.effect_name = "Reverb";
+    m2.mode = MidiMappingMode::Toggle;
+    midi.add_mapping(m2);
+
+    // 3. Input gain mapping
+    MidiMapping m3;
+    m3.cc_number = 12;
+    m3.midi_channel = 2;
+    m3.target_type = MidiTargetType::InputGain;
+    m3.mode = MidiMappingMode::Continuous;
+    midi.add_mapping(m3);
+
+    // 4. Output gain mapping
+    MidiMapping m4;
+    m4.cc_number = 13;
+    m4.midi_channel = 3;
+    m4.target_type = MidiTargetType::OutputGain;
+    m4.mode = MidiMappingMode::Continuous;
+    midi.add_mapping(m4);
+
+    // Renders ports and mapping table with all target types and columns
     bool show = true;
+    gm.render(show);
+
+    // Test clear all mappings in UI
+    midi.clear_mappings();
     gm.render(show);
 }
 

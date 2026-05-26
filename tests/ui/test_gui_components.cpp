@@ -5,11 +5,15 @@
  * Tests unit-aware parameter formatting, effect color lookups, style applications, and basic
  * settings class rendering using a software ImGui context.
  */
+#define private public
 #include "test_framework.h"
 #include "test_fixtures.h"
 #include "gui/theme.h"
+#include "audio/audio_engine.h"
 #include "gui/gui_settings.h"
 #include "gui/gui_analyzer.h"
+#include "gui/file_dialog.h"
+#undef private
 #include <string>
 
 using namespace Amplitron;
@@ -121,8 +125,23 @@ TEST_F(PresetTest, gui_settings_render) {
     ScopedImGuiContext imgui;
     GuiSettings settings(engine);
 
-    // Call render(show) to cover all latency sliders, combos, and tables
+    // 1. Simulate active device error so the error banner shows
+    engine.last_error_ = "Simulated device error";
+    
+    // 2. Set high CPU load so suggested buffer size changes
+    engine.cpu_load_.store(0.95f, std::memory_order_relaxed);
+    engine.buffer_size_ = 128; // Suggested will be 256
+
+    // 3. Render and click auto-tune checkbox
     bool show = true;
+    settings.render(show);
+
+    // 4. Test with auto-buffer enabled
+    engine.set_auto_buffer_enabled(true);
+    settings.render(show);
+
+    // 5. Clear error and render again
+    engine.clear_error();
     settings.render(show);
 }
 
@@ -140,3 +159,17 @@ TEST_F(PresetTest, gui_analyzer_render) {
     // Renders input VU, output VU, and spectrum plotter
     analyzer.render();
 }
+
+// ============================================================
+// File Dialog Native Headless Safe Paths
+// ============================================================
+
+TEST(file_dialog_native_open_and_folder_headless) {
+    // Under AMPLITRON_HEADLESS, these dialogs return immediately with an empty string
+    std::string opened = show_open_dialog("Select IR File", "", "wav");
+    ASSERT_EQ(opened, "");
+
+    std::string folder = show_folder_dialog("Select Directory");
+    ASSERT_EQ(folder, "");
+}
+

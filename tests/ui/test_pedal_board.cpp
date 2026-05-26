@@ -8,8 +8,11 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
+#define private public
 #include "gui/pedal_board.h"
+#undef private
 #include "gui/pedal_widget.h"
+#include "gui/gui_midi.h"
 #include "gui/command_history.h"
 #include "audio/effects/overdrive.h"
 #include "audio/effects/reverb.h"
@@ -203,6 +206,31 @@ TEST(pedal_widget_render_all_types) {
     auto mb_comp = std::make_shared<MultiBandCompressor>();
     PedalWidget w6(engine, mb_comp, 5);
     w6.render();
+
+    engine.shutdown();
+}
+
+TEST(pedal_board_private_menu_rendering) {
+    ScopedImGuiContext imgui;
+    AudioEngine engine;
+    engine.initialize();
+    CommandHistory history;
+    MidiManager midi_manager;
+    GuiMidi gui_midi(midi_manager);
+
+    PedalBoard board(engine, history, &gui_midi);
+
+    // Call all private menu rendering routines under ScopedImGuiContext
+    board.render_add_pedal_menu();
+    board.render_amp_selector();
+    board.render_midi_menu();
+    board.render_signal_chain();
+
+    // Toggle confirm flags to render modals
+    board.show_confirm_reset_ = true;
+    board.show_confirm_clear_ = true;
+    board.show_confirm_midi_clear_ = true;
+    board.render();
 
     engine.shutdown();
 }
