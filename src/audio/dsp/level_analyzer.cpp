@@ -10,7 +10,8 @@ namespace {
 inline bool is_invalid_rms(float x) {
     uint32_t bits;
     std::memcpy(&bits, &x, sizeof(float));
-    if ((bits & 0x7F800000) == 0x7F800000) {
+    volatile uint32_t vbits = bits; // Bypass -ffast-math optimizations
+    if ((vbits & 0x7F800000) == 0x7F800000) {
         return true; // NaN or Infinity
     }
     return x < 0.0f;
@@ -19,7 +20,8 @@ inline bool is_invalid_rms(float x) {
 inline bool is_invalid_dt(float x) {
     uint32_t bits;
     std::memcpy(&bits, &x, sizeof(float));
-    if ((bits & 0x7F800000) == 0x7F800000) {
+    volatile uint32_t vbits = bits; // Bypass -ffast-math optimizations
+    if ((vbits & 0x7F800000) == 0x7F800000) {
         return true; // NaN or Infinity
     }
     return x <= 0.0f;
