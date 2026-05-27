@@ -92,12 +92,14 @@ void GuiSettings::render(bool& show) {
     ImGui::TextWrapped("Select your USB guitar cable or audio interface. USB devices are highlighted with [USB].");
     ImGui::BeginChild("InputDevices", ImVec2(0, 120), true);
     for (const auto& dev : p.input_devices) {
+        ImGui::PushID(dev.index);
         bool is_selected = (dev.index == p.current_input);
         std::string label = dev.name + (dev.is_usb ? "  [USB]" : "");
         if (dev.is_usb) ImGui::PushStyleColor(ImGuiCol_Text, Theme::GoldHot());
         if (ImGui::Selectable(label.c_str(), is_selected) && p.on_input_device_changed)
             p.on_input_device_changed(dev.index);
         if (dev.is_usb) ImGui::PopStyleColor();
+        ImGui::PopID();
     }
     ImGui::EndChild();
 
@@ -107,12 +109,14 @@ void GuiSettings::render(bool& show) {
     ImGui::TextColored(Theme::Gold(), "OUTPUT DEVICE (Speakers/Headphones)");
     ImGui::BeginChild("OutputDevices", ImVec2(0, 120), true);
     for (const auto& dev : p.output_devices) {
+        ImGui::PushID(dev.index);
         bool is_selected = (dev.index == p.current_output);
         std::string label = dev.name + (dev.is_usb ? "  [USB - not recommended]" : "");
         if (dev.is_usb) ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.6f, 0.7f));
         if (ImGui::Selectable(label.c_str(), is_selected) && p.on_output_device_changed)
             p.on_output_device_changed(dev.index);
         if (dev.is_usb) ImGui::PopStyleColor();
+        ImGui::PopID();
     }
     ImGui::EndChild();
 

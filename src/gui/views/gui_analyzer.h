@@ -14,6 +14,13 @@ enum class SpectrumDisplayMode {
     Overlay = 2,
 };
 
+struct SpectrumSnapshot {
+    std::array<float, SpectrumAnalyzer::DISPLAY_BARS> smoothed_input_db{};
+    std::array<float, SpectrumAnalyzer::DISPLAY_BARS> smoothed_output_db{};
+    std::array<float, SpectrumAnalyzer::DISPLAY_BARS> input_peak_db{};
+    std::array<float, SpectrumAnalyzer::DISPLAY_BARS> output_peak_db{};
+};
+
 struct AnalyzerProps {
     // VU levels (pre-calculated by LevelAnalyzer in the audio engine)
     float smoothed_input_rms  = 0.0f;
@@ -26,7 +33,7 @@ struct AnalyzerProps {
     float output_clip_flash   = 0.0f;
 
     // Spectrum analyzer (pre-calculated by SpectrumAnalyzer in the audio engine)
-    const SpectrumAnalyzer* spectrum = nullptr;
+    SpectrumSnapshot spectrum;
 
     std::function<void(bool)>                on_expanded_changed;
     std::function<void(SpectrumDisplayMode)> on_mode_changed;

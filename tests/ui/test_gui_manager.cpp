@@ -157,7 +157,7 @@ TEST(gui_manager_logical_builders) {
     // 4. build_analyzer_props
     {
         auto p = gui.build_analyzer_props();
-        ASSERT_EQ(p.spectrum, &engine.spectrum_analyzer());
+        ASSERT_TRUE(p.spectrum.smoothed_input_db == engine.spectrum_analyzer().smoothed_input_db());
         p.on_set_analyzer_enabled(true);
     }
 

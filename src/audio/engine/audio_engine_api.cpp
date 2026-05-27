@@ -106,7 +106,13 @@ void AudioEngine::update_level_analyzer(float dt) {
 
 void AudioEngine::update_spectrum_analyzer(float dt) {
     const uint64_t seq = get_analyzer_sequence();
-    if (seq == analyzer_last_sequence_) return;
+    if (seq == analyzer_last_sequence_) {
+        spectrum_analyzer_.update(analyzer_input_buf_.data(),
+                                  analyzer_output_buf_.data(),
+                                  get_sample_rate(),
+                                  dt);
+        return;
+    }
 
     if (copy_analyzer_snapshot(analyzer_input_buf_.data(),
                                analyzer_output_buf_.data(),

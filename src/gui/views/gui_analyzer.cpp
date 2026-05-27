@@ -71,9 +71,9 @@ void GuiAnalyzer::render_vu_bar(const char* id,
 void GuiAnalyzer::draw_spectrum(ImDrawList* dl,
                                 const ImVec2& pos,
                                 const ImVec2& size) const {
-    if (!props_.spectrum || size.x <= 2.0f || size.y <= 2.0f) return;
+    if (size.x <= 2.0f || size.y <= 2.0f) return;
 
-    const auto& sa = *props_.spectrum;
+    const auto& sa = props_.spectrum;
     const ImVec2 pmax(pos.x + size.x, pos.y + size.y);
 
     dl->AddRect(pos, pmax, IM_COL32(72, 78, 92, 220), Theme::ROUNDING_SM);
@@ -114,14 +114,14 @@ void GuiAnalyzer::draw_spectrum(ImDrawList* dl,
 
     switch (mode_) {
         case SpectrumDisplayMode::Input:
-            draw_set(sa.smoothed_input_db(), sa.input_peak_db(), input_col, 0.82f);
+            draw_set(sa.smoothed_input_db, sa.input_peak_db, input_col, 0.82f);
             break;
         case SpectrumDisplayMode::Output:
-            draw_set(sa.smoothed_output_db(), sa.output_peak_db(), output_col, 0.82f);
+            draw_set(sa.smoothed_output_db, sa.output_peak_db, output_col, 0.82f);
             break;
         case SpectrumDisplayMode::Overlay:
-            draw_set(sa.smoothed_input_db(),  sa.input_peak_db(),  input_col,  0.42f);
-            draw_set(sa.smoothed_output_db(), sa.output_peak_db(), output_col, 0.42f);
+            draw_set(sa.smoothed_input_db,  sa.input_peak_db,  input_col,  0.42f);
+            draw_set(sa.smoothed_output_db, sa.output_peak_db, output_col, 0.42f);
             break;
     }
 

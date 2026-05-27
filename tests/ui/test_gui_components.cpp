@@ -160,7 +160,10 @@ TEST_F(PresetTest, gui_analyzer_render) {
     AnalyzerProps props;
     props.smoothed_input_rms = 0.1f;
     props.smoothed_output_rms = 0.2f;
-    props.spectrum = &sa;
+    props.spectrum.smoothed_input_db  = sa.smoothed_input_db();
+    props.spectrum.smoothed_output_db = sa.smoothed_output_db();
+    props.spectrum.input_peak_db      = sa.input_peak_db();
+    props.spectrum.output_peak_db     = sa.output_peak_db();
 
     analyzer.set_props(props);
 

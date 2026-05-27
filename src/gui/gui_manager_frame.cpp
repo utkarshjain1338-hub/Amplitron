@@ -74,7 +74,7 @@ SettingsProps GuiManager::build_settings_props() {
     p.buffer_size        = engine_.get_buffer_size();
     p.sample_rate        = engine_.get_sample_rate();
     p.suggested_buf      = engine_.get_suggested_buffer_size();
-    p.latency_ms         = 1000.0f * p.buffer_size / p.sample_rate;
+    p.latency_ms         = (p.sample_rate > 0) ? (1000.0f * p.buffer_size / p.sample_rate) : 0.0f;
     p.cpu_load           = engine_.get_cpu_load();
     p.auto_buf           = engine_.is_auto_buffer_enabled();
     p.current_input      = engine_.get_input_device();
@@ -116,7 +116,11 @@ AnalyzerProps GuiManager::build_analyzer_props() {
     p.output_clip_active  = la.output_clip_flash() > 0.01f;
     p.input_clip_flash    = la.input_clip_flash();
     p.output_clip_flash   = la.output_clip_flash();
-    p.spectrum            = &engine_.spectrum_analyzer();
+    const auto& sa = engine_.spectrum_analyzer();
+    p.spectrum.smoothed_input_db  = sa.smoothed_input_db();
+    p.spectrum.smoothed_output_db = sa.smoothed_output_db();
+    p.spectrum.input_peak_db      = sa.input_peak_db();
+    p.spectrum.output_peak_db     = sa.output_peak_db();
 
     p.on_set_analyzer_enabled = [this](bool enabled) {
         engine_.set_analyzer_enabled(enabled);
@@ -132,16 +136,7 @@ SnapshotsProps GuiManager::build_snapshots_props() {
         p.slots[i].label     = SnapshotManager::SLOT_LABELS[i];
     }
     p.on_recall_slot = [this](int slot) {
-        if (!snapshot_manager_.has_slot(slot)) return;
-        auto before          = SnapshotManager::capture(engine_);
-        const auto* after    = snapshot_manager_.get_slot(slot);
-        command_history_.execute(std::make_unique<RecallSnapshotCommand>(
-            engine_,
-            before.effects, before.input_gain, before.output_gain,
-            after->effects,  after->input_gain,  after->output_gain
-        ));
-        snapshot_manager_.set_active_slot(slot);
-        if (pedal_board_) pedal_board_->rebuild_widgets();
+        recallSnapshotFromSlot(slot);
     };
     p.on_save_slot = [this](int slot) {
         snapshot_manager_.save_slot(slot, engine_);
@@ -164,6 +159,30 @@ void GuiManager::toggle_audio_mute_state() {
         engine_.restart();
         audio_muted_ = false;
     }
+}
+
+void GuiManager::set_show_tuner(bool show) {
+    show_tuner_ = show;
+    if (show_tuner_) {
+        tuner_pedal_->set_enabled(true);
+        engine_.set_tuner_tap(tuner_pedal_);
+    } else {
+        engine_.clear_tuner_tap();
+        tuner_pedal_->set_enabled(false);
+    }
+}
+
+void GuiManager::recallSnapshotFromSlot(int slot) {
+    if (!snapshot_manager_.has_slot(slot)) return;
+    auto before          = SnapshotManager::capture(engine_);
+    const auto* after    = snapshot_manager_.get_slot(slot);
+    command_history_.execute(std::make_unique<RecallSnapshotCommand>(
+        engine_,
+        before.effects, before.input_gain, before.output_gain,
+        after->effects,  after->input_gain,  after->output_gain
+    ));
+    snapshot_manager_.set_active_slot(slot);
+    if (pedal_board_) pedal_board_->rebuild_widgets();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -207,17 +226,7 @@ bool GuiManager::run_frame() {
         static const ImGuiKey digit_keys[4] = { ImGuiKey_1, ImGuiKey_2, ImGuiKey_3, ImGuiKey_4 };
         for (int i = 0; i < 4; ++i) {
             if (mod && !io.KeyShift && ImGui::IsKeyPressed(digit_keys[i])) {
-                if (snapshot_manager_.has_slot(i)) {
-                    auto before       = SnapshotManager::capture(engine_);
-                    const auto* after = snapshot_manager_.get_slot(i);
-                    command_history_.execute(std::make_unique<RecallSnapshotCommand>(
-                        engine_,
-                        before.effects, before.input_gain, before.output_gain,
-                        after->effects,  after->input_gain,  after->output_gain
-                    ));
-                    snapshot_manager_.set_active_slot(i);
-                    if (pedal_board_) pedal_board_->rebuild_widgets();
-                }
+                recallSnapshotFromSlot(i);
             }
         }
     }
@@ -285,7 +294,11 @@ bool GuiManager::run_frame() {
     }
     if (show_tuner_) {
         gui_tuner_.set_props(build_tuner_props());
-        gui_tuner_.render(show_tuner_);
+        bool current_show = show_tuner_;
+        gui_tuner_.render(current_show);
+        if (!current_show) {
+            set_show_tuner(false);
+        }
     }
     if (show_midi_) gui_midi_.render(show_midi_);
 

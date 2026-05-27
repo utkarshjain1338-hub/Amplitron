@@ -220,14 +220,7 @@ void GuiManager::render_menu_bar() {
         }
         if (ImGui::BeginMenu("Utilities")) {
             if (ImGui::MenuItem("Open Tuner", nullptr, show_tuner_)) {
-                show_tuner_ = !show_tuner_;
-                if (show_tuner_) {
-                    tuner_pedal_->set_enabled(true);
-                    engine_.set_tuner_tap(tuner_pedal_);
-                } else {
-                    engine_.clear_tuner_tap();
-                    tuner_pedal_->set_enabled(false);
-                }
+                set_show_tuner(!show_tuner_);
             }
             if (ImGui::MenuItem("MIDI Settings", nullptr, show_midi_)) {
                 show_midi_ = !show_midi_;

@@ -70,6 +70,8 @@ private:
 
     // ── Actions (called from child callbacks / keyboard shortcuts) ──
     void toggle_audio_mute_state();
+    void set_show_tuner(bool show);
+    void recallSnapshotFromSlot(int slot);
 
     // ─────────────────────────────────────────────────────────────────────
     // Core objects

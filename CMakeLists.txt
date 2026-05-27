@@ -525,6 +525,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/unit/test_cabinet_sim_ir.cpp
         tests/unit/test_wav_loader.cpp
         tests/unit/test_convolution_engine.cpp
+        tests/unit/test_level_analyzer.cpp
         tests/integration/test_preset_manager.cpp
         tests/integration/test_json_serialization.cpp
         tests/integration/test_recorder.cpp

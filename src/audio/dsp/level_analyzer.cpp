@@ -1,9 +1,16 @@
 #include "audio/dsp/level_analyzer.h"
 #include <algorithm>
+#include <cmath>
 
 namespace Amplitron {
 
 void LevelAnalyzer::update(float input_rms, float output_rms, bool input_clipped, bool output_clipped, float dt) {
+    if (!std::isfinite(dt) || dt <= 0.0f ||
+        !std::isfinite(input_rms) || input_rms < 0.0f ||
+        !std::isfinite(output_rms) || output_rms < 0.0f) {
+        return;
+    }
+
     // RMS smoothing
     smoothed_input_rms_ += (input_rms - smoothed_input_rms_) * 0.22f;
     smoothed_output_rms_ += (output_rms - smoothed_output_rms_) * 0.22f;
