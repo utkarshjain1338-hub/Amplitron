@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-27 12:29:52</td>
+            <td class="headerValue">2026-05-27 13:01:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -102,13 +102,13 @@
 <span id="L40"><span class="lineNum">      40</span>              : }</span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              : // Device auto-detection</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         210 : static void auto_detect_devices(int&amp; input_device, int&amp; output_device, int&amp; sample_rate) {</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         210 :     int device_count = Pa_GetDeviceCount();</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         210 :     int num_apis = Pa_GetHostApiCount();</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         224 : static void auto_detect_devices(int&amp; input_device, int&amp; output_device, int&amp; sample_rate) {</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         224 :     int device_count = Pa_GetDeviceCount();</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         224 :     int num_apis = Pa_GetHostApiCount();</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              :     // Phase 1: Print all devices</span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         210 :     std::cout &lt;&lt; &quot;\nDetected audio devices:&quot; &lt;&lt; std::endl;</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         215 :     for (int i = 0; i &lt; device_count; ++i) {</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         224 :     std::cout &lt;&lt; &quot;\nDetected audio devices:&quot; &lt;&lt; std::endl;</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         229 :     for (int i = 0; i &lt; device_count; ++i) {</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           5 :         const PaDeviceInfo* info = Pa_GetDeviceInfo(i);</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           5 :         if (!info) continue;</span></span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           4 :         bool is_usb = is_usb_device_name(info-&gt;name);</span></span>
@@ -136,19 +136,19 @@
 <span id="L74"><span class="lineNum">      74</span>              :         std::string api_name;</span>
 <span id="L75"><span class="lineNum">      75</span>              :     };</span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         210 :     std::vector&lt;ApiCandidate&gt; candidates;</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         619 :     for (int a = 0; a &lt; num_apis; ++a) {</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         409 :         const PaHostApiInfo* api = Pa_GetHostApiInfo(a);</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         409 :         if (!api) continue;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         224 :     std::vector&lt;ApiCandidate&gt; candidates;</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         661 :     for (int a = 0; a &lt; num_apis; ++a) {</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         437 :         const PaHostApiInfo* api = Pa_GetHostApiInfo(a);</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         437 :         if (!api) continue;</span></span>
 <span id="L81"><span class="lineNum">      81</span>              : </span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">         409 :         ApiCandidate c;</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">         409 :         c.api_index = a;</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">         409 :         c.priority = get_host_api_priority(api-&gt;type);</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">         409 :         c.usb_input = -1;</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">         409 :         c.best_output = -1;</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">         409 :         c.api_name = api-&gt;name;</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">         437 :         ApiCandidate c;</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">         437 :         c.api_index = a;</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">         437 :         c.priority = get_host_api_priority(api-&gt;type);</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">         437 :         c.usb_input = -1;</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">         437 :         c.best_output = -1;</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">         437 :         c.api_name = api-&gt;name;</span></span>
 <span id="L88"><span class="lineNum">      88</span>              : </span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">         418 :         for (int d = 0; d &lt; api-&gt;deviceCount; ++d) {</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">         446 :         for (int d = 0; d &lt; api-&gt;deviceCount; ++d) {</span></span>
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           9 :             int dev_idx = Pa_HostApiDeviceIndexToDeviceIndex(a, d);</span></span>
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           9 :             const PaDeviceInfo* info = Pa_GetDeviceInfo(dev_idx);</span></span>
 <span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           9 :             if (!info) continue;</span></span>
@@ -164,8 +164,8 @@
 <span id="L102"><span class="lineNum">     102</span>              :             }</span>
 <span id="L103"><span class="lineNum">     103</span>              :         }</span>
 <span id="L104"><span class="lineNum">     104</span>              : </span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">         409 :         if (c.best_output &lt; 0) {</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">         410 :             for (int d = 0; d &lt; api-&gt;deviceCount; ++d) {</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">         437 :         if (c.best_output &lt; 0) {</span></span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">         438 :             for (int d = 0; d &lt; api-&gt;deviceCount; ++d) {</span></span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">           3 :                 int dev_idx = Pa_HostApiDeviceIndexToDeviceIndex(a, d);</span></span>
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">           3 :                 const PaDeviceInfo* info = Pa_GetDeviceInfo(dev_idx);</span></span>
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">           3 :                 if (!info) continue;</span></span>
@@ -176,18 +176,18 @@
 <span id="L114"><span class="lineNum">     114</span>              :             }</span>
 <span id="L115"><span class="lineNum">     115</span>              :         }</span>
 <span id="L116"><span class="lineNum">     116</span>              : </span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC tlaBgGNC">         409 :         candidates.push_back(c);</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         409 :     }</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC tlaBgGNC">         437 :         candidates.push_back(c);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         437 :     }</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">         210 :     std::sort(candidates.begin(), candidates.end(),</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         406 :               [](const ApiCandidate&amp; a, const ApiCandidate&amp; b) {</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">         406 :                   return a.priority &gt; b.priority;</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">         224 :     std::sort(candidates.begin(), candidates.end(),</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         434 :               [](const ApiCandidate&amp; a, const ApiCandidate&amp; b) {</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">         434 :                   return a.priority &gt; b.priority;</span></span>
 <span id="L123"><span class="lineNum">     123</span>              :               });</span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
 <span id="L125"><span class="lineNum">     125</span>              :     // Phase 3: Pick the best API that has BOTH a USB input AND an output</span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">         210 :     bool found_pair = false;</span></span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         618 :     for (auto&amp; c : candidates) {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">         409 :         if (c.usb_input &gt;= 0 &amp;&amp; c.best_output &gt;= 0) {</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">         224 :     bool found_pair = false;</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         660 :     for (auto&amp; c : candidates) {</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">         437 :         if (c.usb_input &gt;= 0 &amp;&amp; c.best_output &gt;= 0) {</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           1 :             input_device = c.usb_input;</span></span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           1 :             output_device = c.best_output;</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
@@ -209,9 +209,9 @@
 <span id="L147"><span class="lineNum">     147</span>              :     }</span>
 <span id="L148"><span class="lineNum">     148</span>              : </span>
 <span id="L149"><span class="lineNum">     149</span>              :     // Fallback: no USB input found</span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         210 :     if (!found_pair) {</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         616 :         for (auto&amp; c : candidates) {</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         408 :             if (c.best_output &gt;= 0) {</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         224 :     if (!found_pair) {</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         658 :         for (auto&amp; c : candidates) {</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         436 :             if (c.best_output &gt;= 0) {</span></span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           1 :                 const PaHostApiInfo* api = Pa_GetHostApiInfo(c.api_index);</span></span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           2 :                 for (int d = 0; d &lt; api-&gt;deviceCount; ++d) {</span></span>
 <span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           2 :                     int dev_idx = Pa_HostApiDeviceIndexToDeviceIndex(c.api_index, d);</span></span>
@@ -235,33 +235,33 @@
 <span id="L173"><span class="lineNum">     173</span>              :     }</span>
 <span id="L174"><span class="lineNum">     174</span>              : </span>
 <span id="L175"><span class="lineNum">     175</span>              :     // Last resort: system defaults</span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         210 :     if (!found_pair) {</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         208 :         input_device = Pa_GetDefaultInputDevice();</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         208 :         output_device = Pa_GetDefaultOutputDevice();</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         208 :         std::cout &lt;&lt; &quot;\n&gt;&gt; Using system default input/output devices.&quot; &lt;&lt; std::endl;</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         224 :     if (!found_pair) {</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         222 :         input_device = Pa_GetDefaultInputDevice();</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         222 :         output_device = Pa_GetDefaultOutputDevice();</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         222 :         std::cout &lt;&lt; &quot;\n&gt;&gt; Using system default input/output devices.&quot; &lt;&lt; std::endl;</span></span>
 <span id="L180"><span class="lineNum">     180</span>              :     }</span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         210 : }</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         224 : }</span></span>
 <span id="L182"><span class="lineNum">     182</span>              : </span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         211 : bool AudioEngine::initialize() {</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         211 :     PaError err = Pa_Initialize();</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         211 :     if (err != paNoError) {</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         225 : bool AudioEngine::initialize() {</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         225 :     PaError err = Pa_Initialize();</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         225 :     if (err != paNoError) {</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           1 :         std::cerr &lt;&lt; &quot;PortAudio init failed: &quot; &lt;&lt; Pa_GetErrorText(err) &lt;&lt; std::endl;</span></span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           1 :         return false;</span></span>
 <span id="L188"><span class="lineNum">     188</span>              :     }</span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         210 :     initialized_ = true;</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         224 :     initialized_ = true;</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         210 :     auto_detect_devices(input_device_, output_device_, sample_rate_);</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         224 :     auto_detect_devices(input_device_, output_device_, sample_rate_);</span></span>
 <span id="L192"><span class="lineNum">     192</span>              : </span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">         210 :     return true;</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">         224 :     return true;</span></span>
 <span id="L194"><span class="lineNum">     194</span>              : }</span>
 <span id="L195"><span class="lineNum">     195</span>              : </span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">         416 : void AudioEngine::shutdown() {</span></span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">         416 :     stop();</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">         416 :     if (initialized_) {</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">         210 :         Pa_Terminate();</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">         210 :         initialized_ = false;</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">         444 : void AudioEngine::shutdown() {</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">         444 :     stop();</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">         444 :     if (initialized_) {</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">         224 :         Pa_Terminate();</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">         224 :         initialized_ = false;</span></span>
 <span id="L201"><span class="lineNum">     201</span>              :     }</span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">         416 : }</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">         444 : }</span></span>
 <span id="L203"><span class="lineNum">     203</span>              : </span>
 <span id="L204"><span class="lineNum">     204</span>              : </span>
 <span id="L205"><span class="lineNum">     205</span>              : </span>
@@ -386,8 +386,8 @@
 <span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">           9 :     return true;</span></span>
 <span id="L325"><span class="lineNum">     325</span>              : }</span>
 <span id="L326"><span class="lineNum">     326</span>              : </span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">         428 : void AudioEngine::stop() {</span></span>
-<span id="L328"><span class="lineNum">     328</span> <span class="tlaGNC">         428 :     if (backend_-&gt;stream) {</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">         456 : void AudioEngine::stop() {</span></span>
+<span id="L328"><span class="lineNum">     328</span> <span class="tlaGNC">         456 :     if (backend_-&gt;stream) {</span></span>
 <span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           9 :         if (running_) {</span></span>
 <span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">           9 :             Pa_StopStream(backend_-&gt;stream);</span></span>
 <span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">           9 :             running_ = false;</span></span>
@@ -395,7 +395,7 @@
 <span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">           9 :         Pa_CloseStream(backend_-&gt;stream);</span></span>
 <span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">           9 :         backend_-&gt;stream = nullptr;</span></span>
 <span id="L335"><span class="lineNum">     335</span>              :     }</span>
-<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">         428 : }</span></span>
+<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">         456 : }</span></span>
 <span id="L337"><span class="lineNum">     337</span>              : </span>
 <span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           2 : bool AudioEngine::restart() {</span></span>
 <span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">           2 :     stop();</span></span>

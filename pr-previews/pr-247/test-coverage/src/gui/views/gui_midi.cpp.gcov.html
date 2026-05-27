@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-27 12:29:52</td>
+            <td class="headerValue">2026-05-27 13:01:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -68,8 +68,8 @@
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          24 : GuiMidi::GuiMidi(MidiManager&amp; midi)</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          24 :     : midi_(midi) {}</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          31 : GuiMidi::GuiMidi(MidiManager&amp; midi)</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          31 :     : midi_(midi) {}</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L13"><span class="lineNum">      13</span>              : // MIDI Settings window</span>
@@ -336,17 +336,17 @@
 <span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC tlaBgGNC">           1 :     return false;</span></span>
 <span id="L275"><span class="lineNum">     275</span>              : }</span>
 <span id="L276"><span class="lineNum">     276</span>              : </span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">          63 : std::string GuiMidi::get_mapping_info(const std::string&amp; effect_name,</span></span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         163 : std::string GuiMidi::get_mapping_info(const std::string&amp; effect_name,</span></span>
 <span id="L278"><span class="lineNum">     278</span>              :                                       const std::string&amp; param_name) const {</span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">          66 :     for (const auto&amp; m : midi_.mappings()) {</span></span>
-<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           6 :         if (m.target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">          13 :             m.effect_name == effect_name &amp;&amp;</span></span>
-<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           5 :             m.param_name == param_name) {</span></span>
-<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">           8 :             return &quot;\n\n[MIDI: CC&quot; + std::to_string(m.cc_number) +</span></span>
-<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           8 :                    (m.mode == MidiMappingMode::Toggle ? &quot; Toggle]&quot; : &quot; Range]&quot;);</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         168 :     for (const auto&amp; m : midi_.mappings()) {</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           9 :         if (m.target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">          19 :             m.effect_name == effect_name &amp;&amp;</span></span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           8 :             m.param_name == param_name) {</span></span>
+<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">          10 :             return &quot;\n\n[MIDI: CC&quot; + std::to_string(m.cc_number) +</span></span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">          10 :                    (m.mode == MidiMappingMode::Toggle ? &quot; Toggle]&quot; : &quot; Range]&quot;);</span></span>
 <span id="L285"><span class="lineNum">     285</span>              :         }</span>
 <span id="L286"><span class="lineNum">     286</span>              :     }</span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         118 :     return &quot;&quot;;</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">         316 :     return &quot;&quot;;</span></span>
 <span id="L288"><span class="lineNum">     288</span>              : }</span>
 <span id="L289"><span class="lineNum">     289</span>              : </span>
 <span id="L290"><span class="lineNum">     290</span>              : } // namespace Amplitron</span>
