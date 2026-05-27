@@ -548,6 +548,10 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/ui/test_gui_recording.cpp
         tests/ui/test_gui_tuner.cpp
         tests/ui/test_gui_components.cpp
+        tests/ui/test_footswitch.cpp
+        tests/ui/test_led.cpp
+        tests/ui/test_knob.cpp
+        tests/ui/test_screen.cpp
         tests/unit/test_session_manager.cpp
         tests/unit/test_cli.cpp
         tests/integration/test_main.cpp

@@ -47,8 +47,8 @@ void KnobComponent::render(const char* imgui_id, const KnobProps& props, float z
 
     // 2. Mouse Panning/Rotary Drag Action
     if (is_active && s_active_knob_id == imgui_id) {
-        float mdx = ImGui::GetIO().MouseDelta.x;
-        float mdy = ImGui::GetIO().MouseDelta.y;
+        float mdx = ImGui::GetIO().MousePos.x - ImGui::GetIO().MousePosPrev.x;
+        float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;
 
         if (mdx != 0.0f || mdy != 0.0f) {
             ImVec2 mouse = ImGui::GetIO().MousePos;

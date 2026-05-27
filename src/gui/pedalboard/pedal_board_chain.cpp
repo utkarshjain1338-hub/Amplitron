@@ -62,8 +62,8 @@ void PedalBoard::render_signal_chain() {
     if (ImGui::IsItemActive() && (ImGui::IsMouseDragging(ImGuiMouseButton_Right) || 
                                   ImGui::IsMouseDragging(ImGuiMouseButton_Middle) || 
                                   (ui_state.hand_tool_active && ImGui::IsMouseDragging(ImGuiMouseButton_Left)))) {
-        ui_state.scrolling.x += ImGui::GetIO().MouseDelta.x;
-        ui_state.scrolling.y += ImGui::GetIO().MouseDelta.y;
+        ui_state.scrolling.x += ImGui::GetIO().MousePos.x - ImGui::GetIO().MousePosPrev.x;
+        ui_state.scrolling.y += ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;
         ui_state.target_scrolling = ui_state.scrolling;
     }
     // Zooming is now allowed in both fullscreen and normal modes
@@ -180,8 +180,10 @@ void PedalBoard::render_signal_chain() {
             ImGui::SetNextItemAllowOverlap(); 
             ImGui::InvisibleButton("native_drag_handle", ImVec2(node_width - 25.0f * ui_state.zoom, 30.0f * ui_state.zoom));
             if (!ui_state.hand_tool_active && ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
-                node_layout.position.x += ImGui::GetIO().MouseDelta.x / ui_state.zoom;
-                node_layout.position.y += ImGui::GetIO().MouseDelta.y / ui_state.zoom;
+                float mdx = ImGui::GetIO().MousePos.x - ImGui::GetIO().MousePosPrev.x;
+                float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;
+                node_layout.position.x += mdx / ui_state.zoom;
+                node_layout.position.y += mdy / ui_state.zoom;
             }
         } else {
             ImVec2 node_end = ImVec2(node_screen_pos.x + node_width, node_screen_pos.y + node_height);
@@ -192,8 +194,10 @@ void PedalBoard::render_signal_chain() {
             ImGui::SetNextItemAllowOverlap();
             ImGui::InvisibleButton("util_drag_handle", ImVec2(node_width - 25.0f * ui_state.zoom, node_height));
             if (!ui_state.hand_tool_active && ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left)) {
-                node_layout.position.x += ImGui::GetIO().MouseDelta.x / ui_state.zoom;
-                node_layout.position.y += ImGui::GetIO().MouseDelta.y / ui_state.zoom;
+                float mdx = ImGui::GetIO().MousePos.x - ImGui::GetIO().MousePosPrev.x;
+                float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;
+                node_layout.position.x += mdx / ui_state.zoom;
+                node_layout.position.y += mdy / ui_state.zoom;
             }
             ImVec2 text_pos = ImVec2(node_screen_pos.x + 12.0f * ui_state.zoom, node_screen_pos.y + 25.0f * ui_state.zoom);
 #ifdef __EMSCRIPTEN__

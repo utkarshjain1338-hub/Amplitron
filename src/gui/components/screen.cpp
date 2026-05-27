@@ -450,7 +450,7 @@ void ScreenComponent::render_multiband_compressor_display(ImDrawList* dl, ImVec2
         }
 
         if (is_active && s_active_knob_id == label) {
-            float mdy = ImGui::GetIO().MouseDelta.y;
+            float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;
             if (mdy != 0.0f) {
                 float sensitivity = 0.005f;
                 float value_delta = -mdy * sensitivity * range;

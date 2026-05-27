@@ -262,12 +262,8 @@ void AudioEngine::drain_commands() {
         
         // Helper to find the effect pointer safely inside the new Graph architecture by chain index
         auto get_effect = [&](int effect_index) -> std::shared_ptr<Effect> {
-            int current_idx = 0;
-            for (const auto& node : main_graph_.get_nodes()) {
-                if (node.pedal) {
-                    if (current_idx == effect_index) return node.pedal;
-                    current_idx++;
-                }
+            if (effect_index >= 0 && effect_index < static_cast<int>(dummy_effects_.size())) {
+                return dummy_effects_[effect_index];
             }
             return nullptr;
         };
