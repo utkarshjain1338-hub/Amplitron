@@ -1,6 +1,8 @@
 #include "test_framework.h"
 #include "audio/dsp/level_analyzer.h"
 #include <cmath>
+#include <cstdint>
+#include <cstring>
 
 using namespace Amplitron;
 
