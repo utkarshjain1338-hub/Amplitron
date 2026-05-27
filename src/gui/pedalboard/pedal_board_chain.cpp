@@ -168,11 +168,7 @@ void PedalBoard::render_signal_chain() {
         if (target_widget) {
             ImGui::SetCursorScreenPos(node_screen_pos);
             ImGui::BeginGroup();
-#ifdef __EMSCRIPTEN__
-            ImGui::SetWindowFontScale(ui_state.zoom / ui_state.dpi_scale);
-#else
             ImGui::SetWindowFontScale(ui_state.zoom);
-#endif
             target_widget->render(ui_state.zoom); 
             ImGui::SetWindowFontScale(1.0f);
             ImGui::EndGroup();
@@ -200,11 +196,7 @@ void PedalBoard::render_signal_chain() {
                 node_layout.position.y += mdy / ui_state.zoom;
             }
             ImVec2 text_pos = ImVec2(node_screen_pos.x + 12.0f * ui_state.zoom, node_screen_pos.y + 25.0f * ui_state.zoom);
-#ifdef __EMSCRIPTEN__
-            ImGui::SetWindowFontScale(ui_state.zoom / ui_state.dpi_scale);
-#else
             ImGui::SetWindowFontScale(ui_state.zoom);
-#endif
             draw_list->AddText(text_pos, IM_COL32(255, 255, 255, 255), node.name.c_str());
             ImGui::SetWindowFontScale(1.0f);
         }
@@ -213,11 +205,7 @@ void PedalBoard::render_signal_chain() {
             draw_list->AddRectFilled(node_screen_pos, node_end, IM_COL32(0, 0, 0, 180), Theme::ROUNDING_MD * ui_state.zoom);
             
             ImVec2 text_pos = ImVec2(node_screen_pos.x + 10.0f * ui_state.zoom, node_screen_pos.y + node_height - 25.0f * ui_state.zoom);
-#ifdef __EMSCRIPTEN__
-            ImGui::SetWindowFontScale(ui_state.zoom * 0.9f / ui_state.dpi_scale);
-#else
             ImGui::SetWindowFontScale(ui_state.zoom * 0.9f);
-#endif
             draw_list->AddText(text_pos, IM_COL32(255, 60, 60, 255), "DISCONNECTED");
             ImGui::SetWindowFontScale(1.0f);
         }

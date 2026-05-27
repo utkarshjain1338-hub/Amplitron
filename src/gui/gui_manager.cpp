@@ -140,13 +140,15 @@ bool GuiManager::initialize(int width, int height) {
         try_font("external/imgui/misc/fonts/Roboto-Medium.ttf");
         try_font("../external/imgui/misc/fonts/Roboto-Medium.ttf");
 
-        if (!loaded_font)
+        if (!loaded_font) {
             io.Fonts->AddFontDefault();
-
-        // On all platforms (Desktop & Web viewports), ImGui operates in logical coordinates.
-        // We load fonts at high physical resolution (scaled_size) to keep text sharp,
-        // and set FontGlobalScale to 1.0f / dpi_scale to draw them at their intended logical size.
-        io.FontGlobalScale = 1.0f / dpi_scale;
+            io.FontGlobalScale = 1.0f;
+        } else {
+            // On all platforms (Desktop & Web viewports), ImGui operates in logical coordinates.
+            // We load fonts at high physical resolution (scaled_size) to keep text sharp,
+            // and set FontGlobalScale to 1.0f / dpi_scale to draw them at their intended logical size.
+            io.FontGlobalScale = 1.0f / dpi_scale;
+        }
     }
 
     // Load window icon from assets/icon.svg
