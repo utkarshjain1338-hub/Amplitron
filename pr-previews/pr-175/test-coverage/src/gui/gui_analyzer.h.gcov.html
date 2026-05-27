@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
-            <td class="headerCovTableEntry">1</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 14:20:58</td>
+            <td class="headerValue">2026-05-27 02:21:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
-            <td class="headerCovTableEntry">1</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -81,10 +81,10 @@
 <span id="L19"><span class="lineNum">      19</span>              :     void render();</span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              :     /** @brief Whether the panel is expanded (affects layout). */</span>
-<span id="L22"><span class="lineNum">      22</span>              :     bool is_expanded() const { return expanded_; }</span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">           1 :     bool is_expanded() const { return expanded_; }</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              :     /** @brief Height to reserve in the parent layout for this panel. */</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC tlaBgUNC">           0 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
 <span id="L27"><span class="lineNum">      27</span>              : private:</span>
 <span id="L28"><span class="lineNum">      28</span>              :     void render_vu_bar(const char* id,</span>

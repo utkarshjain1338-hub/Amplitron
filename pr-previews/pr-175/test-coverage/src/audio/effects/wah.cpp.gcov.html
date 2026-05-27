@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 14:20:58</td>
+            <td class="headerValue">2026-05-27 02:21:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -94,44 +94,44 @@
 <span id="L32"><span class="lineNum">      32</span>              :     // Sweep/Q smoothing (~5 ms time constant -- removes zipper noise on knob moves)</span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          12 :     float smooth_coeff = std::exp(-1.0f / (sample_rate_ * 0.005f));</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">       14092 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">       14080 :         float dry = buffer[i];</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">       11276 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">       11264 :         float dry = buffer[i];</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span>              :         // --- Compute target sweep position ---</span>
 <span id="L39"><span class="lineNum">      39</span>              :         float target_sweep;</span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">       14080 :         if (is_auto) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">       11264 :         if (is_auto) {</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :             // Peak-tracking envelope follower</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">        4096 :             float envelope = env_.process(dry, atk_coeff, rel_coeff);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">        1024 :             float envelope = env_.process(dry, atk_coeff, rel_coeff);</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
 <span id="L44"><span class="lineNum">      44</span>              :             // Map envelope -&gt; sweep (sensitivity scales the detection range)</span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        4096 :             target_sweep = clamp(envelope * sens * 4.0f, 0.0f, 1.0f);</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        1024 :             target_sweep = clamp(envelope * sens * 4.0f, 0.0f, 1.0f);</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :         } else {</span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">        9984 :             target_sweep = sweep;</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">       10240 :             target_sweep = sweep;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :         }</span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
 <span id="L50"><span class="lineNum">      50</span>              :         // Smooth sweep and Q positions to prevent discontinuities</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">       14080 :         sweep_smooth_ += (1.0f - smooth_coeff) * (target_sweep - sweep_smooth_);</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">       14080 :         q_smooth_     += (1.0f - smooth_coeff) * (q           - q_smooth_);</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">       11264 :         sweep_smooth_ += (1.0f - smooth_coeff) * (target_sweep - sweep_smooth_);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">       11264 :         q_smooth_     += (1.0f - smooth_coeff) * (q           - q_smooth_);</span></span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
 <span id="L54"><span class="lineNum">      54</span>              :         // Damping factor for SVF (inverse of smoothed Q)</span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">       14080 :         float q_damp = 1.0f / q_smooth_;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">       11264 :         float q_damp = 1.0f / q_smooth_;</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span>              :         // --- Map sweep 0-&gt;1 to centre frequency 350 Hz -&gt; 2500 Hz (exponential) ---</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">       14080 :         constexpr float FREQ_LO = 350.0f;</span></span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">       14080 :         constexpr float FREQ_HI = 2500.0f;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">       14080 :         float fc = FREQ_LO * std::pow(FREQ_HI / FREQ_LO, sweep_smooth_);</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">       11264 :         constexpr float FREQ_LO = 350.0f;</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">       11264 :         constexpr float FREQ_HI = 2500.0f;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">       11264 :         float fc = FREQ_LO * std::pow(FREQ_HI / FREQ_LO, sweep_smooth_);</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span>              :         // --- Chamberlin state-variable filter ---</span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">       14080 :         float f_coeff = 2.0f * std::sin(PI * fc / static_cast&lt;float&gt;(sample_rate_));</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">       11264 :         float f_coeff = 2.0f * std::sin(PI * fc / static_cast&lt;float&gt;(sample_rate_));</span></span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">       14080 :         float hp    = dry - q_damp * svf_bp_ - svf_lp_;</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">       14080 :         svf_bp_     = f_coeff * hp   + svf_bp_;</span></span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">       14080 :         svf_lp_     = f_coeff * svf_bp_ + svf_lp_;</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">       11264 :         float hp    = dry - q_damp * svf_bp_ - svf_lp_;</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">       11264 :         svf_bp_     = f_coeff * hp   + svf_bp_;</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">       11264 :         svf_lp_     = f_coeff * svf_bp_ + svf_lp_;</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              :         // Bandpass output boosted by Q for the classic resonant wah peak</span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">       14080 :         float wet = svf_bp_ * q_smooth_ * 0.5f;</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">       11264 :         float wet = svf_bp_ * q_smooth_ * 0.5f;</span></span>
 <span id="L71"><span class="lineNum">      71</span>              : </span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">       14080 :         buffer[i] = dry * (1.0f - mix_) + wet * mix_;</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">       11264 :         buffer[i] = dry * (1.0f - mix_) + wet * mix_;</span></span>
 <span id="L73"><span class="lineNum">      73</span>              :     }</span>
 <span id="L74"><span class="lineNum">      74</span>              : }</span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>

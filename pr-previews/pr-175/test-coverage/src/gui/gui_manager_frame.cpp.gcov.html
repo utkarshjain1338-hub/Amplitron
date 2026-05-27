@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryLo">36.6&nbsp;%</td>
             <td class="headerCovTableEntry">164</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">60</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-26 14:20:58</td>
+            <td class="headerValue">2026-05-27 02:21:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">2</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -74,17 +74,17 @@
 <span id="L12"><span class="lineNum">      12</span>              : </span>
 <span id="L13"><span class="lineNum">      13</span>              : namespace Amplitron {</span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaUNC tlaBgUNC">           0 : void GuiManager::toggle_audio_mute_state() {</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC tlaBgGNC">           2 : void GuiManager::toggle_audio_mute_state() {</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :     if (engine_.is_running()) {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :         engine_.stop();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :         audio_muted_ = true;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :     if (engine_.is_running()) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           1 :         engine_.stop();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :         audio_muted_ = true;</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :     } else {</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :         engine_.restart();</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :         audio_muted_ = false;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :         engine_.restart();</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :         audio_muted_ = false;</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :     }</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 : }</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC">           0 : bool GuiManager::run_frame() {</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           2 : }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC tlaBgUNC">           0 : bool GuiManager::run_frame() {</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     SDL_Event event;</span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :     while (SDL_PollEvent(&amp;event)) {</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaUNC">           0 :         ImGui_ImplSDL2_ProcessEvent(&amp;event);</span></span>
@@ -255,105 +255,105 @@
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :     return true;</span></span>
 <span id="L194"><span class="lineNum">     194</span>              : }</span>
 <span id="L195"><span class="lineNum">     195</span>              : </span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaUNC">           0 : void GuiManager::render_master_controls() {</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC tlaBgGNC">           1 : void GuiManager::render_master_controls() {</span></span>
 <span id="L197"><span class="lineNum">     197</span>              :     // Smooth metering</span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC">           0 :     float input_lvl = engine_.get_input_level();</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :     float output_lvl = engine_.get_output_level();</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaUNC">           0 :     smoothed_input_level_ += (input_lvl - smoothed_input_level_) * 0.3f;</span></span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaUNC">           0 :     smoothed_output_level_ += (output_lvl - smoothed_output_level_) * 0.3f;</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           1 :     float input_lvl = engine_.get_input_level();</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           1 :     float output_lvl = engine_.get_output_level();</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 :     smoothed_input_level_ += (input_lvl - smoothed_input_level_) * 0.3f;</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">           1 :     smoothed_output_level_ += (output_lvl - smoothed_output_level_) * 0.3f;</span></span>
 <span id="L202"><span class="lineNum">     202</span>              : </span>
-<span id="L203"><span class="lineNum">     203</span> <span class="tlaUNC">           0 :     ImGui::BeginChild(&quot;MasterControls&quot;, ImVec2(0, 150), true, ImGuiWindowFlags_NoScrollbar);</span></span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">           1 :     ImGui::BeginChild(&quot;MasterControls&quot;, ImVec2(0, 150), true, ImGuiWindowFlags_NoScrollbar);</span></span>
 <span id="L204"><span class="lineNum">     204</span>              : </span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaUNC">           0 :     ImGui::Columns(4, &quot;master_cols&quot;, false);</span></span>
+<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">           1 :     ImGui::Columns(4, &quot;master_cols&quot;, false);</span></span>
 <span id="L206"><span class="lineNum">     206</span>              : </span>
 <span id="L207"><span class="lineNum">     207</span>              :     // Input gain</span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 :     ImGui::Text(&quot;INPUT&quot;);</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :     float input_gain = engine_.get_input_gain();</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC">           0 :     if (ImGui::SliderFloat(&quot;##InputGain&quot;, &amp;input_gain, 0.0f, 5.0f, &quot;%.2f dB&quot;)) {</span></span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC">           0 :         engine_.set_input_gain(input_gain);</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">           1 :     ImGui::Text(&quot;INPUT&quot;);</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           1 :     float input_gain = engine_.get_input_gain();</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">           1 :     if (ImGui::SliderFloat(&quot;##InputGain&quot;, &amp;input_gain, 0.0f, 5.0f, &quot;%.2f dB&quot;)) {</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_input_gain(input_gain);</span></span>
 <span id="L212"><span class="lineNum">     212</span>              :     }</span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaUNC">           0 :     if (ImGui::IsItemHovered()) {</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC">           0 :         ImGui::SetTooltip(&quot;Input gain: 0.0 - 5.0 dB&quot;);</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC tlaBgGNC">           1 :     if (ImGui::IsItemHovered()) {</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::SetTooltip(&quot;Input gain: 0.0 - 5.0 dB&quot;);</span></span>
 <span id="L215"><span class="lineNum">     215</span>              :     }</span>
 <span id="L216"><span class="lineNum">     216</span>              : </span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaUNC">           0 :     ImGui::NextColumn();</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::NextColumn();</span></span>
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span>              :     // Input meter</span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaUNC">           0 :     ImGui::Text(&quot;IN LEVEL&quot;);</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC">           0 :     ImVec2 meter_pos = ImGui::GetCursorScreenPos();</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC">           0 :     float meter_w = ImGui::GetColumnWidth() - 20;</span></span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC">           0 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaUNC">           0 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           1 :     ImGui::Text(&quot;IN LEVEL&quot;);</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           1 :     ImVec2 meter_pos = ImGui::GetCursorScreenPos();</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           1 :     float meter_w = ImGui::GetColumnWidth() - 20;</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">           1 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">           1 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
 <span id="L225"><span class="lineNum">     225</span>              :                       Theme::METER_BG, Theme::ROUNDING_SM);</span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :     float fill = std::min(smoothed_input_level_, 1.0f) * meter_w;</span></span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaUNC">           0 :     ImU32 meter_color = (smoothed_input_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaUNC">           0 :                         (smoothed_input_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">           1 :     float fill = std::min(smoothed_input_level_, 1.0f) * meter_w;</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">           2 :     ImU32 meter_color = (smoothed_input_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">           1 :                         (smoothed_input_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
 <span id="L229"><span class="lineNum">     229</span>              :                                                           Theme::METER_GREEN;</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           1 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
 <span id="L231"><span class="lineNum">     231</span>              :                       meter_color, Theme::ROUNDING_SM);</span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaUNC">           0 :     ImGui::Dummy(ImVec2(meter_w, 20));</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">           1 :     ImGui::Dummy(ImVec2(meter_w, 20));</span></span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaUNC">           0 :     ImGui::NextColumn();</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">           1 :     ImGui::NextColumn();</span></span>
 <span id="L235"><span class="lineNum">     235</span>              : </span>
 <span id="L236"><span class="lineNum">     236</span>              :     // Output meter</span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaUNC">           0 :     ImGui::Text(&quot;OUT LEVEL&quot;);</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaUNC">           0 :     meter_pos = ImGui::GetCursorScreenPos();</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :     meter_w = ImGui::GetColumnWidth() - 20;</span></span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">           1 :     ImGui::Text(&quot;OUT LEVEL&quot;);</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           1 :     meter_pos = ImGui::GetCursorScreenPos();</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           1 :     meter_w = ImGui::GetColumnWidth() - 20;</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">           1 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
 <span id="L241"><span class="lineNum">     241</span>              :                       Theme::METER_BG, Theme::ROUNDING_SM);</span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :     fill = std::min(smoothed_output_level_, 1.0f) * meter_w;</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaUNC">           0 :     meter_color = (smoothed_output_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC">           0 :                   (smoothed_output_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           1 :     fill = std::min(smoothed_output_level_, 1.0f) * meter_w;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           2 :     meter_color = (smoothed_output_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">           1 :                   (smoothed_output_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
 <span id="L245"><span class="lineNum">     245</span>              :                                                      Theme::METER_GREEN;</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC">           0 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">           1 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
 <span id="L247"><span class="lineNum">     247</span>              :                       meter_color, Theme::ROUNDING_SM);</span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaUNC">           0 :     ImGui::Dummy(ImVec2(meter_w, 20));</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">           1 :     ImGui::Dummy(ImVec2(meter_w, 20));</span></span>
 <span id="L249"><span class="lineNum">     249</span>              : </span>
-<span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC">           0 :     ImGui::NextColumn();</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">           1 :     ImGui::NextColumn();</span></span>
 <span id="L251"><span class="lineNum">     251</span>              : </span>
 <span id="L252"><span class="lineNum">     252</span>              :     // Output gain</span>
-<span id="L253"><span class="lineNum">     253</span> <span class="tlaUNC">           0 :     ImGui::Text(&quot;OUTPUT&quot;);</span></span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaUNC">           0 :     if (audio_muted_) {</span></span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaUNC">           0 :         ImGui::SameLine();</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">           1 :     ImGui::Text(&quot;OUTPUT&quot;);</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           1 :     if (audio_muted_) {</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::SameLine();</span></span>
 <span id="L256"><span class="lineNum">     256</span> <span class="tlaUNC">           0 :         ImGui::TextColored(ImVec4(1.0f, 0.2f, 0.2f, 1.0f), &quot;MUTED&quot;);</span></span>
 <span id="L257"><span class="lineNum">     257</span>              :     }</span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaUNC">           0 :     float output_gain = engine_.get_output_gain();</span></span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaUNC">           0 :     if (ImGui::SliderFloat(&quot;##OutputGain&quot;, &amp;output_gain, 0.0f, 2.0f, &quot;%.2f dB&quot;)) {</span></span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaUNC">           0 :         engine_.set_output_gain(output_gain);</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC tlaBgGNC">           1 :     float output_gain = engine_.get_output_gain();</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">           1 :     if (ImGui::SliderFloat(&quot;##OutputGain&quot;, &amp;output_gain, 0.0f, 2.0f, &quot;%.2f dB&quot;)) {</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_output_gain(output_gain);</span></span>
 <span id="L261"><span class="lineNum">     261</span>              :     }</span>
-<span id="L262"><span class="lineNum">     262</span> <span class="tlaUNC">           0 :     if (ImGui::IsItemHovered()) {</span></span>
-<span id="L263"><span class="lineNum">     263</span> <span class="tlaUNC">           0 :         ImGui::SetTooltip(&quot;Output gain: 0.0 - 2.0 dB&quot;);</span></span>
+<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC tlaBgGNC">           1 :     if (ImGui::IsItemHovered()) {</span></span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::SetTooltip(&quot;Output gain: 0.0 - 2.0 dB&quot;);</span></span>
 <span id="L264"><span class="lineNum">     264</span>              :     }</span>
 <span id="L265"><span class="lineNum">     265</span>              : </span>
-<span id="L266"><span class="lineNum">     266</span> <span class="tlaUNC">           0 :     ImGui::Columns(1);</span></span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::Columns(1);</span></span>
 <span id="L267"><span class="lineNum">     267</span>              : </span>
-<span id="L268"><span class="lineNum">     268</span> <span class="tlaUNC">           0 :     ImGui::Separator();</span></span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">           1 :     ImGui::Separator();</span></span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaUNC">           0 :     ImGui::Columns(3, &quot;metronome_cols&quot;, false);</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           1 :     ImGui::Columns(3, &quot;metronome_cols&quot;, false);</span></span>
 <span id="L271"><span class="lineNum">     271</span>              : </span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaUNC">           0 :     ImGui::Text(&quot;METRONOME&quot;);</span></span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaUNC">           0 :     bool metronome_on = engine_.get_metronome_enabled();</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaUNC">           0 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;)) {</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaUNC">           0 :         engine_.toggle_metronome();</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           1 :     ImGui::Text(&quot;METRONOME&quot;);</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           1 :     bool metronome_on = engine_.get_metronome_enabled();</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">           1 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;)) {</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.toggle_metronome();</span></span>
 <span id="L276"><span class="lineNum">     276</span>              :     }</span>
 <span id="L277"><span class="lineNum">     277</span>              : </span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaUNC">           0 :     ImGui::NextColumn();</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::NextColumn();</span></span>
 <span id="L279"><span class="lineNum">     279</span>              : </span>
-<span id="L280"><span class="lineNum">     280</span> <span class="tlaUNC">           0 :     int bpm = engine_.get_metronome_bpm();</span></span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaUNC">           0 :     if (ImGui::SliderInt(&quot;BPM&quot;, &amp;bpm, 40, 240)) {</span></span>
-<span id="L282"><span class="lineNum">     282</span> <span class="tlaUNC">           0 :         engine_.set_metronome_bpm(bpm);</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           1 :     int bpm = engine_.get_metronome_bpm();</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           1 :     if (ImGui::SliderInt(&quot;BPM&quot;, &amp;bpm, 40, 240)) {</span></span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_bpm(bpm);</span></span>
 <span id="L283"><span class="lineNum">     283</span>              :     }</span>
 <span id="L284"><span class="lineNum">     284</span>              : </span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaUNC">           0 :     ImGui::NextColumn();</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::NextColumn();</span></span>
 <span id="L286"><span class="lineNum">     286</span>              : </span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaUNC">           0 :     float click = engine_.get_metronome_volume();</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaUNC">           0 :     if (ImGui::SliderFloat(&quot;Click&quot;, &amp;click, 0.0f, 1.0f, &quot;%.2f&quot;)) {</span></span>
-<span id="L289"><span class="lineNum">     289</span> <span class="tlaUNC">           0 :         engine_.set_metronome_volume(click);</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           1 :     float click = engine_.get_metronome_volume();</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           1 :     if (ImGui::SliderFloat(&quot;Click&quot;, &amp;click, 0.0f, 1.0f, &quot;%.2f&quot;)) {</span></span>
+<span id="L289"><span class="lineNum">     289</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_volume(click);</span></span>
 <span id="L290"><span class="lineNum">     290</span>              :     }</span>
 <span id="L291"><span class="lineNum">     291</span>              : </span>
-<span id="L292"><span class="lineNum">     292</span> <span class="tlaUNC">           0 :     ImGui::Columns(1);</span></span>
-<span id="L293"><span class="lineNum">     293</span> <span class="tlaUNC">           0 :     ImGui::EndChild();</span></span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC tlaBgGNC">           1 :     ImGui::Columns(1);</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           1 :     ImGui::EndChild();</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           1 : }</span></span>
 <span id="L295"><span class="lineNum">     295</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
