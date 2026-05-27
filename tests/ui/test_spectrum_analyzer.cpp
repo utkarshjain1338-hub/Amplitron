@@ -48,7 +48,6 @@ TEST(spectrum_analyzer_update_sine_tone_does_not_produce_nan) {
 TEST(spectrum_analyzer_update_null_input_is_safe) {
     SpectrumAnalyzer sa;
     std::vector<float> zeros(SpectrumAnalyzer::FFT_SIZE, 0.0f);
-    // Null pointers must be handled gracefully (early return / fill min)
     sa.update(nullptr,       zeros.data(), 48000, 1.0f / 60.0f);
     sa.update(zeros.data(),  nullptr,      48000, 1.0f / 60.0f);
     sa.update(nullptr,       nullptr,      48000, 1.0f / 60.0f);
