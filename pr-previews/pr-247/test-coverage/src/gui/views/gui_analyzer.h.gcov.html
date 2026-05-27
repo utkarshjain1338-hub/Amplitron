@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-27 13:01:21</td>
+            <td class="headerValue">2026-05-27 17:36:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -76,63 +76,70 @@
 <span id="L14"><span class="lineNum">      14</span>              :     Overlay = 2,</span>
 <span id="L15"><span class="lineNum">      15</span>              : };</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span>              : struct AnalyzerProps {</span>
-<span id="L18"><span class="lineNum">      18</span>              :     // VU levels (pre-calculated by LevelAnalyzer in the audio engine)</span>
-<span id="L19"><span class="lineNum">      19</span>              :     float smoothed_input_rms  = 0.0f;</span>
-<span id="L20"><span class="lineNum">      20</span>              :     float smoothed_output_rms = 0.0f;</span>
-<span id="L21"><span class="lineNum">      21</span>              :     float input_peak_hold     = 0.0f;</span>
-<span id="L22"><span class="lineNum">      22</span>              :     float output_peak_hold    = 0.0f;</span>
-<span id="L23"><span class="lineNum">      23</span>              :     bool  input_clip_active   = false;</span>
-<span id="L24"><span class="lineNum">      24</span>              :     bool  output_clip_active  = false;</span>
-<span id="L25"><span class="lineNum">      25</span>              :     float input_clip_flash    = 0.0f;</span>
-<span id="L26"><span class="lineNum">      26</span>              :     float output_clip_flash   = 0.0f;</span>
-<span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span>              :     // Spectrum analyzer (pre-calculated by SpectrumAnalyzer in the audio engine)</span>
-<span id="L29"><span class="lineNum">      29</span>              :     const SpectrumAnalyzer* spectrum = nullptr;</span>
-<span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span>              :     std::function&lt;void(bool)&gt;                on_expanded_changed;</span>
-<span id="L32"><span class="lineNum">      32</span>              :     std::function&lt;void(SpectrumDisplayMode)&gt; on_mode_changed;</span>
-<span id="L33"><span class="lineNum">      33</span>              :     std::function&lt;void(bool)&gt;                on_set_analyzer_enabled;</span>
-<span id="L34"><span class="lineNum">      34</span>              : };</span>
-<span id="L35"><span class="lineNum">      35</span>              : </span>
-<span id="L36"><span class="lineNum">      36</span>              : /**</span>
-<span id="L37"><span class="lineNum">      37</span>              :  * @brief Reactive real-time analyzer panel component.</span>
-<span id="L38"><span class="lineNum">      38</span>              :  *</span>
-<span id="L39"><span class="lineNum">      39</span>              :  * Receives all pre-computed level and spectrum data via AnalyzerProps.</span>
-<span id="L40"><span class="lineNum">      40</span>              :  * Zero math or signal processing occurs here — only ImGui drawing calls.</span>
-<span id="L41"><span class="lineNum">      41</span>              :  */</span>
-<span id="L42"><span class="lineNum">      42</span>              : class GuiAnalyzer : public UIComponent&lt;AnalyzerProps&gt; {</span>
-<span id="L43"><span class="lineNum">      43</span>              : public:</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC tlaBgGNC">           6 :     GuiAnalyzer() = default;</span></span>
-<span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span>              :     /** @brief Render the collapsible analyzer panel. */</span>
-<span id="L47"><span class="lineNum">      47</span>              :     void render() override;</span>
-<span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span>              :     /** @brief Height to reserve for this panel in the parent layout. */</span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           1 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
-<span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span>              :     SpectrumDisplayMode current_mode() const { return mode_; }</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           1 :     bool is_expanded() const { return expanded_; }</span></span>
-<span id="L54"><span class="lineNum">      54</span>              : </span>
-<span id="L55"><span class="lineNum">      55</span>              : private:</span>
-<span id="L56"><span class="lineNum">      56</span>              :     void render_vu_bar(const char* id,</span>
-<span id="L57"><span class="lineNum">      57</span>              :                        const char* label,</span>
-<span id="L58"><span class="lineNum">      58</span>              :                        float rms_level,</span>
-<span id="L59"><span class="lineNum">      59</span>              :                        float peak_hold,</span>
-<span id="L60"><span class="lineNum">      60</span>              :                        bool  clip_active,</span>
-<span id="L61"><span class="lineNum">      61</span>              :                        float clip_flash,</span>
-<span id="L62"><span class="lineNum">      62</span>              :                        ImU32 base_color,</span>
-<span id="L63"><span class="lineNum">      63</span>              :                        ImU32 peak_color);</span>
-<span id="L64"><span class="lineNum">      64</span>              : </span>
-<span id="L65"><span class="lineNum">      65</span>              :     void draw_spectrum(ImDrawList* dl,</span>
-<span id="L66"><span class="lineNum">      66</span>              :                        const ImVec2&amp; pos,</span>
-<span id="L67"><span class="lineNum">      67</span>              :                        const ImVec2&amp; size) const;</span>
-<span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span>              :     bool expanded_ = true;</span>
-<span id="L70"><span class="lineNum">      70</span>              :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span>
-<span id="L71"><span class="lineNum">      71</span>              : };</span>
-<span id="L72"><span class="lineNum">      72</span>              : </span>
-<span id="L73"><span class="lineNum">      73</span>              : } // namespace Amplitron</span>
+<span id="L17"><span class="lineNum">      17</span>              : struct SpectrumSnapshot {</span>
+<span id="L18"><span class="lineNum">      18</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_input_db{};</span>
+<span id="L19"><span class="lineNum">      19</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_output_db{};</span>
+<span id="L20"><span class="lineNum">      20</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; input_peak_db{};</span>
+<span id="L21"><span class="lineNum">      21</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; output_peak_db{};</span>
+<span id="L22"><span class="lineNum">      22</span>              : };</span>
+<span id="L23"><span class="lineNum">      23</span>              : </span>
+<span id="L24"><span class="lineNum">      24</span>              : struct AnalyzerProps {</span>
+<span id="L25"><span class="lineNum">      25</span>              :     // VU levels (pre-calculated by LevelAnalyzer in the audio engine)</span>
+<span id="L26"><span class="lineNum">      26</span>              :     float smoothed_input_rms  = 0.0f;</span>
+<span id="L27"><span class="lineNum">      27</span>              :     float smoothed_output_rms = 0.0f;</span>
+<span id="L28"><span class="lineNum">      28</span>              :     float input_peak_hold     = 0.0f;</span>
+<span id="L29"><span class="lineNum">      29</span>              :     float output_peak_hold    = 0.0f;</span>
+<span id="L30"><span class="lineNum">      30</span>              :     bool  input_clip_active   = false;</span>
+<span id="L31"><span class="lineNum">      31</span>              :     bool  output_clip_active  = false;</span>
+<span id="L32"><span class="lineNum">      32</span>              :     float input_clip_flash    = 0.0f;</span>
+<span id="L33"><span class="lineNum">      33</span>              :     float output_clip_flash   = 0.0f;</span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              :     // Spectrum analyzer (pre-calculated by SpectrumAnalyzer in the audio engine)</span>
+<span id="L36"><span class="lineNum">      36</span>              :     SpectrumSnapshot spectrum;</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :     std::function&lt;void(bool)&gt;                on_expanded_changed;</span>
+<span id="L39"><span class="lineNum">      39</span>              :     std::function&lt;void(SpectrumDisplayMode)&gt; on_mode_changed;</span>
+<span id="L40"><span class="lineNum">      40</span>              :     std::function&lt;void(bool)&gt;                on_set_analyzer_enabled;</span>
+<span id="L41"><span class="lineNum">      41</span>              : };</span>
+<span id="L42"><span class="lineNum">      42</span>              : </span>
+<span id="L43"><span class="lineNum">      43</span>              : /**</span>
+<span id="L44"><span class="lineNum">      44</span>              :  * @brief Reactive real-time analyzer panel component.</span>
+<span id="L45"><span class="lineNum">      45</span>              :  *</span>
+<span id="L46"><span class="lineNum">      46</span>              :  * Receives all pre-computed level and spectrum data via AnalyzerProps.</span>
+<span id="L47"><span class="lineNum">      47</span>              :  * Zero math or signal processing occurs here — only ImGui drawing calls.</span>
+<span id="L48"><span class="lineNum">      48</span>              :  */</span>
+<span id="L49"><span class="lineNum">      49</span>              : class GuiAnalyzer : public UIComponent&lt;AnalyzerProps&gt; {</span>
+<span id="L50"><span class="lineNum">      50</span>              : public:</span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC tlaBgGNC">           6 :     GuiAnalyzer() = default;</span></span>
+<span id="L52"><span class="lineNum">      52</span>              : </span>
+<span id="L53"><span class="lineNum">      53</span>              :     /** @brief Render the collapsible analyzer panel. */</span>
+<span id="L54"><span class="lineNum">      54</span>              :     void render() override;</span>
+<span id="L55"><span class="lineNum">      55</span>              : </span>
+<span id="L56"><span class="lineNum">      56</span>              :     /** @brief Height to reserve for this panel in the parent layout. */</span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           1 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
+<span id="L58"><span class="lineNum">      58</span>              : </span>
+<span id="L59"><span class="lineNum">      59</span>              :     SpectrumDisplayMode current_mode() const { return mode_; }</span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           1 :     bool is_expanded() const { return expanded_; }</span></span>
+<span id="L61"><span class="lineNum">      61</span>              : </span>
+<span id="L62"><span class="lineNum">      62</span>              : private:</span>
+<span id="L63"><span class="lineNum">      63</span>              :     void render_vu_bar(const char* id,</span>
+<span id="L64"><span class="lineNum">      64</span>              :                        const char* label,</span>
+<span id="L65"><span class="lineNum">      65</span>              :                        float rms_level,</span>
+<span id="L66"><span class="lineNum">      66</span>              :                        float peak_hold,</span>
+<span id="L67"><span class="lineNum">      67</span>              :                        bool  clip_active,</span>
+<span id="L68"><span class="lineNum">      68</span>              :                        float clip_flash,</span>
+<span id="L69"><span class="lineNum">      69</span>              :                        ImU32 base_color,</span>
+<span id="L70"><span class="lineNum">      70</span>              :                        ImU32 peak_color);</span>
+<span id="L71"><span class="lineNum">      71</span>              : </span>
+<span id="L72"><span class="lineNum">      72</span>              :     void draw_spectrum(ImDrawList* dl,</span>
+<span id="L73"><span class="lineNum">      73</span>              :                        const ImVec2&amp; pos,</span>
+<span id="L74"><span class="lineNum">      74</span>              :                        const ImVec2&amp; size) const;</span>
+<span id="L75"><span class="lineNum">      75</span>              : </span>
+<span id="L76"><span class="lineNum">      76</span>              :     bool expanded_ = true;</span>
+<span id="L77"><span class="lineNum">      77</span>              :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span>
+<span id="L78"><span class="lineNum">      78</span>              : };</span>
+<span id="L79"><span class="lineNum">      79</span>              : </span>
+<span id="L80"><span class="lineNum">      80</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
