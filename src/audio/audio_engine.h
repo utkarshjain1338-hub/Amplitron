@@ -4,6 +4,8 @@
 #include "audio/effect.h"
 #include "audio/recorder.h"
 #include "audio/spsc_queue.h"
+#include "audio/dsp/level_analyzer.h"
+#include "audio/dsp/spectrum_analyzer.h"
 #include <chrono>
 
 #include "audio/audio_graph.h"
@@ -45,10 +47,9 @@ public:
 
     void commit_graph_changes();
 
-    /** @brief serialize and deserialize method signatures to AudioEngine class definition */
-    
     nlohmann::json serialize();
     void deserialize(const nlohmann::json& j);
+
     /** @brief Initialize the audio back-end. @return true on success. */
     bool initialize();
 
@@ -116,23 +117,17 @@ public:
     const AudioGraph& graph() const { return main_graph_; }
 
     // =========================================================================
-    // TEMPORARY COMPILER BRIDGE 
-    // (Keeps the Undo/Redo & Snapshot systems quiet while we build the DAG UI)
+    // Compatibility bridge: flat effects_ vector for Undo/Redo/Snapshot systems
+    // while the DAG-based AudioGraph is being migrated.
     // =========================================================================
     std::vector<std::shared_ptr<Effect>> dummy_effects_;
     std::vector<std::shared_ptr<Effect>>& effects() { return dummy_effects_; }
-    // void remove_effect(int index) { 
-    //     if (index >= 0 && index < static_cast<int>(dummy_effects_.size())) {
-    //         dummy_effects_.erase(dummy_effects_.begin() + index);
-    //     }
-    // }
 
     void add_effect(std::shared_ptr<Effect> fx);
     void add_initial_effects(const std::vector<std::shared_ptr<Effect>>& fxs) {
         dummy_effects_.clear();
-        for (const auto& fx : fxs) {
+        for (const auto& fx : fxs)
             dummy_effects_.push_back(fx);
-        }
         sync_graph_with_dummy_effects(true);
     }
     void insert_effect(int index, std::shared_ptr<Effect> fx);
@@ -204,6 +199,14 @@ public:
      * @return true if at least one snapshot has been published.
      */
     bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const;
+
+    /** @brief Drive smoothed VU level metrics (GUI thread only). */
+    void update_level_analyzer(float dt);
+    const LevelAnalyzer& level_analyzer() const { return level_analyzer_; }
+
+    /** @brief Drive FFT spectrum analysis (GUI thread only). */
+    void update_spectrum_analyzer(float dt);
+    const SpectrumAnalyzer& spectrum_analyzer() const { return spectrum_analyzer_; }
 
     /**
      * @brief Set the master input gain (enqueued to audio thread via SPSC queue).
@@ -331,20 +334,15 @@ private:
     std::atomic<bool> analyzer_enabled_{false};
 
     // std::vector<std::shared_ptr<Effect>> effects_;
-    std::vector<float> process_buffer_;
+    std::vector<float>     process_buffer_;
     std::vector<float> process_buffer_right_;
     std::mutex effect_mutex_;
     Recorder recorder_;
     std::shared_ptr<Effect> tuner_tap_;
     std::string last_error_;
 
-    // Audio-thread-private shadow of the effect chain.
-    // Copied from effects_ / tuner_tap_ whenever effect_mutex_ is acquired
-    // and topology_dirty_ is set, avoiding unnecessary shared_ptr churn on
-    // every callback when the chain is stable.
-    // std::vector<std::shared_ptr<Effect>> audio_shadow_effects_;
-    std::shared_ptr<Effect> audio_shadow_tuner_;
-    std::atomic<bool> topology_dirty_{true};
+    std::shared_ptr<Effect>      audio_shadow_tuner_;
+    std::atomic<bool>            topology_dirty_{true};
 
     // The main graph data model (Edited by the GUI/Main thread)
     AudioGraph main_graph_;
@@ -380,6 +378,13 @@ private:
     std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_input_{};
     std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_output_{};
     std::atomic<uint64_t> analyzer_sequence_{0};
+
+    // DSP analyzer instances (GUI thread only — driven by update_*_analyzer())
+    LevelAnalyzer   level_analyzer_;
+    SpectrumAnalyzer spectrum_analyzer_;
+    uint64_t         analyzer_last_sequence_ = 0;
+    std::array<float, ANALYZER_FFT_SIZE> analyzer_input_buf_{};
+    std::array<float, ANALYZER_FFT_SIZE> analyzer_output_buf_{};
 
     // Metronome state (audio thread only)
     bool metronome_enabled_ = false;

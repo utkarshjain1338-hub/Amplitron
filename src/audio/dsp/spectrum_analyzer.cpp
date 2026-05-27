@@ -1,6 +1,4 @@
-#include "gui/spectrum_analyzer.h"
-#include "gui/theme.h"
-
+#include "audio/dsp/spectrum_analyzer.h"
 #include <algorithm>
 #include <cmath>
 
@@ -15,12 +13,6 @@ constexpr float kMaxDb = 0.0f;
 
 inline float lerp(float a, float b, float t) {
     return a + (b - a) * t;
-}
-
-inline float hz_to_log_norm(float hz) {
-    const float lo = std::log10(kMinHz);
-    const float hi = std::log10(kMaxHz);
-    return clamp((std::log10(hz) - lo) / (hi - lo), 0.0f, 1.0f);
 }
 
 } // namespace
@@ -127,70 +119,6 @@ void SpectrumAnalyzer::update(const float* input_samples,
 
         input_peak_db_[i] = std::max(smoothed_input_db_[i], input_peak_db_[i] - decay);
         output_peak_db_[i] = std::max(smoothed_output_db_[i], output_peak_db_[i] - decay);
-    }
-}
-
-void SpectrumAnalyzer::draw(ImDrawList* draw_list,
-                            const ImVec2& pos,
-                            const ImVec2& size,
-                            DisplayMode mode) const {
-    if (!draw_list || size.x <= 2.0f || size.y <= 2.0f) {
-        return;
-    }
-
-    const ImVec2 pmax(pos.x + size.x, pos.y + size.y);
-    draw_list->AddRect(pos, pmax, IM_COL32(72, 78, 92, 220), Theme::ROUNDING_SM);
-
-    const float ref_lines[] = {-60.0f, -48.0f, -36.0f, -24.0f, -12.0f};
-    for (float db : ref_lines) {
-        float t = (db - kMinDb) / (kMaxDb - kMinDb);
-        float y = pmax.y - t * size.y;
-        draw_list->AddLine(ImVec2(pos.x, y), ImVec2(pmax.x, y), IM_COL32(58, 64, 76, 180), 1.0f);
-    }
-
-    const ImU32 input_col = IM_COL32(82, 220, 135, 220);
-    const ImU32 output_col = IM_COL32(92, 170, 255, 220);
-    const ImU32 peak_col = IM_COL32(255, 240, 165, 255);
-
-    const auto draw_set = [&](const std::array<float, DISPLAY_BARS>& bars,
-                              const std::array<float, DISPLAY_BARS>& peaks,
-                              ImU32 bar_col,
-                              float width_scale) {
-        for (int i = 0; i < DISPLAY_BARS; ++i) {
-            const float x0 = pos.x + (static_cast<float>(i) / DISPLAY_BARS) * size.x;
-            const float x1 = pos.x + (static_cast<float>(i + 1) / DISPLAY_BARS) * size.x;
-            const float db = clamp(bars[i], kMinDb, kMaxDb);
-            const float t = (db - kMinDb) / (kMaxDb - kMinDb);
-            const float y = pmax.y - t * size.y;
-
-            const float center = (x0 + x1) * 0.5f;
-            const float half = (x1 - x0) * 0.5f * width_scale;
-            draw_list->AddRectFilled(ImVec2(center - half, y), ImVec2(center + half, pmax.y), bar_col, 1.5f);
-
-            const float peak_db = clamp(peaks[i], kMinDb, kMaxDb);
-            const float peak_t = (peak_db - kMinDb) / (kMaxDb - kMinDb);
-            const float py = pmax.y - peak_t * size.y;
-            draw_list->AddLine(ImVec2(center - half, py), ImVec2(center + half, py), peak_col, 1.0f);
-        }
-    };
-
-    switch (mode) {
-        case DisplayMode::Input:
-            draw_set(smoothed_input_db_, input_peak_db_, input_col, 0.82f);
-            break;
-        case DisplayMode::Output:
-            draw_set(smoothed_output_db_, output_peak_db_, output_col, 0.82f);
-            break;
-        case DisplayMode::Overlay:
-            draw_set(smoothed_input_db_, input_peak_db_, input_col, 0.42f);
-            draw_set(smoothed_output_db_, output_peak_db_, output_col, 0.42f);
-            break;
-    }
-
-    const float ticks[] = {20.0f, 100.0f, 1000.0f, 5000.0f, 10000.0f, 20000.0f};
-    for (float hz : ticks) {
-        float x = pos.x + hz_to_log_norm(hz) * size.x;
-        draw_list->AddLine(ImVec2(x, pos.y), ImVec2(x, pmax.y), IM_COL32(52, 58, 72, 180), 1.0f);
     }
 }
 

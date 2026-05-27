@@ -2,32 +2,49 @@
 
 #include "audio/audio_engine.h"
 #include "audio/effects/tuner.h"
+#include "gui/ui_component.h"
+#include <functional>
 #include <memory>
-#include <utility>
 
 namespace Amplitron {
 
-/**
- * @brief Handles the chromatic tuner modal UI.
- * Extracted from GuiManager for single-responsibility.
- */
-class GuiTuner {
-public:
-    GuiTuner(AudioEngine& engine, std::shared_ptr<TunerPedal> tuner)
-        : engine_(engine), tuner_(std::move(tuner)) {}
+struct TunerProps {
+    bool has_signal = false;
+    int  note_idx   = -1;
+    int  octave     = 4;
+    float cents     = 0.0f;
+    float freq      = 0.0f;
+    bool mute_on    = false;
+    float a4_ref    = 440.0f;
 
-    /** @brief Render the tuner modal. Only call when show is true. */
+    std::function<void(bool)>  on_mute_changed;  // arg: new mute state
+    std::function<void(float)> on_a4_ref_changed;
+
+    // Needed to get note name string
+    std::function<const char*(int)> note_name_fn;
+};
+
+/**
+ * @brief Reactive chromatic tuner modal component.
+ *
+ * Receives tuner signal data through TunerProps.
+ * Callbacks handle mute toggle and A4 reference changes.
+ */
+class GuiTuner : public UIComponent<TunerProps> {
+public:
+    GuiTuner() = default;
+
+    /**
+     * @brief Render the tuner modal.
+     * Uses the internal show_ flag — call render(show) for external visibility control.
+     */
+    void render() override { render(show_); }
+
+    /** @brief Render with an external show flag (GuiManager holds authoritative state). */
     void render(bool& show);
 
-    /** @brief Toggle tuner on/off. */
-    void toggle(bool& show);
-
-    /** @brief Get the tuner instance for menu bar status display. */
-    std::shared_ptr<TunerPedal> tuner_instance() const { return tuner_; }
-
 private:
-    AudioEngine& engine_;
-    std::shared_ptr<TunerPedal> tuner_;
+    bool show_ = true;
 };
 
 } // namespace Amplitron

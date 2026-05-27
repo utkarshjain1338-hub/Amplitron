@@ -1,65 +1,46 @@
 #pragma once
 
 #include "common.h"
-#include "audio/audio_engine.h"
-#include "gui/command_history.h"
+#include "gui/ui_component.h"
 #include "gui/snapshot_manager.h"
+#include <functional>
+#include <array>
+#include <string>
 
 namespace Amplitron {
 
-class PedalBoard;
+struct SnapshotSlotInfo {
+    bool is_filled = false;
+    bool is_active = false;
+    const char* label = "";
+};
+
+struct SnapshotsProps {
+    std::array<SnapshotSlotInfo, SnapshotManager::NUM_SLOTS> slots{};
+
+    std::function<void(int)> on_recall_slot;
+    std::function<void(int)> on_save_slot;
+    std::function<void(int)> on_clear_slot;
+};
 
 /**
- * @brief GUI module for the in-session snapshot (A/B/C/D) toolbar row.
+ * @brief Reactive A/B/C/D snapshot toolbar component.
  *
- * Renders four labeled slot buttons with visual state indicators and handles
- * save/recall interactions:
- *   - Left-click a filled slot  → recall (undoable via RecallSnapshotCommand)
- *   - Right-click any slot      → context menu (Save / Clear)
- *   - Keyboard Cmd/Ctrl+1–4    → save current board to slot A–D (handled by GuiManager)
- *
- * Recall operations are routed through CommandHistory so they appear in the
- * Edit > Undo/Redo menu.
+ * Receives slot state through SnapshotsProps. All mutations go through
+ * callbacks which are executed in GuiManager (where command history lives).
  */
-class GuiSnapshots {
+class GuiSnapshots : public UIComponent<SnapshotsProps> {
 public:
-    GuiSnapshots(AudioEngine& engine, CommandHistory& history);
+    GuiSnapshots() = default;
 
-    /** @brief Render the snapshot toolbar row (call once per frame). */
-    void render();
-
-    /**
-     * @brief Save the current engine state to the given slot (0–3).
-     *
-     * Does not go through command history — saving a slot is not undoable.
-     * The active slot indicator is updated to the saved slot.
-     */
-    void save_to_slot(int slot);
-
-    /**
-     * @brief Recall the snapshot from the given slot via command history.
-     *
-     * Records a RecallSnapshotCommand so the operation can be undone with
-     * Ctrl+Z. No-op if the slot is empty.
-     */
-    void recall_slot(int slot);
-
-    /** @brief Set the pedal board pointer so rebuild_widgets() is called after recall. */
-    void set_pedal_board(PedalBoard* pb) { pedal_board_ = pb; }
-
-    /** @brief Access the underlying SnapshotManager. */
-    SnapshotManager& manager() { return manager_; }
-    const SnapshotManager& manager() const { return manager_; }
+    /** @brief Render the snapshot toolbar row. */
+    void render() override;
 
 private:
     static constexpr float STATUS_DISPLAY_SECONDS = 2.0f;
 
-    AudioEngine& engine_;
-    CommandHistory& history_;
-    PedalBoard* pedal_board_ = nullptr;
-    SnapshotManager manager_;
-    char status_msg_[64] = {};
-    float status_timer_ = 0.0f;
+    char  status_msg_[64] = {};
+    float status_timer_   = 0.0f;
 };
 
 } // namespace Amplitron

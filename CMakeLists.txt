@@ -188,6 +188,8 @@ set(APP_SOURCES
     src/audio/effects/amp_simulator.cpp
     src/audio/dsp/wav_loader.cpp
     src/audio/dsp/convolution_engine.cpp
+    src/audio/dsp/spectrum_analyzer.cpp
+    src/audio/dsp/level_analyzer.cpp
     src/audio/effects/tuner.cpp
     src/audio/effects/wah.cpp
     src/audio/effects/octaver.cpp
@@ -202,7 +204,6 @@ set(APP_SOURCES
     src/gui/gui_recording.cpp
     src/gui/gui_tuner.cpp
     src/gui/gui_analyzer.cpp
-    src/gui/spectrum_analyzer.cpp
     src/gui/pedal_board.cpp
     src/gui/pedal_board_menu.cpp
     src/gui/pedal_board_chain.cpp
@@ -585,6 +586,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/effects/pitch_shifter.cpp
         src/audio/dsp/wav_loader.cpp
         src/audio/dsp/convolution_engine.cpp
+        src/audio/dsp/spectrum_analyzer.cpp
+        src/audio/dsp/level_analyzer.cpp
         src/audio/audio_graph.cpp
         src/audio/audio_graph_executor.cpp
     )
@@ -607,7 +610,6 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/gui/gui_recording.cpp
         src/gui/gui_tuner.cpp
         src/gui/gui_analyzer.cpp
-        src/gui/spectrum_analyzer.cpp
         src/gui/pedal_board.cpp
         src/gui/pedal_board_menu.cpp
         src/gui/pedal_board_chain.cpp
