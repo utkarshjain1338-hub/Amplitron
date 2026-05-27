@@ -2,11 +2,8 @@
 #include "test_fixtures.h"
 #include <memory>
 
-#define private public
 #include "gui/pedalboard/pedal_board.h"
 #include "gui/pedalboard/pedal_widget.h"
-#undef private
-
 #include "gui/views/gui_midi.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/gui_graph_state.h"
@@ -15,6 +12,12 @@
 
 using namespace Amplitron;
 using namespace TestFramework;
+
+namespace Amplitron {
+struct TestAccessor {
+    static void render_signal_chain(PedalBoard& b) { b.render_signal_chain(); }
+};
+}
 
 // Reusable helper to complete the current frame and begin a new one within a TestWindow context
 static inline void advance_frame() {
@@ -49,13 +52,13 @@ TEST_F(PresetTest, test_pedal_board_chain_scrolling_and_zooming) {
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(ImVec2(1024, 768));
     ImGui::Begin("TestWindow");
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     // Position the mouse inside the canvas panning hotspot area initially
     ImGuiIO& io = ImGui::GetIO();
     io.MousePos = ImVec2(512, 384);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 1. Zoom with Ctrl + mouse wheel (Zoom in)
     // MousePos is stateful (set before advance_frame), MouseWheel is instantaneous (set after advance_frame)
@@ -63,7 +66,7 @@ TEST_F(PresetTest, test_pedal_board_chain_scrolling_and_zooming) {
     advance_frame();
     io.KeyCtrl = true;
     io.MouseWheel = 1.0f;
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     float zoomed_in_target = ui_state.target_zoom;
     
@@ -71,7 +74,7 @@ TEST_F(PresetTest, test_pedal_board_chain_scrolling_and_zooming) {
     io.KeyCtrl = false;
     io.MouseWheel = 0.0f;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     ASSERT_GT(zoomed_in_target, 1.0f);
 
@@ -80,64 +83,64 @@ TEST_F(PresetTest, test_pedal_board_chain_scrolling_and_zooming) {
     advance_frame();
     io.KeyCtrl = true;
     io.MouseWheel = -1.0f;
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.KeyCtrl = false;
     io.MouseWheel = 0.0f;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 3. Middle mouse button panning drag
     io.MouseDown[2] = true;
     io.MousePos = ImVec2(500, 380);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     io.MousePos = ImVec2(520, 390);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseDown[2] = false;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 4. Hand tool active dragging
     ui_state.hand_tool_active = true;
     io.MouseDown[0] = true;
     io.MousePos = ImVec2(500, 380);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     io.MousePos = ImVec2(480, 370);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseDown[0] = false;
     ui_state.hand_tool_active = false;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 5. Scroll without Ctrl (should do scrolling/panning)
     io.MousePos = ImVec2(512, 384);
     advance_frame();
     io.MouseWheel = 2.0f;
     io.MouseWheelH = -1.0f;
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseWheel = 0.0f;
     io.MouseWheelH = 0.0f;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 6. Full Screen toggle button
     io.MousePos = ImVec2(1024 - 40, 20); // hover FS button
     advance_frame();
     io.MouseDown[0] = true;
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseDown[0] = false;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     ImGui::End();
     engine.shutdown();
@@ -167,54 +170,54 @@ TEST_F(PresetTest, test_pedal_board_chain_nodes_and_wiring) {
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(ImVec2(1024, 768));
     ImGui::Begin("TestWindow");
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     ImGuiIO& io = ImGui::GetIO();
     io.MousePos = ImVec2(150, 150);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 1. Dragging a standard node
     // Hover over the drag handle area of the first node
     io.MousePos = ImVec2(110.0f, 110.0f);
     io.MouseDown[0] = true;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     io.MousePos = ImVec2(150.0f, 120.0f);
     io.MouseDelta = ImVec2(40.0f, 10.0f);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseDown[0] = false;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 2. Wire spline drafting (dragging from output pin)
     ui_state.active_src_pin_id = 1;
     ui_state.active_src_pin_pos = ImVec2(150.0f, 150.0f);
     io.MousePos = ImVec2(300.0f, 300.0f);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 3. Drop wire spline to complete a connection or release
     advance_frame();
     io.MouseReleased[0] = true;
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     io.MouseReleased[0] = false;
     ui_state.active_src_pin_id = -1;
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 4. Test bypass active glows and disabled overlays
     od->set_enabled(false);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
     
     od->set_enabled(true);
     advance_frame();
-    board.render_signal_chain();
+    TestAccessor::render_signal_chain(board);
 
     // 5. Test removal cross [X] click on standard node
     int deletable_node_id = -1;
@@ -228,11 +231,11 @@ TEST_F(PresetTest, test_pedal_board_chain_nodes_and_wiring) {
         io.MousePos = ImVec2(100.0f + 190.0f - 12.0f, 100.0f + 10.0f); // Approximate cross button location
         advance_frame();
         io.MouseDown[0] = true;
-        board.render_signal_chain();
+        TestAccessor::render_signal_chain(board);
         
         io.MouseDown[0] = false;
         advance_frame();
-        board.render_signal_chain();
+        TestAccessor::render_signal_chain(board);
     }
 
     ImGui::End();

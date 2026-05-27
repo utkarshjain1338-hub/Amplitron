@@ -18,6 +18,7 @@ class GuiMidi;
  * pointer injected with set_history().
  */
 class PedalWidget {
+    friend class TestAccessor;
 public:
     /**
      * @brief Construct a PedalWidget.

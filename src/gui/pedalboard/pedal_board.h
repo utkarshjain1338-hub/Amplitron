@@ -18,6 +18,7 @@ class GuiMidi;
  * are routed through CommandHistory for undo/redo support.
  */
 class PedalBoard {
+    friend class TestAccessor;
 public:
     /**
      * @brief Construct the pedal board.

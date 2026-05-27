@@ -48,6 +48,7 @@ struct MidiMapping {
 
 // Stub implementation for non-desktop platforms (web, mobile)
 class MidiManager {
+    friend class TestAccessor;
 public:
     MidiManager() = default;
     ~MidiManager() = default;
@@ -97,6 +98,7 @@ public:
  * route CC values through the existing engine.push_param_change() path.
  */
 class MidiManager {
+    friend class TestAccessor;
 public:
     MidiManager();
     ~MidiManager();

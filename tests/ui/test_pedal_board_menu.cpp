@@ -1,13 +1,10 @@
-#define private public
-#include "midi/midi_manager.h"
-#include "gui/pedalboard/pedal_board.h"
-#include "gui/pedalboard/pedal_widget.h"
-#undef private
-
 #include "test_framework.h"
 #include "test_fixtures.h"
 #include <memory>
 
+#include "midi/midi_manager.h"
+#include "gui/pedalboard/pedal_board.h"
+#include "gui/pedalboard/pedal_widget.h"
 #include "gui/views/gui_midi.h"
 #include "gui/commands/command_history.h"
 #include "audio/effects/overdrive.h"
@@ -15,6 +12,19 @@
 
 using namespace Amplitron;
 using namespace TestFramework;
+
+namespace Amplitron {
+struct TestAccessor {
+    static bool& learn_active(MidiManager& m) { return m.learn_active_; }
+    static int& current_port(MidiManager& m) { return m.current_port_; }
+    static std::string& current_port_name(MidiManager& m) { return m.current_port_name_; }
+
+    static void render_add_pedal_menu(PedalBoard& b) { b.render_add_pedal_menu(); }
+    static void render_amp_selector(PedalBoard& b) { b.render_amp_selector(); }
+    static void render_midi_menu(PedalBoard& b) { b.render_midi_menu(); }
+    static void add_effect_and_show(PedalBoard& b, std::shared_ptr<Effect> effect) { b.add_effect_and_show(effect); }
+};
+}
 
 // Reusable helper to complete the current frame and begin a new one within a TestWindow context
 static inline void advance_frame() {
@@ -41,11 +51,11 @@ TEST_F(PresetTest, test_pedal_board_menu_add_pedal_popup) {
     ImGui::Begin("TestWindow");
 
     // 1. Trigger Add Pedal button and open the popup
-    board.render_add_pedal_menu();
+    TestAccessor::render_add_pedal_menu(board);
     advance_frame();
 
     ImGui::OpenPopup("AddPedalPopup");
-    board.render_add_pedal_menu();
+    TestAccessor::render_add_pedal_menu(board);
     advance_frame();
 
     // Trigger individual MenuItems explicitly
@@ -88,7 +98,7 @@ TEST_F(PresetTest, test_pedal_board_menu_add_pedal_popup) {
     }
     
     // Explicitly call the callbacks by calling add_effect_and_show to exercise that path
-    board.add_effect_and_show(std::make_shared<Overdrive>());
+    TestAccessor::add_effect_and_show(board, std::make_shared<Overdrive>());
 
     ImGui::End();
     engine.shutdown();
@@ -110,12 +120,12 @@ TEST_F(PresetTest, test_pedal_board_menu_amp_selector_popup) {
     ImGui::Begin("TestWindow");
 
     // 1. Initial amp selector button render
-    board.render_amp_selector();
+    TestAccessor::render_amp_selector(board);
     advance_frame();
 
     // 2. Open popup and trigger selection
     ImGui::OpenPopup("AmpSelectorPopup");
-    board.render_amp_selector();
+    TestAccessor::render_amp_selector(board);
     advance_frame();
 
     if (ImGui::BeginPopup("AmpSelectorPopup")) {
@@ -142,20 +152,20 @@ TEST_F(PresetTest, test_pedal_board_menu_midi_popup) {
     ImGui::Begin("TestWindow");
 
     // 1. Midi button rendering
-    board.render_midi_menu();
+    TestAccessor::render_midi_menu(board);
     advance_frame();
 
     // 2. Open popup and render connected state
-    gui_midi.manager().learn_active_ = false;
-    gui_midi.manager().current_port_ = 0;
-    gui_midi.manager().current_port_name_ = "Test MIDI Port";
+    TestAccessor::learn_active(gui_midi.manager()) = false;
+    TestAccessor::current_port(gui_midi.manager()) = 0;
+    TestAccessor::current_port_name(gui_midi.manager()) = "Test MIDI Port";
     ImGui::OpenPopup("MidiMenuPopup");
-    board.render_midi_menu();
+    TestAccessor::render_midi_menu(board);
     advance_frame();
 
     // 3. Render learning state in MIDI popup
-    gui_midi.manager().learn_active_ = true;
-    board.render_midi_menu();
+    TestAccessor::learn_active(gui_midi.manager()) = true;
+    TestAccessor::render_midi_menu(board);
     advance_frame();
 
     // 4. Exercise menu choices inside the popup
