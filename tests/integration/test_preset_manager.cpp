@@ -5,7 +5,7 @@
 #include "audio/effects/noise_gate.h"
 #include "audio/effects/overdrive.h"
 #include "audio/effects/reverb.h"
-#include "gui/gui_graph_state.h"
+#include "gui/state/gui_graph_state.h"
 #include "preset_manager.h"
 #include "test_framework.h"
 #include "test_fixtures.h"

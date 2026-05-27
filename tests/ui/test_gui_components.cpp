@@ -8,12 +8,12 @@
 #include "test_framework.h"
 #include "test_fixtures.h"
 #include <string>
-#include "gui/theme.h"
-#include "gui/file_dialog.h"
+#include "gui/theme/theme.h"
+#include "gui/dialogs/file_dialog.h"
 
 #include "audio/audio_engine.h"
-#include "gui/gui_settings.h"
-#include "gui/gui_analyzer.h"
+#include "gui/views/gui_settings.h"
+#include "gui/views/gui_analyzer.h"
 
 using namespace Amplitron;
 
@@ -178,4 +178,7 @@ TEST(file_dialog_native_open_and_folder_headless) {
 
     std::string folder = show_folder_dialog("Select Directory");
     ASSERT_EQ(folder, "");
+
+    std::string saved = show_save_dialog("MyPreset", "Preset Files", "json");
+    ASSERT_EQ(saved, "");
 }

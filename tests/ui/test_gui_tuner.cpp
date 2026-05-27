@@ -7,7 +7,7 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
-#include "gui/gui_tuner.h"
+#include "gui/views/gui_tuner.h"
 #include <memory>
 
 using namespace Amplitron;

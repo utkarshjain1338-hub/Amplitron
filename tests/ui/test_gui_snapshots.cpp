@@ -7,12 +7,12 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
-#include "gui/command_history.h"
+#include "gui/commands/command_history.h"
 #include "audio/effects/overdrive.h"
 #include <memory>
 
 #define private public
-#include "gui/gui_snapshots.h"
+#include "gui/views/gui_snapshots.h"
 #undef private
 
 using namespace Amplitron;

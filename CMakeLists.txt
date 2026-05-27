@@ -161,7 +161,7 @@ endif()
 # --- Application Sources (platform-agnostic) ---
 set(APP_SOURCES
     src/main.cpp
-    src/SessionManager.h
+    src/session_manager.h
     src/presets/preset_manager.cpp
     src/presets/preset_json.cpp
     src/audio/audio_engine.cpp
@@ -194,24 +194,28 @@ set(APP_SOURCES
     src/audio/effects/wah.cpp
     src/audio/effects/octaver.cpp
     src/audio/effects/pitch_shifter.cpp
-    src/gui/CrashRecoveryUI.h
+    src/gui/crash_recovery_ui.h
     src/gui/gui_manager.cpp
     src/gui/gui_manager_frame.cpp
     src/gui/gui_manager_menu.cpp
     src/gui/gui_manager_update.cpp
-    src/gui/gui_settings.cpp
-    src/gui/gui_presets.cpp
-    src/gui/gui_recording.cpp
-    src/gui/gui_tuner.cpp
-    src/gui/gui_analyzer.cpp
-    src/gui/pedal_board.cpp
-    src/gui/pedal_board_menu.cpp
-    src/gui/pedal_board_chain.cpp
-    src/gui/pedal_widget.cpp
-    src/gui/pedal_widget_body.cpp
-    src/gui/pedal_widget_knobs.cpp
-    src/gui/command_history.cpp
-    src/gui/gui_snapshots.cpp
+    src/gui/views/gui_settings.cpp
+    src/gui/views/gui_presets.cpp
+    src/gui/views/gui_recording.cpp
+    src/gui/views/gui_tuner.cpp
+    src/gui/views/gui_analyzer.cpp
+    src/gui/pedalboard/pedal_board.cpp
+    src/gui/pedalboard/pedal_board_menu.cpp
+    src/gui/pedalboard/pedal_board_chain.cpp
+    src/gui/pedalboard/pedal_widget.cpp
+    src/gui/pedalboard/pedal_widget_body.cpp
+    src/gui/pedalboard/pedal_widget_knobs.cpp
+    src/gui/commands/command_history.cpp
+    src/gui/views/gui_snapshots.cpp
+    src/gui/components/knob.cpp
+    src/gui/components/footswitch.cpp
+    src/gui/components/led.cpp
+    src/gui/components/screen.cpp
     src/presets/preset_manager_dirs.cpp
     src/presets/preset_manager_io.cpp
     src/audio/audio_graph.cpp
@@ -225,7 +229,7 @@ if(NOT ANDROID AND NOT IOS)
         src/midi/midi_manager.cpp
         src/midi/midi_manager_mapping.cpp
         src/midi/midi_manager_persist.cpp
-        src/gui/gui_midi.cpp
+        src/gui/views/gui_midi.cpp
     )
 endif()
 
@@ -234,10 +238,10 @@ endif()
 # Android 8+ uses Oboe (AAudio exclusive mode) for low-latency audio.
 if(EMSCRIPTEN OR IOS)
     set(BACKEND_SOURCES src/audio/audio_backend_sdl.cpp)
-    set(DIALOG_SOURCES  src/gui/file_dialog_web.cpp)
+    set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 elseif(ANDROID)
     set(BACKEND_SOURCES src/audio/audio_backend_oboe.cpp)
-    set(DIALOG_SOURCES  src/gui/file_dialog_web.cpp)
+    set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 else()
     set(BACKEND_SOURCES
         src/audio/audio_backend_portaudio.cpp
@@ -245,9 +249,9 @@ else()
         src/audio/audio_backend_portaudio_devices.cpp
     )
     set(DIALOG_SOURCES
-        src/gui/file_dialog_native.cpp
-        src/gui/file_dialog_native_open.cpp
-        src/gui/file_dialog_native_folder.cpp
+        src/gui/dialogs/file_dialog_native.cpp
+        src/gui/dialogs/file_dialog_native_open.cpp
+        src/gui/dialogs/file_dialog_native_folder.cpp
     )
 endif()
 
@@ -566,7 +570,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/recorder_session.cpp
         src/audio/recorder_io.cpp
         src/audio/recorder_wav.cpp
-        src/gui/command_history.cpp
+        src/gui/commands/command_history.cpp
         src/audio/effects/distortion.cpp
         src/audio/effects/overdrive.cpp
         src/audio/effects/delay.cpp
@@ -606,28 +610,32 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/gui/gui_manager_frame.cpp
         src/gui/gui_manager_menu.cpp
         src/gui/gui_manager_update.cpp
-        src/gui/gui_settings.cpp
-        src/gui/gui_presets.cpp
-        src/gui/gui_recording.cpp
-        src/gui/gui_tuner.cpp
-        src/gui/gui_analyzer.cpp
-        src/gui/pedal_board.cpp
-        src/gui/pedal_board_menu.cpp
-        src/gui/pedal_board_chain.cpp
-        src/gui/pedal_widget.cpp
-        src/gui/pedal_widget_body.cpp
-        src/gui/pedal_widget_knobs.cpp
-        src/gui/gui_snapshots.cpp
+        src/gui/views/gui_settings.cpp
+        src/gui/views/gui_presets.cpp
+        src/gui/views/gui_recording.cpp
+        src/gui/views/gui_tuner.cpp
+        src/gui/views/gui_analyzer.cpp
+        src/gui/pedalboard/pedal_board.cpp
+        src/gui/pedalboard/pedal_board_menu.cpp
+        src/gui/pedalboard/pedal_board_chain.cpp
+        src/gui/pedalboard/pedal_widget.cpp
+        src/gui/pedalboard/pedal_widget_body.cpp
+        src/gui/pedalboard/pedal_widget_knobs.cpp
+        src/gui/views/gui_snapshots.cpp
+        src/gui/components/knob.cpp
+        src/gui/components/footswitch.cpp
+        src/gui/components/led.cpp
+        src/gui/components/screen.cpp
         ${IMGUI_SOURCES}
     )
     if(EMSCRIPTEN OR IOS OR ANDROID)
-        list(APPEND TEST_GUI_SOURCES src/gui/file_dialog_web.cpp)
+        list(APPEND TEST_GUI_SOURCES src/gui/dialogs/file_dialog_web.cpp)
     else()
         list(APPEND TEST_GUI_SOURCES
-            src/gui/gui_midi.cpp
-            src/gui/file_dialog_native.cpp
-            src/gui/file_dialog_native_open.cpp
-            src/gui/file_dialog_native_folder.cpp
+            src/gui/views/gui_midi.cpp
+            src/gui/dialogs/file_dialog_native.cpp
+            src/gui/dialogs/file_dialog_native_open.cpp
+            src/gui/dialogs/file_dialog_native_folder.cpp
         )
     endif()
 

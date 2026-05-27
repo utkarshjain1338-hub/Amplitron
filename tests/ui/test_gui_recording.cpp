@@ -8,7 +8,7 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
-#include "gui/gui_recording.h"
+#include "gui/views/gui_recording.h"
 #include <string>
 
 using namespace Amplitron;

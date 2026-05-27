@@ -1,9 +1,9 @@
 #include "gui/gui_manager.h"
-#include "gui/pedal_board.h"
-#include "gui/theme.h"
+#include "gui/pedalboard/pedal_board.h"
+#include "gui/theme/theme.h"
 #include "gui/gl_setup.h"
-#include "gui/command.h"
-#include "gui/gui_graph_state.h"
+#include "gui/commands/command.h"
+#include "gui/state/gui_graph_state.h"
 #include "audio/effects/tuner.h"
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>

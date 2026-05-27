@@ -1,7 +1,7 @@
 #include "gui/gui_manager.h"
-#include "gui/pedal_board.h"
-#include "gui/file_dialog.h"
-#include "gui/theme.h"
+#include "gui/pedalboard/pedal_board.h"
+#include "gui/dialogs/file_dialog.h"
+#include "gui/theme/theme.h"
 #include "preset_manager.h"
 #include "audio/effects/tuner.h"
 #include <imgui.h>
