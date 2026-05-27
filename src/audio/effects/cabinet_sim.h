@@ -45,6 +45,9 @@ private:
 
     // Atomic kernel swap: GUI thread stores, audio thread consumes
     std::atomic<ConvolutionKernel*> pending_kernel_{nullptr};
+    const ConvolutionKernel* active_kernel_ = nullptr;
+    mutable std::atomic<const ConvolutionKernel*> old_kernel_to_delete_{nullptr};
+    std::atomic<bool> clear_pending_{false};
 
     ConvolutionEngine conv_engine_;
 
