@@ -164,14 +164,14 @@ set(APP_SOURCES
     src/session_manager.h
     src/presets/preset_manager.cpp
     src/presets/preset_json.cpp
-    src/audio/audio_engine.cpp
-    src/audio/audio_engine_chain.cpp
-    src/audio/audio_engine_process.cpp
-    src/audio/audio_engine_api.cpp
-    src/audio/recorder.cpp
-    src/audio/recorder_session.cpp
-    src/audio/recorder_io.cpp
-    src/audio/recorder_wav.cpp
+    src/audio/engine/audio_engine.cpp
+    src/audio/engine/audio_engine_chain.cpp
+    src/audio/engine/audio_engine_process.cpp
+    src/audio/engine/audio_engine_api.cpp
+    src/audio/recorder/recorder.cpp
+    src/audio/recorder/recorder_session.cpp
+    src/audio/recorder/recorder_io.cpp
+    src/audio/recorder/recorder_wav.cpp
     src/audio/effects/distortion.cpp
     src/audio/effects/overdrive.cpp
     src/audio/effects/delay.cpp
@@ -218,8 +218,8 @@ set(APP_SOURCES
     src/gui/components/screen.cpp
     src/presets/preset_manager_dirs.cpp
     src/presets/preset_manager_io.cpp
-    src/audio/audio_graph.cpp
-    src/audio/audio_graph_executor.cpp
+    src/audio/engine/audio_graph.cpp
+    src/audio/engine/audio_graph_executor.cpp
 )
 
 # --- MIDI Support (desktop only) ---
@@ -237,16 +237,16 @@ endif()
 # Mobile (Android/iOS) and Web use SDL audio backend + stub file dialog
 # Android 8+ uses Oboe (AAudio exclusive mode) for low-latency audio.
 if(EMSCRIPTEN OR IOS)
-    set(BACKEND_SOURCES src/audio/audio_backend_sdl.cpp)
+    set(BACKEND_SOURCES src/audio/backend/audio_backend_sdl.cpp)
     set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 elseif(ANDROID)
-    set(BACKEND_SOURCES src/audio/audio_backend_oboe.cpp)
+    set(BACKEND_SOURCES src/audio/backend/audio_backend_oboe.cpp)
     set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 else()
     set(BACKEND_SOURCES
-        src/audio/audio_backend_portaudio.cpp
-        src/audio/audio_backend_portaudio_lifecycle.cpp
-        src/audio/audio_backend_portaudio_devices.cpp
+        src/audio/backend/audio_backend_portaudio.cpp
+        src/audio/backend/audio_backend_portaudio_lifecycle.cpp
+        src/audio/backend/audio_backend_portaudio_devices.cpp
     )
     set(DIALOG_SOURCES
         src/gui/dialogs/file_dialog_native.cpp
@@ -559,17 +559,17 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/presets/preset_json.cpp
         src/presets/preset_manager_dirs.cpp
         src/presets/preset_manager_io.cpp
-        src/audio/audio_engine.cpp
-        src/audio/audio_engine_chain.cpp
-        src/audio/audio_engine_process.cpp
-        src/audio/audio_engine_api.cpp
-        src/audio/audio_backend_portaudio.cpp
-        src/audio/audio_backend_portaudio_lifecycle.cpp
-        src/audio/audio_backend_portaudio_devices.cpp
-        src/audio/recorder.cpp
-        src/audio/recorder_session.cpp
-        src/audio/recorder_io.cpp
-        src/audio/recorder_wav.cpp
+        src/audio/engine/audio_engine.cpp
+        src/audio/engine/audio_engine_chain.cpp
+        src/audio/engine/audio_engine_process.cpp
+        src/audio/engine/audio_engine_api.cpp
+        src/audio/backend/audio_backend_portaudio.cpp
+        src/audio/backend/audio_backend_portaudio_lifecycle.cpp
+        src/audio/backend/audio_backend_portaudio_devices.cpp
+        src/audio/recorder/recorder.cpp
+        src/audio/recorder/recorder_session.cpp
+        src/audio/recorder/recorder_io.cpp
+        src/audio/recorder/recorder_wav.cpp
         src/gui/commands/command_history.cpp
         src/audio/effects/distortion.cpp
         src/audio/effects/overdrive.cpp
@@ -593,8 +593,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/dsp/convolution_engine.cpp
         src/audio/dsp/spectrum_analyzer.cpp
         src/audio/dsp/level_analyzer.cpp
-        src/audio/audio_graph.cpp
-        src/audio/audio_graph_executor.cpp
+        src/audio/engine/audio_graph.cpp
+        src/audio/engine/audio_graph_executor.cpp
     )
 
     # Desktop-only MIDI support for tests

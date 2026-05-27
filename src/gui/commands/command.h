@@ -1,8 +1,8 @@
 #pragma once
 
 // Umbrella header including all command types
-#include "audio/audio_engine.h"
-#include "audio/effect.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/effects/effect.h"
 #include "gui/commands/command_base.h"
 #include "gui/commands/command_chain.h"
 #include "gui/commands/command_reorder.h"

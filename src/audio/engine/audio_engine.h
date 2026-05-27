@@ -1,15 +1,15 @@
 #pragma once
 
 #include "common.h"
-#include "audio/effect.h"
-#include "audio/recorder.h"
-#include "audio/spsc_queue.h"
+#include "audio/effects/effect.h"
+#include "audio/recorder/recorder.h"
+#include "audio/utils/spsc_queue.h"
 #include "audio/dsp/level_analyzer.h"
 #include "audio/dsp/spectrum_analyzer.h"
 #include <chrono>
 
-#include "audio/audio_graph.h"
-#include "audio/audio_graph_executor.h"
+#include "audio/engine/audio_graph.h"
+#include "audio/engine/audio_graph_executor.h"
 #include <memory>
 
 #include <nlohmann/json.hpp>

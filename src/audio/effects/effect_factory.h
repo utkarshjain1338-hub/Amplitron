@@ -1,6 +1,6 @@
 #pragma once
 
-#include "audio/effect.h"
+#include "audio/effects/effect.h"
 #include <functional>
 #include <stdexcept>
 #include <unordered_map>

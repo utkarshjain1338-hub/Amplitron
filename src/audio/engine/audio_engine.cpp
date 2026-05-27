@@ -1,5 +1,5 @@
-#include "audio/audio_engine.h"
-#include "audio/audio_backend.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/backend/audio_backend.h"
 #include <iostream>
 #include <algorithm>
 #include <nlohmann/json.hpp>

@@ -1,5 +1,5 @@
-#include "audio/recorder.h"
-#include "audio/audio_engine.h"
+#include "audio/recorder/recorder.h"
+#include "audio/engine/audio_engine.h"
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <fstream>

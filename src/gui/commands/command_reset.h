@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/commands/command_base.h"
-#include "audio/effect.h"
+#include "audio/effects/effect.h"
 #include <vector>
 
 namespace Amplitron {

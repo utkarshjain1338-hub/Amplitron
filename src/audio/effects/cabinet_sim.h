@@ -5,7 +5,7 @@
 // cut removes rumble, a resonant biquad models cabinet/body emphasis, and a
 // low-pass rolloff attenuates harsh high-frequency content.
 
-#include "audio/effect.h"
+#include "audio/effects/effect.h"
 #include "audio/dsp/biquad.h"
 #include "audio/dsp/convolution_engine.h"
 #include <atomic>

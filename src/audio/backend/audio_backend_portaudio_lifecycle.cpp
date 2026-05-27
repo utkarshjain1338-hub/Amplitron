@@ -2,10 +2,10 @@
 // PortAudio backend — lifecycle management
 // =============================================================================
 
-#include "audio/audio_engine.h"
-#include "audio/audio_backend.h"
-#include "audio/audio_backend_portaudio_helpers.h"
-#include "audio/audio_backend_portaudio_internal.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/backend/audio_backend.h"
+#include "audio/backend/audio_backend_portaudio_helpers.h"
+#include "audio/backend/audio_backend_portaudio_internal.h"
 #include <portaudio.h>
 #ifdef _WIN32
 #include <pa_win_wasapi.h>

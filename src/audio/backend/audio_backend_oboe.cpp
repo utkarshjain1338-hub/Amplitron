@@ -10,8 +10,8 @@
 // hints passed through the AudioEngine settings screen.
 // =============================================================================
 
-#include "audio/audio_engine.h"
-#include "audio/audio_backend.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/backend/audio_backend.h"
 
 #include <oboe/Oboe.h>
 #include <android/log.h>

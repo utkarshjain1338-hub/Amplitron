@@ -1,7 +1,7 @@
 #pragma once
 
-#include "audio/audio_graph.h"
-#include "audio/effect.h"
+#include "audio/engine/audio_graph.h"
+#include "audio/effects/effect.h"
 #include <vector>
 #include <unordered_map>
 #include <memory>

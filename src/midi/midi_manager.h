@@ -5,7 +5,7 @@
 #include <cstdint>
 
 #ifndef AMPLITRON_NO_MIDI
-#include "audio/spsc_queue.h"
+#include "audio/utils/spsc_queue.h"
 #endif
 
 namespace Amplitron {

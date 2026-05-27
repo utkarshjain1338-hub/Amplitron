@@ -1,5 +1,5 @@
 #include "audio/effects/cabinet_sim.h"
-#include "audio/effect_factory.h"
+#include "audio/effects/effect_factory.h"
 #include "audio/dsp/wav_loader.h"
 #include <algorithm>
 

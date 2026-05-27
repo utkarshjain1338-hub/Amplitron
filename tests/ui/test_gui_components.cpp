@@ -11,7 +11,7 @@
 #include "gui/theme/theme.h"
 #include "gui/dialogs/file_dialog.h"
 
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "gui/views/gui_settings.h"
 #include "gui/views/gui_analyzer.h"
 

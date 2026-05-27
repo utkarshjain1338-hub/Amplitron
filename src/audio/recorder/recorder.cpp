@@ -1,5 +1,5 @@
-#include "audio/recorder.h"
-#include "audio/recorder_impl.h"
+#include "audio/recorder/recorder.h"
+#include "audio/recorder/recorder_impl.h"
 #include <iostream>
 #include <ctime>
 #include <cstring>

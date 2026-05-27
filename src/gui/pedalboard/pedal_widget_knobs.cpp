@@ -1,7 +1,7 @@
 #include "gui/pedalboard/pedal_widget.h"
 #include "gui/views/gui_midi.h"
 #include "midi/midi_manager.h"
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "gui/theme/theme.h"
 #include "gui/components/knob.h"
 

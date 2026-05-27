@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include "audio/effect.h"
+#include "audio/effects/effect.h"
 #include <imgui.h>
 
 namespace Amplitron {

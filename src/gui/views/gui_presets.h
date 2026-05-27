@@ -1,6 +1,6 @@
 #pragma once
 
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "gui/commands/command_history.h"
 #include "preset_manager.h"
 #include <string>

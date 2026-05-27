@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/snapshot_manager.h"
 #include "gui/views/gui_settings.h"

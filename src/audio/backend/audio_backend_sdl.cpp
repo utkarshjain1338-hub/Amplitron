@@ -6,8 +6,8 @@
 // and the AudioBackendState factory / destructor.
 // =============================================================================
 
-#include "audio/audio_engine.h"
-#include "audio/audio_backend.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/backend/audio_backend.h"
 #include <SDL.h>
 #include <cstring>
 #include <iostream>

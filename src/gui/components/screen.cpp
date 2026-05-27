@@ -2,7 +2,7 @@
 #include "gui/theme/theme.h"
 #include "gui/dialogs/file_dialog.h"
 #include "gui/views/gui_midi.h"
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "audio/effects/tuner.h"
 #include "audio/effects/cabinet_sim.h"
 #include "audio/effects/looper.h"

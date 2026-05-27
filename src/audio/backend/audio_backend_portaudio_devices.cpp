@@ -2,10 +2,10 @@
 // PortAudio backend — device management
 // =============================================================================
 
-#include "audio/audio_engine.h"
-#include "audio/audio_backend.h"
-#include "audio/audio_backend_portaudio_helpers.h"
-#include "audio/audio_backend_portaudio_internal.h"
+#include "audio/engine/audio_engine.h"
+#include "audio/backend/audio_backend.h"
+#include "audio/backend/audio_backend_portaudio_helpers.h"
+#include "audio/backend/audio_backend_portaudio_internal.h"
 #include <portaudio.h>
 #include <iostream>
 #include <vector>

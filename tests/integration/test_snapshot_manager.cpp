@@ -2,7 +2,7 @@
 #include "gui/state/snapshot_manager.h"
 #include "gui/commands/command.h"
 #include "gui/commands/command_history.h"
-#include "audio/audio_engine.h"
+#include "audio/engine/audio_engine.h"
 #include "audio/effects/overdrive.h"
 #include "audio/effects/delay.h"
 #include "audio/effects/reverb.h"
