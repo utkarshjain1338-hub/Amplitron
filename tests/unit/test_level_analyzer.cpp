@@ -64,13 +64,22 @@ TEST(level_analyzer_invalid_inputs_nan_negative) {
     float valid_in_peak = la.input_peak_hold();
     float valid_out_peak = la.output_peak_hold();
 
+    // Construct runtime bitwise NaN and Infinity to prevent compile-time optimizations under -ffast-math
+    float nan_val;
+    uint32_t nan_bits = 0x7FC00000;
+    std::memcpy(&nan_val, &nan_bits, sizeof(float));
+
+    float inf_val;
+    uint32_t inf_bits = 0x7F800000;
+    std::memcpy(&inf_val, &inf_bits, sizeof(float));
+
     // 1. Invalid dt (<= 0)
     la.update(0.8f, 0.8f, false, false, -0.01f);
     ASSERT_NEAR(la.smoothed_input_rms(), valid_in_rms, 1e-6f);
     ASSERT_NEAR(la.input_peak_hold(), valid_in_peak, 1e-6f);
 
     // 2. Invalid dt (infinite/NaN)
-    la.update(0.8f, 0.8f, false, false, std::numeric_limits<float>::quiet_NaN());
+    la.update(0.8f, 0.8f, false, false, nan_val);
     ASSERT_NEAR(la.smoothed_input_rms(), valid_in_rms, 1e-6f);
 
     // 3. Invalid input RMS (< 0)
@@ -78,7 +87,7 @@ TEST(level_analyzer_invalid_inputs_nan_negative) {
     ASSERT_NEAR(la.smoothed_input_rms(), valid_in_rms, 1e-6f);
 
     // 4. Invalid input RMS (NaN)
-    la.update(std::numeric_limits<float>::quiet_NaN(), 0.5f, false, false, 0.1f);
+    la.update(nan_val, 0.5f, false, false, 0.1f);
     ASSERT_NEAR(la.smoothed_input_rms(), valid_in_rms, 1e-6f);
 
     // 5. Invalid output RMS (< 0)
@@ -86,6 +95,6 @@ TEST(level_analyzer_invalid_inputs_nan_negative) {
     ASSERT_NEAR(la.smoothed_output_rms(), valid_out_rms, 1e-6f);
 
     // 6. Invalid output RMS (inf)
-    la.update(0.5f, std::numeric_limits<float>::infinity(), false, false, 0.1f);
+    la.update(0.5f, inf_val, false, false, 0.1f);
     ASSERT_NEAR(la.smoothed_output_rms(), valid_out_rms, 1e-6f);
 }
