@@ -531,6 +531,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/integration/test_metronome.cpp
         tests/integration/test_clipboard_preset.cpp
         tests/integration/test_audio_engine.cpp
+        tests/integration/test_audio_backend_portaudio.cpp
         tests/e2e/test_e2e_preset_workflow.cpp
         tests/ui/test_gui_manager.cpp
         tests/ui/test_pedal_board.cpp
@@ -654,6 +655,19 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         AMPLITRON_VERSION="${AMPLITRON_VERSION}"
         AMPLITRON_HEADLESS
         SDL_MAIN_HANDLED
+        "Pa_GetDeviceCount=MOCK_Pa_GetDeviceCount"
+        "Pa_GetDeviceInfo=MOCK_Pa_GetDeviceInfo"
+        "Pa_GetHostApiInfo=MOCK_Pa_GetHostApiInfo"
+        "Pa_GetHostApiCount=MOCK_Pa_GetHostApiCount"
+        "Pa_HostApiDeviceIndexToDeviceIndex=MOCK_Pa_HostApiDeviceIndexToDeviceIndex"
+        "Pa_GetDefaultInputDevice=MOCK_Pa_GetDefaultInputDevice"
+        "Pa_GetDefaultOutputDevice=MOCK_Pa_GetDefaultOutputDevice"
+        "Pa_OpenStream=MOCK_Pa_OpenStream"
+        "Pa_StartStream=MOCK_Pa_StartStream"
+        "Pa_StopStream=MOCK_Pa_StopStream"
+        "Pa_CloseStream=MOCK_Pa_CloseStream"
+        "Pa_GetStreamInfo=MOCK_Pa_GetStreamInfo"
+        "Pa_Initialize=MOCK_Pa_Initialize"
     )
 
     target_link_libraries(amplitron-tests PRIVATE
