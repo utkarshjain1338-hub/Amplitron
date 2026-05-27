@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">58.8&nbsp;%</td>
+            <td class="headerCovTableEntryLo">71.1&nbsp;%</td>
             <td class="headerCovTableEntry">97</td>
-            <td class="headerCovTableEntry">57</td>
+            <td class="headerCovTableEntry">69</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-27 05:51:12</td>
+            <td class="headerValue">2026-05-27 06:24:06</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
+            <td class="headerCovTableEntryMed">83.3&nbsp;%</td>
             <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">5</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -68,93 +68,93 @@
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          17 : bool Recorder::start(const std::string&amp; filepath, int sample_rate, int channels) {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          17 :     if (recording_) return false;</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">          18 : bool Recorder::start(const std::string&amp; filepath, int sample_rate, int channels) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          18 :     if (recording_) return false;</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          17 :     filepath_ = filepath;</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          17 :     sample_rate_ = sample_rate;</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          17 :     channels_ = channels;</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          17 :     samples_written_ = 0;</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          17 :     paused_ = false;</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          17 :     has_unsaved_ = false;</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          17 :     pause_duration_ = 0.0f;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          18 :     filepath_ = filepath;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          18 :     sample_rate_ = sample_rate;</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          18 :     channels_ = channels;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          18 :     samples_written_ = 0;</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          18 :     paused_ = false;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          18 :     has_unsaved_ = false;</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          18 :     pause_duration_ = 0.0f;</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span>              :     // Reset waveform buffer</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">        8721 :     for (auto&amp; v : waveform_buf_) v.store(0.0f);</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          17 :     waveform_write_pos_ = 0;</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          17 :     current_peak_ = 0.0f;</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          17 :     bin_sample_count_ = 0;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          17 :     bin_peak_ = 0.0f;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">        9234 :     for (auto&amp; v : waveform_buf_) v.store(0.0f);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          18 :     waveform_write_pos_ = 0;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          18 :     current_peak_ = 0.0f;</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          18 :     bin_sample_count_ = 0;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          18 :     bin_peak_ = 0.0f;</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     // ~60 waveform updates per second (at 48kHz, ~800 samples per bin)</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          17 :     samples_per_bin_ = std::max(1, sample_rate / (WAVEFORM_SIZE * 2));</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          18 :     samples_per_bin_ = std::max(1, sample_rate / (WAVEFORM_SIZE * 2));</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     // Initialize ring buffer and pre-allocated PCM conversion buffer</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          17 :     ring_buffer_.resize(RING_BUFFER_SIZE, 0.0f);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          17 :     ring_write_pos_ = 0;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          17 :     ring_read_pos_ = 0;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          17 :     pcm_buffer_.resize(4096);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          18 :     ring_buffer_.resize(RING_BUFFER_SIZE, 0.0f);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          18 :     ring_write_pos_ = 0;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          18 :     ring_read_pos_ = 0;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          18 :     pcm_buffer_.resize(4096);</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :     // Ensure the parent directory exists for the target filepath</span>
 <span id="L36"><span class="lineNum">      36</span>              :     {</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          17 :         std::string parent;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          17 :         size_t sep = filepath.find_last_of(&quot;/\\&quot;);</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          17 :         if (sep != std::string::npos) {</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          17 :             parent = filepath.substr(0, sep);</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          17 :             mkdirs(parent);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          18 :         std::string parent;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          18 :         size_t sep = filepath.find_last_of(&quot;/\\&quot;);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          18 :         if (sep != std::string::npos) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          18 :             parent = filepath.substr(0, sep);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          18 :             mkdirs(parent);</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :         }</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          17 :     }</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          18 :     }</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          17 :     file_.open(filepath, std::ios::binary);</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          17 :     if (!file_.is_open()) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          18 :     file_.open(filepath, std::ios::binary);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          18 :     if (!file_.is_open()) {</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC tlaBgUNC">           0 :         std::cerr &lt;&lt; &quot;Recorder: failed to open &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 :         return false;</span></span>
 <span id="L49"><span class="lineNum">      49</span>              :     }</span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC tlaBgGNC">          17 :     write_wav_header();</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          17 :     recording_ = true;</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          17 :     start_time_ = std::chrono::steady_clock::now();</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC tlaBgGNC">          18 :     write_wav_header();</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          18 :     recording_ = true;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          18 :     start_time_ = std::chrono::steady_clock::now();</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span>              :     // Start the disk writer thread (keeps file I/O off the real-time audio thread)</span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          17 :     writer_running_ = true;</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          17 :     writer_thread_ = std::thread(&amp;Recorder::writer_thread_func, this);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          18 :     writer_running_ = true;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          18 :     writer_thread_ = std::thread(&amp;Recorder::writer_thread_func, this);</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          17 :     std::cout &lt;&lt; &quot;Recording started: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          17 :     return true;</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          18 :     std::cout &lt;&lt; &quot;Recording started: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          18 :     return true;</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : }</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          18 : void Recorder::stop() {</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          18 :     if (!recording_) return;</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          17 :     recording_ = false;</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          17 :     paused_ = false;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          19 : void Recorder::stop() {</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          19 :     if (!recording_) return;</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          18 :     recording_ = false;</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          18 :     paused_ = false;</span></span>
 <span id="L67"><span class="lineNum">      67</span>              : </span>
 <span id="L68"><span class="lineNum">      68</span>              :     // Stop writer thread and wait for it to drain remaining buffered data</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          17 :     writer_running_ = false;</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          17 :     if (writer_thread_.joinable()) {</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          17 :         writer_thread_.join();</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          18 :     writer_running_ = false;</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          18 :     if (writer_thread_.joinable()) {</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          18 :         writer_thread_.join();</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :     }</span>
 <span id="L73"><span class="lineNum">      73</span>              : </span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          17 :     finalize_wav_header();</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          17 :     file_.close();</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          18 :     finalize_wav_header();</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          18 :     file_.close();</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          17 :     has_unsaved_ = true;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          18 :     has_unsaved_ = true;</span></span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          17 :     float dur = get_duration();</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          34 :     std::cout &lt;&lt; &quot;Recording stopped: &quot; &lt;&lt; samples_written_.load() &lt;&lt; &quot; samples (&quot;</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          17 :               &lt;&lt; dur &lt;&lt; &quot;s) saved to &quot; &lt;&lt; filepath_ &lt;&lt; std::endl;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          18 :     float dur = get_duration();</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          36 :     std::cout &lt;&lt; &quot;Recording stopped: &quot; &lt;&lt; samples_written_.load() &lt;&lt; &quot; samples (&quot;</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          18 :               &lt;&lt; dur &lt;&lt; &quot;s) saved to &quot; &lt;&lt; filepath_ &lt;&lt; std::endl;</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : }</span>
 <span id="L83"><span class="lineNum">      83</span>              : </span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           2 : void Recorder::pause() {</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           2 :     if (!recording_ || paused_) return;</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           2 :     paused_ = true;</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :     pause_start_ = std::chrono::steady_clock::now();</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           3 : void Recorder::pause() {</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           3 :     if (!recording_ || paused_) return;</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           3 :     paused_ = true;</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           3 :     pause_start_ = std::chrono::steady_clock::now();</span></span>
 <span id="L88"><span class="lineNum">      88</span>              : }</span>
 <span id="L89"><span class="lineNum">      89</span>              : </span>
-<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           2 : void Recorder::resume() {</span></span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           2 :     if (!recording_ || !paused_) return;</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           2 :     auto now = std::chrono::steady_clock::now();</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           2 :     float elapsed = std::chrono::duration&lt;float&gt;(now - pause_start_).count();</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           2 :     pause_duration_ += elapsed;</span></span>
-<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           2 :     paused_ = false;</span></span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           3 : void Recorder::resume() {</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           3 :     if (!recording_ || !paused_) return;</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           3 :     auto now = std::chrono::steady_clock::now();</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           3 :     float elapsed = std::chrono::duration&lt;float&gt;(now - pause_start_).count();</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           3 :     pause_duration_ += elapsed;</span></span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           3 :     paused_ = false;</span></span>
 <span id="L96"><span class="lineNum">      96</span>              : }</span>
 <span id="L97"><span class="lineNum">      97</span>              : </span>
 <span id="L98"><span class="lineNum">      98</span> <span class="tlaUNC tlaBgUNC">           0 : bool Recorder::save_to(const std::string&amp; dest_path) {</span></span>
@@ -190,19 +190,19 @@
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :     return true;</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 : }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 : void Recorder::discard() {</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaUNC">           0 :     if (!has_unsaved_ &amp;&amp; !recording_) return;</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaUNC">           0 :     if (recording_) stop();</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :     std::remove(filepath_.c_str());</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC tlaBgGNC">           1 : void Recorder::discard() {</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           1 :     if (!has_unsaved_ &amp;&amp; !recording_) return;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           1 :     if (recording_) stop();</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           1 :     std::remove(filepath_.c_str());</span></span>
 <span id="L135"><span class="lineNum">     135</span>              :     // Remove metadata sidecar if exists</span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :     std::string meta = filepath_;</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :     size_t dot = meta.rfind('.');</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 :     if (dot != std::string::npos) meta = meta.substr(0, dot);</span></span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaUNC">           0 :     meta += &quot;.meta.json&quot;;</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaUNC">           0 :     std::remove(meta.c_str());</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 :     has_unsaved_ = false;</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :     filepath_.clear();</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           1 :     std::string meta = filepath_;</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           1 :     size_t dot = meta.rfind('.');</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           1 :     if (dot != std::string::npos) meta = meta.substr(0, dot);</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           1 :     meta += &quot;.meta.json&quot;;</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           1 :     std::remove(meta.c_str());</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           1 :     has_unsaved_ = false;</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           1 :     filepath_.clear();</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           1 : }</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
 <span id="L145"><span class="lineNum">     145</span>              : } // namespace Amplitron</span>
         </pre>
