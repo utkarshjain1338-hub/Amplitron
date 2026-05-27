@@ -5,9 +5,9 @@
 namespace Amplitron {
 
 void LevelAnalyzer::update(float input_rms, float output_rms, bool input_clipped, bool output_clipped, float dt) {
-    if (!std::isfinite(dt) || dt <= 0.0f ||
-        !std::isfinite(input_rms) || input_rms < 0.0f ||
-        !std::isfinite(output_rms) || output_rms < 0.0f) {
+    if (!(dt > 0.0f) || dt > 10.0f ||
+        !(input_rms >= 0.0f) || input_rms > 1000.0f ||
+        !(output_rms >= 0.0f) || output_rms > 1000.0f) {
         return;
     }
 
