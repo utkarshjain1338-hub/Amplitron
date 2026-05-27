@@ -1,13 +1,33 @@
 #include "audio/dsp/level_analyzer.h"
 #include <algorithm>
 #include <cmath>
+#include <cstring>
+#include <cstdint>
 
 namespace Amplitron {
 
+namespace {
+inline bool is_invalid_rms(float x) {
+    uint32_t bits;
+    std::memcpy(&bits, &x, sizeof(float));
+    if ((bits & 0x7F800000) == 0x7F800000) {
+        return true; // NaN or Infinity
+    }
+    return x < 0.0f;
+}
+
+inline bool is_invalid_dt(float x) {
+    uint32_t bits;
+    std::memcpy(&bits, &x, sizeof(float));
+    if ((bits & 0x7F800000) == 0x7F800000) {
+        return true; // NaN or Infinity
+    }
+    return x <= 0.0f;
+}
+} // namespace
+
 void LevelAnalyzer::update(float input_rms, float output_rms, bool input_clipped, bool output_clipped, float dt) {
-    if (!(dt > 0.0f) || dt > 10.0f ||
-        !(input_rms >= 0.0f) || input_rms > 1000.0f ||
-        !(output_rms >= 0.0f) || output_rms > 1000.0f) {
+    if (is_invalid_dt(dt) || is_invalid_rms(input_rms) || is_invalid_rms(output_rms)) {
         return;
     }
 
