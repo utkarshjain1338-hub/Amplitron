@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 07:27:42</td>
+            <td class="headerValue">2026-05-28 09:30:15</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -69,28 +69,28 @@
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron</span>
 <span id="L8"><span class="lineNum">       8</span>              : {</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">         218 :     AudioEngine::AudioEngine()</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">         227 :     AudioEngine::AudioEngine()</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :     {</span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         218 :         process_buffer_.resize(MAX_BUFFER_SIZE, 0.0f);</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         218 :         process_buffer_right_.resize(MAX_BUFFER_SIZE, 0.0f);</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         218 :         backend_ = create_audio_backend();</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         227 :         process_buffer_.resize(MAX_BUFFER_SIZE, 0.0f);</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         227 :         process_buffer_right_.resize(MAX_BUFFER_SIZE, 0.0f);</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         227 :         backend_ = create_audio_backend();</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              :         // Pre-allocate the graph memory pools immediately on startup</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         218 :         main_executor_ = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         227 :         main_executor_ = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :         // Assuming standard values, use your engine's actual sample rate / block size variables here</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         218 :         main_executor_-&gt;prepare(48000, 512, 32);</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         227 :         main_executor_-&gt;prepare(48000, 512, 32);</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              :         // Seed the shadow executor so the audio thread has something safe to read instantly</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         218 :         audio_shadow_executor_ = main_executor_;</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         218 :     }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         227 :         audio_shadow_executor_ = main_executor_;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         227 :     }</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         218 :     AudioEngine::~AudioEngine()</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         227 :     AudioEngine::~AudioEngine()</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     {</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         218 :         shutdown();</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         227 :         shutdown();</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         218 :         destroy_audio_backend(backend_);</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         218 :         backend_ = nullptr;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         218 :     }</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         227 :         destroy_audio_backend(backend_);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         227 :         backend_ = nullptr;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         227 :     }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              :     // --- Serialization Methods ---</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
@@ -225,21 +225,21 @@
 <span id="L163"><span class="lineNum">     163</span>              :             }</span>
 <span id="L164"><span class="lineNum">     164</span>              :         }</span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC tlaBgGNC">          13 :     }</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">         488 :     void AudioEngine::commit_graph_changes()</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">         504 :     void AudioEngine::commit_graph_changes()</span></span>
 <span id="L167"><span class="lineNum">     167</span>              :     {</span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         488 :         std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         504 :         std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
 <span id="L170"><span class="lineNum">     170</span>              :         // 1. Create a brand new executor (so we don't mutate memory the audio thread is currently reading)</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         488 :         auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         488 :         new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         504 :         auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         504 :         new_executor-&gt;prepare(sample_rate_, buffer_size_, 32);</span></span>
 <span id="L173"><span class="lineNum">     173</span>              : </span>
 <span id="L174"><span class="lineNum">     174</span>              :         // 2. Compile the latest UI graph into the new executor</span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">         488 :         new_executor-&gt;compile(main_graph_);</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">         504 :         new_executor-&gt;compile(main_graph_);</span></span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
 <span id="L177"><span class="lineNum">     177</span>              :         // 3. Promote it to the main slot. The audio thread will grab it on the next try_lock!</span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         488 :         main_executor_ = new_executor;</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         488 :         topology_dirty_.store(true, std::memory_order_release);</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         488 :     }</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         504 :         main_executor_ = new_executor;</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         504 :         topology_dirty_.store(true, std::memory_order_release);</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         504 :     }</span></span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
 <span id="L182"><span class="lineNum">     182</span>              : #ifdef AMPLITRON_TESTS</span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           1 :     void AudioEngine::replace_backend_for_test(AudioBackendState *backend)</span></span>
