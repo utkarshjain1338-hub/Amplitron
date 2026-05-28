@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 05:52:11</td>
+            <td class="headerValue">2026-05-28 07:27:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -371,27 +371,35 @@
 <span id="L309"><span class="lineNum">     309</span>              : #ifdef __EMSCRIPTEN__</span>
 <span id="L310"><span class="lineNum">     310</span>              :     g_gui = &amp;gui;</span>
 <span id="L311"><span class="lineNum">     311</span>              :     g_engine_ptr = &amp;engine;</span>
-<span id="L312"><span class="lineNum">     312</span>              :     emscripten_set_main_loop(em_main_loop, 0, 1);</span>
-<span id="L313"><span class="lineNum">     313</span>              : #else</span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaUNC">           0 :     while (g_running &amp;&amp; gui.run_frame()) {</span></span>
-<span id="L315"><span class="lineNum">     315</span> <span class="tlaUNC">           0 :         if (sessionManager.shouldSave()) {</span></span>
-<span id="L316"><span class="lineNum">     316</span> <span class="tlaUNC">           0 :             sessionManager.saveSession(engine.serialize());</span></span>
+<span id="L312"><span class="lineNum">     312</span>              : </span>
+<span id="L313"><span class="lineNum">     313</span>              :     // Synchronously hydrate preset before the first frame is rendered</span>
+<span id="L314"><span class="lineNum">     314</span>              :     EM_ASM(</span>
+<span id="L315"><span class="lineNum">     315</span>              :         if (typeof window.hydrateSharedPreset === 'function') {</span>
+<span id="L316"><span class="lineNum">     316</span>              :             window.hydrateSharedPreset();</span>
 <span id="L317"><span class="lineNum">     317</span>              :         }</span>
-<span id="L318"><span class="lineNum">     318</span>              :     }</span>
-<span id="L319"><span class="lineNum">     319</span>              : #endif</span>
-<span id="L320"><span class="lineNum">     320</span>              : </span>
-<span id="L321"><span class="lineNum">     321</span>              :     // Cleanup</span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Shutting down...&quot; &lt;&lt; std::endl;</span></span>
-<span id="L323"><span class="lineNum">     323</span>              : #ifdef __EMSCRIPTEN__</span>
-<span id="L324"><span class="lineNum">     324</span>              :     g_gui = nullptr;</span>
-<span id="L325"><span class="lineNum">     325</span>              :     g_engine_ptr = nullptr;</span>
-<span id="L326"><span class="lineNum">     326</span>              : #endif</span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC">           0 :     gui.shutdown();</span></span>
-<span id="L328"><span class="lineNum">     328</span> <span class="tlaUNC">           0 :     engine.shutdown();</span></span>
-<span id="L329"><span class="lineNum">     329</span>              : </span>
-<span id="L330"><span class="lineNum">     330</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Goodbye!&quot; &lt;&lt; std::endl;</span></span>
-<span id="L331"><span class="lineNum">     331</span> <span class="tlaUNC">           0 :     return 0;</span></span>
-<span id="L332"><span class="lineNum">     332</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L318"><span class="lineNum">     318</span>              :     );</span>
+<span id="L319"><span class="lineNum">     319</span>              : </span>
+<span id="L320"><span class="lineNum">     320</span>              :     emscripten_set_main_loop(em_main_loop, 0, 1);</span>
+<span id="L321"><span class="lineNum">     321</span>              : #else</span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :     while (g_running &amp;&amp; gui.run_frame()) {</span></span>
+<span id="L323"><span class="lineNum">     323</span> <span class="tlaUNC">           0 :         if (sessionManager.shouldSave()) {</span></span>
+<span id="L324"><span class="lineNum">     324</span> <span class="tlaUNC">           0 :             sessionManager.saveSession(engine.serialize());</span></span>
+<span id="L325"><span class="lineNum">     325</span>              :         }</span>
+<span id="L326"><span class="lineNum">     326</span>              :     }</span>
+<span id="L327"><span class="lineNum">     327</span>              : #endif</span>
+<span id="L328"><span class="lineNum">     328</span>              : </span>
+<span id="L329"><span class="lineNum">     329</span>              :     // Cleanup</span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Shutting down...&quot; &lt;&lt; std::endl;</span></span>
+<span id="L331"><span class="lineNum">     331</span>              : #ifdef __EMSCRIPTEN__</span>
+<span id="L332"><span class="lineNum">     332</span>              :     g_gui = nullptr;</span>
+<span id="L333"><span class="lineNum">     333</span>              :     g_engine_ptr = nullptr;</span>
+<span id="L334"><span class="lineNum">     334</span>              : #endif</span>
+<span id="L335"><span class="lineNum">     335</span> <span class="tlaUNC">           0 :     gui.shutdown();</span></span>
+<span id="L336"><span class="lineNum">     336</span> <span class="tlaUNC">           0 :     engine.shutdown();</span></span>
+<span id="L337"><span class="lineNum">     337</span>              : </span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Goodbye!&quot; &lt;&lt; std::endl;</span></span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaUNC">           0 :     return 0;</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaUNC">           0 : }</span></span>
         </pre>
               </td>
             </tr>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 05:52:11</td>
+            <td class="headerValue">2026-05-28 07:27:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -175,7 +175,7 @@
 <span id="L113"><span class="lineNum">     113</span>              :     std::string get_output_device_name() const;</span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         181 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         187 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
 <span id="L117"><span class="lineNum">     117</span>              :     const AudioGraph&amp; graph() const { return main_graph_; }</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
 <span id="L119"><span class="lineNum">     119</span>              : #ifdef AMPLITRON_TESTS</span>
@@ -188,15 +188,15 @@
 <span id="L126"><span class="lineNum">     126</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L127"><span class="lineNum">     127</span>              :     // =========================================================================</span>
 <span id="L128"><span class="lineNum">     128</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         590 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         595 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
 <span id="L131"><span class="lineNum">     131</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx);</span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          11 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) {</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          11 :         dummy_effects_.clear();</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          97 :         for (const auto&amp; fx : fxs)</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          86 :             dummy_effects_.push_back(fx);</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          11 :         sync_graph_with_dummy_effects(true);</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          11 :     }</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          13 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) {</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          13 :         dummy_effects_.clear();</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">         100 :         for (const auto&amp; fx : fxs)</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          87 :             dummy_effects_.push_back(fx);</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          13 :         sync_graph_with_dummy_effects(true);</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          13 :     }</span></span>
 <span id="L138"><span class="lineNum">     138</span>              :     void insert_effect(int index, std::shared_ptr&lt;Effect&gt; fx);</span>
 <span id="L139"><span class="lineNum">     139</span>              :     void remove_effect(int index);</span>
 <span id="L140"><span class="lineNum">     140</span>              :     void clear_effects();</span>
@@ -289,10 +289,10 @@
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     </span>
 <span id="L229"><span class="lineNum">     229</span>              :     /** @brief Return the current input gain (atomic relaxed read). */</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         178 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         179 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span>              :     /** @brief Return the current output gain (atomic relaxed read). */</span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         156 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         157 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              :     /** @brief Toggle the metronome on/off (atomic update). */</span>
 <span id="L236"><span class="lineNum">     236</span>              :     void toggle_metronome();</span>
