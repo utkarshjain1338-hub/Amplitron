@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">69.6&nbsp;%</td>
-            <td class="headerCovTableEntry">303</td>
-            <td class="headerCovTableEntry">211</td>
+            <td class="headerCovTableEntryLo">69.8&nbsp;%</td>
+            <td class="headerCovTableEntry">305</td>
+            <td class="headerCovTableEntry">213</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 12:02:51</td>
+            <td class="headerValue">2026-05-28 12:09:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,12 +91,12 @@
 <span id="L29"><span class="lineNum">      29</span>              :  * @param engine The audio engine whose current setting should be captured.</span>
 <span id="L30"><span class="lineNum">      30</span>              :  * @return PresetData representing the live engine configuration.</span>
 <span id="L31"><span class="lineNum">      31</span>              :  */</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">          52 : static PresetData capture_current_state(AudioEngine&amp; engine) {</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          52 :     PresetData preset;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          52 :     preset.input_gain = engine.get_input_gain();</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          52 :     preset.output_gain = engine.get_output_gain();</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">          51 : static PresetData capture_current_state(AudioEngine&amp; engine) {</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          51 :     PresetData preset;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          51 :     preset.input_gain = engine.get_input_gain();</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          51 :     preset.output_gain = engine.get_output_gain();</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         139 :     for (auto&amp; fx : engine.effects()) {</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         138 :     for (auto&amp; fx : engine.effects()) {</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          87 :         PresetData::EffectData fd;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          87 :         fd.type = fx-&gt;name();</span></span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          87 :         fd.enabled = fx-&gt;is_enabled();</span></span>
@@ -115,7 +115,7 @@
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC tlaBgGNC">          87 :         preset.effects.push_back(std::move(fd));</span></span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          87 :     }</span></span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          52 :     return preset;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          51 :     return preset;</span></span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC tlaBgUNC">           0 : }</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              : /**</span>
@@ -557,15 +557,17 @@
 <span id="L495"><span class="lineNum">     495</span>              : }</span>
 <span id="L496"><span class="lineNum">     496</span>              : </span>
 <span id="L497"><span class="lineNum">     497</span> <span class="tlaGNC">           1 : std::string GuiPresets::serialise_current_preset_to_json() const {</span></span>
-<span id="L498"><span class="lineNum">     498</span> <span class="tlaGNC">           1 :     PresetData preset = capture_current_state(engine_);</span></span>
-<span id="L499"><span class="lineNum">     499</span> <span class="tlaGNC">           1 :     preset.name = current_preset_name();</span></span>
-<span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC">           1 :     if (midi_manager_) {</span></span>
-<span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC tlaBgUNC">           0 :         preset.midi_mappings = midi_manager_-&gt;mappings();</span></span>
-<span id="L502"><span class="lineNum">     502</span>              :     }</span>
-<span id="L503"><span class="lineNum">     503</span> <span class="tlaGNC tlaBgGNC">           2 :     return to_json_ext(preset);</span></span>
-<span id="L504"><span class="lineNum">     504</span> <span class="tlaGNC">           1 : }</span></span>
-<span id="L505"><span class="lineNum">     505</span>              : </span>
-<span id="L506"><span class="lineNum">     506</span>              : } // namespace Amplitron</span>
+<span id="L498"><span class="lineNum">     498</span> <span class="tlaGNC">           1 :     std::string json_str = PresetManager::preset_to_json_string(engine_);</span></span>
+<span id="L499"><span class="lineNum">     499</span> <span class="tlaGNC">           1 :     PresetData preset;</span></span>
+<span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC">           1 :     from_json_ext(json_str, preset);</span></span>
+<span id="L501"><span class="lineNum">     501</span> <span class="tlaGNC">           1 :     preset.name = current_preset_name();</span></span>
+<span id="L502"><span class="lineNum">     502</span> <span class="tlaGNC">           1 :     if (midi_manager_) {</span></span>
+<span id="L503"><span class="lineNum">     503</span> <span class="tlaUNC tlaBgUNC">           0 :         preset.midi_mappings = midi_manager_-&gt;mappings();</span></span>
+<span id="L504"><span class="lineNum">     504</span>              :     }</span>
+<span id="L505"><span class="lineNum">     505</span> <span class="tlaGNC tlaBgGNC">           2 :     return to_json_ext(preset);</span></span>
+<span id="L506"><span class="lineNum">     506</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L507"><span class="lineNum">     507</span>              : </span>
+<span id="L508"><span class="lineNum">     508</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

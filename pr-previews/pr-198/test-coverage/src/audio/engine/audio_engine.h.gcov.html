@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 12:02:51</td>
+            <td class="headerValue">2026-05-28 12:09:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -175,7 +175,7 @@
 <span id="L113"><span class="lineNum">     113</span>              :     std::string get_output_device_name() const;</span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         218 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         219 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
 <span id="L117"><span class="lineNum">     117</span>              :     const AudioGraph&amp; graph() const { return main_graph_; }</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
 <span id="L119"><span class="lineNum">     119</span>              : #ifdef AMPLITRON_TESTS</span>
@@ -188,7 +188,7 @@
 <span id="L126"><span class="lineNum">     126</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L127"><span class="lineNum">     127</span>              :     // =========================================================================</span>
 <span id="L128"><span class="lineNum">     128</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         595 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         594 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
 <span id="L131"><span class="lineNum">     131</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx);</span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          14 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) {</span></span>
