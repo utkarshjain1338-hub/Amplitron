@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">91.8&nbsp;%</td>
-            <td class="headerCovTableEntry">342</td>
-            <td class="headerCovTableEntry">314</td>
+            <td class="headerCovTableEntryHi">91.1&nbsp;%</td>
+            <td class="headerCovTableEntry">348</td>
+            <td class="headerCovTableEntry">317</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 09:30:15</td>
+            <td class="headerValue">2026-05-28 11:08:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -489,85 +489,94 @@
 <span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">           3 :         GuiGraphState::get_instance().node_positions[existing_id] = {</span></span>
 <span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">           3 :             ImVec2(node.x, node.y), false};</span></span>
 <span id="L429"><span class="lineNum">     429</span> <span class="tlaGNC">           3 :         node_id_map[node.id] = existing_id;</span></span>
-<span id="L430"><span class="lineNum">     430</span> <span class="tlaGNC">           3 :         continue;</span></span>
-<span id="L431"><span class="lineNum">     431</span>              :       }</span>
-<span id="L432"><span class="lineNum">     432</span>              :     }</span>
-<span id="L433"><span class="lineNum">     433</span>              : </span>
-<span id="L434"><span class="lineNum">     434</span> <span class="tlaGNC">          33 :     std::string node_name = t;</span></span>
-<span id="L435"><span class="lineNum">     435</span> <span class="tlaGNC">          33 :     if (pedal)</span></span>
-<span id="L436"><span class="lineNum">     436</span> <span class="tlaGNC">          17 :       node_name = pedal-&gt;name();</span></span>
-<span id="L437"><span class="lineNum">     437</span> <span class="tlaGNC">          16 :     else if (t == &quot;splitter&quot;)</span></span>
-<span id="L438"><span class="lineNum">     438</span> <span class="tlaGNC">           3 :       node_name = &quot;Splitter&quot;;</span></span>
-<span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC">          13 :     else if (t == &quot;mixer&quot;)</span></span>
-<span id="L440"><span class="lineNum">     440</span> <span class="tlaGNC">           4 :       node_name = &quot;Mixer&quot;;</span></span>
-<span id="L441"><span class="lineNum">     441</span>              : </span>
-<span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          33 :     int new_id = graph.add_node(node_name, routing_type, pedal, node.num_inputs);</span></span>
-<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">          33 :     graph.set_node_position(new_id, node.x, node.y);</span></span>
-<span id="L444"><span class="lineNum">     444</span>              : </span>
-<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Input&quot;)</span></span>
-<span id="L446"><span class="lineNum">     446</span> <span class="tlaGNC">           4 :       graph.set_node_as_input(new_id, true);</span></span>
-<span id="L447"><span class="lineNum">     447</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Output&quot; || node_name == &quot;Amp Sim&quot;)</span></span>
-<span id="L448"><span class="lineNum">     448</span> <span class="tlaGNC">           5 :       graph.set_node_as_output(new_id, true);</span></span>
-<span id="L449"><span class="lineNum">     449</span>              : </span>
-<span id="L450"><span class="lineNum">     450</span> <span class="tlaGNC">          33 :     GuiGraphState::get_instance().node_positions[new_id] = {</span></span>
-<span id="L451"><span class="lineNum">     451</span> <span class="tlaGNC">          33 :         ImVec2(node.x, node.y), false};</span></span>
-<span id="L452"><span class="lineNum">     452</span>              : </span>
-<span id="L453"><span class="lineNum">     453</span> <span class="tlaGNC">          33 :     node_id_map[node.id] = new_id;</span></span>
-<span id="L454"><span class="lineNum">     454</span> <span class="tlaGNC">          39 :   }</span></span>
-<span id="L455"><span class="lineNum">     455</span>              : </span>
-<span id="L456"><span class="lineNum">     456</span> <span class="tlaGNC">          24 :   for (const auto &amp;link : preset.links) {</span></span>
-<span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC">          28 :     auto parse_pin = [&amp;](const std::string &amp;pin_str, bool is_input) -&gt; int {</span></span>
-<span id="L458"><span class="lineNum">     458</span> <span class="tlaGNC">          28 :       auto dot_pos = pin_str.find('.');</span></span>
-<span id="L459"><span class="lineNum">     459</span> <span class="tlaGNC">          28 :       if (dot_pos == std::string::npos)</span></span>
-<span id="L460"><span class="lineNum">     460</span> <span class="tlaGNC">           1 :         return -1;</span></span>
-<span id="L461"><span class="lineNum">     461</span> <span class="tlaGNC">          27 :       std::string n_id = pin_str.substr(0, dot_pos);</span></span>
-<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC">          27 :       std::string p_str = pin_str.substr(dot_pos + 1);</span></span>
-<span id="L463"><span class="lineNum">     463</span> <span class="tlaGNC">          27 :       if (node_id_map.find(n_id) == node_id_map.end())</span></span>
-<span id="L464"><span class="lineNum">     464</span> <span class="tlaGNC">           3 :         return -1;</span></span>
-<span id="L465"><span class="lineNum">     465</span>              : </span>
-<span id="L466"><span class="lineNum">     466</span> <span class="tlaGNC">          24 :       int actual_node_id = node_id_map[n_id];</span></span>
-<span id="L467"><span class="lineNum">     467</span> <span class="tlaGNC">          24 :       const auto *node = graph.find_node(actual_node_id);</span></span>
-<span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC">          24 :       if (!node)</span></span>
-<span id="L469"><span class="lineNum">     469</span> <span class="tlaUNC tlaBgUNC">           0 :         return -1;</span></span>
-<span id="L470"><span class="lineNum">     470</span>              : </span>
-<span id="L471"><span class="lineNum">     471</span>              :       try {</span>
-<span id="L472"><span class="lineNum">     472</span> <span class="tlaGNC tlaBgGNC">          24 :         if (p_str.length() &gt; 3 &amp;&amp; p_str.substr(0, 3) == &quot;out&quot; &amp;&amp; !is_input) {</span></span>
-<span id="L473"><span class="lineNum">     473</span> <span class="tlaGNC">          12 :           int idx = std::stoi(p_str.substr(3));</span></span>
-<span id="L474"><span class="lineNum">     474</span> <span class="tlaGNC">          12 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;output_pin_ids.size())</span></span>
-<span id="L475"><span class="lineNum">     475</span> <span class="tlaGNC">          11 :             return node-&gt;output_pin_ids[idx];</span></span>
-<span id="L476"><span class="lineNum">     476</span> <span class="tlaGNC">          12 :         } else if (p_str.length() &gt; 2 &amp;&amp; p_str.substr(0, 2) == &quot;in&quot; &amp;&amp; is_input) {</span></span>
-<span id="L477"><span class="lineNum">     477</span> <span class="tlaGNC">          12 :           int idx = std::stoi(p_str.substr(2));</span></span>
-<span id="L478"><span class="lineNum">     478</span> <span class="tlaGNC">          12 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;input_pin_ids.size())</span></span>
-<span id="L479"><span class="lineNum">     479</span> <span class="tlaGNC">          12 :             return node-&gt;input_pin_ids[idx];</span></span>
-<span id="L480"><span class="lineNum">     480</span>              :         }</span>
-<span id="L481"><span class="lineNum">     481</span> <span class="tlaUNC tlaBgUNC">           0 :       } catch (const std::invalid_argument&amp;) {</span></span>
-<span id="L482"><span class="lineNum">     482</span> <span class="tlaUNC">           0 :         return -1;</span></span>
-<span id="L483"><span class="lineNum">     483</span> <span class="tlaUNC">           0 :       } catch (const std::out_of_range&amp;) {</span></span>
-<span id="L484"><span class="lineNum">     484</span> <span class="tlaUNC">           0 :         return -1;</span></span>
-<span id="L485"><span class="lineNum">     485</span> <span class="tlaUNC">           0 :       }</span></span>
-<span id="L486"><span class="lineNum">     486</span> <span class="tlaGNC tlaBgGNC">           1 :       return -1;</span></span>
-<span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">          27 :     };</span></span>
-<span id="L488"><span class="lineNum">     488</span>              : </span>
-<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">          14 :     int src_pin = parse_pin(link.src_pin, false);</span></span>
-<span id="L490"><span class="lineNum">     490</span> <span class="tlaGNC">          14 :     int dst_pin = parse_pin(link.dst_pin, true);</span></span>
-<span id="L491"><span class="lineNum">     491</span>              : </span>
-<span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">          14 :     if (src_pin == -1 || dst_pin == -1) {</span></span>
-<span id="L493"><span class="lineNum">     493</span>              :       std::cerr &lt;&lt; &quot;[Preset] Invalid link configuration, missing pin: &quot;</span>
-<span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">           4 :                 &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot; &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
-<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">           5 :       return false; // Fail loudly</span></span>
-<span id="L496"><span class="lineNum">     496</span>              :     }</span>
+<span id="L430"><span class="lineNum">     430</span>              :         </span>
+<span id="L431"><span class="lineNum">     431</span> <span class="tlaGNC">           3 :         if (t == &quot;Input&quot;) {</span></span>
+<span id="L432"><span class="lineNum">     432</span> <span class="tlaGNC">           3 :           graph.set_node_as_input(existing_id, true);</span></span>
+<span id="L433"><span class="lineNum">     433</span> <span class="tlaGNC">           3 :           graph.set_node_as_output(existing_id, false);</span></span>
+<span id="L434"><span class="lineNum">     434</span> <span class="tlaUNC tlaBgUNC">           0 :         } else if (t == &quot;Output&quot;) {</span></span>
+<span id="L435"><span class="lineNum">     435</span> <span class="tlaUNC">           0 :           graph.set_node_as_input(existing_id, false);</span></span>
+<span id="L436"><span class="lineNum">     436</span> <span class="tlaUNC">           0 :           graph.set_node_as_output(existing_id, true);</span></span>
+<span id="L437"><span class="lineNum">     437</span>              :         }</span>
+<span id="L438"><span class="lineNum">     438</span>              :         </span>
+<span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC tlaBgGNC">           3 :         continue;</span></span>
+<span id="L440"><span class="lineNum">     440</span>              :       }</span>
+<span id="L441"><span class="lineNum">     441</span>              :     }</span>
+<span id="L442"><span class="lineNum">     442</span>              : </span>
+<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">          33 :     std::string node_name = t;</span></span>
+<span id="L444"><span class="lineNum">     444</span> <span class="tlaGNC">          33 :     if (pedal)</span></span>
+<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          17 :       node_name = pedal-&gt;name();</span></span>
+<span id="L446"><span class="lineNum">     446</span> <span class="tlaGNC">          16 :     else if (t == &quot;splitter&quot;)</span></span>
+<span id="L447"><span class="lineNum">     447</span> <span class="tlaGNC">           3 :       node_name = &quot;Splitter&quot;;</span></span>
+<span id="L448"><span class="lineNum">     448</span> <span class="tlaGNC">          13 :     else if (t == &quot;mixer&quot;)</span></span>
+<span id="L449"><span class="lineNum">     449</span> <span class="tlaGNC">           4 :       node_name = &quot;Mixer&quot;;</span></span>
+<span id="L450"><span class="lineNum">     450</span>              : </span>
+<span id="L451"><span class="lineNum">     451</span> <span class="tlaGNC">          33 :     int new_id = graph.add_node(node_name, routing_type, pedal, node.num_inputs);</span></span>
+<span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">          33 :     graph.set_node_position(new_id, node.x, node.y);</span></span>
+<span id="L453"><span class="lineNum">     453</span>              : </span>
+<span id="L454"><span class="lineNum">     454</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Input&quot;)</span></span>
+<span id="L455"><span class="lineNum">     455</span> <span class="tlaGNC">           4 :       graph.set_node_as_input(new_id, true);</span></span>
+<span id="L456"><span class="lineNum">     456</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Output&quot; || node_name == &quot;Amp Sim&quot;)</span></span>
+<span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC">           5 :       graph.set_node_as_output(new_id, true);</span></span>
+<span id="L458"><span class="lineNum">     458</span>              : </span>
+<span id="L459"><span class="lineNum">     459</span> <span class="tlaGNC">          33 :     GuiGraphState::get_instance().node_positions[new_id] = {</span></span>
+<span id="L460"><span class="lineNum">     460</span> <span class="tlaGNC">          33 :         ImVec2(node.x, node.y), false};</span></span>
+<span id="L461"><span class="lineNum">     461</span>              : </span>
+<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC">          33 :     node_id_map[node.id] = new_id;</span></span>
+<span id="L463"><span class="lineNum">     463</span> <span class="tlaGNC">          39 :   }</span></span>
+<span id="L464"><span class="lineNum">     464</span>              : </span>
+<span id="L465"><span class="lineNum">     465</span> <span class="tlaGNC">          24 :   for (const auto &amp;link : preset.links) {</span></span>
+<span id="L466"><span class="lineNum">     466</span> <span class="tlaGNC">          28 :     auto parse_pin = [&amp;](const std::string &amp;pin_str, bool is_input) -&gt; int {</span></span>
+<span id="L467"><span class="lineNum">     467</span> <span class="tlaGNC">          28 :       auto dot_pos = pin_str.find('.');</span></span>
+<span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC">          28 :       if (dot_pos == std::string::npos)</span></span>
+<span id="L469"><span class="lineNum">     469</span> <span class="tlaGNC">           1 :         return -1;</span></span>
+<span id="L470"><span class="lineNum">     470</span> <span class="tlaGNC">          27 :       std::string n_id = pin_str.substr(0, dot_pos);</span></span>
+<span id="L471"><span class="lineNum">     471</span> <span class="tlaGNC">          27 :       std::string p_str = pin_str.substr(dot_pos + 1);</span></span>
+<span id="L472"><span class="lineNum">     472</span> <span class="tlaGNC">          27 :       if (node_id_map.find(n_id) == node_id_map.end())</span></span>
+<span id="L473"><span class="lineNum">     473</span> <span class="tlaGNC">           3 :         return -1;</span></span>
+<span id="L474"><span class="lineNum">     474</span>              : </span>
+<span id="L475"><span class="lineNum">     475</span> <span class="tlaGNC">          24 :       int actual_node_id = node_id_map[n_id];</span></span>
+<span id="L476"><span class="lineNum">     476</span> <span class="tlaGNC">          24 :       const auto *node = graph.find_node(actual_node_id);</span></span>
+<span id="L477"><span class="lineNum">     477</span> <span class="tlaGNC">          24 :       if (!node)</span></span>
+<span id="L478"><span class="lineNum">     478</span> <span class="tlaUNC tlaBgUNC">           0 :         return -1;</span></span>
+<span id="L479"><span class="lineNum">     479</span>              : </span>
+<span id="L480"><span class="lineNum">     480</span>              :       try {</span>
+<span id="L481"><span class="lineNum">     481</span> <span class="tlaGNC tlaBgGNC">          24 :         if (p_str.length() &gt; 3 &amp;&amp; p_str.substr(0, 3) == &quot;out&quot; &amp;&amp; !is_input) {</span></span>
+<span id="L482"><span class="lineNum">     482</span> <span class="tlaGNC">          12 :           int idx = std::stoi(p_str.substr(3));</span></span>
+<span id="L483"><span class="lineNum">     483</span> <span class="tlaGNC">          12 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;output_pin_ids.size())</span></span>
+<span id="L484"><span class="lineNum">     484</span> <span class="tlaGNC">          11 :             return node-&gt;output_pin_ids[idx];</span></span>
+<span id="L485"><span class="lineNum">     485</span> <span class="tlaGNC">          12 :         } else if (p_str.length() &gt; 2 &amp;&amp; p_str.substr(0, 2) == &quot;in&quot; &amp;&amp; is_input) {</span></span>
+<span id="L486"><span class="lineNum">     486</span> <span class="tlaGNC">          12 :           int idx = std::stoi(p_str.substr(2));</span></span>
+<span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">          12 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;input_pin_ids.size())</span></span>
+<span id="L488"><span class="lineNum">     488</span> <span class="tlaGNC">          12 :             return node-&gt;input_pin_ids[idx];</span></span>
+<span id="L489"><span class="lineNum">     489</span>              :         }</span>
+<span id="L490"><span class="lineNum">     490</span> <span class="tlaUNC tlaBgUNC">           0 :       } catch (const std::invalid_argument&amp;) {</span></span>
+<span id="L491"><span class="lineNum">     491</span> <span class="tlaUNC">           0 :         return -1;</span></span>
+<span id="L492"><span class="lineNum">     492</span> <span class="tlaUNC">           0 :       } catch (const std::out_of_range&amp;) {</span></span>
+<span id="L493"><span class="lineNum">     493</span> <span class="tlaUNC">           0 :         return -1;</span></span>
+<span id="L494"><span class="lineNum">     494</span> <span class="tlaUNC">           0 :       }</span></span>
+<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC tlaBgGNC">           1 :       return -1;</span></span>
+<span id="L496"><span class="lineNum">     496</span> <span class="tlaGNC">          27 :     };</span></span>
 <span id="L497"><span class="lineNum">     497</span>              : </span>
-<span id="L498"><span class="lineNum">     498</span> <span class="tlaGNC">          10 :     if (graph.add_link(src_pin, dst_pin) == -1) {</span></span>
-<span id="L499"><span class="lineNum">     499</span> <span class="tlaGNC">           1 :       std::cerr &lt;&lt; &quot;[Preset] Failed to connect link: &quot; &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot;</span></span>
-<span id="L500"><span class="lineNum">     500</span> <span class="tlaGNC">           1 :                 &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
-<span id="L501"><span class="lineNum">     501</span> <span class="tlaGNC">           1 :       return false; // Fail loudly</span></span>
-<span id="L502"><span class="lineNum">     502</span>              :     }</span>
-<span id="L503"><span class="lineNum">     503</span>              :   }</span>
-<span id="L504"><span class="lineNum">     504</span>              : </span>
-<span id="L505"><span class="lineNum">     505</span> <span class="tlaGNC">          10 :   return true;</span></span>
-<span id="L506"><span class="lineNum">     506</span> <span class="tlaGNC">          17 : }</span></span>
-<span id="L507"><span class="lineNum">     507</span>              : </span>
-<span id="L508"><span class="lineNum">     508</span>              : } // namespace Amplitron</span>
+<span id="L498"><span class="lineNum">     498</span> <span class="tlaGNC">          14 :     int src_pin = parse_pin(link.src_pin, false);</span></span>
+<span id="L499"><span class="lineNum">     499</span> <span class="tlaGNC">          14 :     int dst_pin = parse_pin(link.dst_pin, true);</span></span>
+<span id="L500"><span class="lineNum">     500</span>              : </span>
+<span id="L501"><span class="lineNum">     501</span> <span class="tlaGNC">          14 :     if (src_pin == -1 || dst_pin == -1) {</span></span>
+<span id="L502"><span class="lineNum">     502</span>              :       std::cerr &lt;&lt; &quot;[Preset] Invalid link configuration, missing pin: &quot;</span>
+<span id="L503"><span class="lineNum">     503</span> <span class="tlaGNC">           4 :                 &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot; &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
+<span id="L504"><span class="lineNum">     504</span> <span class="tlaGNC">           5 :       return false; // Fail loudly</span></span>
+<span id="L505"><span class="lineNum">     505</span>              :     }</span>
+<span id="L506"><span class="lineNum">     506</span>              : </span>
+<span id="L507"><span class="lineNum">     507</span> <span class="tlaGNC">          10 :     if (graph.add_link(src_pin, dst_pin) == -1) {</span></span>
+<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC">           1 :       std::cerr &lt;&lt; &quot;[Preset] Failed to connect link: &quot; &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot;</span></span>
+<span id="L509"><span class="lineNum">     509</span> <span class="tlaGNC">           1 :                 &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
+<span id="L510"><span class="lineNum">     510</span> <span class="tlaGNC">           1 :       return false; // Fail loudly</span></span>
+<span id="L511"><span class="lineNum">     511</span>              :     }</span>
+<span id="L512"><span class="lineNum">     512</span>              :   }</span>
+<span id="L513"><span class="lineNum">     513</span>              : </span>
+<span id="L514"><span class="lineNum">     514</span> <span class="tlaGNC">          10 :   return true;</span></span>
+<span id="L515"><span class="lineNum">     515</span> <span class="tlaGNC">          17 : }</span></span>
+<span id="L516"><span class="lineNum">     516</span>              : </span>
+<span id="L517"><span class="lineNum">     517</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
