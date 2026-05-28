@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 13:39:21</td>
+            <td class="headerValue">2026-05-28 05:52:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -61,7 +61,7 @@
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #include &quot;audio/effects/flanger.h&quot;</span>
-<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/effect_factory.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/effects/effect_factory.h&quot;</span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &lt;cmath&gt;</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : namespace Amplitron {</span>
@@ -78,8 +78,8 @@
 <span id="L16"><span class="lineNum">      16</span>              : // Max total delay: 15ms base + 7ms depth = 22ms. Size to 30ms for safety.</span>
 <span id="L17"><span class="lineNum">      17</span>              : static constexpr float MAX_DELAY_MS = 30.0f;</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          17 : Flanger::Flanger() {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         102 :     params_ = {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          24 : Flanger::Flanger() {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         144 :     params_ = {</span></span>
 <span id="L21"><span class="lineNum">      21</span>              :         {&quot;Rate&quot;,     0.3f, 0.05f,  5.0f, 0.3f, &quot;Hz&quot;,</span>
 <span id="L22"><span class="lineNum">      22</span>              :          &quot;LFO speed. Slow rates create a dreamy sweep; fast rates push toward vibrato territory.&quot;},</span>
 <span id="L23"><span class="lineNum">      23</span>              :         {&quot;Depth&quot;,    2.0f,  0.1f,  7.0f, 2.0f, &quot;ms&quot;,</span>
@@ -90,17 +90,17 @@
 <span id="L28"><span class="lineNum">      28</span>              :          &quot;Feedback amount. Positive values add metallic resonance; negative values create a hollow, phasey character.&quot;},</span>
 <span id="L29"><span class="lineNum">      29</span>              :         {&quot;Mix&quot;,      0.5f,  0.0f,  1.0f, 0.5f, &quot;&quot;,</span>
 <span id="L30"><span class="lineNum">      30</span>              :          &quot;Dry/wet blend. At 0.5 the comb filter notches are deepest for the classic flanger sound.&quot;},</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         102 :     };</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          17 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          51 : }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         144 :     };</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          24 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          72 : }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          33 : void Flanger::set_sample_rate(int sample_rate) {</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          33 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          33 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * MAX_DELAY_MS * 0.001f) + 2;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          33 :     delay_buffer_.assign(max_delay_samples_, 0.0f);</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          33 :     delay_buffer_r_.assign(max_delay_samples_, 0.0f);</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          33 :     reset();</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          33 : }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          47 : void Flanger::set_sample_rate(int sample_rate) {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          47 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          47 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * MAX_DELAY_MS * 0.001f) + 2;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          47 :     delay_buffer_.assign(max_delay_samples_, 0.0f);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          47 :     delay_buffer_r_.assign(max_delay_samples_, 0.0f);</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          47 :     reset();</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          47 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          34 : void Flanger::process(float* buffer, int num_samples) {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          34 :     if (!enabled_) return;</span></span>
@@ -113,36 +113,36 @@
 <span id="L51"><span class="lineNum">      51</span>              : </span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          32 :     const float lfo_inc = rate / static_cast&lt;float&gt;(sample_rate_);</span></span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">       18464 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">       18432 :         const float dry = buffer[i];</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">       17952 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">       17920 :         const float dry = buffer[i];</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span>              :         // LFO in [0, 1]</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">       18432 :         const float lfo = 0.5f * (1.0f + std::sin(TWO_PI * lfo_phase_));</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">       17920 :         const float lfo = 0.5f * (1.0f + std::sin(TWO_PI * lfo_phase_));</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              :         // Modulated delay in samples</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">       36864 :         const float delay_samples = clamp(</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">       18432 :             (delay_ms + lfo * depth_ms) * 0.001f * static_cast&lt;float&gt;(sample_rate_),</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">       18432 :             1.0f, static_cast&lt;float&gt;(max_delay_samples_ - 2));</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">       35840 :         const float delay_samples = clamp(</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">       17920 :             (delay_ms + lfo * depth_ms) * 0.001f * static_cast&lt;float&gt;(sample_rate_),</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">       17920 :             1.0f, static_cast&lt;float&gt;(max_delay_samples_ - 2));</span></span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
 <span id="L65"><span class="lineNum">      65</span>              :         // Fractional read position</span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">       18432 :         float read_pos_f = static_cast&lt;float&gt;(write_pos_) - delay_samples;</span></span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">       18432 :         if (read_pos_f &lt; 0.0f) read_pos_f += static_cast&lt;float&gt;(max_delay_samples_);</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">       17920 :         float read_pos_f = static_cast&lt;float&gt;(write_pos_) - delay_samples;</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">       17920 :         if (read_pos_f &lt; 0.0f) read_pos_f += static_cast&lt;float&gt;(max_delay_samples_);</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">       18432 :         const int ipos = static_cast&lt;int&gt;(read_pos_f);</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">       18432 :         const float frac = read_pos_f - static_cast&lt;float&gt;(ipos);</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">       18432 :         const int pos0 = ipos % max_delay_samples_;</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">       18432 :         const int pos1 = (ipos + 1) % max_delay_samples_;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">       17920 :         const int ipos = static_cast&lt;int&gt;(read_pos_f);</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">       17920 :         const float frac = read_pos_f - static_cast&lt;float&gt;(ipos);</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">       17920 :         const int pos0 = ipos % max_delay_samples_;</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">       17920 :         const int pos1 = (ipos + 1) % max_delay_samples_;</span></span>
 <span id="L73"><span class="lineNum">      73</span>              : </span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">       18432 :         const float delayed = delay_buffer_[pos0] * (1.0f - frac) + delay_buffer_[pos1] * frac;</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">       17920 :         const float delayed = delay_buffer_[pos0] * (1.0f - frac) + delay_buffer_[pos1] * frac;</span></span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
 <span id="L76"><span class="lineNum">      76</span>              :         // Write dry + feedback into the delay line; clamp to prevent runaway</span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">       18432 :         delay_buffer_[write_pos_] = clamp(dry + feedback * delayed, -2.0f, 2.0f);</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">       17920 :         delay_buffer_[write_pos_] = clamp(dry + feedback * delayed, -2.0f, 2.0f);</span></span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">       18432 :         buffer[i] = dry * (1.0f - mix) + delayed * mix;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">       17920 :         buffer[i] = dry * (1.0f - mix) + delayed * mix;</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">       18432 :         write_pos_ = (write_pos_ + 1) % max_delay_samples_;</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">       18432 :         lfo_phase_ += lfo_inc;</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">       18432 :         if (lfo_phase_ &gt;= 1.0f) lfo_phase_ -= 1.0f;</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">       17920 :         write_pos_ = (write_pos_ + 1) % max_delay_samples_;</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">       17920 :         lfo_phase_ += lfo_inc;</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">       17920 :         if (lfo_phase_ &gt;= 1.0f) lfo_phase_ -= 1.0f;</span></span>
 <span id="L84"><span class="lineNum">      84</span>              :     }</span>
 <span id="L85"><span class="lineNum">      85</span>              : }</span>
 <span id="L86"><span class="lineNum">      86</span>              : </span>
@@ -201,13 +201,13 @@
 <span id="L139"><span class="lineNum">     139</span>              :     }</span>
 <span id="L140"><span class="lineNum">     140</span>              : }</span>
 <span id="L141"><span class="lineNum">     141</span>              : </span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC tlaBgGNC">          64 : void Flanger::reset() {</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          64 :     std::fill(delay_buffer_.begin(),   delay_buffer_.end(),   0.0f);</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          64 :     std::fill(delay_buffer_r_.begin(), delay_buffer_r_.end(), 0.0f);</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          64 :     write_pos_   = 0;</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          64 :     write_pos_r_ = 0;</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          64 :     lfo_phase_   = 0.0f;</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          64 : }</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC tlaBgGNC">          85 : void Flanger::reset() {</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          85 :     std::fill(delay_buffer_.begin(),   delay_buffer_.end(),   0.0f);</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          85 :     std::fill(delay_buffer_r_.begin(), delay_buffer_r_.end(), 0.0f);</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          85 :     write_pos_   = 0;</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          85 :     write_pos_r_ = 0;</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          85 :     lfo_phase_   = 0.0f;</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          85 : }</span></span>
 <span id="L149"><span class="lineNum">     149</span>              : </span>
 <span id="L150"><span class="lineNum">     150</span>              : } // namespace Amplitron</span>
         </pre>

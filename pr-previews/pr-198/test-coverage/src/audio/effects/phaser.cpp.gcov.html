@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-25 13:39:21</td>
+            <td class="headerValue">2026-05-28 05:52:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -61,7 +61,7 @@
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #include &quot;audio/effects/phaser.h&quot;</span>
-<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/effect_factory.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/effects/effect_factory.h&quot;</span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &lt;cmath&gt;</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : namespace Amplitron {</span>
@@ -78,8 +78,8 @@
 <span id="L16"><span class="lineNum">      16</span>              : // Stage count table: Stages param 0..3 -&gt; 4/6/8/12 stages</span>
 <span id="L17"><span class="lineNum">      17</span>              : static constexpr int STAGE_COUNTS[4] = {4, 6, 8, 12};</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          15 : Phaser::Phaser() {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          90 :     params_ = {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          19 : Phaser::Phaser() {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         114 :     params_ = {</span></span>
 <span id="L21"><span class="lineNum">      21</span>              :         {&quot;Rate&quot;,     0.5f, 0.05f, 10.0f, 0.5f, &quot;Hz&quot;,</span>
 <span id="L22"><span class="lineNum">      22</span>              :          &quot;LFO speed. Low values create a slow, hypnotic sweep; high values create a fast vibrato-like effect.&quot;},</span>
 <span id="L23"><span class="lineNum">      23</span>              :         {&quot;Depth&quot;,    0.7f,  0.0f,  1.0f, 0.7f, &quot;&quot;,</span>
@@ -90,14 +90,14 @@
 <span id="L28"><span class="lineNum">      28</span>              :          &quot;Feeds the chain output back to the input, adding resonance and intensity to the phasing notches.&quot;},</span>
 <span id="L29"><span class="lineNum">      29</span>              :         {&quot;Mix&quot;,      0.5f,  0.0f,  1.0f, 0.5f, &quot;&quot;,</span>
 <span id="L30"><span class="lineNum">      30</span>              :          &quot;Dry/wet blend. At 0.5 the notch effect is most pronounced (classic phaser mix point).&quot;},</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          90 :     };</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          15 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          45 : }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         114 :     };</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          19 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          57 : }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          28 : void Phaser::set_sample_rate(int sample_rate) {</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          28 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          28 :     reset();</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          28 : }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          36 : void Phaser::set_sample_rate(int sample_rate) {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          36 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          36 :     reset();</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          36 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          15 : void Phaser::process(float* buffer, int num_samples) {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          15 :     if (!enabled_) return;</span></span>
@@ -113,37 +113,37 @@
 <span id="L51"><span class="lineNum">      51</span>              :     // fc range: ~200 Hz (lfo=0) to ~4000 Hz (lfo=1, depth=1)</span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          14 :     const float log_ratio = std::log(20.0f);  // ln(4000/200)</span></span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">        5646 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        5632 :         const float dry = buffer[i];</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">        5134 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        5120 :         const float dry = buffer[i];</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span>              :         // LFO in [0, 1]</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        5632 :         const float lfo = 0.5f * (1.0f + std::sin(TWO_PI * lfo_phase_));</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        5120 :         const float lfo = 0.5f * (1.0f + std::sin(TWO_PI * lfo_phase_));</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              :         // Modulated all-pass corner frequency (log sweep)</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        5632 :         const float fc = clamp(200.0f * std::exp(lfo * depth * log_ratio),</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">        5632 :                                80.0f, static_cast&lt;float&gt;(sample_rate_) * 0.40f);</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        5120 :         const float fc = clamp(200.0f * std::exp(lfo * depth * log_ratio),</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">        5120 :                                80.0f, static_cast&lt;float&gt;(sample_rate_) * 0.40f);</span></span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
 <span id="L64"><span class="lineNum">      64</span>              :         // 1st-order all-pass coefficient: c = (tan(π*fc/fs) - 1) / (tan(π*fc/fs) + 1)</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">        5632 :         const float t   = std::tan(3.14159265f * fc / static_cast&lt;float&gt;(sample_rate_));</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">        5632 :         const float apc = (t - 1.0f) / (t + 1.0f);</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">        5120 :         const float t   = std::tan(3.14159265f * fc / static_cast&lt;float&gt;(sample_rate_));</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">        5120 :         const float apc = (t - 1.0f) / (t + 1.0f);</span></span>
 <span id="L67"><span class="lineNum">      67</span>              : </span>
 <span id="L68"><span class="lineNum">      68</span>              :         // Feed input + feedback into the all-pass cascade</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">        5632 :         float x = dry + feedback * feedback_state_;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">        5120 :         float x = dry + feedback * feedback_state_;</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : </span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">       35328 :         for (int s = 0; s &lt; nstages; ++s) {</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">       41984 :         for (int s = 0; s &lt; nstages; ++s) {</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :             // y[n] = c * (x[n] - y[n-1]) + x[n-1]</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">       29696 :             const float y = apc * (x - apf_yprev_[s]) + apf_xprev_[s];</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">       29696 :             apf_xprev_[s] = x;</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">       29696 :             apf_yprev_[s] = y;</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">       29696 :             x = y;</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">       36864 :             const float y = apc * (x - apf_yprev_[s]) + apf_xprev_[s];</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">       36864 :             apf_xprev_[s] = x;</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">       36864 :             apf_yprev_[s] = y;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">       36864 :             x = y;</span></span>
 <span id="L77"><span class="lineNum">      77</span>              :         }</span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        5632 :         feedback_state_ = x;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        5120 :         feedback_state_ = x;</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">        5632 :         buffer[i] = dry * (1.0f - mix) + x * mix;</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">        5120 :         buffer[i] = dry * (1.0f - mix) + x * mix;</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">        5632 :         lfo_phase_ += lfo_inc;</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">        5632 :         if (lfo_phase_ &gt;= 1.0f) lfo_phase_ -= 1.0f;</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">        5120 :         lfo_phase_ += lfo_inc;</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">        5120 :         if (lfo_phase_ &gt;= 1.0f) lfo_phase_ -= 1.0f;</span></span>
 <span id="L85"><span class="lineNum">      85</span>              :     }</span>
 <span id="L86"><span class="lineNum">      86</span>              : }</span>
 <span id="L87"><span class="lineNum">      87</span>              : </span>
@@ -207,15 +207,15 @@
 <span id="L145"><span class="lineNum">     145</span>              :     }</span>
 <span id="L146"><span class="lineNum">     146</span>              : }</span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC tlaBgGNC">          41 : void Phaser::reset() {</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          41 :     lfo_phase_        = 0.0f;</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          41 :     feedback_state_   = 0.0f;</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          41 :     feedback_state_r_ = 0.0f;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          41 :     apf_xprev_.fill(0.0f);</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">          41 :     apf_yprev_.fill(0.0f);</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          41 :     apf_xprev_r_.fill(0.0f);</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          41 :     apf_yprev_r_.fill(0.0f);</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          41 : }</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC tlaBgGNC">          56 : void Phaser::reset() {</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          56 :     lfo_phase_        = 0.0f;</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          56 :     feedback_state_   = 0.0f;</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          56 :     feedback_state_r_ = 0.0f;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          56 :     apf_xprev_.fill(0.0f);</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">          56 :     apf_yprev_.fill(0.0f);</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          56 :     apf_xprev_r_.fill(0.0f);</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          56 :     apf_yprev_r_.fill(0.0f);</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          56 : }</span></span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
 <span id="L158"><span class="lineNum">     158</span>              : } // namespace Amplitron</span>
         </pre>
