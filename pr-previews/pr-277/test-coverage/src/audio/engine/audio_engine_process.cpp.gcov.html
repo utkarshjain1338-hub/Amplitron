@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">92.9&nbsp;%</td>
-            <td class="headerCovTableEntry">224</td>
-            <td class="headerCovTableEntry">208</td>
+            <td class="headerCovTableEntryHi">92.5&nbsp;%</td>
+            <td class="headerCovTableEntry">226</td>
+            <td class="headerCovTableEntry">209</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 18:07:24</td>
+            <td class="headerValue">2026-05-28 18:14:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -314,65 +314,67 @@
 <span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">          11 :         } else if (cmd.type == AudioCommand::SetOutputGain) {</span></span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">           8 :             command_queue_.try_pop(cmd);</span></span>
 <span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           8 :             output_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
-<span id="L255"><span class="lineNum">     255</span>              :         } else {</span>
-<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">           3 :             break;</span></span>
-<span id="L257"><span class="lineNum">     257</span>              :         }</span>
-<span id="L258"><span class="lineNum">     258</span>              :     }</span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">        1146 : }</span></span>
-<span id="L260"><span class="lineNum">     260</span>              : </span>
-<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">        1146 : void AudioEngine::drain_commands() {</span></span>
-<span id="L262"><span class="lineNum">     262</span>              :     AudioCommand cmd;</span>
-<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">        1154 :     while (command_queue_.try_pop(cmd)) {</span></span>
-<span id="L264"><span class="lineNum">     264</span>              :         </span>
-<span id="L265"><span class="lineNum">     265</span>              :         // Helper to find the effect pointer safely inside the new Graph architecture by chain index</span>
-<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">           7 :         auto get_effect = [&amp;](int effect_index) -&gt; std::shared_ptr&lt;Effect&gt; {</span></span>
-<span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">           7 :             if (effect_index &gt;= 0 &amp;&amp; effect_index &lt; static_cast&lt;int&gt;(dummy_effects_.size())) {</span></span>
-<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">           4 :                 return dummy_effects_[effect_index];</span></span>
-<span id="L269"><span class="lineNum">     269</span>              :             }</span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           3 :             return nullptr;</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           8 :         };</span></span>
-<span id="L272"><span class="lineNum">     272</span>              : </span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           8 :         switch (cmd.type) {</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">           2 :             case AudioCommand::SetEffectParam: {</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           2 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">           1 :                     auto&amp; params = fx-&gt;params();</span></span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">           2 :                     if (cmd.param_index &gt;= 0 &amp;&amp;</span></span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">           1 :                         cmd.param_index &lt; static_cast&lt;int&gt;(params.size())) {</span></span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">           1 :                         params[cmd.param_index].value = cmd.value;</span></span>
-<span id="L280"><span class="lineNum">     280</span>              :                     }</span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           2 :                 }</span></span>
-<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           2 :                 break;</span></span>
-<span id="L283"><span class="lineNum">     283</span>              :             }</span>
-<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           3 :             case AudioCommand::SetEffectEnabled: {</span></span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">           3 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">           2 :                     fx-&gt;set_enabled(cmd.value &gt; 0.5f);</span></span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           3 :                 }</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           3 :                 break;</span></span>
-<span id="L289"><span class="lineNum">     289</span>              :             }</span>
-<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           2 :             case AudioCommand::SetEffectMix: {</span></span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           2 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
-<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">           1 :                     fx-&gt;set_mix(cmd.value);</span></span>
-<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           2 :                 }</span></span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           2 :                 break;</span></span>
-<span id="L295"><span class="lineNum">     295</span>              :             }</span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaUNC tlaBgUNC">           0 :             case AudioCommand::SetMixerGain: {</span></span>
-<span id="L297"><span class="lineNum">     297</span> <span class="tlaUNC">           0 :                 if (audio_shadow_executor_) {</span></span>
-<span id="L298"><span class="lineNum">     298</span> <span class="tlaUNC">           0 :                     audio_shadow_executor_-&gt;update_mixer_gain(cmd.effect_index, cmd.param_index, cmd.value);</span></span>
-<span id="L299"><span class="lineNum">     299</span>              :                 }</span>
-<span id="L300"><span class="lineNum">     300</span> <span class="tlaUNC">           0 :                 break;</span></span>
-<span id="L301"><span class="lineNum">     301</span>              :             }</span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC tlaBgGNC">           1 :             case AudioCommand::SetInputGain:</span></span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           1 :                 input_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
-<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">           1 :                 break;</span></span>
-<span id="L305"><span class="lineNum">     305</span> <span class="tlaUNC tlaBgUNC">           0 :             case AudioCommand::SetOutputGain:</span></span>
-<span id="L306"><span class="lineNum">     306</span> <span class="tlaUNC">           0 :                 output_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
-<span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC">           0 :                 break;</span></span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :             default:</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           3 :         } else if (cmd.type == AudioCommand::SetMixerGain) {</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaUNC tlaBgUNC">           0 :             command_queue_.try_pop(cmd);</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaUNC">           0 :             if (audio_shadow_executor_) {</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaUNC">           0 :                 audio_shadow_executor_-&gt;update_mixer_gain(cmd.effect_index, cmd.param_index, cmd.value);</span></span>
+<span id="L259"><span class="lineNum">     259</span>              :             }</span>
+<span id="L260"><span class="lineNum">     260</span>              :         } else {</span>
+<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC tlaBgGNC">           3 :             break;</span></span>
+<span id="L262"><span class="lineNum">     262</span>              :         }</span>
+<span id="L263"><span class="lineNum">     263</span>              :     }</span>
+<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">        1146 : }</span></span>
+<span id="L265"><span class="lineNum">     265</span>              : </span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">        1146 : void AudioEngine::drain_commands() {</span></span>
+<span id="L267"><span class="lineNum">     267</span>              :     AudioCommand cmd;</span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">        1154 :     while (command_queue_.try_pop(cmd)) {</span></span>
+<span id="L269"><span class="lineNum">     269</span>              :         </span>
+<span id="L270"><span class="lineNum">     270</span>              :         // Helper to find the effect pointer safely inside the new Graph architecture by chain index</span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           7 :         auto get_effect = [&amp;](int effect_index) -&gt; std::shared_ptr&lt;Effect&gt; {</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           7 :             if (effect_index &gt;= 0 &amp;&amp; effect_index &lt; static_cast&lt;int&gt;(dummy_effects_.size())) {</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           4 :                 return dummy_effects_[effect_index];</span></span>
+<span id="L274"><span class="lineNum">     274</span>              :             }</span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           3 :             return nullptr;</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">           8 :         };</span></span>
+<span id="L277"><span class="lineNum">     277</span>              : </span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">           8 :         switch (cmd.type) {</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">           2 :             case AudioCommand::SetEffectParam: {</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           2 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           1 :                     auto&amp; params = fx-&gt;params();</span></span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           2 :                     if (cmd.param_index &gt;= 0 &amp;&amp;</span></span>
+<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">           1 :                         cmd.param_index &lt; static_cast&lt;int&gt;(params.size())) {</span></span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           1 :                         params[cmd.param_index].value = cmd.value;</span></span>
+<span id="L285"><span class="lineNum">     285</span>              :                     }</span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">           2 :                 }</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           2 :                 break;</span></span>
+<span id="L288"><span class="lineNum">     288</span>              :             }</span>
+<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           3 :             case AudioCommand::SetEffectEnabled: {</span></span>
+<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           3 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           2 :                     fx-&gt;set_enabled(cmd.value &gt; 0.5f);</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">           3 :                 }</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           3 :                 break;</span></span>
+<span id="L294"><span class="lineNum">     294</span>              :             }</span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">           2 :             case AudioCommand::SetEffectMix: {</span></span>
+<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">           2 :                 if (auto fx = get_effect(cmd.effect_index)) {</span></span>
+<span id="L297"><span class="lineNum">     297</span> <span class="tlaGNC">           1 :                     fx-&gt;set_mix(cmd.value);</span></span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">           2 :                 }</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">           2 :                 break;</span></span>
+<span id="L300"><span class="lineNum">     300</span>              :             }</span>
+<span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC tlaBgUNC">           0 :             case AudioCommand::SetMixerGain:</span></span>
+<span id="L302"><span class="lineNum">     302</span>              :                 // Skip SetMixerGain in the mutex-gated path, it is handled lock-free</span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaUNC">           0 :                 break;</span></span>
+<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC tlaBgGNC">           1 :             case AudioCommand::SetInputGain:</span></span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">           1 :                 input_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
+<span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">           1 :                 break;</span></span>
+<span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC tlaBgUNC">           0 :             case AudioCommand::SetOutputGain:</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :                 output_gain_.store(cmd.value, std::memory_order_relaxed);</span></span>
 <span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC">           0 :                 break;</span></span>
-<span id="L310"><span class="lineNum">     310</span>              :         }</span>
-<span id="L311"><span class="lineNum">     311</span>              :     }</span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC tlaBgGNC">        1146 : }</span></span>
-<span id="L313"><span class="lineNum">     313</span>              : } // namespace Amplitron</span>
+<span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 :             default:</span></span>
+<span id="L311"><span class="lineNum">     311</span> <span class="tlaUNC">           0 :                 break;</span></span>
+<span id="L312"><span class="lineNum">     312</span>              :         }</span>
+<span id="L313"><span class="lineNum">     313</span>              :     }</span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC tlaBgGNC">        1146 : }</span></span>
+<span id="L315"><span class="lineNum">     315</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

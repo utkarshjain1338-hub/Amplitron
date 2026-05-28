@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">84.3&nbsp;%</td>
-            <td class="headerCovTableEntry">108</td>
-            <td class="headerCovTableEntry">91</td>
+            <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
+            <td class="headerCovTableEntry">109</td>
+            <td class="headerCovTableEntry">100</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 18:07:24</td>
+            <td class="headerValue">2026-05-28 18:14:31</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryMed">87.5&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">8</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -167,49 +167,49 @@
 <span id="L105"><span class="lineNum">     105</span>              :     }</span>
 <span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">        1146 : }</span></span>
 <span id="L107"><span class="lineNum">     107</span>              : </span>
-<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">        1461 : void AudioGraphExecutor::process(const float* input, float* output, int num_samples) {</span></span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">        1461 :     if (num_samples &gt; max_block_size_) {</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">        1462 : void AudioGraphExecutor::process(const float* input, float* output, int num_samples) {</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">        1462 :     if (num_samples &gt; max_block_size_) {</span></span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">           3 :         std::memcpy(output, input, static_cast&lt;size_t&gt;(max_block_size_) * sizeof(float));</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           3 :         return;</span></span>
 <span id="L112"><span class="lineNum">     112</span>              :     }</span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">        1458 :     if (execution_plan_.empty()) {</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">        1459 :     if (execution_plan_.empty()) {</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">        1145 :         std::memcpy(output, input, num_samples * sizeof(float));</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">        1145 :         return;</span></span>
 <span id="L116"><span class="lineNum">     116</span>              :     }</span>
 <span id="L117"><span class="lineNum">     117</span>              : </span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">        1342 :     for (const auto&amp; step : execution_plan_) {</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        1029 :         float* node_input = sum_buffer_.data();</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">        1348 :     for (const auto&amp; step : execution_plan_) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        1034 :         float* node_input = sum_buffer_.data();</span></span>
 <span id="L120"><span class="lineNum">     120</span>              : </span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">        1029 :         bool is_input_source = false;</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">        1029 :         if (any_explicit_input_) {</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        1029 :             is_input_source = step.is_graph_input;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">        1034 :         bool is_input_source = false;</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">        1034 :         if (any_explicit_input_) {</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        1034 :             is_input_source = step.is_graph_input;</span></span>
 <span id="L124"><span class="lineNum">     124</span>              :         } else {</span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaUNC tlaBgUNC">           0 :             is_input_source = (step.node_id == fallback_input_node_id_);</span></span>
 <span id="L126"><span class="lineNum">     126</span>              :         }</span>
 <span id="L127"><span class="lineNum">     127</span>              : </span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC tlaBgGNC">        1029 :         if (is_input_source) {</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC tlaBgGNC">        1034 :         if (is_input_source) {</span></span>
 <span id="L129"><span class="lineNum">     129</span>              :             // Feed the master guitar input</span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">         314 :             std::memcpy(node_input, input, num_samples * sizeof(float));</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">         316 :             std::memcpy(node_input, input, num_samples * sizeof(float));</span></span>
 <span id="L131"><span class="lineNum">     131</span>              :         } else {</span>
 <span id="L132"><span class="lineNum">     132</span>              :             // Summation: Additively mix all incoming paths</span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">         715 :             std::memset(node_input, 0, num_samples * sizeof(float));</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">        1533 :             for (const auto&amp; src : step.input_sources) {</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">         818 :                 const float* src_buf = buffer_pool_[src.buffer_index].data();</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">         818 :                 if (src.gain == 1.0f) {</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">      104432 :                     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">      103616 :                         node_input[i] += src_buf[i];</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">         718 :             std::memset(node_input, 0, num_samples * sizeof(float));</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">        1541 :             for (const auto&amp; src : step.input_sources) {</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">         823 :                 const float* src_buf = buffer_pool_[src.buffer_index].data();</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">         823 :                 if (src.gain == 1.0f) {</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">      104627 :                     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">      103808 :                         node_input[i] += src_buf[i];</span></span>
 <span id="L139"><span class="lineNum">     139</span>              :                     }</span>
 <span id="L140"><span class="lineNum">     140</span>              :                 } else {</span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         130 :                     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">         128 :                         node_input[i] += src_buf[i] * src.gain;</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         260 :                     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">         256 :                         node_input[i] += src_buf[i] * src.gain;</span></span>
 <span id="L143"><span class="lineNum">     143</span>              :                     }</span>
 <span id="L144"><span class="lineNum">     144</span>              :                 }</span>
 <span id="L145"><span class="lineNum">     145</span>              :             }</span>
 <span id="L146"><span class="lineNum">     146</span>              :         }</span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">        1029 :         float* node_output = buffer_pool_[step.buffer_index].data();</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">        1034 :         float* node_output = buffer_pool_[step.buffer_index].data();</span></span>
 <span id="L149"><span class="lineNum">     149</span>              : </span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">        1029 :         if (step.type == NodeRoutingType::StandardEffect &amp;&amp; step.pedal) {</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">        1034 :         if (step.type == NodeRoutingType::StandardEffect &amp;&amp; step.pedal) {</span></span>
 <span id="L151"><span class="lineNum">     151</span>              :             // FIX: In-place processing! </span>
 <span id="L152"><span class="lineNum">     152</span>              :             // 1. Copy the summed input data into our dedicated output buffer</span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           2 :             std::memcpy(node_output, node_input, num_samples * sizeof(float));</span></span>
@@ -218,36 +218,37 @@
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           2 :             step.pedal-&gt;process(node_output, num_samples); </span></span>
 <span id="L157"><span class="lineNum">     157</span>              :         } else {</span>
 <span id="L158"><span class="lineNum">     158</span>              :             // Merge nodes or empty wrappers just pass the summed input directly downstream</span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">        1027 :             std::memcpy(node_output, node_input, num_samples * sizeof(float));</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">        1032 :             std::memcpy(node_output, node_input, num_samples * sizeof(float));</span></span>
 <span id="L160"><span class="lineNum">     160</span>              :         }</span>
 <span id="L161"><span class="lineNum">     161</span>              :     }</span>
 <span id="L162"><span class="lineNum">     162</span>              : </span>
 <span id="L163"><span class="lineNum">     163</span>              :     // Accumulate/mix outputs from all explicit sink nodes into the final output buffer</span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">         313 :     std::memset(output, 0, num_samples * sizeof(float));</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        1342 :     for (const auto&amp; step : execution_plan_) {</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">        1029 :         if (step.is_sink) {</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         314 :             const float* sink_buf = buffer_pool_[step.buffer_index].data();</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">       39738 :             for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">       39424 :                 output[i] += sink_buf[i];</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">         314 :     std::memset(output, 0, num_samples * sizeof(float));</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        1348 :     for (const auto&amp; step : execution_plan_) {</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">        1034 :         if (step.is_sink) {</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         315 :             const float* sink_buf = buffer_pool_[step.buffer_index].data();</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">       39803 :             for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">       39488 :                 output[i] += sink_buf[i];</span></span>
 <span id="L170"><span class="lineNum">     170</span>              :             }</span>
 <span id="L171"><span class="lineNum">     171</span>              :         }</span>
 <span id="L172"><span class="lineNum">     172</span>              :     }</span>
 <span id="L173"><span class="lineNum">     173</span>              : }</span>
 <span id="L174"><span class="lineNum">     174</span>              : </span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaUNC tlaBgUNC">           0 : void AudioGraphExecutor::update_mixer_gain(int node_id, int pin_index, float gain) {</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :     for (auto&amp; step : execution_plan_) {</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :         if (step.node_id == node_id) {</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 :             for (auto&amp; src : step.input_sources) {</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :                 if (src.pin_index == pin_index) {</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :                     src.gain = gain;</span></span>
-<span id="L181"><span class="lineNum">     181</span>              :                 }</span>
-<span id="L182"><span class="lineNum">     182</span>              :             }</span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaUNC">           0 :             break;</span></span>
-<span id="L184"><span class="lineNum">     184</span>              :         }</span>
-<span id="L185"><span class="lineNum">     185</span>              :     }</span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 : }</span></span>
-<span id="L187"><span class="lineNum">     187</span>              : </span>
-<span id="L188"><span class="lineNum">     188</span>              : } // namespace Amplitron</span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           1 : void AudioGraphExecutor::update_mixer_gain(int node_id, int pin_index, float gain) {</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           5 :     for (auto&amp; step : execution_plan_) {</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">           5 :         if (step.node_id == node_id &amp;&amp; (step.type == NodeRoutingType::Mixer || step.type == NodeRoutingType::MergeSum)) {</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           1 :             for (auto&amp; src : step.input_sources) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           1 :                 if (src.pin_index == pin_index) {</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           1 :                     src.gain = std::clamp(gain, 0.0f, 2.0f);</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           1 :                     break;</span></span>
+<span id="L182"><span class="lineNum">     182</span>              :                 }</span>
+<span id="L183"><span class="lineNum">     183</span>              :             }</span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           1 :             break;</span></span>
+<span id="L185"><span class="lineNum">     185</span>              :         }</span>
+<span id="L186"><span class="lineNum">     186</span>              :     }</span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L188"><span class="lineNum">     188</span>              : </span>
+<span id="L189"><span class="lineNum">     189</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
