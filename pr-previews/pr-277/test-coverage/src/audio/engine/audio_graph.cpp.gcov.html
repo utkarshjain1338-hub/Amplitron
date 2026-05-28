@@ -31,17 +31,17 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">96.2&nbsp;%</td>
-            <td class="headerCovTableEntry">235</td>
-            <td class="headerCovTableEntry">226</td>
+            <td class="headerCovTableEntryHi">90.6&nbsp;%</td>
+            <td class="headerCovTableEntry">254</td>
+            <td class="headerCovTableEntry">230</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 16:35:04</td>
+            <td class="headerValue">2026-05-28 18:07:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntryHi">95.5&nbsp;%</td>
+            <td class="headerCovTableEntry">22</td>
             <td class="headerCovTableEntry">21</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -185,15 +185,15 @@
 <span id="L123"><span class="lineNum">     123</span>              :   }</span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">         432 : }</span></span>
 <span id="L125"><span class="lineNum">     125</span>              : </span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">       15378 : int AudioGraph::get_node_from_pin(int pin_id) const {</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">       15384 : int AudioGraph::get_node_from_pin(int pin_id) const {</span></span>
 <span id="L127"><span class="lineNum">     127</span>              :   // Search through all nodes to find which one owns the given Pin ID</span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">       45366 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">       80311 :     for (int p : node.input_pin_ids) {</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">       46150 :       if (p == pin_id)</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">       11203 :         return node.id;</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">       45376 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">       80325 :     for (int p : node.input_pin_ids) {</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">       46160 :       if (p == pin_id)</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">       11209 :         return node.id;</span></span>
 <span id="L132"><span class="lineNum">     132</span>              :     }</span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">       73888 :     for (int p : node.output_pin_ids) {</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">       43900 :       if (p == pin_id)</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">       73900 :     for (int p : node.output_pin_ids) {</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">       43908 :       if (p == pin_id)</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">        4173 :         return node.id;</span></span>
 <span id="L136"><span class="lineNum">     136</span>              :     }</span>
 <span id="L137"><span class="lineNum">     137</span>              :   }</span>
@@ -375,10 +375,10 @@
 <span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">           3 :   return false;</span></span>
 <span id="L314"><span class="lineNum">     314</span>              : }</span>
 <span id="L315"><span class="lineNum">     315</span>              : </span>
-<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">        1236 : const DSPNode *AudioGraph::find_node(int node_id) const {</span></span>
-<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">        2425 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">        2401 :     if (node.id == node_id)</span></span>
-<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">        1212 :       return &amp;node;</span></span>
+<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">        1242 : const DSPNode *AudioGraph::find_node(int node_id) const {</span></span>
+<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">        2435 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">        2411 :     if (node.id == node_id)</span></span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">        1218 :       return &amp;node;</span></span>
 <span id="L320"><span class="lineNum">     320</span>              :   }</span>
 <span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          24 :   return nullptr;</span></span>
 <span id="L322"><span class="lineNum">     322</span>              : }</span>
@@ -420,39 +420,68 @@
 <span id="L358"><span class="lineNum">     358</span> <span class="tlaUNC">           0 :   return false;</span></span>
 <span id="L359"><span class="lineNum">     359</span>              : }</span>
 <span id="L360"><span class="lineNum">     360</span>              : </span>
-<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC tlaBgGNC">           1 : bool AudioGraph::remove_input_pin(int node_id) {</span></span>
+<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC tlaBgGNC">           1 : bool AudioGraph::remove_input_pin(int node_id, int pin_id) {</span></span>
 <span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">           1 :   for (auto &amp;node : nodes_) {</span></span>
-<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">           1 :     if (node.id == node_id &amp;&amp; node.routing_type == NodeRoutingType::Mixer) {</span></span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">           1 :     if (node.id == node_id &amp;&amp; (node.routing_type == NodeRoutingType::Mixer || node.routing_type == NodeRoutingType::MergeSum)) {</span></span>
 <span id="L364"><span class="lineNum">     364</span> <span class="tlaGNC">           1 :       if (node.input_pin_ids.size() &gt; 2) {</span></span>
-<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">           1 :         int pin_to_remove = node.input_pin_ids.back();</span></span>
-<span id="L366"><span class="lineNum">     366</span>              :         // Prevent removal if the pin is linked</span>
-<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           1 :         for (const auto &amp;link : links_) {</span></span>
-<span id="L368"><span class="lineNum">     368</span> <span class="tlaUNC tlaBgUNC">           0 :           if (link.dest_pin_id == pin_to_remove) {</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC">           0 :             return false;</span></span>
-<span id="L370"><span class="lineNum">     370</span>              :           }</span>
-<span id="L371"><span class="lineNum">     371</span>              :         }</span>
-<span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC tlaBgGNC">           1 :         node.input_pin_ids.pop_back();</span></span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           1 :         node.input_gains.pop_back();</span></span>
-<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">           1 :         return true;</span></span>
-<span id="L375"><span class="lineNum">     375</span>              :       }</span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaUNC tlaBgUNC">           0 :       return false;</span></span>
-<span id="L377"><span class="lineNum">     377</span>              :     }</span>
-<span id="L378"><span class="lineNum">     378</span>              :   }</span>
-<span id="L379"><span class="lineNum">     379</span> <span class="tlaUNC">           0 :   return false;</span></span>
-<span id="L380"><span class="lineNum">     380</span>              : }</span>
-<span id="L381"><span class="lineNum">     381</span>              : </span>
-<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC tlaBgGNC">           3 : void AudioGraph::set_mixer_input_gain(int node_id, size_t pin_index, float gain) {</span></span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">           6 :   for (auto &amp;node : nodes_) {</span></span>
-<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">           6 :     if (node.id == node_id &amp;&amp; node.routing_type == NodeRoutingType::Mixer) {</span></span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           3 :       if (pin_index &lt; node.input_gains.size()) {</span></span>
-<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">           3 :         node.input_gains[pin_index] = std::clamp(gain, 0.0f, 2.0f);</span></span>
-<span id="L387"><span class="lineNum">     387</span>              :       }</span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">           3 :       break;</span></span>
-<span id="L389"><span class="lineNum">     389</span>              :     }</span>
-<span id="L390"><span class="lineNum">     390</span>              :   }</span>
-<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">           3 : }</span></span>
-<span id="L392"><span class="lineNum">     392</span>              : </span>
-<span id="L393"><span class="lineNum">     393</span>              : } // namespace Amplitron</span>
+<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">           1 :         int index_to_remove = -1;</span></span>
+<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">           1 :         if (pin_id == -1) {</span></span>
+<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           1 :            index_to_remove = node.input_pin_ids.size() - 1;</span></span>
+<span id="L368"><span class="lineNum">     368</span>              :         } else {</span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC tlaBgUNC">           0 :            for (size_t i = 0; i &lt; node.input_pin_ids.size(); ++i) {</span></span>
+<span id="L370"><span class="lineNum">     370</span> <span class="tlaUNC">           0 :                if (node.input_pin_ids[i] == pin_id) {</span></span>
+<span id="L371"><span class="lineNum">     371</span> <span class="tlaUNC">           0 :                    index_to_remove = i;</span></span>
+<span id="L372"><span class="lineNum">     372</span> <span class="tlaUNC">           0 :                    break;</span></span>
+<span id="L373"><span class="lineNum">     373</span>              :                }</span>
+<span id="L374"><span class="lineNum">     374</span>              :            }</span>
+<span id="L375"><span class="lineNum">     375</span>              :         }</span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC tlaBgGNC">           1 :         if (index_to_remove != -1) {</span></span>
+<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           1 :             int pin_to_remove = node.input_pin_ids[index_to_remove];</span></span>
+<span id="L378"><span class="lineNum">     378</span>              :             // Prevent removal if the pin is linked</span>
+<span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">           1 :             for (const auto &amp;link : links_) {</span></span>
+<span id="L380"><span class="lineNum">     380</span> <span class="tlaUNC tlaBgUNC">           0 :               if (link.dest_pin_id == pin_to_remove) {</span></span>
+<span id="L381"><span class="lineNum">     381</span> <span class="tlaUNC">           0 :                 return false;</span></span>
+<span id="L382"><span class="lineNum">     382</span>              :               }</span>
+<span id="L383"><span class="lineNum">     383</span>              :             }</span>
+<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC tlaBgGNC">           1 :             node.input_pin_ids.erase(node.input_pin_ids.begin() + index_to_remove);</span></span>
+<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           1 :             node.input_gains.erase(node.input_gains.begin() + index_to_remove);</span></span>
+<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">           1 :             return true;</span></span>
+<span id="L387"><span class="lineNum">     387</span>              :         }</span>
+<span id="L388"><span class="lineNum">     388</span>              :       }</span>
+<span id="L389"><span class="lineNum">     389</span> <span class="tlaUNC tlaBgUNC">           0 :       return false;</span></span>
+<span id="L390"><span class="lineNum">     390</span>              :     }</span>
+<span id="L391"><span class="lineNum">     391</span>              :   }</span>
+<span id="L392"><span class="lineNum">     392</span> <span class="tlaUNC">           0 :   return false;</span></span>
+<span id="L393"><span class="lineNum">     393</span>              : }</span>
+<span id="L394"><span class="lineNum">     394</span>              : </span>
+<span id="L395"><span class="lineNum">     395</span> <span class="tlaUNC">           0 : void AudioGraph::restore_input_pin(int node_id, int pin_id, int index, float gain) {</span></span>
+<span id="L396"><span class="lineNum">     396</span> <span class="tlaUNC">           0 :   for (auto &amp;node : nodes_) {</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaUNC">           0 :     if (node.id == node_id) {</span></span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaUNC">           0 :         if (index &gt;= 0 &amp;&amp; index &lt;= node.input_pin_ids.size()) {</span></span>
+<span id="L399"><span class="lineNum">     399</span> <span class="tlaUNC">           0 :             node.input_pin_ids.insert(node.input_pin_ids.begin() + index, pin_id);</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaUNC">           0 :             node.input_gains.insert(node.input_gains.begin() + index, gain);</span></span>
+<span id="L401"><span class="lineNum">     401</span>              :         } else {</span>
+<span id="L402"><span class="lineNum">     402</span> <span class="tlaUNC">           0 :             node.input_pin_ids.push_back(pin_id);</span></span>
+<span id="L403"><span class="lineNum">     403</span> <span class="tlaUNC">           0 :             node.input_gains.push_back(gain);</span></span>
+<span id="L404"><span class="lineNum">     404</span>              :         }</span>
+<span id="L405"><span class="lineNum">     405</span> <span class="tlaUNC">           0 :         if (pin_id &gt;= next_id_) next_id_ = pin_id + 1;</span></span>
+<span id="L406"><span class="lineNum">     406</span> <span class="tlaUNC">           0 :         break;</span></span>
+<span id="L407"><span class="lineNum">     407</span>              :     }</span>
+<span id="L408"><span class="lineNum">     408</span>              :   }</span>
+<span id="L409"><span class="lineNum">     409</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L410"><span class="lineNum">     410</span>              : </span>
+<span id="L411"><span class="lineNum">     411</span> <span class="tlaGNC tlaBgGNC">           3 : void AudioGraph::set_mixer_input_gain(int node_id, size_t pin_index, float gain) {</span></span>
+<span id="L412"><span class="lineNum">     412</span> <span class="tlaGNC">           6 :   for (auto &amp;node : nodes_) {</span></span>
+<span id="L413"><span class="lineNum">     413</span> <span class="tlaGNC">           6 :     if (node.id == node_id &amp;&amp; node.routing_type == NodeRoutingType::Mixer) {</span></span>
+<span id="L414"><span class="lineNum">     414</span> <span class="tlaGNC">           3 :       if (pin_index &lt; node.input_gains.size()) {</span></span>
+<span id="L415"><span class="lineNum">     415</span> <span class="tlaGNC">           3 :         node.input_gains[pin_index] = std::clamp(gain, 0.0f, 2.0f);</span></span>
+<span id="L416"><span class="lineNum">     416</span>              :       }</span>
+<span id="L417"><span class="lineNum">     417</span> <span class="tlaGNC">           3 :       break;</span></span>
+<span id="L418"><span class="lineNum">     418</span>              :     }</span>
+<span id="L419"><span class="lineNum">     419</span>              :   }</span>
+<span id="L420"><span class="lineNum">     420</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L421"><span class="lineNum">     421</span>              : </span>
+<span id="L422"><span class="lineNum">     422</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
