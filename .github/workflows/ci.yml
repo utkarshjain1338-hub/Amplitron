@@ -230,15 +230,15 @@ jobs:
           printf '#!/bin/bash\nexec xcrun llvm-cov gcov "$@"\n' > /tmp/llvm-gcov.sh
           chmod +x /tmp/llvm-gcov.sh
           lcov --capture --initial --directory build --output-file coverage_base.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent
+            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent,format
           lcov --capture --directory build --output-file coverage_test.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent
+            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent,format
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
             --output-file coverage.info
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '*/external/*' '*/tests/*' '*/build/*' \
             --output-file coverage.filtered.info \
-            --ignore-errors unused,inconsistent
+            --ignore-errors unused,inconsistent,format
           # Normalize paths for cross-platform merging
           sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
           lcov --summary coverage.filtered.info | tee coverage-summary-macos.txt
@@ -828,15 +828,15 @@ jobs:
             PLATFORMS="$PLATFORMS + Windows"
           fi
 
-          $MERGE_CMD --output-file merged.info --ignore-errors unused
+          $MERGE_CMD --output-file merged.info --ignore-errors unused,inconsistent,format
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
-          genhtml merged.info --output-directory coverage-report
-          lcov --summary merged.info | tee merged-summary.txt
+          genhtml merged.info --output-directory coverage-report --ignore-errors inconsistent,format
+          lcov --summary merged.info --ignore-errors inconsistent,format | tee merged-summary.txt
 
       - name: Generate Merged Coverage Comment
         run: |
-          COVERAGE=$(lcov --summary merged.info 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
+          COVERAGE=$(lcov --summary merged.info --ignore-errors inconsistent,format 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
           echo "Merged line coverage: $COVERAGE%"
 
           THRESHOLD=60
