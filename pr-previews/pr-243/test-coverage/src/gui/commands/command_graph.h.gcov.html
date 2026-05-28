@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.filtered.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">94.2&nbsp;%</td>
-            <td class="headerCovTableEntry">86</td>
-            <td class="headerCovTableEntry">81</td>
+            <td class="headerCovTableEntryHi">90.6&nbsp;%</td>
+            <td class="headerCovTableEntry">96</td>
+            <td class="headerCovTableEntry">87</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 05:40:22</td>
+            <td class="headerValue">2026-05-28 05:46:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -125,9 +125,9 @@
 <span id="L63"><span class="lineNum">      63</span>              : </span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           2 :         auto* node_to_remove = engine_.graph().find_node(node_id);</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           2 :         if (node_to_remove) {</span></span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           2 :             cached_node = *node_to_remove;</span></span>
-<span id="L68"><span class="lineNum">      68</span>              :         }</span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           2 :         if (!node_to_remove) return false;</span></span>
+<span id="L67"><span class="lineNum">      67</span>              :         </span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           2 :         cached_node = *node_to_remove;</span></span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
 <span id="L70"><span class="lineNum">      70</span>              :         // Cache severed links before removal</span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           2 :         severed_links.clear();</span></span>
@@ -171,75 +171,91 @@
 <span id="L109"><span class="lineNum">     109</span>              : </span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           2 :         if (link.id == -1) {</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">           1 :             link.id = engine_.graph().add_link(link.source_pin_id, link.dest_pin_id);</span></span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           1 :             was_successful = (link.id != -1);</span></span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           1 :         } else if (was_successful) {</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           1 :             engine_.graph().restore_link(link);</span></span>
-<span id="L116"><span class="lineNum">     116</span>              :         }</span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">           2 :         if (was_successful) {</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">           2 :             engine_.commit_graph_changes();</span></span>
-<span id="L119"><span class="lineNum">     119</span>              :         }</span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">           2 :         return was_successful;</span></span>
-<span id="L121"><span class="lineNum">     121</span>              :     }</span>
-<span id="L122"><span class="lineNum">     122</span>              : </span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           1 :         if (was_successful) {</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           1 :             engine_.graph().remove_link(link.id);</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           1 :             engine_.commit_graph_changes();</span></span>
-<span id="L127"><span class="lineNum">     127</span>              :         }</span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">           1 :     }</span></span>
-<span id="L129"><span class="lineNum">     129</span>              : </span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Add Link&quot;; }</span></span>
-<span id="L131"><span class="lineNum">     131</span>              : };</span>
-<span id="L132"><span class="lineNum">     132</span>              : </span>
-<span id="L133"><span class="lineNum">     133</span>              : struct RemoveGraphLinkCommand : public Command {</span>
-<span id="L134"><span class="lineNum">     134</span>              :     AudioEngine&amp; engine_;</span>
-<span id="L135"><span class="lineNum">     135</span>              :     GraphLink link;</span>
-<span id="L136"><span class="lineNum">     136</span>              : </span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC tlaBgGNC">           1 :     RemoveGraphLinkCommand(AudioEngine&amp; engine, const GraphLink&amp; l)</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           1 :         : engine_(engine), link(l) {}</span></span>
-<span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           2 :         engine_.graph().remove_link(link.id);</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           2 :         engine_.commit_graph_changes();</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           2 :         return true;</span></span>
-<span id="L144"><span class="lineNum">     144</span>              :     }</span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">           1 :             bool already_exists = false;</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           1 :             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC tlaBgUNC">           0 :                 if (l.source_pin_id == link.source_pin_id &amp;&amp; l.dest_pin_id == link.dest_pin_id) {</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaUNC">           0 :                     already_exists = true;</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaUNC">           0 :                     break;</span></span>
+<span id="L117"><span class="lineNum">     117</span>              :                 }</span>
+<span id="L118"><span class="lineNum">     118</span>              :             }</span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC tlaBgGNC">           1 :             if (already_exists) return false;</span></span>
+<span id="L120"><span class="lineNum">     120</span>              : </span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           1 :             link.id = engine_.graph().add_link(link.source_pin_id, link.dest_pin_id);</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           1 :             was_successful = (link.id != -1);</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           1 :         } else if (was_successful) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           1 :             engine_.graph().restore_link(link);</span></span>
+<span id="L125"><span class="lineNum">     125</span>              :         }</span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           2 :         if (was_successful) {</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           2 :             engine_.commit_graph_changes();</span></span>
+<span id="L128"><span class="lineNum">     128</span>              :         }</span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           2 :         return was_successful;</span></span>
+<span id="L130"><span class="lineNum">     130</span>              :     }</span>
+<span id="L131"><span class="lineNum">     131</span>              : </span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           1 :         if (was_successful) {</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           1 :             engine_.graph().remove_link(link.id);</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           1 :             engine_.commit_graph_changes();</span></span>
+<span id="L136"><span class="lineNum">     136</span>              :         }</span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L138"><span class="lineNum">     138</span>              : </span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Add Link&quot;; }</span></span>
+<span id="L140"><span class="lineNum">     140</span>              : };</span>
+<span id="L141"><span class="lineNum">     141</span>              : </span>
+<span id="L142"><span class="lineNum">     142</span>              : struct RemoveGraphLinkCommand : public Command {</span>
+<span id="L143"><span class="lineNum">     143</span>              :     AudioEngine&amp; engine_;</span>
+<span id="L144"><span class="lineNum">     144</span>              :     GraphLink link;</span>
 <span id="L145"><span class="lineNum">     145</span>              : </span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           1 :         engine_.graph().restore_link(link);</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           1 :         engine_.commit_graph_changes();</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           1 :     }</span></span>
-<span id="L150"><span class="lineNum">     150</span>              : </span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Remove Link&quot;; }</span></span>
-<span id="L152"><span class="lineNum">     152</span>              : };</span>
-<span id="L153"><span class="lineNum">     153</span>              : </span>
-<span id="L154"><span class="lineNum">     154</span>              : struct MoveGraphNodeCommand : public Command {</span>
-<span id="L155"><span class="lineNum">     155</span>              :     NodeId node_id;</span>
-<span id="L156"><span class="lineNum">     156</span>              :     ImVec2 old_pos;</span>
-<span id="L157"><span class="lineNum">     157</span>              :     ImVec2 new_pos;</span>
-<span id="L158"><span class="lineNum">     158</span>              : </span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC tlaBgGNC">           1 :     MoveGraphNodeCommand(NodeId id, ImVec2 old_pos, ImVec2 new_pos)</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :         : node_id(id), old_pos(old_pos), new_pos(new_pos) {}</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC tlaBgGNC">           1 :     RemoveGraphLinkCommand(AudioEngine&amp; engine, const GraphLink&amp; l)</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           1 :         : engine_(engine), link(l) {}</span></span>
+<span id="L148"><span class="lineNum">     148</span>              : </span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           2 :         bool success = engine_.graph().remove_link(link.id);</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           2 :         if (success) {</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           2 :             engine_.commit_graph_changes();</span></span>
+<span id="L153"><span class="lineNum">     153</span>              :         }</span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           2 :         return success;</span></span>
+<span id="L155"><span class="lineNum">     155</span>              :     }</span>
+<span id="L156"><span class="lineNum">     156</span>              : </span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           1 :         engine_.graph().restore_link(link);</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           1 :         engine_.commit_graph_changes();</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L161"><span class="lineNum">     161</span>              : </span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           2 :         auto&amp; positions = GuiGraphState::get_instance().node_positions;</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           2 :         if (positions.count(node_id)) {</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           2 :             positions[node_id].position = new_pos;</span></span>
-<span id="L166"><span class="lineNum">     166</span>              :         }</span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           2 :         return true;</span></span>
-<span id="L168"><span class="lineNum">     168</span>              :     }</span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Remove Link&quot;; }</span></span>
+<span id="L163"><span class="lineNum">     163</span>              : };</span>
+<span id="L164"><span class="lineNum">     164</span>              : </span>
+<span id="L165"><span class="lineNum">     165</span>              : struct MoveGraphNodeCommand : public Command {</span>
+<span id="L166"><span class="lineNum">     166</span>              :     NodeId node_id;</span>
+<span id="L167"><span class="lineNum">     167</span>              :     ImVec2 old_pos;</span>
+<span id="L168"><span class="lineNum">     168</span>              :     ImVec2 new_pos;</span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           1 :         auto&amp; positions = GuiGraphState::get_instance().node_positions;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           1 :         if (positions.count(node_id)) {</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           1 :             positions[node_id].position = old_pos;</span></span>
-<span id="L174"><span class="lineNum">     174</span>              :         }</span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           1 :     }</span></span>
-<span id="L176"><span class="lineNum">     176</span>              : </span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Move Node&quot;; }</span></span>
-<span id="L178"><span class="lineNum">     178</span>              : };</span>
-<span id="L179"><span class="lineNum">     179</span>              : </span>
-<span id="L180"><span class="lineNum">     180</span>              : } // namespace Amplitron</span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC tlaBgGNC">           1 :     MoveGraphNodeCommand(NodeId id, ImVec2 old_pos, ImVec2 new_pos)</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           1 :         : node_id(id), old_pos(old_pos), new_pos(new_pos) {}</span></span>
+<span id="L172"><span class="lineNum">     172</span>              : </span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           2 :     bool execute() override {</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           2 :         auto&amp; positions = GuiGraphState::get_instance().node_positions;</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           2 :         auto it = positions.find(node_id);</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           2 :         if (it == positions.end()) return false;</span></span>
+<span id="L177"><span class="lineNum">     177</span>              :         </span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           2 :         if (it-&gt;second.position.x == new_pos.x &amp;&amp; it-&gt;second.position.y == new_pos.y) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC tlaBgUNC">           0 :             return false;</span></span>
+<span id="L180"><span class="lineNum">     180</span>              :         }</span>
+<span id="L181"><span class="lineNum">     181</span>              :         </span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC tlaBgGNC">           2 :         it-&gt;second.position = new_pos;</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           2 :         return true;</span></span>
+<span id="L184"><span class="lineNum">     184</span>              :     }</span>
+<span id="L185"><span class="lineNum">     185</span>              : </span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           1 :     void undo() override {</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           1 :         auto&amp; positions = GuiGraphState::get_instance().node_positions;</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           1 :         if (positions.count(node_id)) {</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           1 :             positions[node_id].position = old_pos;</span></span>
+<span id="L190"><span class="lineNum">     190</span>              :         }</span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L192"><span class="lineNum">     192</span>              : </span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Move Node&quot;; }</span></span>
+<span id="L194"><span class="lineNum">     194</span>              : };</span>
+<span id="L195"><span class="lineNum">     195</span>              : </span>
+<span id="L196"><span class="lineNum">     196</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
