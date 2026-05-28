@@ -13,6 +13,7 @@ namespace Amplitron
 #endif
 
 #if defined(AMPLITRON_TESTS) && defined(WITH_JACK) && defined(__unix__) && !defined(__APPLE__)
+using namespace Amplitron;
 TEST(AudioBackend_Jack_DoesNotStartWithoutBackend)
 {
     // Reset flags
