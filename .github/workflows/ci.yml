@@ -115,16 +115,16 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends lcov
 
-      - name: Download Build Artifact
+      - name: Download Build Artifact for Coverage
         uses: actions/download-artifact@v8
         with:
           name: build-coverage
           path: .
 
-      - name: Extract Build Data
+      - name: Extract Build Data for Coverage
         run: tar -xzf build-coverage.tar.gz
 
-      - name: Generate Coverage Report
+      - name: Generate Linux Coverage
         run: |
           lcov --capture --initial --directory build --output-file coverage_base.info --ignore-errors mismatch,gcov,source
           lcov --capture --directory build --output-file coverage_test.info --ignore-errors mismatch,gcov,source
@@ -140,13 +140,13 @@ jobs:
           # Normalize paths to relative src/ paths for cross-platform merging
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
 
-      - name: Quick Coverage Summary
+      - name: Quick Linux Coverage Summary
         run: |
           COVERAGE=$(lcov --summary coverage.filtered.info 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
           echo "Linux line coverage: $COVERAGE%"
           echo "### Linux Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
 
-      - name: Upload Linux Coverage Info
+      - name: Upload Linux Coverage
         uses: actions/upload-artifact@v7
         with:
           name: linux-coverage
@@ -230,15 +230,15 @@ jobs:
           printf '#!/bin/bash\nexec xcrun llvm-cov gcov "$@"\n' > /tmp/llvm-gcov.sh
           chmod +x /tmp/llvm-gcov.sh
           lcov --capture --initial --directory build --output-file coverage_base.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source
+            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent
           lcov --capture --directory build --output-file coverage_test.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source
+            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,gcov,source,inconsistent
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
             --output-file coverage.info
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '*/external/*' '*/tests/*' '*/build/*' \
             --output-file coverage.filtered.info \
-            --ignore-errors unused
+            --ignore-errors unused,inconsistent
           # Normalize paths for cross-platform merging
           sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
           lcov --summary coverage.filtered.info | tee coverage-summary-macos.txt
@@ -831,7 +831,7 @@ jobs:
           $MERGE_CMD --output-file merged.info --ignore-errors unused
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
-          genhtml merged.info --output-directory coverage-report-merged
+          genhtml merged.info --output-directory coverage-report
           lcov --summary merged.info | tee merged-summary.txt
 
       - name: Generate Merged Coverage Comment
@@ -879,8 +879,8 @@ jobs:
       - name: Upload Merged Coverage HTML Report
         uses: actions/upload-artifact@v7
         with:
-          name: coverage-report-merged
-          path: coverage-report-merged/
+          name: coverage-report
+          path: coverage-report/
           retention-days: 7
 
       - name: Upload Merged Coverage Info
