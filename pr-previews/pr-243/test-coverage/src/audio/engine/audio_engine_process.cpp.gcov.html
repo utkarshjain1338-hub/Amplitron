@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 05:46:32</td>
+            <td class="headerValue">2026-05-28 07:47:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -204,7 +204,7 @@
 <span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">        1144 :     float out_gain = output_gain_.load(std::memory_order_relaxed);</span></span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">        1144 :     float peak_out = 0.0f;</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">        1144 :     constexpr float kTwoPi = 6.28318530718f;</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">       76280 :     auto next_metronome_sample = [this, kTwoPi]() -&gt; float {</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">       75136 :     auto next_metronome_sample = [this]() -&gt; float {</span></span>
 <span id="L146"><span class="lineNum">     146</span>              :         </span>
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">       75136 :         metronome_bpm_smoothed_ += metronome_bpm_smooth_alpha_ * (metronome_bpm_ - metronome_bpm_smoothed_);</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">       75136 :         metronome_volume_smoothed_ += metronome_volume_smooth_alpha_ * (metronome_volume_ - metronome_volume_smoothed_);</span></span>
