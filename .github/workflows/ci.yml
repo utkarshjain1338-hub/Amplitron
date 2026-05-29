@@ -91,14 +91,12 @@ jobs:
           lcov --capture --directory build --output-file coverage_test.info $LCOV_IGNORE
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
             --output-file coverage.info $LCOV_IGNORE
-          lcov --remove coverage.info \
-            '/usr/*' \
-            '*/external/*' \
-            '*/tests/*' \
-            '*/build/*' \
+          # Normalize paths for cross-platform merging before extracting
+          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
+          # Extract only our actual source files under src/
+          lcov --extract coverage.info \
+            'src/*' '*/src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
-          # Normalize paths for cross-platform merging
-          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary.txt
 
       - name: Quick Linux Coverage Summary
@@ -204,11 +202,12 @@ jobs:
           # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
           lcov --capture --directory build --output-file coverage.info \
             --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
-          lcov --remove coverage.info \
-            '/usr/*' '/Library/*' '*/external/*' '*/tests/*' '*/build/*' \
+          # Normalize paths for cross-platform merging before extracting
+          sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.info
+          # Extract only our actual source files under src/
+          lcov --extract coverage.info \
+            'src/*' '*/src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
-          # Normalize paths for cross-platform merging
-          sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-macos.txt
 
       - name: Upload macOS Coverage
@@ -517,8 +516,9 @@ jobs:
           # This prevents the '*/build/*' pattern from matching and removing all source files due to MSYS2 path prepending.
           sed -i 's|\\|/|g' coverage.info
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
-          lcov --remove coverage.info \
-            '/usr/*' '*/mingw64/*' '*/_temp/*' '*/include/*' '*/external/*' '*/tests/*' '*/build/*' \
+          # Extract only our actual source files under src/
+          lcov --extract coverage.info \
+            'src/*' '*/src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE 2>&1 | tail -5
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-windows.txt
 
@@ -805,7 +805,7 @@ jobs:
           $MERGE_CMD --output-file merged.info $LCOV_IGNORE
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
-          genhtml merged.info --output-directory coverage-report $GENHTML_IGNORE
+          genhtml merged.info --output-directory coverage-report $GENHTML_IGNORE --synthesize-missing
           lcov --summary merged.info $LCOV_IGNORE | tee merged-summary.txt
 
       - name: Generate Merged Coverage Comment
