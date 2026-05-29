@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 09:44:15</td>
+            <td class="headerValue">2026-05-29 10:55:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -103,8 +103,8 @@
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              : class AudioGraph {</span>
 <span id="L43"><span class="lineNum">      43</span>              : public:</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">        3711 :   AudioGraph() = default;</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        2966 :   ~AudioGraph() = default;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">        3836 :   AudioGraph() = default;</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        3066 :   ~AudioGraph() = default;</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              :   // Graph Construction Interface</span>
 <span id="L48"><span class="lineNum">      48</span>              :   int add_node(const std::string &amp;name, NodeRoutingType type,</span>
@@ -135,7 +135,7 @@
 <span id="L73"><span class="lineNum">      73</span>              : private:</span>
 <span id="L74"><span class="lineNum">      74</span>              :   size_t get_node_index(int node_id) const;</span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         745 :   int next_id_ = 1;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         770 :   int next_id_ = 1;</span></span>
 <span id="L77"><span class="lineNum">      77</span>              :   std::vector&lt;DSPNode&gt; nodes_;</span>
 <span id="L78"><span class="lineNum">      78</span>              :   std::vector&lt;GraphLink&gt; links_;</span>
 <span id="L79"><span class="lineNum">      79</span>              :   std::vector&lt;int&gt; sorted_node_ids_;</span>

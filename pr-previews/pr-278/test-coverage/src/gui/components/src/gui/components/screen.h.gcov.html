@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 09:44:15</td>
+            <td class="headerValue">2026-05-29 10:55:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -80,12 +80,12 @@
 <span id="L18"><span class="lineNum">      18</span>              :     MultiBandCompressor</span>
 <span id="L19"><span class="lineNum">      19</span>              : };</span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">           6 : struct ScreenProps {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">          23 : struct ScreenProps {</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :     ScreenType type;</span>
 <span id="L23"><span class="lineNum">      23</span>              :     std::shared_ptr&lt;Effect&gt; effect;</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           6 :     int index = 0;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           6 :     AudioEngine* engine = nullptr;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           6 :     GuiMidi* gui_midi = nullptr;</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          23 :     int index = 0;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          23 :     AudioEngine* engine = nullptr;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          23 :     GuiMidi* gui_midi = nullptr;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     // Callback events for undo-able parameter changes</span>
 <span id="L29"><span class="lineNum">      29</span>              :     std::function&lt;void(int, float, float)&gt; on_commit_param_change; // param_index, old_val, new_val</span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 09:44:15</td>
+            <td class="headerValue">2026-05-29 10:55:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -70,9 +70,9 @@
 <span id="L8"><span class="lineNum">       8</span>              :  * Transposed Direct Form II biquad filter.</span>
 <span id="L9"><span class="lineNum">       9</span>              :  * Used by Equalizer, AmpSimulator, and CabinetSim.</span>
 <span id="L10"><span class="lineNum">      10</span>              :  */</span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">         343 : struct Biquad {</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         343 :     float x1 = 0, x2 = 0, y1 = 0, y2 = 0;</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         343 :     float b0 = 1, b1 = 0, b2 = 0, a1 = 0, a2 = 0;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">         387 : struct Biquad {</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         387 :     float x1 = 0, x2 = 0, y1 = 0, y2 = 0;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         387 :     float b0 = 1, b1 = 0, b2 = 0, a1 = 0, a2 = 0;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">     4979784 :     float process(float x) {</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">     4979784 :         float y = b0 * x + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;</span></span>

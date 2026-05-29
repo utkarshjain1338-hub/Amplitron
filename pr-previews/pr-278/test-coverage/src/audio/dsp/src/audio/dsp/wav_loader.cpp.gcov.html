@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 09:44:15</td>
+            <td class="headerValue">2026-05-29 10:55:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -97,25 +97,25 @@
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          15 :     return output;</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          20 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          87 : WavData load_wav_file(const std::string&amp; filepath,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          93 : WavData load_wav_file(const std::string&amp; filepath,</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                       int target_sample_rate,</span>
 <span id="L40"><span class="lineNum">      40</span>              :                       int max_length_samples) {</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          87 :     WavData result;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          93 :     WavData result;</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span>              :     drwav wav;</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          87 :     if (!drwav_init_file(&amp;wav, filepath.c_str(), nullptr)) {</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          93 :     if (!drwav_init_file(&amp;wav, filepath.c_str(), nullptr)) {</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           9 :         std::cerr &lt;&lt; &quot;Cabinet IR: failed to open WAV file: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           9 :         return result;</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :     }</span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          78 :     result.sample_rate = static_cast&lt;int&gt;(wav.sampleRate);</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          78 :     result.channels = static_cast&lt;int&gt;(wav.channels);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          84 :     result.sample_rate = static_cast&lt;int&gt;(wav.sampleRate);</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          84 :     result.channels = static_cast&lt;int&gt;(wav.channels);</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          78 :     drwav_uint64 total_frames = wav.totalPCMFrameCount;</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          78 :     if (total_frames == 0) {</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          12 :         std::cerr &lt;&lt; &quot;Cabinet IR: WAV file is empty: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          12 :         drwav_uninit(&amp;wav);</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          12 :         return result;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          84 :     drwav_uint64 total_frames = wav.totalPCMFrameCount;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          84 :     if (total_frames == 0) {</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          18 :         std::cerr &lt;&lt; &quot;Cabinet IR: WAV file is empty: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          18 :         drwav_uninit(&amp;wav);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          18 :         return result;</span></span>
 <span id="L57"><span class="lineNum">      57</span>              :     }</span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     // Bound frame count to max_length_samples before allocation</span>
@@ -168,7 +168,7 @@
 <span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L107"><span class="lineNum">     107</span>              : </span>
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          66 :     return result;</span></span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          73 : }</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">          75 : }</span></span>
 <span id="L110"><span class="lineNum">     110</span>              : </span>
 <span id="L111"><span class="lineNum">     111</span>              : } // namespace Amplitron</span>
         </pre>

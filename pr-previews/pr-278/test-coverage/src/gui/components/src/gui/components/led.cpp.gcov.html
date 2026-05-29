@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 09:44:15</td>
+            <td class="headerValue">2026-05-29 10:55:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -65,16 +65,16 @@
 <span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : namespace Amplitron {</span>
 <span id="L5"><span class="lineNum">       5</span>              : </span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         144 : void LedComponent::render(const char* imgui_id, const LedProps&amp; props, float zoom, ImVec2 center) {</span></span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         144 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         150 : void LedComponent::render(const char* imgui_id, const LedProps&amp; props, float zoom, ImVec2 center) {</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         150 :     ImDrawList* dl = ImGui::GetWindowDrawList();</span></span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         144 :     float radius = 6.0f * zoom;</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         144 :     float glow_radius = 10.0f * zoom;</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         150 :     float radius = 6.0f * zoom;</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         150 :     float glow_radius = 10.0f * zoom;</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         144 :     ImU32 base_color = Theme::LED_OFF;</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         144 :     bool is_on = props.enabled;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         150 :     ImU32 base_color = Theme::LED_OFF;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         150 :     bool is_on = props.enabled;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         144 :     if (props.blink) {</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         150 :     if (props.blink) {</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :         // Blinking alpha oscillation</span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          12 :         ImVec4 osc = Theme::RecBlink(props.blink_time);</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          12 :         if (is_on) {</span></span>
@@ -82,33 +82,33 @@
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          10 :                 ImVec4(props.led_color.x, props.led_color.y, props.led_color.z, osc.w)</span></span>
 <span id="L21"><span class="lineNum">      21</span>              :             );</span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           2 :         }</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         136 :     } else if (is_on) {</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         123 :         base_color = ImGui::ColorConvertFloat4ToU32(props.led_color);</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          41 :     }</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         142 :     } else if (is_on) {</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         129 :         base_color = ImGui::ColorConvertFloat4ToU32(props.led_color);</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          43 :     }</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         144 :     dl-&gt;AddCircleFilled(center, radius, base_color);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         150 :     dl-&gt;AddCircleFilled(center, radius, base_color);</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         144 :     if (is_on) {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         129 :         int glow_alpha = props.blink ? static_cast&lt;int&gt;(Theme::RecBlink(props.blink_time).w * 40) : 40;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         172 :         dl-&gt;AddCircleFilled(center, glow_radius,</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         129 :             IM_COL32(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         150 :     if (is_on) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         135 :         int glow_alpha = props.blink ? static_cast&lt;int&gt;(Theme::RecBlink(props.blink_time).w * 40) : 40;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         180 :         dl-&gt;AddCircleFilled(center, glow_radius,</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         135 :             IM_COL32(</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :                 static_cast&lt;int&gt;(props.led_color.x * 255),</span>
 <span id="L34"><span class="lineNum">      34</span>              :                 static_cast&lt;int&gt;(props.led_color.y * 255),</span>
 <span id="L35"><span class="lineNum">      35</span>              :                 static_cast&lt;int&gt;(props.led_color.z * 255),</span>
 <span id="L36"><span class="lineNum">      36</span>              :                 glow_alpha</span>
 <span id="L37"><span class="lineNum">      37</span>              :             )</span>
 <span id="L38"><span class="lineNum">      38</span>              :         );</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          43 :     }</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          45 :     }</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         144 :     if (props.tooltip) {</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         144 :         ImGui::SetCursorScreenPos(ImVec2(center.x - 10.0f * zoom, center.y - 10.0f * zoom));</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         144 :         ImGui::SetNextItemAllowOverlap();</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         144 :         ImGui::InvisibleButton(imgui_id, ImVec2(20.0f * zoom, 20.0f * zoom));</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         144 :         if (ImGui::IsItemHovered()) {</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         150 :     if (props.tooltip) {</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         150 :         ImGui::SetCursorScreenPos(ImVec2(center.x - 10.0f * zoom, center.y - 10.0f * zoom));</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         150 :         ImGui::SetNextItemAllowOverlap();</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         150 :         ImGui::InvisibleButton(imgui_id, ImVec2(20.0f * zoom, 20.0f * zoom));</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         150 :         if (ImGui::IsItemHovered()) {</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC tlaBgUNC">           0 :             ImGui::SetTooltip(&quot;%s&quot;, props.tooltip);</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC tlaBgGNC">          48 :     }</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         144 : }</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC tlaBgGNC">          50 :     }</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         150 : }</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
 <span id="L51"><span class="lineNum">      51</span>              : } // namespace Amplitron</span>
         </pre>
