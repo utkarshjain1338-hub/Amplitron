@@ -513,13 +513,13 @@ jobs:
           fi
           # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
           lcov --capture --directory build --output-file coverage.info $LCOV_IGNORE 2>&1 | tail -20
-          # Normalize all backslashes to forward slashes in coverage.info before filtering
+          # Normalize backslashes and unmangle paths to relative SF:src/... before filtering.
+          # This prevents the '*/build/*' pattern from matching and removing all source files due to MSYS2 path prepending.
           sed -i 's|\\|/|g' coverage.info
+          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
           lcov --remove coverage.info \
             '/usr/*' '*/mingw64/*' '*/_temp/*' '*/include/*' '*/external/*' '*/tests/*' '*/build/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE 2>&1 | tail -5
-          # Normalize paths for cross-platform merging
-          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-windows.txt
 
       - name: Upload Windows Coverage
@@ -801,10 +801,11 @@ jobs:
           fi
 
           LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov"
+          GENHTML_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source"
           $MERGE_CMD --output-file merged.info $LCOV_IGNORE
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
-          genhtml merged.info --output-directory coverage-report $LCOV_IGNORE
+          genhtml merged.info --output-directory coverage-report $GENHTML_IGNORE
           lcov --summary merged.info $LCOV_IGNORE | tee merged-summary.txt
 
       - name: Generate Merged Coverage Comment
