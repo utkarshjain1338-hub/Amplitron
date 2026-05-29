@@ -807,7 +807,7 @@ jobs:
           $MERGE_CMD --output-file merged.info $LCOV_IGNORE
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
-          genhtml merged.info --output-directory coverage-report $GENHTML_IGNORE --synthesize-missing
+          genhtml merged.info --output-directory coverage-report $GENHTML_IGNORE --synthesize-missing --prefix $GITHUB_WORKSPACE
           lcov --summary merged.info $LCOV_IGNORE | tee merged-summary.txt
 
       - name: Generate Merged Coverage Comment
