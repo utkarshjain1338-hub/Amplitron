@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 10:53:05</td>
+            <td class="headerValue">2026-05-29 11:00:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -177,13 +177,13 @@
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          38 :     int node_to_delete = -1; // Safely track deletions outside the render loop</span></span>
 <span id="L116"><span class="lineNum">     116</span>              :     // Prune stale nodes from the UI state if the backend graph was reset or rebuilt</span>
 <span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          38 :     std::vector&lt;int&gt; stale_ids;</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         144 :     for (auto&amp; pair : ui_state.node_positions) {</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">         106 :         if (!audio_graph.find_node(pair.first)) {</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          29 :             stale_ids.push_back(pair.first);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         136 :     for (auto&amp; pair : ui_state.node_positions) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          98 :         if (!audio_graph.find_node(pair.first)) {</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          21 :             stale_ids.push_back(pair.first);</span></span>
 <span id="L121"><span class="lineNum">     121</span>              :         }</span>
 <span id="L122"><span class="lineNum">     122</span>              :     }</span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          67 :     for (int id : stale_ids) {</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          29 :         ui_state.node_positions.erase(id);</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          59 :     for (int id : stale_ids) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          21 :         ui_state.node_positions.erase(id);</span></span>
 <span id="L125"><span class="lineNum">     125</span>              :     }</span>
 <span id="L126"><span class="lineNum">     126</span>              :     // Give all new nodes a default position at the end of the chain without shifting existing nodes</span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         115 :     for (const auto&amp; node : audio_graph.get_nodes()) {</span></span>

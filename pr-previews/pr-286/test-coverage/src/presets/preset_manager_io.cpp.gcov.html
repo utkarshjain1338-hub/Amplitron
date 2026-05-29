@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 10:53:05</td>
+            <td class="headerValue">2026-05-29 11:00:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -221,8 +221,8 @@
 <span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">          20 :   engine.set_output_gain(preset.output_gain);</span></span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
 <span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          20 :   if (preset.routing == &quot;graph&quot;) {</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           8 :     std::string json_str = to_json_ext(preset);</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           8 :     if (!graph_from_json(json_str, engine.graph())) {</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           7 :     std::string json_str = to_json_ext(preset);</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           7 :     if (!graph_from_json(json_str, engine.graph())) {</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           1 :       last_error_ = &quot;Failed to load graph routing from preset: &quot; + filepath;</span></span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           1 :       std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
 <span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           1 :       return false;</span></span>
@@ -230,21 +230,21 @@
 <span id="L168"><span class="lineNum">     168</span>              : </span>
 <span id="L169"><span class="lineNum">     169</span>              :     // Restore engine dummy_effects_ so GUI widgets and sync logic see the</span>
 <span id="L170"><span class="lineNum">     170</span>              :     // pedals</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           7 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          38 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          58 :       if (node.routing_type == NodeRoutingType::StandardEffect &amp;&amp;</span></span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          27 :           node.pedal != nullptr) {</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          15 :         loaded_effects.push_back(node.pedal);</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           6 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          24 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          34 :       if (node.routing_type == NodeRoutingType::StandardEffect &amp;&amp;</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          16 :           node.pedal != nullptr) {</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          10 :         loaded_effects.push_back(node.pedal);</span></span>
 <span id="L176"><span class="lineNum">     176</span>              :       }</span>
 <span id="L177"><span class="lineNum">     177</span>              :     }</span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           7 :     engine.restore_effects_state(loaded_effects);</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           6 :     engine.restore_effects_state(loaded_effects);</span></span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           7 :     engine.commit_graph_changes();</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           8 :   } else {</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           6 :     engine.commit_graph_changes();</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           7 :   } else {</span></span>
 <span id="L182"><span class="lineNum">     182</span>              :     // Legacy 1D chain auto-conversion</span>
 <span id="L183"><span class="lineNum">     183</span>              :     // Graph is empty because of clear_effects(). We can reconstruct it.</span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          12 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          96 :     for (auto &amp;fd : preset.effects) {</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          13 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          97 :     for (auto &amp;fd : preset.effects) {</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">          84 :       if (fd.type == &quot;IR Cabinet&quot;) {</span></span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           3 :         fd.type = &quot;Cabinet&quot;;</span></span>
 <span id="L188"><span class="lineNum">     188</span>              :       }</span>
@@ -279,17 +279,17 @@
 <span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">          84 :     }</span></span>
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span>              :     // Let add_initial_effects automatically map it to linear graph</span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">          12 :     engine.add_initial_effects(loaded_effects);</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">          13 :     engine.add_initial_effects(loaded_effects);</span></span>
 <span id="L221"><span class="lineNum">     221</span>              : </span>
 <span id="L222"><span class="lineNum">     222</span>              :     // Reposition linearly</span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          12 :     int x = 50;</span></span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         106 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          94 :       engine.graph().set_node_position(node.id, x, 100);</span></span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">          94 :       GuiGraphState::get_instance().node_positions[node.id] = {</span></span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          94 :           ImVec2((float)x, 100.0f), false};</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          94 :       x += 200;</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          13 :     int x = 50;</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         108 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">          95 :       engine.graph().set_node_position(node.id, x, 100);</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">          95 :       GuiGraphState::get_instance().node_positions[node.id] = {</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          95 :           ImVec2((float)x, 100.0f), false};</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          95 :       x += 200;</span></span>
 <span id="L229"><span class="lineNum">     229</span>              :     }</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          12 :   }</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          13 :   }</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          19 :   if (midi_manager) {</span></span>
 <span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">           1 :     midi_manager-&gt;clear_mappings();</span></span>
@@ -399,73 +399,73 @@
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           2 :   return to_json_ext(preset);</span></span>
 <span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           3 : }</span></span>
 <span id="L339"><span class="lineNum">     339</span>              : </span>
-<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">          18 : bool PresetManager::graph_from_json(const std::string &amp;json,</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">          17 : bool PresetManager::graph_from_json(const std::string &amp;json,</span></span>
 <span id="L341"><span class="lineNum">     341</span>              :                                     AudioGraph &amp;graph) {</span>
-<span id="L342"><span class="lineNum">     342</span> <span class="tlaGNC">          18 :   PresetData preset;</span></span>
-<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">          18 :   if (!from_json_ext(json, preset))</span></span>
+<span id="L342"><span class="lineNum">     342</span> <span class="tlaGNC">          17 :   PresetData preset;</span></span>
+<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">          17 :   if (!from_json_ext(json, preset))</span></span>
 <span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           2 :     return false;</span></span>
 <span id="L345"><span class="lineNum">     345</span>              : </span>
-<span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC">          16 :   if (preset.routing != &quot;graph&quot;)</span></span>
+<span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC">          15 :   if (preset.routing != &quot;graph&quot;)</span></span>
 <span id="L347"><span class="lineNum">     347</span> <span class="tlaUNC tlaBgUNC">           0 :     return false;</span></span>
 <span id="L348"><span class="lineNum">     348</span>              : </span>
 <span id="L349"><span class="lineNum">     349</span>              :   // Clear existing graph nodes except inputs/outputs</span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC tlaBgGNC">          16 :   std::vector&lt;int&gt; nodes_to_remove;</span></span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          24 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">           8 :     if (!node.is_graph_input &amp;&amp; !node.is_graph_output) {</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC tlaBgGNC">          15 :   std::vector&lt;int&gt; nodes_to_remove;</span></span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          22 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">           7 :     if (!node.is_graph_input &amp;&amp; !node.is_graph_output) {</span></span>
 <span id="L353"><span class="lineNum">     353</span> <span class="tlaUNC tlaBgUNC">           0 :       nodes_to_remove.push_back(node.id);</span></span>
 <span id="L354"><span class="lineNum">     354</span>              :     }</span>
 <span id="L355"><span class="lineNum">     355</span>              :   }</span>
-<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC tlaBgGNC">          16 :   for (int id : nodes_to_remove)</span></span>
+<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC tlaBgGNC">          15 :   for (int id : nodes_to_remove)</span></span>
 <span id="L357"><span class="lineNum">     357</span> <span class="tlaUNC tlaBgUNC">           0 :     graph.remove_node(id);</span></span>
 <span id="L358"><span class="lineNum">     358</span>              : </span>
 <span id="L359"><span class="lineNum">     359</span>              : </span>
-<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC tlaBgGNC">          16 :   std::map&lt;std::string, int&gt; node_id_map;</span></span>
-<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">          64 :   for (const auto &amp;node : preset.nodes) {</span></span>
-<span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">          48 :     NodeRoutingType routing_type = NodeRoutingType::StandardEffect;</span></span>
-<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">          48 :     std::shared_ptr&lt;Effect&gt; pedal = nullptr;</span></span>
+<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC tlaBgGNC">          15 :   std::map&lt;std::string, int&gt; node_id_map;</span></span>
+<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">          51 :   for (const auto &amp;node : preset.nodes) {</span></span>
+<span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">          36 :     NodeRoutingType routing_type = NodeRoutingType::StandardEffect;</span></span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">          36 :     std::shared_ptr&lt;Effect&gt; pedal = nullptr;</span></span>
 <span id="L364"><span class="lineNum">     364</span>              : </span>
-<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">          48 :     std::string t = node.type;</span></span>
-<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">          48 :     if (t == &quot;splitter&quot;)</span></span>
-<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           4 :       routing_type = NodeRoutingType::Splitter;</span></span>
-<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          44 :     else if (t == &quot;mixer&quot;)</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">           5 :       routing_type = NodeRoutingType::Mixer;</span></span>
+<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">          36 :     std::string t = node.type;</span></span>
+<span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">          36 :     if (t == &quot;splitter&quot;)</span></span>
+<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           3 :       routing_type = NodeRoutingType::Splitter;</span></span>
+<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          33 :     else if (t == &quot;mixer&quot;)</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">           4 :       routing_type = NodeRoutingType::Mixer;</span></span>
 <span id="L370"><span class="lineNum">     370</span>              :     else {</span>
-<span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">          39 :       std::string factory_type = t;</span></span>
-<span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">          39 :       if (t == &quot;amp_simulator&quot;)</span></span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           3 :         factory_type = &quot;Amp Sim&quot;;</span></span>
-<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">          36 :       else if (t == &quot;overdrive&quot;)</span></span>
-<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">           5 :         factory_type = &quot;Overdrive&quot;;</span></span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">          31 :       else if (t == &quot;cabinet&quot;)</span></span>
-<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           5 :         factory_type = &quot;Cabinet&quot;;</span></span>
-<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">          26 :       else if (t == &quot;distortion&quot;)</span></span>
+<span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">          29 :       std::string factory_type = t;</span></span>
+<span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">          29 :       if (t == &quot;amp_simulator&quot;)</span></span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           1 :         factory_type = &quot;Amp Sim&quot;;</span></span>
+<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">          28 :       else if (t == &quot;overdrive&quot;)</span></span>
+<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">           4 :         factory_type = &quot;Overdrive&quot;;</span></span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">          24 :       else if (t == &quot;cabinet&quot;)</span></span>
+<span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           3 :         factory_type = &quot;Cabinet&quot;;</span></span>
+<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">          21 :       else if (t == &quot;distortion&quot;)</span></span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">           2 :         factory_type = &quot;Distortion&quot;;</span></span>
 <span id="L380"><span class="lineNum">     380</span>              : </span>
-<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">          39 :       pedal = EffectFactory::instance().create(factory_type);</span></span>
-<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">          39 :       if (!pedal)</span></span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">          17 :         pedal = EffectFactory::instance().create(t); // fallback</span></span>
+<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">          29 :       pedal = EffectFactory::instance().create(factory_type);</span></span>
+<span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">          29 :       if (!pedal)</span></span>
+<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">          12 :         pedal = EffectFactory::instance().create(t); // fallback</span></span>
 <span id="L384"><span class="lineNum">     384</span>              : </span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">          39 :       if (pedal) {</span></span>
-<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          22 :         pedal-&gt;set_enabled(node.enabled);</span></span>
-<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">          22 :         pedal-&gt;set_mix(node.mix);</span></span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">          62 :         for (const auto &amp;p : node.params) {</span></span>
-<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">          86 :           for (auto &amp;ep : pedal-&gt;params()) {</span></span>
-<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">          86 :             if (ep.name == p.first || ep.name == p.first) {</span></span>
-<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">          40 :               ep.value = clamp(p.second, ep.min_val, ep.max_val);</span></span>
-<span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">          40 :               break;</span></span>
+<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">          29 :       if (pedal) {</span></span>
+<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          17 :         pedal-&gt;set_enabled(node.enabled);</span></span>
+<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">          17 :         pedal-&gt;set_mix(node.mix);</span></span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">          53 :         for (const auto &amp;p : node.params) {</span></span>
+<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">          80 :           for (auto &amp;ep : pedal-&gt;params()) {</span></span>
+<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">          80 :             if (ep.name == p.first || ep.name == p.first) {</span></span>
+<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">          36 :               ep.value = clamp(p.second, ep.min_val, ep.max_val);</span></span>
+<span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">          36 :               break;</span></span>
 <span id="L393"><span class="lineNum">     393</span>              :             }</span>
 <span id="L394"><span class="lineNum">     394</span>              :           }</span>
 <span id="L395"><span class="lineNum">     395</span>              :         }</span>
 <span id="L396"><span class="lineNum">     396</span>              : </span>
-<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">          44 :         auto it = node.metadata.find(&quot;ir_path&quot;);</span></span>
-<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">          22 :         if (it != node.metadata.end() &amp;&amp; !it-&gt;second.empty()) {</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">          34 :         auto it = node.metadata.find(&quot;ir_path&quot;);</span></span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">          17 :         if (it != node.metadata.end() &amp;&amp; !it-&gt;second.empty()) {</span></span>
 <span id="L399"><span class="lineNum">     399</span> <span class="tlaGNC">           2 :           auto *cab = dynamic_cast&lt;CabinetSim *&gt;(pedal.get());</span></span>
 <span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">           2 :           if (cab)</span></span>
 <span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">           2 :             cab-&gt;load_ir(it-&gt;second);</span></span>
 <span id="L402"><span class="lineNum">     402</span>              :         }</span>
 <span id="L403"><span class="lineNum">     403</span>              :       }</span>
-<span id="L404"><span class="lineNum">     404</span> <span class="tlaGNC">          39 :     }</span></span>
+<span id="L404"><span class="lineNum">     404</span> <span class="tlaGNC">          29 :     }</span></span>
 <span id="L405"><span class="lineNum">     405</span>              : </span>
-<span id="L406"><span class="lineNum">     406</span> <span class="tlaGNC">          48 :     if (t == &quot;Input&quot; || t == &quot;Output&quot;) {</span></span>
+<span id="L406"><span class="lineNum">     406</span> <span class="tlaGNC">          36 :     if (t == &quot;Input&quot; || t == &quot;Output&quot;) {</span></span>
 <span id="L407"><span class="lineNum">     407</span> <span class="tlaGNC">          11 :       int existing_id = -1;</span></span>
 <span id="L408"><span class="lineNum">     408</span> <span class="tlaGNC">          15 :       for (const auto &amp;existing_node : graph.get_nodes()) {</span></span>
 <span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC">           7 :         if (existing_node.name == t) {</span></span>
@@ -482,29 +482,29 @@
 <span id="L420"><span class="lineNum">     420</span>              :       }</span>
 <span id="L421"><span class="lineNum">     421</span>              :     }</span>
 <span id="L422"><span class="lineNum">     422</span>              : </span>
-<span id="L423"><span class="lineNum">     423</span> <span class="tlaGNC">          45 :     std::string node_name = t;</span></span>
-<span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">          45 :     if (pedal)</span></span>
-<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">          22 :       node_name = pedal-&gt;name();</span></span>
-<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">          23 :     else if (t == &quot;splitter&quot;)</span></span>
-<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">           4 :       node_name = &quot;Splitter&quot;;</span></span>
-<span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">          19 :     else if (t == &quot;mixer&quot;)</span></span>
-<span id="L429"><span class="lineNum">     429</span> <span class="tlaGNC">           5 :       node_name = &quot;Mixer&quot;;</span></span>
+<span id="L423"><span class="lineNum">     423</span> <span class="tlaGNC">          33 :     std::string node_name = t;</span></span>
+<span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">          33 :     if (pedal)</span></span>
+<span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">          17 :       node_name = pedal-&gt;name();</span></span>
+<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">          16 :     else if (t == &quot;splitter&quot;)</span></span>
+<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">           3 :       node_name = &quot;Splitter&quot;;</span></span>
+<span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">          13 :     else if (t == &quot;mixer&quot;)</span></span>
+<span id="L429"><span class="lineNum">     429</span> <span class="tlaGNC">           4 :       node_name = &quot;Mixer&quot;;</span></span>
 <span id="L430"><span class="lineNum">     430</span>              : </span>
-<span id="L431"><span class="lineNum">     431</span> <span class="tlaGNC">          45 :     int new_id = graph.add_node(node_name, routing_type, pedal, node.num_inputs);</span></span>
-<span id="L432"><span class="lineNum">     432</span> <span class="tlaGNC">          45 :     graph.set_node_position(new_id, node.x, node.y);</span></span>
+<span id="L431"><span class="lineNum">     431</span> <span class="tlaGNC">          33 :     int new_id = graph.add_node(node_name, routing_type, pedal, node.num_inputs);</span></span>
+<span id="L432"><span class="lineNum">     432</span> <span class="tlaGNC">          33 :     graph.set_node_position(new_id, node.x, node.y);</span></span>
 <span id="L433"><span class="lineNum">     433</span>              : </span>
-<span id="L434"><span class="lineNum">     434</span> <span class="tlaGNC">          45 :     if (node_name == &quot;Input&quot;)</span></span>
+<span id="L434"><span class="lineNum">     434</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Input&quot;)</span></span>
 <span id="L435"><span class="lineNum">     435</span> <span class="tlaGNC">           4 :       graph.set_node_as_input(new_id, true);</span></span>
-<span id="L436"><span class="lineNum">     436</span> <span class="tlaGNC">          45 :     if (node_name == &quot;Output&quot; || node_name == &quot;Amp Sim&quot;)</span></span>
-<span id="L437"><span class="lineNum">     437</span> <span class="tlaGNC">           7 :       graph.set_node_as_output(new_id, true);</span></span>
+<span id="L436"><span class="lineNum">     436</span> <span class="tlaGNC">          33 :     if (node_name == &quot;Output&quot; || node_name == &quot;Amp Sim&quot;)</span></span>
+<span id="L437"><span class="lineNum">     437</span> <span class="tlaGNC">           5 :       graph.set_node_as_output(new_id, true);</span></span>
 <span id="L438"><span class="lineNum">     438</span>              : </span>
-<span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC">          45 :     GuiGraphState::get_instance().node_positions[new_id] = {</span></span>
-<span id="L440"><span class="lineNum">     440</span> <span class="tlaGNC">          45 :         ImVec2(node.x, node.y), false};</span></span>
+<span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC">          33 :     GuiGraphState::get_instance().node_positions[new_id] = {</span></span>
+<span id="L440"><span class="lineNum">     440</span> <span class="tlaGNC">          33 :         ImVec2(node.x, node.y), false};</span></span>
 <span id="L441"><span class="lineNum">     441</span>              : </span>
-<span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          45 :     node_id_map[node.id] = new_id;</span></span>
-<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">          51 :   }</span></span>
+<span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          33 :     node_id_map[node.id] = new_id;</span></span>
+<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">          39 :   }</span></span>
 <span id="L444"><span class="lineNum">     444</span>              : </span>
-<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          25 :   for (const auto &amp;link : preset.links) {</span></span>
+<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          24 :   for (const auto &amp;link : preset.links) {</span></span>
 <span id="L446"><span class="lineNum">     446</span> <span class="tlaGNC">          28 :     auto parse_pin = [&amp;](const std::string &amp;pin_str, bool is_input) -&gt; int {</span></span>
 <span id="L447"><span class="lineNum">     447</span> <span class="tlaGNC">          28 :       auto dot_pos = pin_str.find('.');</span></span>
 <span id="L448"><span class="lineNum">     448</span> <span class="tlaGNC">          28 :       if (dot_pos == std::string::npos)</span></span>
@@ -553,8 +553,8 @@
 <span id="L491"><span class="lineNum">     491</span>              :     }</span>
 <span id="L492"><span class="lineNum">     492</span>              :   }</span>
 <span id="L493"><span class="lineNum">     493</span>              : </span>
-<span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">          11 :   return true;</span></span>
-<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">          18 : }</span></span>
+<span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">          10 :   return true;</span></span>
+<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">          17 : }</span></span>
 <span id="L496"><span class="lineNum">     496</span>              : </span>
 <span id="L497"><span class="lineNum">     497</span>              : } // namespace Amplitron</span>
         </pre>
