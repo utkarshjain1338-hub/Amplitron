@@ -35,7 +35,7 @@ jobs:
           fi
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
-            build-essential cmake \
+            build-essential cmake lcov \
             libportaudio2 portaudio19-dev \
             libsdl2-dev libgl1-mesa-dev libglu1-mesa-dev \
             librtmidi-dev
@@ -83,14 +83,38 @@ jobs:
           test ! -e "$INSTALL_PREFIX/share/amplitron"
           test ! -e "$INSTALL_PREFIX/bin/assets"
 
-      - name: Package Build Data for Coverage
-        run: tar -czf build-coverage.tar.gz build/
+      - name: Generate Linux Coverage
+        if: github.event_name == 'pull_request'
+        run: |
+          LCOV_IGNORE="--ignore-errors mismatch,mismatch,gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported,corrupt,corrupt,unused,unused"
+          lcov --capture --initial --directory build --output-file coverage_base.info $LCOV_IGNORE
+          lcov --capture --directory build --output-file coverage_test.info $LCOV_IGNORE
+          lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
+            --output-file coverage.info $LCOV_IGNORE
+          lcov --remove coverage.info \
+            '/usr/*' \
+            '*/external/*' \
+            '*/tests/*' \
+            '*/build/*' \
+            --output-file coverage.filtered.info $LCOV_IGNORE
+          # Normalize paths for cross-platform merging
+          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
+          lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary.txt
 
-      - name: Upload Build Artifact for Coverage
+      - name: Quick Linux Coverage Summary
+        if: github.event_name == 'pull_request'
+        run: |
+          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported"
+          COVERAGE=$(lcov --summary coverage.filtered.info $LCOV_IGNORE 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
+          echo "Linux line coverage: $COVERAGE%"
+          echo "### Linux Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Linux Coverage
+        if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7
         with:
-          name: build-coverage
-          path: build-coverage.tar.gz
+          name: linux-coverage
+          path: coverage.filtered.info
           retention-days: 1
 
       - name: Upload Build
@@ -101,59 +125,6 @@ jobs:
           path: build/Amplitron
           retention-days: 1
 
-  coverage-linux:
-    name: Coverage Report on Linux
-    needs: test-linux
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Install lcov
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends lcov
-
-      - name: Download Build Artifact for Coverage
-        uses: actions/download-artifact@v8
-        with:
-          name: build-coverage
-          path: .
-
-      - name: Extract Build Data for Coverage
-        run: tar -xzf build-coverage.tar.gz
-
-      - name: Generate Linux Coverage
-        run: |
-          lcov --capture --initial --directory build --output-file coverage_base.info --ignore-errors mismatch,gcov,source
-          lcov --capture --directory build --output-file coverage_test.info --ignore-errors mismatch,gcov,source
-          lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info --output-file coverage.info
-          lcov --remove coverage.info \
-            '/usr/*' \
-            '*/external/*' \
-            '*/tests/*' \
-            '*/build/*' \
-            --output-file coverage.filtered.info \
-            --ignore-errors unused
-          lcov --summary coverage.filtered.info | tee coverage-summary.txt
-          # Normalize paths to relative src/ paths for cross-platform merging
-          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
-
-      - name: Quick Linux Coverage Summary
-        run: |
-          COVERAGE=$(lcov --summary coverage.filtered.info 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
-          echo "Linux line coverage: $COVERAGE%"
-          echo "### Linux Coverage: ${COVERAGE}%" >> $GITHUB_STEP_SUMMARY
-
-      - name: Upload Linux Coverage
-        uses: actions/upload-artifact@v7
-        with:
-          name: linux-coverage
-          path: coverage.filtered.info
-          retention-days: 1
-
-      
 
   test-macos:
     name: Test on macOS
@@ -781,7 +752,7 @@ jobs:
 
   merge-coverage:
     name: Merge Cross-Platform Coverage
-    needs: [coverage-linux, test-macos, test-windows]
+    needs: [test-linux, test-macos, test-windows]
     if: ${{ !cancelled() && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
