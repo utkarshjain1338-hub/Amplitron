@@ -71,7 +71,7 @@ endif()
 # ---------------------------------------------------------------------------
 
 find_package(GTest QUIET)
-if(NOT TARGET GTest::gtest)
+if(NOT TARGET GTest::gtest AND NOT EMSCRIPTEN AND NOT ANDROID AND NOT IOS)
     include(FetchContent)
     FetchContent_Declare(
         googletest
@@ -609,7 +609,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
     # --- Test Target ---
     set(TEST_SOURCES
-        tests/test_main.cpp
+        #tests/test_main.cpp
         tests/unit/test_common.cpp
         tests/unit/test_oboe_ring_buffer.cpp
         tests/unit/test_effects_dynamics.cpp
@@ -814,7 +814,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
 
     target_link_libraries(amplitron-tests PRIVATE
-        GTest::gtest_main
+        GTest::gtest
         nlohmann_json::nlohmann_json
         ${SDL2_LIBRARIES}
         ${OPENGL_LIBRARIES}

@@ -75,9 +75,10 @@ void PitchShifter::process(float* buffer, int num_samples) {
 
     // Smooth parameters
     // Hoisting: Calculate smoothing and std::pow ONCE per block, not per sample
-    shift_smooth_ += alpha * (params_[P_SHIFT].value - shift_smooth_);
-    fine_smooth_  += alpha * (params_[P_FINE].value  - fine_smooth_);
-    mix_smooth_   += alpha * (params_[P_MIX].value   - mix_smooth_);
+    const float block_alpha = 1.0f - std::exp(-static_cast<float>(num_samples) / (sample_rate_ * 0.010f));
+    shift_smooth_ += block_alpha * (params_[P_SHIFT].value - shift_smooth_);
+    fine_smooth_  += block_alpha * (params_[P_FINE].value  - fine_smooth_);
+    mix_smooth_   += block_alpha * (params_[P_MIX].value   - mix_smooth_);
 
     // Total shift in semitones (coarse + fine)
     float total_semitones = shift_smooth_ + fine_smooth_ / 100.0f;
