@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 11:21:39</td>
+            <td class="headerValue">2026-05-29 11:29:17</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -80,23 +80,23 @@
 <span id="L18"><span class="lineNum">      18</span>              : namespace Amplitron {</span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span>              : // PortAudio callback</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">        1891 : int pa_audio_callback(const void* input, void* output,</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">        1759 : int pa_audio_callback(const void* input, void* output,</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :                               unsigned long frame_count,</span>
 <span id="L23"><span class="lineNum">      23</span>              :                               const PaStreamCallbackTimeInfo* /*time_info*/,</span>
 <span id="L24"><span class="lineNum">      24</span>              :                               PaStreamCallbackFlags /*status_flags*/,</span>
 <span id="L25"><span class="lineNum">      25</span>              :                               void* user_data) {</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">        1891 :     auto* engine = static_cast&lt;AudioEngine*&gt;(user_data);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">        1891 :     const auto* in = static_cast&lt;const float*&gt;(input);</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">        1891 :     auto* out = static_cast&lt;float*&gt;(output);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">        1759 :     auto* engine = static_cast&lt;AudioEngine*&gt;(user_data);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">        1759 :     const auto* in = static_cast&lt;const float*&gt;(input);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">        1759 :     auto* out = static_cast&lt;float*&gt;(output);</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        1891 :     if (!in || !out) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        1759 :     if (!in || !out) {</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           4 :         if (out) std::memset(out, 0, frame_count * 2 * sizeof(float));</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           4 :         return paContinue;</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :     }</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        1887 :     engine-&gt;process_audio(in, out, static_cast&lt;int&gt;(frame_count));</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        1887 :     return paContinue;</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        1888 : }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        1755 :     engine-&gt;process_audio(in, out, static_cast&lt;int&gt;(frame_count));</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        1755 :     return paContinue;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        1756 : }</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span>              : // Device auto-detection</span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         508 : static void auto_detect_devices(int&amp; input_device, int&amp; output_device, int&amp; sample_rate) {</span></span>
