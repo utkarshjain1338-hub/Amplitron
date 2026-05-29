@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/audio/dsp/spectrum_analyzer.h</title>
+  <title>LCOV - merged.info - src/audio/dsp/spectrum_analyzer.h</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 11:15:08</td>
+            <td class="headerValue">2026-05-29 11:21:39</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -89,10 +89,10 @@
 <span id="L27"><span class="lineNum">      27</span>              :                 float dt_seconds);</span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     // Getters for display data (so the UI only reads raw arrays)</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">         483 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; smoothed_input_db() const { return smoothed_input_db_; }</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         194 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; smoothed_output_db() const { return smoothed_output_db_; }</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          98 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; input_peak_db() const { return input_peak_db_; }</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          98 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; output_peak_db() const { return output_peak_db_; }</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">        1449 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; smoothed_input_db() const { return smoothed_input_db_; }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         582 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; smoothed_output_db() const { return smoothed_output_db_; }</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         294 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; input_peak_db() const { return input_peak_db_; }</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         294 :     const std::array&lt;float, DISPLAY_BARS&gt;&amp; output_peak_db() const { return output_peak_db_; }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              : private:</span>
 <span id="L36"><span class="lineNum">      36</span>              :     void compute_spectrum_bars(const float* samples,</span>
