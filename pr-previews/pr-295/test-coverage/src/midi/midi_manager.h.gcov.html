@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 12:42:31</td>
+            <td class="headerValue">2026-05-29 14:52:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">85.7&nbsp;%</td>
@@ -76,11 +76,11 @@
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              : // Raw MIDI event pushed from the RtMidi callback thread.</span>
 <span id="L16"><span class="lineNum">      16</span>              : // Must be trivially copyable for SPSCQueue.</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">       23552 : struct MidiEvent {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">       23808 : struct MidiEvent {</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :     uint8_t status;  // e.g. 0xB0 = CC on channel 0</span>
 <span id="L19"><span class="lineNum">      19</span>              :     uint8_t data1;   // CC number (0-127)</span>
 <span id="L20"><span class="lineNum">      20</span>              :     uint8_t data2;   // CC value (0-127)</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">       23552 :     uint8_t pad = 0; // Pad to 4 bytes</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">       23808 :     uint8_t pad = 0; // Pad to 4 bytes</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : };</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              : enum class MidiMappingMode : uint8_t {</span>
@@ -197,7 +197,7 @@
 <span id="L135"><span class="lineNum">     135</span>              :     void remove_mapping(int index);</span>
 <span id="L136"><span class="lineNum">     136</span>              :     void remove_mapping_for_param(const std::string&amp; effect_name, const std::string&amp; param_name);</span>
 <span id="L137"><span class="lineNum">     137</span>              :     void clear_mappings();</span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         753 :     const std::vector&lt;MidiMapping&gt;&amp; mappings() const { return mappings_; }</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         861 :     const std::vector&lt;MidiMapping&gt;&amp; mappings() const { return mappings_; }</span></span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
 <span id="L140"><span class="lineNum">     140</span>              :     /** @brief Install default CC mappings (CC7, CC11, CC64, CC74). */</span>
 <span id="L141"><span class="lineNum">     141</span>              :     void install_default_mappings();</span>
@@ -213,7 +213,7 @@
 <span id="L151"><span class="lineNum">     151</span>              :     void cancel_learn();</span>
 <span id="L152"><span class="lineNum">     152</span>              : </span>
 <span id="L153"><span class="lineNum">     153</span>              :     /** @brief Return true if learn mode is active. */</span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">        1377 :     bool is_learning() const { return learn_active_; }</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">        1485 :     bool is_learning() const { return learn_active_; }</span></span>
 <span id="L155"><span class="lineNum">     155</span>              : </span>
 <span id="L156"><span class="lineNum">     156</span>              :     /** @brief Human-readable status for the learn indicator, or empty. */</span>
 <span id="L157"><span class="lineNum">     157</span>              :     std::string learn_status() const;</span>

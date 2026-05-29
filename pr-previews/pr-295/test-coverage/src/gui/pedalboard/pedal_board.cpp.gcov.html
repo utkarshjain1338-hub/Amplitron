@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 12:42:31</td>
+            <td class="headerValue">2026-05-29 14:52:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -76,57 +76,57 @@
 <span id="L14"><span class="lineNum">      14</span>              : namespace Amplitron {</span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              : /** @brief Construct PedalBoard and build initial widget list from engine state. */</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          90 : PedalBoard::PedalBoard(AudioEngine&amp; engine, CommandHistory&amp; history, GuiMidi* gui_midi)</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          72 :     : engine_(engine), history_(history), gui_midi_(gui_midi) {</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          54 :     rebuild_widgets();</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          54 : }</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          95 : PedalBoard::PedalBoard(AudioEngine&amp; engine, CommandHistory&amp; history, GuiMidi* gui_midi)</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          76 :     : engine_(engine), history_(history), gui_midi_(gui_midi) {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          57 :     rebuild_widgets();</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          57 : }</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              : /** @brief Default destructor. */</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          72 : PedalBoard::~PedalBoard() = default;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          76 : PedalBoard::~PedalBoard() = default;</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span>              : /** @brief Recreate PedalWidget list to match the engine's current effect chain. */</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         126 : void PedalBoard::rebuild_widgets() {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         126 :     std::set&lt;Effect*&gt; prev_visible;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         162 :     for (int idx : visible_indices_) {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         132 : void PedalBoard::rebuild_widgets() {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         132 :     std::set&lt;Effect*&gt; prev_visible;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         168 :     for (int idx : visible_indices_) {</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          36 :         if (idx &gt;= 0 &amp;&amp; idx &lt; static_cast&lt;int&gt;(widgets_.size())) {</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          36 :             prev_visible.insert(widgets_[idx]-&gt;get_effect().get());</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          12 :         }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     }</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         126 :     widgets_.clear();</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         126 :     visible_indices_.clear();</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         126 :     auto&amp; effects = engine_.effects();</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         132 :     widgets_.clear();</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         132 :     visible_indices_.clear();</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         132 :     auto&amp; effects = engine_.effects();</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         126 :     int amp_idx = find_amp_index();</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         132 :     int amp_idx = find_amp_index();</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         204 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(effects.size()); ++i) {</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          78 :         auto w = std::make_unique&lt;PedalWidget&gt;(engine_, effects[i], i);</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          78 :         w-&gt;set_history(&amp;history_);</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          78 :         w-&gt;set_gui_midi(gui_midi_);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         104 :         widgets_.push_back(std::move(w));</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         213 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(effects.size()); ++i) {</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          81 :         auto w = std::make_unique&lt;PedalWidget&gt;(engine_, effects[i], i);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          81 :         w-&gt;set_history(&amp;history_);</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          81 :         w-&gt;set_gui_midi(gui_midi_);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         108 :         widgets_.push_back(std::move(w));</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          78 :         Effect* ptr = effects[i].get();</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          78 :         bool is_amp = (amp_idx &gt;= 0 &amp;&amp; i == amp_idx);</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          78 :         bool is_post_amp = (amp_idx &gt;= 0 &amp;&amp; i &gt; amp_idx);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          81 :         Effect* ptr = effects[i].get();</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          81 :         bool is_amp = (amp_idx &gt;= 0 &amp;&amp; i == amp_idx);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          81 :         bool is_post_amp = (amp_idx &gt;= 0 &amp;&amp; i &gt; amp_idx);</span></span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          78 :         if (is_post_amp) continue;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          81 :         if (is_post_amp) continue;</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          75 :         if (prev_visible.count(ptr)) {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          78 :         if (prev_visible.count(ptr)) {</span></span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          36 :             visible_indices_.insert(i);</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          51 :         } else if (effects[i]-&gt;is_enabled() || is_amp) {</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          39 :             visible_indices_.insert(i);</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          13 :         }</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          78 :     }</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         126 : }</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          54 :         } else if (effects[i]-&gt;is_enabled() || is_amp) {</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          42 :             visible_indices_.insert(i);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          14 :         }</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          81 :     }</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         132 : }</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              : /** @brief Find the index of the current AmpSimulator in the effect chain (-1 if none). */</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">         150 : int PedalBoard::find_amp_index() const {</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">         150 :     auto&amp; fx = engine_.effects();</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         216 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(fx.size()); ++i) {</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          96 :         if (std::strcmp(fx[i]-&gt;name(), &quot;Amp Sim&quot;) == 0) return i;</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          22 :     }</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">         120 :     return -1;</span></span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          50 : }</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">         156 : int PedalBoard::find_amp_index() const {</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">         156 :     auto&amp; fx = engine_.effects();</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         225 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(fx.size()); ++i) {</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          99 :         if (std::strcmp(fx[i]-&gt;name(), &quot;Amp Sim&quot;) == 0) return i;</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          23 :     }</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">         126 :     return -1;</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          52 : }</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              : /** @brief Render the toolbar (add/reset) and the scrollable signal chain area. */</span>
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           6 : void PedalBoard::render() {</span></span>
