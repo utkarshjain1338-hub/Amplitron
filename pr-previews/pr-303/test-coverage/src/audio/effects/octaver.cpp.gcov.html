@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:48:15</td>
+            <td class="headerValue">2026-05-29 19:14:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -86,21 +86,21 @@
 <span id="L24"><span class="lineNum">      24</span>              : static constexpr float FLIP_HYSTERESIS = 0.002f;</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          52 : Octaver::Octaver() {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         104 :     params_ = {</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          13 :         {&quot;Oct -1&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         117 :     params_ = {</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          39 :         {&quot;Oct -1&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          13 :          &quot;Level of the sub-octave (one octave below). Produces a thick, organ-like low tone.&quot;},</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          13 :         {&quot;Oct +1&quot;, 0.0f, 0.0f, 1.0f, 0.0f, &quot;&quot;,</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          13 :          &quot;Level of the upper octave (one octave above). Adds a bright, shimmery harmonic.&quot;},</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          13 :         {&quot;Dry&quot;,    0.7f, 0.0f, 1.0f, 0.7f, &quot;&quot;,</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          13 :          &quot;Level of the original dry signal blended with the octave voices.&quot;},</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         104 :     };</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          39 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         104 : }</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         117 :     };</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          52 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          78 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          75 : void Octaver::set_sample_rate(int sample_rate) {</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          75 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          75 :     reset();</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          75 : }</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          50 :     reset();</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          62 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         408 : void Octaver::process(float* buffer, int num_samples) {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         408 :     if (!enabled_) return;</span></span>
