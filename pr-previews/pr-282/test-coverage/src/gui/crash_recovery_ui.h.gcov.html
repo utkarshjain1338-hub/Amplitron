@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/crash_recovery_ui.h</title>
+  <title>LCOV - merged.info - src/gui/crash_recovery_ui.h</title>
   <link rel="stylesheet" type="text/css" href="../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">22.2&nbsp;%</td>
-            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryLo">16.7&nbsp;%</td>
+            <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntry">2</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 20:51:38</td>
+            <td class="headerValue">2026-05-29 11:28:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -69,14 +69,14 @@
 <span id="L7"><span class="lineNum">       7</span>              :  * * @return true if the user clicks &quot;Restore&quot;, false if &quot;Discard&quot;.</span>
 <span id="L8"><span class="lineNum">       8</span>              :  */</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           6 : inline bool promptRestoreSession() {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          18 : inline bool promptRestoreSession() {</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : #if defined(__EMSCRIPTEN__) || defined(AMPLITRON_HEADLESS)</span>
 <span id="L12"><span class="lineNum">      12</span>              :     // Blocking message boxes not supported in WebAssembly or headless test builds.</span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           6 :     return false;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          18 :     return false;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : #else</span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaUNC tlaBgUNC">           0 :     if (SDL_WasInit(SDL_INIT_VIDEO) == 0) {</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC">           0 :         if (SDL_InitSubSystem(SDL_INIT_VIDEO) &lt; 0) return false;</span></span>
-<span id="L17"><span class="lineNum">      17</span>              :     }</span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :     const SDL_MessageBoxButtonData buttons[] = {</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :         { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, &quot;Restore&quot; },</span>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              :         &quot;Amplitron closed unexpectedly during your last session.\n\n&quot;</span>
 <span id="L29"><span class="lineNum">      29</span>              :         &quot;Would you like to restore your previous pedal chain configuration?&quot;,</span>
 <span id="L30"><span class="lineNum">      30</span>              :         SDL_arraysize(buttons),</span>
-<span id="L31"><span class="lineNum">      31</span>              :         buttons,</span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :         buttons,</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :         nullptr</span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :     };</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :     </span>
@@ -98,7 +98,7 @@
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :     if (SDL_ShowMessageBox(&amp;messageboxdata, &amp;buttonid) &lt; 0) return false;</span></span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :     return buttonid == 1;</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : #endif</span>
-<span id="L39"><span class="lineNum">      39</span>              : }</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 : }</span></span>
         </pre>
               </td>
             </tr>
