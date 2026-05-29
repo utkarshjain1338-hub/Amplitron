@@ -229,19 +229,19 @@ jobs:
           # Create llvm-gcov wrapper for Apple Clang
           printf '#!/bin/bash\nexec xcrun llvm-cov gcov "$@"\n' > /tmp/llvm-gcov.sh
           chmod +x /tmp/llvm-gcov.sh
+          LCOV_IGNORE="--ignore-errors mismatch,mismatch,gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported,corrupt,corrupt"
           lcov --capture --initial --directory build --output-file coverage_base.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,mismatch,gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported
+            --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
           lcov --capture --directory build --output-file coverage_test.info \
-            --gcov-tool /tmp/llvm-gcov.sh --ignore-errors mismatch,mismatch,gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported
+            --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
-            --output-file coverage.info
+            --output-file coverage.info $LCOV_IGNORE
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '*/external/*' '*/tests/*' '*/build/*' \
-            --output-file coverage.filtered.info \
-            --ignore-errors unused,unused,inconsistent,inconsistent,format,format,unsupported,unsupported
+            --output-file coverage.filtered.info $LCOV_IGNORE
           # Normalize paths for cross-platform merging
           sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
-          lcov --summary coverage.filtered.info | tee coverage-summary-macos.txt
+          lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-macos.txt
 
       - name: Upload macOS Coverage
         if: github.event_name == 'pull_request'
@@ -536,19 +536,23 @@ jobs:
         if: github.event_name == 'pull_request'
         shell: msys2 {0}
         run: |
-          lcov --capture --initial --directory build --output-file coverage_base.info \
-            --ignore-errors mismatch,gcov,source
-          lcov --capture --directory build --output-file coverage_test.info \
-            --ignore-errors mismatch,gcov,source
+          # MSYS2 ships lcov 1.x which has limited --ignore-errors support
+          LCOV_VER=$(lcov --version | grep -oP '\d+' | head -1)
+          if [ "$LCOV_VER" -ge 2 ] 2>/dev/null; then
+            LCOV_IGNORE="--ignore-errors gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported,corrupt,corrupt"
+          else
+            LCOV_IGNORE=""
+          fi
+          lcov --capture --initial --directory build --output-file coverage_base.info $LCOV_IGNORE
+          lcov --capture --directory build --output-file coverage_test.info $LCOV_IGNORE
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
-            --output-file coverage.info
+            --output-file coverage.info $LCOV_IGNORE
           lcov --remove coverage.info \
             '/usr/*' '/mingw64/*' 'C:/*' '*/external/*' '*/tests/*' '*/build/*' \
-            --output-file coverage.filtered.info \
-            --ignore-errors unused
+            --output-file coverage.filtered.info $LCOV_IGNORE
           # Normalize paths for cross-platform merging
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
-          lcov --summary coverage.filtered.info | tee coverage-summary-windows.txt
+          lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-windows.txt
 
       - name: Upload Windows Coverage
         if: github.event_name == 'pull_request'
