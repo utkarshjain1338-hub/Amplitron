@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/commands/command_history.h</title>
+  <title>LCOV - merged.info - src/gui/commands/command_history.h</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -37,12 +37,12 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 18:16:12</td>
+            <td class="headerValue">2026-05-29 11:29:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -84,8 +84,8 @@
 <span id="L22"><span class="lineNum">      22</span>              :      * @brief Construct a CommandHistory.</span>
 <span id="L23"><span class="lineNum">      23</span>              :      * @param max_depth Maximum undo stack size. Negative values are clamped to 0.</span>
 <span id="L24"><span class="lineNum">      24</span>              :      */</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC tlaBgGNC">          91 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          91 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC tlaBgGNC">         364 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         364 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     /**</span>
 <span id="L29"><span class="lineNum">      29</span>              :      * @brief Execute a command and push it onto the undo stack.</span>
@@ -123,16 +123,16 @@
 <span id="L61"><span class="lineNum">      61</span>              :     void clear();</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
 <span id="L63"><span class="lineNum">      63</span>              :     /** @brief Return true if the undo stack is non-empty. */</span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           1 :     bool can_undo() const { return !undo_stack_.empty(); }</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           3 :     bool can_undo() const { return !undo_stack_.empty(); }</span></span>
 <span id="L65"><span class="lineNum">      65</span>              : </span>
 <span id="L66"><span class="lineNum">      66</span>              :     /** @brief Return true if the redo stack is non-empty. */</span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           3 :     bool can_redo() const { return !redo_stack_.empty(); }</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           9 :     bool can_redo() const { return !redo_stack_.empty(); }</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              :     /** @brief Number of commands on the undo stack. */</span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          10 :     int undo_size() const { return static_cast&lt;int&gt;(undo_stack_.size()); }</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          30 :     int undo_size() const { return static_cast&lt;int&gt;(undo_stack_.size()); }</span></span>
 <span id="L71"><span class="lineNum">      71</span>              : </span>
 <span id="L72"><span class="lineNum">      72</span>              :     /** @brief Number of commands on the redo stack. */</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           1 :     int redo_size() const { return static_cast&lt;int&gt;(redo_stack_.size()); }</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           3 :     int redo_size() const { return static_cast&lt;int&gt;(redo_stack_.size()); }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
 <span id="L75"><span class="lineNum">      75</span>              :     /** @brief Current maximum undo depth. */</span>
 <span id="L76"><span class="lineNum">      76</span>              :     int max_depth() const { return max_depth_; }</span>

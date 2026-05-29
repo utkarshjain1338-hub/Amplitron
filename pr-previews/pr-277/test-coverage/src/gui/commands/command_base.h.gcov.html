@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/commands/command_base.h</title>
+  <title>LCOV - merged.info - src/gui/commands/command_base.h</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 18:16:12</td>
+            <td class="headerValue">2026-05-29 11:29:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -73,9 +73,9 @@
 <span id="L11"><span class="lineNum">      11</span>              :  * engine (e.g. adding an effect, changing a parameter). Commands are stored</span>
 <span id="L12"><span class="lineNum">      12</span>              :  * in a CommandHistory and invoked via execute() / undo().</span>
 <span id="L13"><span class="lineNum">      13</span>              :  */</span>
-<span id="L14"><span class="lineNum">      14</span>              : class Command {</span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">          86 : class Command {</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : public:</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">          86 :     virtual ~Command() = default;</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         258 :     virtual ~Command() = default;</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
 <span id="L18"><span class="lineNum">      18</span>              :     /** @brief Apply this command's action. Returns true if a mutation occurred. */</span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC tlaBgUNC">           0 :     virtual bool execute() { return true; }</span></span>
@@ -92,13 +92,13 @@
 <span id="L30"><span class="lineNum">      30</span>              :      * Two commands can merge if they affect the same target within a short</span>
 <span id="L31"><span class="lineNum">      31</span>              :      * time window. Returns true if this command absorbed @p other.</span>
 <span id="L32"><span class="lineNum">      32</span>              :      */</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC tlaBgGNC">          18 :     virtual bool merge_with(const Command&amp; /*other*/) { return false; }</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC tlaBgGNC">          54 :     virtual bool merge_with(const Command&amp; /*other*/) { return false; }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :     /** @brief Return the steady-clock time point when this command was created. */</span>
 <span id="L36"><span class="lineNum">      36</span>              :     auto timestamp() const { return timestamp_; }</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span>              : protected:</span>
-<span id="L39"><span class="lineNum">      39</span>              :     std::chrono::steady_clock::time_point timestamp_ = std::chrono::steady_clock::now();</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          86 :     std::chrono::steady_clock::time_point timestamp_ = std::chrono::steady_clock::now();</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : };</span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              : } // namespace Amplitron</span>

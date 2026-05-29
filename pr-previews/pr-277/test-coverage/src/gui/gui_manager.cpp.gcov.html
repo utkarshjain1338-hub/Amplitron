@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/gui_manager.cpp</title>
+  <title>LCOV - merged.info - src/gui/gui_manager.cpp</title>
   <link rel="stylesheet" type="text/css" href="../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">11.8&nbsp;%</td>
-            <td class="headerCovTableEntry">127</td>
-            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntryLo">11.9&nbsp;%</td>
+            <td class="headerCovTableEntry">143</td>
+            <td class="headerCovTableEntry">17</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 18:16:12</td>
+            <td class="headerValue">2026-05-29 11:29:03</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -100,21 +100,21 @@
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span>              : namespace Amplitron {</span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC tlaBgGNC">           5 : GuiManager::GuiManager(AudioEngine&amp; engine)</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           5 :     : engine_(engine),</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           5 :       command_history_(),</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           5 :       tuner_pedal_(std::make_shared&lt;TunerPedal&gt;()),</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           5 :       gui_presets_(engine, command_history_),</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          15 :       gui_midi_(midi_manager_)</span></span>
-<span id="L47"><span class="lineNum">      47</span>              : {</span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           5 :     pedal_board_ = std::make_unique&lt;PedalBoard&gt;(engine_, command_history_, &amp;gui_midi_);</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           5 :     gui_presets_.set_pedal_board(pedal_board_.get());</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           5 :     gui_presets_.set_midi_manager(&amp;midi_manager_);</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           5 : }</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC tlaBgGNC">          20 : GuiManager::GuiManager(AudioEngine&amp; engine)</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          15 :     : engine_(engine),</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          15 :       command_history_(),</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          10 :       tuner_pedal_(std::make_shared&lt;TunerPedal&gt;()),</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          10 :       gui_presets_(engine, command_history_),</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          30 :       gui_midi_(midi_manager_)</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           5 : {</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          15 :     pedal_board_ = std::make_unique&lt;PedalBoard&gt;(engine_, command_history_, &amp;gui_midi_);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          15 :     gui_presets_.set_pedal_board(pedal_board_.get());</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          15 :     gui_presets_.set_midi_manager(&amp;midi_manager_);</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          15 : }</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           5 : GuiManager::~GuiManager() {</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           5 :     shutdown();</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           5 : }</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          20 : GuiManager::~GuiManager() {</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          15 :     shutdown();</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          20 : }</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC tlaBgUNC">           0 : bool GuiManager::initialize(int width, int height) {</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC">           0 :     window_width_ = width;</span></span>
@@ -136,7 +136,7 @@
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC">           0 :     window_ = SDL_CreateWindow(</span></span>
 <span id="L75"><span class="lineNum">      75</span>              :         Theme::WINDOW_TITLE,</span>
 <span id="L76"><span class="lineNum">      76</span>              :         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,</span>
-<span id="L77"><span class="lineNum">      77</span>              :         window_width_, window_height_,</span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaUNC">           0 :         window_width_, window_height_,</span></span>
 <span id="L78"><span class="lineNum">      78</span>              :         SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI</span>
 <span id="L79"><span class="lineNum">      79</span>              :     );</span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
@@ -196,7 +196,7 @@
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :         if (base_path) {</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaUNC">           0 :             try_font(std::string(base_path) + &quot;assets/fonts/Roboto-Medium.ttf&quot;);</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :             SDL_free(base_path);</span></span>
-<span id="L137"><span class="lineNum">     137</span>              :         }</span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 :         try_font(&quot;assets/fonts/Roboto-Medium.ttf&quot;);</span></span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaUNC">           0 :         try_font(&quot;../assets/fonts/Roboto-Medium.ttf&quot;);</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaUNC">           0 :         try_font(&quot;external/imgui/misc/fonts/Roboto-Medium.ttf&quot;);</span></span>
@@ -205,7 +205,7 @@
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :         if (!loaded_font) {</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaUNC">           0 :             io.Fonts-&gt;AddFontDefault();</span></span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :             io.FontGlobalScale = 1.0f;</span></span>
-<span id="L146"><span class="lineNum">     146</span>              :         } else {</span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :         } else {</span></span>
 <span id="L147"><span class="lineNum">     147</span>              :             // On all platforms (Desktop &amp; Web viewports), ImGui operates in logical coordinates.</span>
 <span id="L148"><span class="lineNum">     148</span>              :             // We load fonts at high physical resolution (scaled_size) to keep text sharp,</span>
 <span id="L149"><span class="lineNum">     149</span>              :             // and set FontGlobalScale to 1.0f / dpi_scale to draw them at their intended logical size.</span>
@@ -220,7 +220,7 @@
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :         if (base) {</span></span>
 <span id="L159"><span class="lineNum">     159</span> <span class="tlaUNC">           0 :             icon_path = std::string(base) + &quot;assets/icon.svg&quot;;</span></span>
 <span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :             SDL_free(base);</span></span>
-<span id="L161"><span class="lineNum">     161</span>              :         }</span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaUNC">           0 :         NSVGimage* svg = nullptr;</span></span>
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaUNC">           0 :         if (!icon_path.empty())</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 :             svg = nsvgParseFromFile(icon_path.c_str(), &quot;px&quot;, 96.0f);</span></span>
@@ -235,21 +235,21 @@
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC">           0 :                 unsigned char* img = new unsigned char[icon_size * icon_size * 4];</span></span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :                 nsvgRasterize(rast, svg, 0, 0,</span></span>
 <span id="L175"><span class="lineNum">     175</span> <span class="tlaUNC">           0 :                              icon_size / svg-&gt;width,</span></span>
-<span id="L176"><span class="lineNum">     176</span>              :                              img, icon_size, icon_size,</span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :                              img, icon_size, icon_size,</span></span>
 <span id="L177"><span class="lineNum">     177</span>              :                              icon_size * 4);</span>
 <span id="L178"><span class="lineNum">     178</span>              : </span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC">           0 :                 SDL_Surface* icon = SDL_CreateRGBSurfaceFrom(</span></span>
-<span id="L180"><span class="lineNum">     180</span>              :                     img, icon_size, icon_size, 32, icon_size * 4,</span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :                     img, icon_size, icon_size, 32, icon_size * 4,</span></span>
 <span id="L181"><span class="lineNum">     181</span>              :                     0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);</span>
 <span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :                 if (icon) {</span></span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaUNC">           0 :                     SDL_SetWindowIcon(window_, icon);</span></span>
 <span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :                     SDL_FreeSurface(icon);</span></span>
-<span id="L185"><span class="lineNum">     185</span>              :                 }</span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :                 }</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 :                 delete[] img;</span></span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :                 nsvgDeleteRasterizer(rast);</span></span>
-<span id="L188"><span class="lineNum">     188</span>              :             }</span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC">           0 :             }</span></span>
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaUNC">           0 :             nsvgDelete(svg);</span></span>
-<span id="L190"><span class="lineNum">     190</span>              :         } else {</span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC">           0 :         } else {</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;Warning: Could not load assets/icon.svg&quot; &lt;&lt; std::endl;</span></span>
 <span id="L192"><span class="lineNum">     192</span>              :         }</span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :     }</span></span>
@@ -267,7 +267,7 @@
 <span id="L205"><span class="lineNum">     205</span> <span class="tlaUNC">           0 :     midi_manager_.load_config();</span></span>
 <span id="L206"><span class="lineNum">     206</span> <span class="tlaUNC">           0 :     if (midi_manager_.mappings().empty()) {</span></span>
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaUNC">           0 :         midi_manager_.install_default_mappings();</span></span>
-<span id="L208"><span class="lineNum">     208</span>              :     }</span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :     midi_manager_.initialize();</span></span>
 <span id="L210"><span class="lineNum">     210</span>              : </span>
 <span id="L211"><span class="lineNum">     211</span>              : #ifndef AMPLITRON_NO_DESKTOP_SHELL</span>
@@ -276,16 +276,16 @@
 <span id="L214"><span class="lineNum">     214</span>              : </span>
 <span id="L215"><span class="lineNum">     215</span> <span class="tlaUNC">           0 :     initialized_ = true;</span></span>
 <span id="L216"><span class="lineNum">     216</span> <span class="tlaUNC">           0 :     return true;</span></span>
-<span id="L217"><span class="lineNum">     217</span>              : }</span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaUNC">           0 : }</span></span>
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span>              : </span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC tlaBgGNC">          11 : void GuiManager::shutdown() {</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">          11 :     if (!initialized_) return;</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC tlaBgGNC">          33 : void GuiManager::shutdown() {</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">          33 :     if (!initialized_) return;</span></span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC tlaBgUNC">           0 :     initialized_ = false;</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaUNC">           0 :     if (update_check_thread_.joinable()) {</span></span>
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC">           0 :         update_check_thread_.join();</span></span>
-<span id="L226"><span class="lineNum">     226</span>              :     }</span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span> <span class="tlaUNC">           0 :     midi_manager_.save_config();</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :     midi_manager_.shutdown();</span></span>
@@ -300,13 +300,13 @@
 <span id="L238"><span class="lineNum">     238</span> <span class="tlaUNC">           0 :     if (gl_context_) {</span></span>
 <span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :         SDL_GL_DeleteContext(gl_context_);</span></span>
 <span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :         gl_context_ = nullptr;</span></span>
-<span id="L241"><span class="lineNum">     241</span>              :     }</span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :     if (window_) {</span></span>
 <span id="L243"><span class="lineNum">     243</span> <span class="tlaUNC">           0 :         SDL_DestroyWindow(window_);</span></span>
 <span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC">           0 :         window_ = nullptr;</span></span>
-<span id="L245"><span class="lineNum">     245</span>              :     }</span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC">           0 :     SDL_Quit();</span></span>
-<span id="L247"><span class="lineNum">     247</span>              : }</span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC tlaBgGNC">          11 : }</span></span>
 <span id="L248"><span class="lineNum">     248</span>              : </span>
 <span id="L249"><span class="lineNum">     249</span>              : } // namespace Amplitron</span>
         </pre>
