@@ -91,9 +91,9 @@ jobs:
           lcov --capture --directory build --output-file coverage_test.info $LCOV_IGNORE
           lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
             --output-file coverage.info $LCOV_IGNORE
-          # Normalize paths and resolve MSYS2 build/../ quirks before filtering
-          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
-          sed -i 's|SF:build/../|SF:|g' coverage.info
+          # Resolve build/../ quirks and normalize to absolute Linux runner workspace paths
+          sed -i 's|/build/../|/|g' coverage.info
+          sed -i 's|SF:.*/Amplitron/|SF:/home/runner/work/Amplitron/Amplitron/|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
@@ -203,9 +203,9 @@ jobs:
           # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
           lcov --capture --directory build --output-file coverage.info \
             --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
-          # Normalize paths and resolve MSYS2 build/../ quirks before filtering
-          sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.info
-          sed -i '' 's|SF:build/../|SF:|g' coverage.info
+          # Resolve build/../ quirks and normalize to absolute Linux runner workspace paths
+          sed -i '' 's|/build/../|/|g' coverage.info
+          sed -i '' 's|SF:.*/Amplitron/|SF:/home/runner/work/Amplitron/Amplitron/|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
@@ -514,10 +514,10 @@ jobs:
           fi
           # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
           lcov --capture --directory build --output-file coverage.info $LCOV_IGNORE 2>&1 | tail -20
-          # Normalize backslashes, unmangle MSYS2 paths, and resolve build/../ quirks before filtering.
+          # Normalize backslashes, unmangle MSYS2 paths, resolve build/../ quirks, and normalize to absolute Linux runner workspace paths
           sed -i 's|\\|/|g' coverage.info
-          sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
-          sed -i 's|SF:build/../|SF:|g' coverage.info
+          sed -i 's|/build/../|/|g' coverage.info
+          sed -i 's|SF:.*/Amplitron/|SF:/home/runner/work/Amplitron/Amplitron/|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
