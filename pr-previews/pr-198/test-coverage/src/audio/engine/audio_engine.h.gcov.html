@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-28 12:14:32</td>
+            <td class="headerValue">2026-05-29 05:27:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -188,7 +188,7 @@
 <span id="L126"><span class="lineNum">     126</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L127"><span class="lineNum">     127</span>              :     // =========================================================================</span>
 <span id="L128"><span class="lineNum">     128</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         594 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">         597 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
 <span id="L131"><span class="lineNum">     131</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx);</span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          14 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) {</span></span>
@@ -217,10 +217,10 @@
 <span id="L155"><span class="lineNum">     155</span>              :     void set_sample_rate(int rate);</span>
 <span id="L156"><span class="lineNum">     156</span>              : </span>
 <span id="L157"><span class="lineNum">     157</span>              :     /** @brief Return the current buffer size in samples. */</span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           5 :     int get_buffer_size() const { return buffer_size_; }</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           8 :     int get_buffer_size() const { return buffer_size_; }</span></span>
 <span id="L159"><span class="lineNum">     159</span>              : </span>
 <span id="L160"><span class="lineNum">     160</span>              :     /** @brief Return the current sample rate in Hz. */</span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          13 :     int get_sample_rate() const { return sample_rate_; }</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          16 :     int get_sample_rate() const { return sample_rate_; }</span></span>
 <span id="L162"><span class="lineNum">     162</span>              : </span>
 <span id="L163"><span class="lineNum">     163</span>              :     /** @brief Return true if the audio stream is actively running. */</span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          45 :     bool is_running() const { return running_; }</span></span>
@@ -289,10 +289,10 @@
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     </span>
 <span id="L229"><span class="lineNum">     229</span>              :     /** @brief Return the current input gain (atomic relaxed read). */</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         179 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         182 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span>              :     /** @brief Return the current output gain (atomic relaxed read). */</span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         157 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         160 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              :     /** @brief Toggle the metronome on/off (atomic update). */</span>
 <span id="L236"><span class="lineNum">     236</span>              :     void toggle_metronome();</span>
