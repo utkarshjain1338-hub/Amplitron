@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/theme/theme.h</title>
+  <title>LCOV - merged.info - src/gui/theme/theme.h</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,16 +28,16 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">85</td>
-            <td class="headerCovTableEntry">85</td>
+            <td class="headerCovTableEntry">87</td>
+            <td class="headerCovTableEntry">87</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 05:27:18</td>
+            <td class="headerValue">2026-05-29 17:48:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -147,17 +147,17 @@
 <span id="L85"><span class="lineNum">      85</span>              : constexpr ImU32 PEDAL_BYPASS_OVERLAY = IM_COL32(0, 0, 0, 90);  // dim overlay when bypassed</span>
 <span id="L86"><span class="lineNum">      86</span>              : </span>
 <span id="L87"><span class="lineNum">      87</span>              : // --- ImVec4 helpers (for ImGui style and TextColored) ---</span>
-<span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC tlaBgGNC">          27 : inline ImVec4 Gold()          { return ImVec4(0.78f, 0.66f, 0.29f, 1.0f); }</span></span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           1 : inline ImVec4 GoldDim()       { return ImVec4(0.63f, 0.51f, 0.22f, 1.0f); }</span></span>
-<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          10 : inline ImVec4 GoldHot()       { return ImVec4(0.90f, 0.78f, 0.39f, 1.0f); }</span></span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">          49 : inline ImVec4 TextPrimary()   { return ImVec4(0.86f, 0.84f, 0.80f, 1.0f); }</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         192 : inline ImVec4 TextSecondary() { return ImVec4(0.53f, 0.53f, 0.53f, 1.0f); }</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">         200 : inline ImVec4 TextDim()       { return ImVec4(0.40f, 0.40f, 0.40f, 1.0f); }</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           3 : inline ImVec4 Live()          { return ImVec4(0.20f, 0.78f, 0.31f, 1.0f); }</span></span>
+<span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC tlaBgGNC">          81 : inline ImVec4 Gold()          { return ImVec4(0.78f, 0.66f, 0.29f, 1.0f); }</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           3 : inline ImVec4 GoldDim()       { return ImVec4(0.63f, 0.51f, 0.22f, 1.0f); }</span></span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          74 : inline ImVec4 GoldHot()       { return ImVec4(0.90f, 0.78f, 0.39f, 1.0f); }</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         183 : inline ImVec4 TextPrimary()   { return ImVec4(0.86f, 0.84f, 0.80f, 1.0f); }</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         789 : inline ImVec4 TextSecondary() { return ImVec4(0.53f, 0.53f, 0.53f, 1.0f); }</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">         906 : inline ImVec4 TextDim()       { return ImVec4(0.40f, 0.40f, 0.40f, 1.0f); }</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          13 : inline ImVec4 Live()          { return ImVec4(0.20f, 0.78f, 0.31f, 1.0f); }</span></span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           4 : inline ImVec4 Stopped()       { return ImVec4(0.78f, 0.20f, 0.20f, 1.0f); }</span></span>
-<span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">          10 : inline ImVec4 RecBlink(float t) {</span></span>
-<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">          10 :     float a = (std::sin(t * 4.0f) &gt; 0.0f) ? 1.0f : 0.3f;</span></span>
-<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">          10 :     return ImVec4(1.0f, 0.1f, 0.1f, a);</span></span>
+<span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">          30 : inline ImVec4 RecBlink(float t) {</span></span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">          30 :     float a = (std::sin(t * 4.0f) &gt; 0.0f) ? 1.0f : 0.3f;</span></span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">          30 :     return ImVec4(1.0f, 0.1f, 0.1f, a);</span></span>
 <span id="L99"><span class="lineNum">      99</span>              : }</span>
 <span id="L100"><span class="lineNum">     100</span>              : </span>
 <span id="L101"><span class="lineNum">     101</span>              : // --- Parameter value formatter ---</span>
@@ -168,27 +168,27 @@
 <span id="L106"><span class="lineNum">     106</span>              : //   ms  -&gt; &quot;250 ms&quot;</span>
 <span id="L107"><span class="lineNum">     107</span>              : //   s   -&gt; &quot;1.20 s&quot;</span>
 <span id="L108"><span class="lineNum">     108</span>              : //   other / none -&gt; &quot;1.5&quot; or &quot;1.5 unit&quot;</span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         590 : inline std::string formatParameterValue(float value, const std::string&amp; unit) {</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">        4386 : inline std::string formatParameterValue(float value, const std::string&amp; unit) {</span></span>
 <span id="L110"><span class="lineNum">     110</span>              :     char buf[64];</span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         590 :     if (unit == &quot;Hz&quot;) {</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          46 :         if (value &gt;= 1000.0f)</span></span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          23 :             snprintf(buf, sizeof(buf), &quot;%.1f kHz&quot;, value / 1000.0f);</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        4386 :     if (unit == &quot;Hz&quot;) {</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         384 :         if (value &gt;= 1000.0f)</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">         192 :             snprintf(buf, sizeof(buf), &quot;%.1f kHz&quot;, value / 1000.0f);</span></span>
 <span id="L114"><span class="lineNum">     114</span>              :         else</span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          23 :             snprintf(buf, sizeof(buf), &quot;%.0f Hz&quot;, value);</span></span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         544 :     } else if (unit == &quot;dB&quot;) {</span></span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">         221 :         snprintf(buf, sizeof(buf), &quot;%.1f dB&quot;, value);</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         323 :     } else if (unit == &quot;%&quot; || unit == &quot;pct&quot;) {</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           2 :         snprintf(buf, sizeof(buf), &quot;%.0f%%&quot;, value);</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">         321 :     } else if (unit == &quot;ms&quot;) {</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         115 :         snprintf(buf, sizeof(buf), &quot;%.1f ms&quot;, value);</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">         206 :     } else if (unit == &quot;s&quot;) {</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           1 :         snprintf(buf, sizeof(buf), &quot;%.2f s&quot;, value);</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">         205 :     } else if (!unit.empty()) {</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">         102 :         snprintf(buf, sizeof(buf), &quot;%.1f %s&quot;, value, unit.c_str());</span></span>
-<span id="L126"><span class="lineNum">     126</span>              :     } else {</span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         103 :         snprintf(buf, sizeof(buf), &quot;%.1f&quot;, value);</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">         192 :             snprintf(buf, sizeof(buf), &quot;%.0f Hz&quot;, value);</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">        4130 :     } else if (unit == &quot;dB&quot;) {</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">        1524 :         snprintf(buf, sizeof(buf), &quot;%.1f dB&quot;, value);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">        2986 :     } else if (unit == &quot;%&quot; || unit == &quot;pct&quot;) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">           6 :         snprintf(buf, sizeof(buf), &quot;%.0f%%&quot;, value);</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        2474 :     } else if (unit == &quot;ms&quot;) {</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">        1083 :         snprintf(buf, sizeof(buf), &quot;%.1f ms&quot;, value);</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">        1750 :     } else if (unit == &quot;s&quot;) {</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           3 :         snprintf(buf, sizeof(buf), &quot;%.2f s&quot;, value);</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        1387 :     } else if (!unit.empty()) {</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">         711 :         snprintf(buf, sizeof(buf), &quot;%.1f %s&quot;, value, unit.c_str());</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">         237 :     } else {</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         675 :         snprintf(buf, sizeof(buf), &quot;%.1f&quot;, value);</span></span>
 <span id="L128"><span class="lineNum">     128</span>              :     }</span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        1180 :     return std::string(buf);</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        7310 :     return std::string(buf);</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : }</span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
 <span id="L132"><span class="lineNum">     132</span>              : // --- Spacing / Layout ---</span>
@@ -205,93 +205,93 @@
 <span id="L143"><span class="lineNum">     143</span>              : constexpr float ROUNDING_LG   = 12.0f;</span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
 <span id="L145"><span class="lineNum">     145</span>              : // --- Apply the full ImGui style ---</span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           1 : inline void ApplyStyle() {</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           1 :     ImGuiStyle&amp; style = ImGui::GetStyle();</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           3 : inline void ApplyStyle() {</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           3 :     ImGuiStyle&amp; style = ImGui::GetStyle();</span></span>
 <span id="L148"><span class="lineNum">     148</span>              : </span>
 <span id="L149"><span class="lineNum">     149</span>              :     // Rounding</span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           1 :     style.WindowRounding    = ROUNDING_MD;</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           1 :     style.ChildRounding     = ROUNDING_SM;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           1 :     style.FrameRounding     = ROUNDING_SM;</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           1 :     style.PopupRounding     = ROUNDING_SM;</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           1 :     style.ScrollbarRounding = ROUNDING_SM;</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           1 :     style.GrabRounding      = ROUNDING_SM;</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           1 :     style.TabRounding       = ROUNDING_SM;</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           3 :     style.WindowRounding    = ROUNDING_MD;</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           3 :     style.ChildRounding     = ROUNDING_SM;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           3 :     style.FrameRounding     = ROUNDING_SM;</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           3 :     style.PopupRounding     = ROUNDING_SM;</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           3 :     style.ScrollbarRounding = ROUNDING_SM;</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           3 :     style.GrabRounding      = ROUNDING_SM;</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">           3 :     style.TabRounding       = ROUNDING_SM;</span></span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
 <span id="L158"><span class="lineNum">     158</span>              :     // Spacing</span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           1 :     style.WindowPadding  = ImVec2(8, 8);</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :     style.FramePadding   = ImVec2(6, 4);</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           1 :     style.ItemSpacing    = ImVec2(8, 5);</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           1 :     style.ScrollbarSize  = 12;</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           1 :     style.GrabMinSize    = 10;</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           3 :     style.WindowPadding  = ImVec2(8, 8);</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           3 :     style.FramePadding   = ImVec2(6, 4);</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           3 :     style.ItemSpacing    = ImVec2(8, 5);</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           3 :     style.ScrollbarSize  = 12;</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">           3 :     style.GrabMinSize    = 10;</span></span>
 <span id="L164"><span class="lineNum">     164</span>              : </span>
 <span id="L165"><span class="lineNum">     165</span>              :     // Borders</span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           1 :     style.WindowBorderSize = 1.0f;</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :     style.ChildBorderSize  = 1.0f;</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           1 :     style.FrameBorderSize  = 0.0f;</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           3 :     style.WindowBorderSize = 1.0f;</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           3 :     style.ChildBorderSize  = 1.0f;</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           3 :     style.FrameBorderSize  = 0.0f;</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
 <span id="L170"><span class="lineNum">     170</span>              :     // Colors</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           1 :     ImVec4* c = style.Colors;</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           3 :     ImVec4* c = style.Colors;</span></span>
 <span id="L172"><span class="lineNum">     172</span>              : </span>
 <span id="L173"><span class="lineNum">     173</span>              :     // Window</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           1 :     c[ImGuiCol_WindowBg]       = ImVec4(0.11f, 0.10f, 0.09f, 1.00f);  // #1c1a18</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ChildBg]        = ImVec4(0.08f, 0.07f, 0.06f, 0.40f);</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           1 :     c[ImGuiCol_PopupBg]        = ImVec4(0.14f, 0.13f, 0.11f, 0.95f);</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           3 :     c[ImGuiCol_WindowBg]       = ImVec4(0.11f, 0.10f, 0.09f, 1.00f);  // #1c1a18</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ChildBg]        = ImVec4(0.08f, 0.07f, 0.06f, 0.40f);</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           3 :     c[ImGuiCol_PopupBg]        = ImVec4(0.14f, 0.13f, 0.11f, 0.95f);</span></span>
 <span id="L177"><span class="lineNum">     177</span>              : </span>
 <span id="L178"><span class="lineNum">     178</span>              :     // Borders</span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Border]         = ImVec4(0.23f, 0.21f, 0.19f, 0.60f);</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           1 :     c[ImGuiCol_BorderShadow]   = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Border]         = ImVec4(0.23f, 0.21f, 0.19f, 0.60f);</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           3 :     c[ImGuiCol_BorderShadow]   = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);</span></span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
 <span id="L182"><span class="lineNum">     182</span>              :     // Title / Menu</span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           1 :     c[ImGuiCol_TitleBg]        = ImVec4(0.12f, 0.11f, 0.10f, 1.00f);</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           1 :     c[ImGuiCol_TitleBgActive]  = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           1 :     c[ImGuiCol_MenuBarBg]      = ImVec4(0.14f, 0.13f, 0.11f, 1.00f);</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           3 :     c[ImGuiCol_TitleBg]        = ImVec4(0.12f, 0.11f, 0.10f, 1.00f);</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           3 :     c[ImGuiCol_TitleBgActive]  = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           3 :     c[ImGuiCol_MenuBarBg]      = ImVec4(0.14f, 0.13f, 0.11f, 1.00f);</span></span>
 <span id="L186"><span class="lineNum">     186</span>              : </span>
 <span id="L187"><span class="lineNum">     187</span>              :     // Text</span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Text]           = TextPrimary();</span></span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           1 :     c[ImGuiCol_TextDisabled]   = TextDim();</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Text]           = TextPrimary();</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           3 :     c[ImGuiCol_TextDisabled]   = TextDim();</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
 <span id="L191"><span class="lineNum">     191</span>              :     // Frame (input fields, sliders)</span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           1 :     c[ImGuiCol_FrameBg]        = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           1 :     c[ImGuiCol_FrameBgHovered] = ImVec4(0.22f, 0.20f, 0.17f, 1.00f);</span></span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           1 :     c[ImGuiCol_FrameBgActive]  = ImVec4(0.27f, 0.25f, 0.22f, 1.00f);</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           3 :     c[ImGuiCol_FrameBg]        = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           3 :     c[ImGuiCol_FrameBgHovered] = ImVec4(0.22f, 0.20f, 0.17f, 1.00f);</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           3 :     c[ImGuiCol_FrameBgActive]  = ImVec4(0.27f, 0.25f, 0.22f, 1.00f);</span></span>
 <span id="L195"><span class="lineNum">     195</span>              : </span>
 <span id="L196"><span class="lineNum">     196</span>              :     // Buttons — gold tinted</span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Button]         = ImVec4(0.22f, 0.20f, 0.16f, 1.00f);</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ButtonHovered]  = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ButtonActive]   = ImVec4(0.50f, 0.42f, 0.20f, 1.00f);</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Button]         = ImVec4(0.22f, 0.20f, 0.16f, 1.00f);</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ButtonHovered]  = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ButtonActive]   = ImVec4(0.50f, 0.42f, 0.20f, 1.00f);</span></span>
 <span id="L200"><span class="lineNum">     200</span>              : </span>
 <span id="L201"><span class="lineNum">     201</span>              :     // Header / selectable</span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Header]         = ImVec4(0.22f, 0.20f, 0.16f, 1.00f);</span></span>
-<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">           1 :     c[ImGuiCol_HeaderHovered]  = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">           1 :     c[ImGuiCol_HeaderActive]   = ImVec4(0.50f, 0.42f, 0.20f, 1.00f);</span></span>
+<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Header]         = ImVec4(0.22f, 0.20f, 0.16f, 1.00f);</span></span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">           3 :     c[ImGuiCol_HeaderHovered]  = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">           3 :     c[ImGuiCol_HeaderActive]   = ImVec4(0.50f, 0.42f, 0.20f, 1.00f);</span></span>
 <span id="L205"><span class="lineNum">     205</span>              : </span>
 <span id="L206"><span class="lineNum">     206</span>              :     // Slider grab — gold</span>
-<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">           1 :     c[ImGuiCol_SliderGrab]     = Gold();</span></span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">           1 :     c[ImGuiCol_SliderGrabActive]= GoldHot();</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">           3 :     c[ImGuiCol_SliderGrab]     = Gold();</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">           3 :     c[ImGuiCol_SliderGrabActive]= GoldHot();</span></span>
 <span id="L209"><span class="lineNum">     209</span>              : </span>
 <span id="L210"><span class="lineNum">     210</span>              :     // Scrollbar</span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ScrollbarBg]       = ImVec4(0.08f, 0.07f, 0.06f, 0.50f);</span></span>
-<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ScrollbarGrab]     = ImVec4(0.25f, 0.23f, 0.20f, 1.00f);</span></span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.35f, 0.30f, 0.25f, 1.00f);</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ScrollbarGrabActive]  = ImVec4(0.45f, 0.38f, 0.28f, 1.00f);</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ScrollbarBg]       = ImVec4(0.08f, 0.07f, 0.06f, 0.50f);</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ScrollbarGrab]     = ImVec4(0.25f, 0.23f, 0.20f, 1.00f);</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.35f, 0.30f, 0.25f, 1.00f);</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ScrollbarGrabActive]  = ImVec4(0.45f, 0.38f, 0.28f, 1.00f);</span></span>
 <span id="L215"><span class="lineNum">     215</span>              : </span>
 <span id="L216"><span class="lineNum">     216</span>              :     // Checkbox / radio</span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">           1 :     c[ImGuiCol_CheckMark]      = Gold();</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">           3 :     c[ImGuiCol_CheckMark]      = Gold();</span></span>
 <span id="L218"><span class="lineNum">     218</span>              : </span>
 <span id="L219"><span class="lineNum">     219</span>              :     // Separator</span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Separator]      = ImVec4(0.23f, 0.21f, 0.19f, 0.50f);</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           1 :     c[ImGuiCol_SeparatorHovered]= ImVec4(0.50f, 0.42f, 0.20f, 0.70f);</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           1 :     c[ImGuiCol_SeparatorActive]= ImVec4(0.78f, 0.66f, 0.29f, 1.00f);</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Separator]      = ImVec4(0.23f, 0.21f, 0.19f, 0.50f);</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           3 :     c[ImGuiCol_SeparatorHovered]= ImVec4(0.50f, 0.42f, 0.20f, 0.70f);</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           3 :     c[ImGuiCol_SeparatorActive]= ImVec4(0.78f, 0.66f, 0.29f, 1.00f);</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
 <span id="L224"><span class="lineNum">     224</span>              :     // Tab</span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           1 :     c[ImGuiCol_Tab]            = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">           1 :     c[ImGuiCol_TabHovered]     = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           3 :     c[ImGuiCol_Tab]            = ImVec4(0.16f, 0.15f, 0.13f, 1.00f);</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">           3 :     c[ImGuiCol_TabHovered]     = ImVec4(0.35f, 0.30f, 0.18f, 1.00f);</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     // Resize grip</span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ResizeGrip]         = ImVec4(0.50f, 0.42f, 0.20f, 0.20f);</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ResizeGripHovered]  = ImVec4(0.50f, 0.42f, 0.20f, 0.60f);</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           1 :     c[ImGuiCol_ResizeGripActive]   = ImVec4(0.78f, 0.66f, 0.29f, 0.90f);</span></span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ResizeGrip]         = ImVec4(0.50f, 0.42f, 0.20f, 0.20f);</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ResizeGripHovered]  = ImVec4(0.50f, 0.42f, 0.20f, 0.60f);</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">           3 :     c[ImGuiCol_ResizeGripActive]   = ImVec4(0.78f, 0.66f, 0.29f, 0.90f);</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">           3 : }</span></span>
 <span id="L233"><span class="lineNum">     233</span>              : </span>
 <span id="L234"><span class="lineNum">     234</span>              : } // namespace Theme</span>
 <span id="L235"><span class="lineNum">     235</span>              : </span>
@@ -302,7 +302,7 @@
 <span id="L240"><span class="lineNum">     240</span>              :     ImVec4 led_color;</span>
 <span id="L241"><span class="lineNum">     241</span>              : };</span>
 <span id="L242"><span class="lineNum">     242</span>              : </span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">         129 : inline const EffectColorEntry* get_effect_color(const char* effect_name) {</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">         549 : inline const EffectColorEntry* get_effect_color(const char* effect_name) {</span></span>
 <span id="L244"><span class="lineNum">     244</span>              :     // Warm-toned pedal colors that complement the Amplitron palette</span>
 <span id="L245"><span class="lineNum">     245</span>              :     static const EffectColorEntry table[] = {</span>
 <span id="L246"><span class="lineNum">     246</span>              :         {&quot;Distortion&quot;, ImVec4(0.45f, 0.14f, 0.10f, 1.0f), ImVec4(1.0f, 0.30f, 0.20f, 1.0f)},</span>
@@ -322,14 +322,14 @@
 <span id="L260"><span class="lineNum">     260</span>              :         {&quot;Pitch Shifter&quot;, ImVec4(0.32f, 0.12f, 0.32f, 1.0f), ImVec4(0.85f, 0.40f, 0.85f, 1.0f)},</span>
 <span id="L261"><span class="lineNum">     261</span>              :         {&quot;Tuner&quot;,      ImVec4(0.12f, 0.24f, 0.30f, 1.0f), ImVec4(0.40f, 0.85f, 0.95f, 1.0f)},</span>
 <span id="L262"><span class="lineNum">     262</span>              :     };</span>
-<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">         824 :     for (const auto&amp; entry : table) {</span></span>
-<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">         813 :         if (std::strcmp(effect_name, entry.name) == 0) return &amp;entry;</span></span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">        4026 :     for (const auto&amp; entry : table) {</span></span>
+<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">        3993 :         if (std::strcmp(effect_name, entry.name) == 0) return &amp;entry;</span></span>
 <span id="L265"><span class="lineNum">     265</span>              :     }</span>
 <span id="L266"><span class="lineNum">     266</span>              :     // Default fallback</span>
 <span id="L267"><span class="lineNum">     267</span>              :     static const EffectColorEntry fallback =</span>
 <span id="L268"><span class="lineNum">     268</span>              :         {&quot;Default&quot;, ImVec4(0.20f, 0.19f, 0.17f, 1.0f), ImVec4(0.78f, 0.66f, 0.29f, 1.0f)};</span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">          11 :     return &amp;fallback;</span></span>
-<span id="L270"><span class="lineNum">     270</span>              : }</span>
+<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">          33 :     return &amp;fallback;</span></span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         183 : }</span></span>
 <span id="L271"><span class="lineNum">     271</span>              : </span>
 <span id="L272"><span class="lineNum">     272</span>              : } // namespace Amplitron</span>
         </pre>

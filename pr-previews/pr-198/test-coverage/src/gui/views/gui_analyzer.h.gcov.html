@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.filtered.info - src/gui/views/gui_analyzer.h</title>
+  <title>LCOV - merged.info - src/gui/views/gui_analyzer.h</title>
   <link rel="stylesheet" type="text/css" href="../../../gcov.css">
 </head>
 
@@ -28,21 +28,21 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.filtered.info</td>
+            <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">19</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 05:27:18</td>
+            <td class="headerValue">2026-05-29 17:48:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -76,23 +76,23 @@
 <span id="L14"><span class="lineNum">      14</span>              :     Overlay = 2,</span>
 <span id="L15"><span class="lineNum">      15</span>              : };</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span>              : struct SpectrumSnapshot {</span>
-<span id="L18"><span class="lineNum">      18</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_input_db{};</span>
-<span id="L19"><span class="lineNum">      19</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_output_db{};</span>
-<span id="L20"><span class="lineNum">      20</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; input_peak_db{};</span>
-<span id="L21"><span class="lineNum">      21</span>              :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; output_peak_db{};</span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">           8 : struct SpectrumSnapshot {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           8 :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_input_db{};</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           8 :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; smoothed_output_db{};</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           8 :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; input_peak_db{};</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           8 :     std::array&lt;float, SpectrumAnalyzer::DISPLAY_BARS&gt; output_peak_db{};</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : };</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span>              : struct AnalyzerProps {</span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           8 : struct AnalyzerProps {</span></span>
 <span id="L25"><span class="lineNum">      25</span>              :     // VU levels (pre-calculated by LevelAnalyzer in the audio engine)</span>
-<span id="L26"><span class="lineNum">      26</span>              :     float smoothed_input_rms  = 0.0f;</span>
-<span id="L27"><span class="lineNum">      27</span>              :     float smoothed_output_rms = 0.0f;</span>
-<span id="L28"><span class="lineNum">      28</span>              :     float input_peak_hold     = 0.0f;</span>
-<span id="L29"><span class="lineNum">      29</span>              :     float output_peak_hold    = 0.0f;</span>
-<span id="L30"><span class="lineNum">      30</span>              :     bool  input_clip_active   = false;</span>
-<span id="L31"><span class="lineNum">      31</span>              :     bool  output_clip_active  = false;</span>
-<span id="L32"><span class="lineNum">      32</span>              :     float input_clip_flash    = 0.0f;</span>
-<span id="L33"><span class="lineNum">      33</span>              :     float output_clip_flash   = 0.0f;</span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           8 :     float smoothed_input_rms  = 0.0f;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           8 :     float smoothed_output_rms = 0.0f;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           8 :     float input_peak_hold     = 0.0f;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           8 :     float output_peak_hold    = 0.0f;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           8 :     bool  input_clip_active   = false;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           8 :     bool  output_clip_active  = false;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           8 :     float input_clip_flash    = 0.0f;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           8 :     float output_clip_flash   = 0.0f;</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :     // Spectrum analyzer (pre-calculated by SpectrumAnalyzer in the audio engine)</span>
 <span id="L36"><span class="lineNum">      36</span>              :     SpectrumSnapshot spectrum;</span>
@@ -110,16 +110,16 @@
 <span id="L48"><span class="lineNum">      48</span>              :  */</span>
 <span id="L49"><span class="lineNum">      49</span>              : class GuiAnalyzer : public UIComponent&lt;AnalyzerProps&gt; {</span>
 <span id="L50"><span class="lineNum">      50</span>              : public:</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC tlaBgGNC">           6 :     GuiAnalyzer() = default;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          30 :     GuiAnalyzer() = default;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
 <span id="L53"><span class="lineNum">      53</span>              :     /** @brief Render the collapsible analyzer panel. */</span>
 <span id="L54"><span class="lineNum">      54</span>              :     void render() override;</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span>              :     /** @brief Height to reserve for this panel in the parent layout. */</span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           1 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           3 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     SpectrumDisplayMode current_mode() const { return mode_; }</span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           1 :     bool is_expanded() const { return expanded_; }</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           3 :     bool is_expanded() const { return expanded_; }</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span>              : private:</span>
 <span id="L63"><span class="lineNum">      63</span>              :     void render_vu_bar(const char* id,</span>
@@ -135,8 +135,8 @@
 <span id="L73"><span class="lineNum">      73</span>              :                        const ImVec2&amp; pos,</span>
 <span id="L74"><span class="lineNum">      74</span>              :                        const ImVec2&amp; size) const;</span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
-<span id="L76"><span class="lineNum">      76</span>              :     bool expanded_ = true;</span>
-<span id="L77"><span class="lineNum">      77</span>              :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :     bool expanded_ = true;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           6 :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span></span>
 <span id="L78"><span class="lineNum">      78</span>              : };</span>
 <span id="L79"><span class="lineNum">      79</span>              : </span>
 <span id="L80"><span class="lineNum">      80</span>              : } // namespace Amplitron</span>
