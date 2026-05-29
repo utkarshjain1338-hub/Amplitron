@@ -1,1 +1,1 @@
-genhtml coverage.filtered.info --output-directory coverage-report
+genhtml merged.info --output-directory coverage-report --ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source --synthesize-missing
