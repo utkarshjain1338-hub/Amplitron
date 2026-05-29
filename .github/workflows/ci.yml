@@ -802,7 +802,7 @@ jobs:
             PLATFORMS="$PLATFORMS + Windows"
           fi
 
-          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov,category,category"
+          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov"
           GENHTML_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,category,category"
           $MERGE_CMD --output-file merged.info $LCOV_IGNORE
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
@@ -812,7 +812,7 @@ jobs:
 
       - name: Generate Merged Coverage Comment
         run: |
-          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov,category,category"
+          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov"
           COVERAGE=$(lcov --summary merged.info $LCOV_IGNORE 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
           echo "Merged line coverage: $COVERAGE%"
 
