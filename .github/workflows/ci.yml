@@ -96,7 +96,7 @@ jobs:
           sed -i 's|SF:build/../|SF:|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
-            '/usr/*' '/Library/*' '/opt/homebrew/*' '*/external/*' '*/tests/*' '*/build/*' '*/mingw64/*' '*/_temp/*' '*/*/include/c++/*' \
+            '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary.txt
 
@@ -208,7 +208,7 @@ jobs:
           sed -i '' 's|SF:build/../|SF:|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
-            '/usr/*' '/Library/*' '/opt/homebrew/*' '*/external/*' '*/tests/*' '*/build/*' '*/mingw64/*' '*/_temp/*' '*/*/include/c++/*' \
+            '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-macos.txt
 
@@ -520,7 +520,7 @@ jobs:
           sed -i 's|SF:build/../|SF:|g' coverage.info
           # Remove external dependencies, tests, and build artifacts
           lcov --remove coverage.info \
-            '/usr/*' '/Library/*' '/opt/homebrew/*' '*/external/*' '*/tests/*' '*/build/*' '*/mingw64/*' '*/_temp/*' '*/*/include/c++/*' \
+            '/usr/*' '/Library/*' '/opt/homebrew/*' '*external/*' '*tests/*' '*build/*' '*mingw64/*' '*_temp/*' '*include/c++/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE 2>&1 | tail -5
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-windows.txt
 
