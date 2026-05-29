@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 14:10:17</td>
+            <td class="headerValue">2026-05-29 18:04:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -254,7 +254,7 @@
 <span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           6 :                 if (dest_node_id != -1) {</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           6 :                     const DSPNode* node = engine_.graph().find_node(dest_node_id);</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           6 :                     if (node &amp;&amp; (node-&gt;routing_type == NodeRoutingType::Mixer || node-&gt;routing_type == NodeRoutingType::MergeSum)) {</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           6 :                         int occupied_count = 0;</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           6 :                         size_t occupied_count = 0;</span></span>
 <span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">          20 :                         for (int p : node-&gt;input_pin_ids) {</span></span>
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">          22 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">          12 :                                 if (l.dest_pin_id == p) {</span></span>
@@ -280,7 +280,7 @@
 <span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">           6 :                 if (source_node_id != -1) {</span></span>
 <span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           6 :                     const DSPNode* node = engine_.graph().find_node(source_node_id);</span></span>
 <span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           6 :                     if (node &amp;&amp; node-&gt;routing_type == NodeRoutingType::Splitter) {</span></span>
-<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           6 :                         int occupied_count = 0;</span></span>
+<span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           6 :                         size_t occupied_count = 0;</span></span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          20 :                         for (int p : node-&gt;output_pin_ids) {</span></span>
 <span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          22 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">          12 :                                 if (l.source_pin_id == p) {</span></span>
