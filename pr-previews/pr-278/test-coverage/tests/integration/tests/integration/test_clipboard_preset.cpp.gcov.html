@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - merged.info - tests/integration/tests/integration/test_clipboard_preset.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">tests/integration/tests/integration</a> - test_clipboard_preset.cpp<span style="font-size: 80%;"> (source / <a href="test_clipboard_preset.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">merged.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">36</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-05-29 08:39:46</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : #include &quot;test_framework.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &quot;preset_json.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>              : #include &quot;preset_manager.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &lt;string&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &lt;cmath&gt;</span>
+<span id="L6"><span class="lineNum">       6</span>              : </span>
+<span id="L7"><span class="lineNum">       7</span>              : using namespace Amplitron;</span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
+<span id="L9"><span class="lineNum">       9</span>              : // Test 1: Serialised JSON is non-empty for a valid preset</span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          12 : TEST(clipboard_preset_serialise_returns_nonempty_string) {</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           3 :     PresetData pd;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           3 :     pd.name = &quot;Test Preset&quot;;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           3 :     pd.description = &quot;Test description&quot;;</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           3 :     pd.input_gain = 0.5f;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           3 :     pd.output_gain = 0.5f;</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           3 :     std::string json = to_json_ext(pd);</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           3 :     ASSERT_FALSE(json.empty());</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L19"><span class="lineNum">      19</span>              : </span>
+<span id="L20"><span class="lineNum">      20</span>              : // Test 2: Serialised JSON is valid JSON (contains { and })</span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          12 : TEST(clipboard_preset_serialise_returns_valid_json) {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 :     PresetData pd;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :     pd.name = &quot;Test Preset&quot;;</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           3 :     std::string json = to_json_ext(pd);</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :     ASSERT_NE(json.find('{'), std::string::npos);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :     ASSERT_NE(json.find('}'), std::string::npos);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : // Test 3: Round-trip — serialise then deserialise gives same preset</span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          12 : TEST(clipboard_preset_roundtrip_restores_same_preset) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           3 :     PresetData pd;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           3 :     pd.name = &quot;Test Preset&quot;;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           3 :     pd.description = &quot;Test description&quot;;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :     pd.input_gain = 0.5f;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :     pd.output_gain = 0.5f;</span></span>
+<span id="L36"><span class="lineNum">      36</span>              :     </span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           3 :     std::string json = to_json_ext(pd);</span></span>
+<span id="L38"><span class="lineNum">      38</span>              : </span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           3 :     PresetData pd2;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           3 :     bool loaded = from_json_ext(json, pd2);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           3 :     ASSERT_TRUE(loaded);</span></span>
+<span id="L42"><span class="lineNum">      42</span>              :     </span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           3 :     ASSERT_EQ(pd.name, pd2.name);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           3 :     ASSERT_EQ(pd.description, pd2.description);</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           3 :     ASSERT_NEAR(pd.input_gain, pd2.input_gain, 0.001f);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           3 :     ASSERT_NEAR(pd.output_gain, pd2.output_gain, 0.001f);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L48"><span class="lineNum">      48</span>              : </span>
+<span id="L49"><span class="lineNum">      49</span>              : // Test 4: Empty/invalid JSON does not crash</span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          12 : TEST(clipboard_preset_load_invalid_json_returns_false) {</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           3 :     PresetData pd;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           3 :     bool loaded = from_json_ext(&quot;not valid json {{{{&quot;, pd);</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           3 :     ASSERT_FALSE(loaded);</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           3 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
