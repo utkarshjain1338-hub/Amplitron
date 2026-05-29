@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 07:11:21</td>
+            <td class="headerValue">2026-05-29 10:53:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -66,64 +66,64 @@
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : namespace Amplitron {</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">         746 : AudioGraphExecutor::AudioGraphExecutor() {}</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">         748 : AudioGraphExecutor::AudioGraphExecutor() {}</span></span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         746 : void AudioGraphExecutor::prepare(int sample_rate, int max_block_size, int max_nodes) {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         746 :     sample_rate_ = sample_rate;</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         746 :     max_block_size_ = max_block_size;</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         746 :     max_nodes_ = max_nodes;</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         748 : void AudioGraphExecutor::prepare(int sample_rate, int max_block_size, int max_nodes) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         748 :     sample_rate_ = sample_rate;</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         748 :     max_block_size_ = max_block_size;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         748 :     max_nodes_ = max_nodes;</span></span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
 <span id="L14"><span class="lineNum">      14</span>              :     // Pre-allocate the memory pool to guarantee no allocations on the audio thread</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">        1492 :     buffer_pool_.resize(max_nodes_, std::vector&lt;float&gt;(max_block_size_, 0.0f));</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         746 :     sum_buffer_.resize(max_block_size_, 0.0f);</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         746 :     execution_plan_.reserve(max_nodes_);</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         746 : }</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">        1496 :     buffer_pool_.resize(max_nodes_, std::vector&lt;float&gt;(max_block_size_, 0.0f));</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         748 :     sum_buffer_.resize(max_block_size_, 0.0f);</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         748 :     execution_plan_.reserve(max_nodes_);</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         748 : }</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         815 : void AudioGraphExecutor::compile(const AudioGraph&amp; graph) {</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         815 :     execution_plan_.clear();</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         815 :     const auto&amp; sorted_ids = graph.get_sorted_nodes();</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         815 :     const auto&amp; nodes = graph.get_nodes();</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         815 :     const auto&amp; links = graph.get_links();</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         817 : void AudioGraphExecutor::compile(const AudioGraph&amp; graph) {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         817 :     execution_plan_.clear();</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         817 :     const auto&amp; sorted_ids = graph.get_sorted_nodes();</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         817 :     const auto&amp; nodes = graph.get_nodes();</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         817 :     const auto&amp; links = graph.get_links();</span></span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         815 :     if (sorted_ids.empty() || sorted_ids.size() &gt; (size_t)max_nodes_) return;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         817 :     if (sorted_ids.empty() || sorted_ids.size() &gt; (size_t)max_nodes_) return;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :     // Map each Node ID to a dedicated row in the buffer pool</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         660 :     std::unordered_map&lt;int, int&gt; node_to_buffer;</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        2595 :     for (size_t i = 0; i &lt; sorted_ids.size(); ++i) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1935 :         node_to_buffer[sorted_ids[i]] = static_cast&lt;int&gt;(i);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         662 :     std::unordered_map&lt;int, int&gt; node_to_buffer;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        2623 :     for (size_t i = 0; i &lt; sorted_ids.size(); ++i) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1961 :         node_to_buffer[sorted_ids[i]] = static_cast&lt;int&gt;(i);</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     }</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :     // Determine if there are any explicit inputs or outputs</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         660 :     any_explicit_input_ = false;</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         660 :     bool any_explicit_output = false;</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        2595 :     for (int node_id : sorted_ids) {</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        6522 :         auto it = std::find_if(nodes.begin(), nodes.end(), [&amp;](const DSPNode&amp; n){ return n.id == node_id; });</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        1935 :         if (it != nodes.end()) {</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">        1935 :             if (it-&gt;is_graph_input) any_explicit_input_ = true;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">        1935 :             if (it-&gt;is_graph_output) any_explicit_output = true;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         662 :     any_explicit_input_ = false;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         662 :     bool any_explicit_output = false;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        2623 :     for (int node_id : sorted_ids) {</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        6730 :         auto it = std::find_if(nodes.begin(), nodes.end(), [&amp;](const DSPNode&amp; n){ return n.id == node_id; });</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        1961 :         if (it != nodes.end()) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">        1961 :             if (it-&gt;is_graph_input) any_explicit_input_ = true;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">        1961 :             if (it-&gt;is_graph_output) any_explicit_output = true;</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :         }</span>
 <span id="L43"><span class="lineNum">      43</span>              :     }</span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         660 :     fallback_input_node_id_ = -1;</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         660 :     if (!any_explicit_input_ &amp;&amp; !sorted_ids.empty()) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         662 :     fallback_input_node_id_ = -1;</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         662 :     if (!any_explicit_input_ &amp;&amp; !sorted_ids.empty()) {</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          17 :         fallback_input_node_id_ = sorted_ids[0];</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :     }</span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
 <span id="L50"><span class="lineNum">      50</span>              :     // Build the flat execution array</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">        2595 :     for (int node_id : sorted_ids) {</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">        6522 :         auto it = std::find_if(nodes.begin(), nodes.end(), [&amp;](const DSPNode&amp; n){ return n.id == node_id; });</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        1935 :         if (it == nodes.end() || !it-&gt;is_reachable) continue;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">        2623 :     for (int node_id : sorted_ids) {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">        6730 :         auto it = std::find_if(nodes.begin(), nodes.end(), [&amp;](const DSPNode&amp; n){ return n.id == node_id; });</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        1961 :         if (it == nodes.end() || !it-&gt;is_reachable) continue;</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        1436 :         NodeExecutionStep step;</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1436 :         step.node_id = node_id;</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        1436 :         step.buffer_index = node_to_buffer[node_id];</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        1436 :         step.type = it-&gt;routing_type;</span></span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">        1436 :         step.pedal = it-&gt;pedal;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1436 :         step.is_graph_input = it-&gt;is_graph_input;</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        1436 :         step.is_graph_output = it-&gt;is_graph_output;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        1438 :         NodeExecutionStep step;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1438 :         step.node_id = node_id;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        1438 :         step.buffer_index = node_to_buffer[node_id];</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        1438 :         step.type = it-&gt;routing_type;</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">        1438 :         step.pedal = it-&gt;pedal;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1438 :         step.is_graph_input = it-&gt;is_graph_input;</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        1438 :         step.is_graph_output = it-&gt;is_graph_output;</span></span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">        1436 :         if (any_explicit_output) {</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">        1436 :             step.is_sink = it-&gt;is_graph_output;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">        1438 :         if (any_explicit_output) {</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">        1438 :             step.is_sink = it-&gt;is_graph_output;</span></span>
 <span id="L65"><span class="lineNum">      65</span>              :         } else {</span>
 <span id="L66"><span class="lineNum">      66</span>              :             // Check if this node has outgoing links</span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC tlaBgUNC">           0 :             bool has_outgoing = false;</span></span>
@@ -140,8 +140,8 @@
 <span id="L78"><span class="lineNum">      78</span>              :         }</span>
 <span id="L79"><span class="lineNum">      79</span>              : </span>
 <span id="L80"><span class="lineNum">      80</span>              :         // Trace upstream connections to find which buffers to read from</span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC tlaBgGNC">        3176 :         for (int in_pin : it-&gt;input_pin_ids) {</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">        6644 :             for (const auto&amp; link : links) {</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC tlaBgGNC">        3180 :         for (int in_pin : it-&gt;input_pin_ids) {</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">        6646 :             for (const auto&amp; link : links) {</span></span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">        4904 :                 if (link.dest_pin_id == in_pin) {</span></span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">        1038 :                     int src_node_id = graph.get_node_from_pin(link.source_pin_id);</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">        1038 :                     if (src_node_id != -1 &amp;&amp; node_to_buffer.count(src_node_id)) {</span></span>
@@ -150,9 +150,9 @@
 <span id="L88"><span class="lineNum">      88</span>              :                 }</span>
 <span id="L89"><span class="lineNum">      89</span>              :             }</span>
 <span id="L90"><span class="lineNum">      90</span>              :         }</span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">        1436 :         execution_plan_.push_back(step);</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">        1436 :     }</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">         660 : }</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">        1438 :         execution_plan_.push_back(step);</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">        1438 :     }</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">         662 : }</span></span>
 <span id="L94"><span class="lineNum">      94</span>              : </span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">        1146 : void AudioGraphExecutor::update_transport_state(float bpm) {</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">        1152 :     for (auto&amp; step : execution_plan_) {</span></span>
