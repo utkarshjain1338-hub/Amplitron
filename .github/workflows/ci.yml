@@ -95,7 +95,7 @@ jobs:
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
           # Extract only our actual source files under src/
           lcov --extract coverage.info \
-            'src/*' '*/src/*' \
+            'src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary.txt
 
@@ -206,7 +206,7 @@ jobs:
           sed -i '' 's|SF:.*Amplitron/|SF:|g' coverage.info
           # Extract only our actual source files under src/
           lcov --extract coverage.info \
-            'src/*' '*/src/*' \
+            'src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-macos.txt
 
@@ -518,7 +518,7 @@ jobs:
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.info
           # Extract only our actual source files under src/
           lcov --extract coverage.info \
-            'src/*' '*/src/*' \
+            'src/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE 2>&1 | tail -5
           lcov --summary coverage.filtered.info $LCOV_IGNORE | tee coverage-summary-windows.txt
 
