@@ -201,12 +201,9 @@ jobs:
           printf '#!/bin/bash\nexec xcrun llvm-cov gcov "$@"\n' > /tmp/llvm-gcov.sh
           chmod +x /tmp/llvm-gcov.sh
           LCOV_IGNORE="--ignore-errors mismatch,mismatch,gcov,gcov,source,source,inconsistent,inconsistent,format,format,unsupported,unsupported,corrupt,corrupt,unused,unused"
-          lcov --capture --initial --directory build --output-file coverage_base.info \
+          # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
+          lcov --capture --directory build --output-file coverage.info \
             --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
-          lcov --capture --directory build --output-file coverage_test.info \
-            --gcov-tool /tmp/llvm-gcov.sh $LCOV_IGNORE
-          lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
-            --output-file coverage.info $LCOV_IGNORE
           lcov --remove coverage.info \
             '/usr/*' '/Library/*' '*/external/*' '*/tests/*' '*/build/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE
@@ -514,12 +511,12 @@ jobs:
           else
             LCOV_IGNORE=""
           fi
-          lcov --capture --initial --directory build --output-file coverage_base.info $LCOV_IGNORE 2>&1 | tail -5
-          lcov --capture --directory build --output-file coverage_test.info $LCOV_IGNORE 2>&1 | tail -20
-          lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info \
-            --output-file coverage.info $LCOV_IGNORE 2>&1 | tail -5
+          # Skip --initial baseline: Linux provides the zero-coverage baseline for the merged report
+          lcov --capture --directory build --output-file coverage.info $LCOV_IGNORE 2>&1 | tail -20
+          # Normalize all backslashes to forward slashes in coverage.info before filtering
+          sed -i 's|\\|/|g' coverage.info
           lcov --remove coverage.info \
-            '/usr/*' '/mingw64/*' 'C:/*' '*/external/*' '*/tests/*' '*/build/*' \
+            '/usr/*' '*/mingw64/*' '*/_temp/*' '*/include/*' '*/external/*' '*/tests/*' '*/build/*' \
             --output-file coverage.filtered.info $LCOV_IGNORE 2>&1 | tail -5
           # Normalize paths for cross-platform merging
           sed -i 's|SF:.*Amplitron/|SF:|g' coverage.filtered.info
@@ -803,7 +800,7 @@ jobs:
             PLATFORMS="$PLATFORMS + Windows"
           fi
 
-          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported"
+          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov"
           $MERGE_CMD --output-file merged.info $LCOV_IGNORE
           echo "PLATFORMS=$PLATFORMS" >> $GITHUB_ENV
 
@@ -812,7 +809,7 @@ jobs:
 
       - name: Generate Merged Coverage Comment
         run: |
-          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported"
+          LCOV_IGNORE="--ignore-errors unused,unused,inconsistent,inconsistent,format,format,corrupt,corrupt,unsupported,unsupported,source,source,mismatch,mismatch,gcov,gcov"
           COVERAGE=$(lcov --summary merged.info $LCOV_IGNORE 2>&1 | awk '/lines......:/ {print $2}' | sed 's/%//')
           echo "Merged line coverage: $COVERAGE%"
 
