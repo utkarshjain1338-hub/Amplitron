@@ -823,7 +823,6 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
 
     target_link_libraries(amplitron-tests PRIVATE
-        GTest::gtest
         nlohmann_json::nlohmann_json
         ${SDL2_LIBRARIES}
         ${OPENGL_LIBRARIES}
@@ -843,9 +842,6 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     if(UNIX AND NOT APPLE)
         target_link_libraries(amplitron-tests PRIVATE dl pthread)
     endif()
-
-    include(GoogleTest)
-    gtest_discover_tests(amplitron-tests)
 
     # Copy presets into build directory alongside the executable
     add_custom_target(copy_presets ALL
