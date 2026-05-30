@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Build type
-if(NOT CMAKE_BUILD_TYPE)
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
@@ -18,8 +18,11 @@ if(EMSCRIPTEN)
     add_compile_options(-O3 -ffast-math -pthread "-sUSE_SDL=2" -Wno-nontrivial-memaccess)
 elseif(MSVC)
     add_compile_options(/W4 /fp:fast)
-    if(CMAKE_BUILD_TYPE STREQUAL "Release")
-        add_compile_options(/O2 /arch:AVX)
+
+    if(NOT CMAKE_CONFIGURATION_TYPES)
+        if(CMAKE_BUILD_TYPE STREQUAL "Release")
+            add_compile_options(/O2 /arch:AVX)
+        endif()
     endif()
 else()
     add_compile_options(-Wall -Wextra -ffast-math)
@@ -560,6 +563,27 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/dsp/convolution_engine.cpp
         src/audio/audio_graph.cpp
         src/audio/audio_graph_executor.cpp
+        src/gui/gui_manager.cpp
+        src/gui/gui_manager_frame.cpp
+        src/gui/gui_manager_menu.cpp
+        src/gui/gui_manager_update.cpp
+        src/gui/gui_presets.cpp
+        src/gui/gui_snapshots.cpp
+        src/gui/gui_analyzer.cpp
+        src/gui/gui_midi.cpp
+        src/gui/pedal_board.cpp
+        src/gui/pedal_board_chain.cpp
+        src/gui/pedal_board_menu.cpp
+        src/gui/pedal_widget.cpp
+        src/gui/pedal_widget_body.cpp
+        src/gui/pedal_widget_knobs.cpp
+        src/gui/gui_settings.cpp
+        src/gui/gui_recording.cpp
+        src/gui/gui_tuner.cpp
+        src/gui/spectrum_analyzer.cpp
+        src/gui/file_dialog_native.cpp
+        src/gui/file_dialog_native_open.cpp
+        src/gui/file_dialog_native_folder.cpp
     )
 
     # Desktop-only MIDI support for tests
@@ -569,7 +593,12 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/midi/midi_manager_persist.cpp
     )
 
-    add_executable(amplitron-tests ${TEST_SOURCES} ${CORE_SOURCES} ${KISS_FFT_SOURCES})
+    add_executable(amplitron-tests
+        ${TEST_SOURCES}
+        ${CORE_SOURCES}
+        ${KISS_FFT_SOURCES}
+        ${IMGUI_SOURCES}
+    )
 
     target_include_directories(amplitron-tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src
@@ -587,7 +616,10 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     # ============================================================
     # DEFINE AMPLITRON_HAS_MIDI FOR TEST BUILDS
     # ============================================================
-    target_compile_definitions(amplitron-tests PRIVATE AMPLITRON_HAS_MIDI)
+    target_compile_definitions(amplitron-tests PRIVATE
+        AMPLITRON_HAS_MIDI
+        AMPLITRON_VERSION="${AMPLITRON_VERSION}"
+    )
 
     target_link_libraries(amplitron-tests PRIVATE
         nlohmann_json::nlohmann_json
