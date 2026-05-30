@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">89.7&nbsp;%</td>
-            <td class="headerCovTableEntry">136</td>
-            <td class="headerCovTableEntry">122</td>
+            <td class="headerCovTableEntryMed">89.8&nbsp;%</td>
+            <td class="headerCovTableEntry">137</td>
+            <td class="headerCovTableEntry">123</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 07:58:10</td>
+            <td class="headerValue">2026-05-30 08:44:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">45.5&nbsp;%</td>
@@ -226,37 +226,38 @@
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">         171 : void PedalWidget::render_footswitch_and_extras(ImDrawList* dl, ImVec2 p0, ImVec2 p1, float pedal_width, float pedal_height, bool is_amp, bool enabled, bool&amp; should_remove, float zoom) {</span></span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">          57 :     (void)p1;</span></span>
 <span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">         114 :     (void)should_remove;</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         171 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
-<span id="L168"><span class="lineNum">     168</span>              : </span>
-<span id="L169"><span class="lineNum">     169</span>              :     // Footswitch (toggle on/off) — amps are always on, no footswitch</span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         166 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         156 :         float switch_y = p0.y + pedal_height - Theme::SWITCH_BOTTOM_OFFSET * zoom;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         156 :         float switch_x = p0.x + (pedal_width - 50 * zoom) / 2;</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">         156 :         ImVec2 sw_center = ImVec2(switch_x + 25 * zoom, switch_y + 15 * zoom);</span></span>
-<span id="L174"><span class="lineNum">     174</span>              : </span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">         156 :         FootswitchProps fs_props;</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         156 :         fs_props.enabled = enabled;</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         156 :         fs_props.tooltip_prefix = &quot;&quot;;</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         260 :         fs_props.on_clicked = [this, enabled]() {</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaUNC tlaBgUNC">           0 :             bool new_enabled = !enabled;</span></span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :             effect_-&gt;set_enabled(new_enabled);</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :             engine_.push_effect_enabled(index_, new_enabled ? 1.0f : 0.0f);</span></span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC tlaBgGNC">         104 :         };</span></span>
-<span id="L183"><span class="lineNum">     183</span>              : </span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          52 :         char sw_id[64];</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         156 :         std::snprintf(sw_id, sizeof(sw_id), &quot;##switch_%d&quot;, index_);</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         156 :         FootswitchComponent::render(sw_id, fs_props, zoom, sw_center);</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         156 :     }</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">         171 : }</span></span>
-<span id="L189"><span class="lineNum">     189</span>              : </span>
-<span id="L190"><span class="lineNum">     190</span> <span class="tlaUNC tlaBgUNC">           0 : void PedalWidget::commit_param_change(int param_index, float old_val, float new_val) {</span></span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC">           0 :     if (!history_) return;</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     auto cmd = std::make_unique&lt;ParameterChangeCommand&gt;(</span></span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :         engine_, effect_, param_index, old_val, new_val);</span></span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :     history_-&gt;push_executed(std::move(cmd));</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 : }</span></span>
-<span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span>              : } // namespace Amplitron</span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          57 :     (void)dl;</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         171 :     bool is_looper = !is_amp &amp;&amp; (std::strcmp(effect_-&gt;name(), &quot;Looper&quot;) == 0);</span></span>
+<span id="L169"><span class="lineNum">     169</span>              : </span>
+<span id="L170"><span class="lineNum">     170</span>              :     // Footswitch (toggle on/off) — amps are always on, no footswitch</span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         166 :     if (!is_amp &amp;&amp; !is_looper) {</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         156 :         float switch_y = p0.y + pedal_height - Theme::SWITCH_BOTTOM_OFFSET * zoom;</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">         156 :         float switch_x = p0.x + (pedal_width - 50 * zoom) / 2;</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         156 :         ImVec2 sw_center = ImVec2(switch_x + 25 * zoom, switch_y + 15 * zoom);</span></span>
+<span id="L175"><span class="lineNum">     175</span>              : </span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         156 :         FootswitchProps fs_props;</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         156 :         fs_props.enabled = enabled;</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">         156 :         fs_props.tooltip_prefix = &quot;&quot;;</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         260 :         fs_props.on_clicked = [this, enabled]() {</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC tlaBgUNC">           0 :             bool new_enabled = !enabled;</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :             effect_-&gt;set_enabled(new_enabled);</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :             engine_.push_effect_enabled(index_, new_enabled ? 1.0f : 0.0f);</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC tlaBgGNC">         104 :         };</span></span>
+<span id="L184"><span class="lineNum">     184</span>              : </span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">          52 :         char sw_id[64];</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         156 :         std::snprintf(sw_id, sizeof(sw_id), &quot;##switch_%d&quot;, index_);</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         156 :         FootswitchComponent::render(sw_id, fs_props, zoom, sw_center);</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">         156 :     }</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         171 : }</span></span>
+<span id="L190"><span class="lineNum">     190</span>              : </span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC tlaBgUNC">           0 : void PedalWidget::commit_param_change(int param_index, float old_val, float new_val) {</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     if (!history_) return;</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :     auto cmd = std::make_unique&lt;ParameterChangeCommand&gt;(</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :         engine_, effect_, param_index, old_val, new_val);</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 :     history_-&gt;push_executed(std::move(cmd));</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L197"><span class="lineNum">     197</span>              : </span>
+<span id="L198"><span class="lineNum">     198</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
