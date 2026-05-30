@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 11:28:34</td>
+            <td class="headerValue">2026-05-30 12:26:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -128,8 +128,8 @@
 <span id="L66"><span class="lineNum">      66</span>              :     float bright_smooth_ = 0.5f;</span>
 <span id="L67"><span class="lineNum">      67</span>              :     float bright_alpha_ = 0.0f;</span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span>              :     // Expected block size for the current kernel</span>
-<span id="L70"><span class="lineNum">      70</span>              :     int expected_block_size_ = 0;</span>
+<span id="L69"><span class="lineNum">      69</span>              :     // Expected block size for the current kernel (atomic: read by audio thread, written by both)</span>
+<span id="L70"><span class="lineNum">      70</span>              :     std::atomic&lt;int&gt; expected_block_size_{0};</span>
 <span id="L71"><span class="lineNum">      71</span>              : </span>
 <span id="L72"><span class="lineNum">      72</span>              :     // Pending block size when audio callback detects a mismatch</span>
 <span id="L73"><span class="lineNum">      73</span>              :     std::atomic&lt;int&gt; pending_block_size_{0};</span>
