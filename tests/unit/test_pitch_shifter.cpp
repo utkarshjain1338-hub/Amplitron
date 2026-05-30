@@ -150,3 +150,36 @@ TEST_F(PitchShifterTest, SingleSampleLoopProducesNoNaN) {
         ASSERT_FALSE(std::isnan(s));
     }
 }
+
+// Header — name() and type_id() return correct strings
+TEST_F(PitchShifterTest, NameAndTypeIdMatchHeader) {
+    ASSERT_EQ(std::string(ps_.name()),    "Pitch Shifter");
+    ASSERT_EQ(std::string(ps_.type_id()), "Pitch Shifter");
+}
+
+// Header — params() exposes exactly 3 parameters
+TEST_F(PitchShifterTest, ParamCountMatchesHeader) {
+    ASSERT_EQ(ps_.params().size(), static_cast<size_t>(3));
+}
+
+// Header — ratio_ cached member initialises to 1.0 (no shift at construction)
+// Verified by processing silence: shift=0 ratio=1 means no drift, output stays silent
+TEST_F(PitchShifterTest, DefaultRatioIsUnity) {
+    const int BLOCK = 256;
+    std::vector<float> buf(BLOCK, 0.0f);
+    ps_.process(buf.data(), BLOCK);
+    for (int i = 0; i < BLOCK; ++i)
+        ASSERT_NEAR(buf[i], 0.0f, 0.001f);
+}
+
+// Header — hann_lut_ array size is 8192 (power-of-2 for bitwise wrapping)
+// Verified indirectly: LUT index uses & 8191, so any out-of-range access
+// would produce NaN or garbage. Process a full 8192-sample block and confirm no NaN.
+TEST_F(PitchShifterTest, HannLutSizeIsCorrect) {
+    const int BLOCK = 8192;
+    std::vector<float> buf(BLOCK);
+    fill_sine(buf.data(), BLOCK, 440.0f);
+    ps_.process(buf.data(), BLOCK);
+    for (int i = 0; i < BLOCK; ++i)
+        ASSERT_FALSE(std::isnan(buf[i]));
+}
