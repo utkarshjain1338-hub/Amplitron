@@ -1,406 +1,387 @@
-#pragma once
+#include "test_framework.h"
+#include "gui/gui_manager.h"
+#include "gui/command_history.h"
+#include "gui/command.h"
+#include "audio/effects/overdrive.h"
+#include "audio/effects/delay.h"
+#include "audio/effects/reverb.h"
+#include "audio/effects/equalizer.h"
+#include "audio/effects/noise_gate.h"
+#include "audio/audio_engine.h"
+#include <string>
+#include <vector>
+#include <algorithm>
 
-#include "common.h"
-#include "audio/effect.h"
-#include "audio/recorder.h"
-#include "audio/spsc_queue.h"
-#include <chrono>
+using namespace Amplitron;
 
-#include "audio/audio_graph.h"
-#include "audio/audio_graph_executor.h"
-#include <memory>
+// ============================================================
+// Helpers
+// ============================================================
 
-#include <nlohmann/json.hpp>
-// FORWARD DECLARATIONS
-namespace Amplitron {
+static AudioEngine& shared_engine() {
+    static AudioEngine engine;
+    return engine;
+}
 
-struct AudioDeviceInfo {
-    int index;
-    std::string name;
-    int max_input_channels;
-    int max_output_channels;
-    double default_sample_rate;
-    bool is_usb_device;
-};
+static void clear_engine(AudioEngine& engine) {
+    while (!engine.effects().empty())
+        engine.remove_effect(static_cast<int>(engine.effects().size()) - 1);
+}
 
-struct AudioBackendState;
+// ============================================================
+// Construction / destruction  (covers GuiManager ctor/dtor)
+// ============================================================
 
-/**
- * @brief Core audio processing engine.
- *
- * Manages the audio stream (via a platform backend), the effect chain,
- * master gain controls, CPU load monitoring, and a lock-free SPSC command
- * queue for thread-safe GUI-to-audio parameter updates.
- *
- * All platform-specific code (PortAudio / SDL) lives in separate
- * compilation units; the engine itself is platform-agnostic.
- */
-class AudioEngine {
-public:
-    /** @brief Construct the engine with default settings. */
-    AudioEngine();
+TEST(gui_manager_constructs) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    ASSERT_TRUE(true);
+}
 
-    /** @brief Destructor — shuts down the audio stream if still running. */
-    ~AudioEngine();
-
-    void commit_graph_changes();
-
-    /** @brief serialize and deserialize method signatures to AudioEngine class definition */
-    
-    nlohmann::json serialize();
-    void deserialize(const nlohmann::json& j);
-    /** @brief Initialize the audio back-end. @return true on success. */
-    bool initialize();
-
-    /** @brief Release audio back-end resources. */
-    void shutdown();
-
-    /** @brief Open and start the audio stream. @return true on success. */
-    bool start();
-
-    /** @brief Stop the audio stream. */
-    void stop();
-
-    /** @brief Stop and restart the stream (manual recovery). @return true on success. */
-    bool restart();
-
-    /** @brief Return the last error message, or empty string. */
-    std::string get_last_error() const { return last_error_; }
-
-    /** @brief Clear the stored error message. */
-    void clear_error() { last_error_.clear(); }
-
-#ifdef AMPLITRON_ANDROID_OBOE
-    /**
-     * @brief Return a human-readable label for the Oboe sharing mode negotiated at runtime.
-     * "AAudio exclusive mode" when AAudio exclusive path is active; "OpenSL ES (shared)" otherwise.
-     * Used by the Android settings UI to display the actual backend, not a hardcoded string.
-     */
-    const char* get_oboe_sharing_mode_label() const;
-#endif
-
-    /** @brief Enumerate available audio input devices. */
-    std::vector<AudioDeviceInfo> get_input_devices() const;
-
-    /** @brief Enumerate available audio output devices. */
-    std::vector<AudioDeviceInfo> get_output_devices() const;
-
-    /**
-     * @brief Select the input device by index.
-     * @return true if the device was set successfully.
-     */
-    bool set_input_device(int device_index);
-
-    /**
-     * @brief Select the output device by index.
-     * @return true if the device was set successfully.
-     */
-    bool set_output_device(int device_index);
-
-    /** @brief Return the current input device index. */
-    int get_input_device() const { return input_device_; }
-
-    /** @brief Return the current output device index. */
-    int get_output_device() const { return output_device_; }
-
-    /** @brief Return the human-readable input device name. */
-    std::string get_input_device_name() const;
-
-    /** @brief Return the human-readable output device name. */
-    std::string get_output_device_name() const;
-
-
-
-    /** @brief Direct access to the effect chain vector (GUI thread only). */
-    AudioGraph& graph() { return main_graph_; }
-    const AudioGraph& graph() const { return main_graph_; }
-
-    // =========================================================================
-    // TEMPORARY COMPILER BRIDGE 
-    // (Keeps the Undo/Redo & Snapshot systems quiet while we build the DAG UI)
-    // =========================================================================
-    std::vector<std::shared_ptr<Effect>> dummy_effects_;
-    std::vector<std::shared_ptr<Effect>>& effects() { return dummy_effects_; }
-    // void remove_effect(int index) { 
-    //     if (index >= 0 && index < static_cast<int>(dummy_effects_.size())) {
-    //         dummy_effects_.erase(dummy_effects_.begin() + index);
-    //     }
-    // }
-
-    void add_effect(std::shared_ptr<Effect> fx);
-    void add_initial_effects(const std::vector<std::shared_ptr<Effect>>& fxs) {
-        dummy_effects_.clear();
-        for (const auto& fx : fxs) {
-            dummy_effects_.push_back(fx);
-        }
-        sync_graph_with_dummy_effects(true);
+TEST(gui_manager_destructor_safe_without_init) {
+    AudioEngine engine;
+    {
+        GuiManager manager(engine);
     }
-    void insert_effect(int index, std::shared_ptr<Effect> fx);
-    void remove_effect(int index);
-    void clear_effects();
-    void move_effect(int from, int to);
-    void restore_effects_state(std::vector<std::shared_ptr<Effect>> state);
+    ASSERT_TRUE(true);
+}
 
+TEST(gui_manager_shutdown_without_init) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    manager.shutdown();
+    ASSERT_TRUE(true);
+}
 
-    /**
-     * @brief Set the audio buffer size (takes effect on next stream restart).
-     * @param size Buffer size in samples.
-     */
-    void set_buffer_size(int size);
+TEST(gui_manager_multiple_shutdowns_safe) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    manager.shutdown();
+    manager.shutdown();
+    ASSERT_TRUE(true);
+}
 
-    /**
-     * @brief Set the audio sample rate (takes effect on next stream restart).
-     * @param rate Sample rate in Hz.
-     */
-    void set_sample_rate(int rate);
-
-    /** @brief Return the current buffer size in samples. */
-    int get_buffer_size() const { return buffer_size_; }
-
-    /** @brief Return the current sample rate in Hz. */
-    int get_sample_rate() const { return sample_rate_; }
-
-    /** @brief Return true if the audio stream is actively running. */
-    bool is_running() const { return running_; }
-
-    /** @brief Return the most recent input peak level (0.0–1.0, atomic). */
-    float get_input_level() const { return input_level_.load(); }
-
-    /** @brief Return the most recent output peak level (0.0–1.0, atomic). */
-    float get_output_level() const { return output_level_.load(); }
-
-    /** @brief Return the most recent input RMS level (0.0–1.0, atomic). */
-    float get_input_rms() const { return input_rms_.load(std::memory_order_relaxed); }
-
-    /** @brief Return the most recent output RMS level (0.0–1.0, atomic). */
-    float get_output_rms() const { return output_rms_.load(std::memory_order_relaxed); }
-
-    /** @brief Consume one-shot input clipping flag set by audio thread. */
-    bool consume_input_clipped() { return input_clipped_.exchange(false, std::memory_order_acq_rel); }
-
-    /** @brief Consume one-shot output clipping flag set by audio thread. */
-    bool consume_output_clipped() { return output_clipped_.exchange(false, std::memory_order_acq_rel); }
-
-    /** @brief FFT size used for GUI analyzer snapshots. */
-    static constexpr int ANALYZER_FFT_SIZE = 2048;
-    static constexpr int ANALYZER_FFT_MASK = ANALYZER_FFT_SIZE - 1;
-
-    /** @brief Enable/disable analyzer capture in the audio callback (GUI thread). */
-    void set_analyzer_enabled(bool enabled) { analyzer_enabled_.store(enabled, std::memory_order_release); }
-
-    /** @brief Return true if analyzer capture is active. */
-    bool is_analyzer_enabled() const { return analyzer_enabled_.load(std::memory_order_acquire); }
-
-    /** @brief Snapshot sequence counter; increments when new analyzer data is published. */
-    uint64_t get_analyzer_sequence() const {
-        return analyzer_sequence_.load(std::memory_order_acquire);
+TEST(gui_manager_multiple_instances_safe) {
+    for (int i = 0; i < 5; ++i) {
+        AudioEngine engine;
+        GuiManager manager(engine);
+        manager.shutdown();
     }
+    ASSERT_TRUE(true);
+}
 
-    /**
-     * @brief Copy latest pre/post-chain analyzer snapshots (GUI thread).
-     * @param input_dest  Destination buffer for pre-chain samples.
-     * @param output_dest Destination buffer for post-chain samples.
-     * @param sample_count Number of samples to copy (clamped to ANALYZER_FFT_SIZE).
-     * @return true if at least one snapshot has been published.
-     */
-    bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const;
+// ============================================================
+// initialize() — headless guard
+// SDL_Init will fail on CI / headless machines.  Either outcome
+// is valid; what must never happen is a crash or hang.
+// ============================================================
 
-    /**
-     * @brief Set the master input gain (enqueued to audio thread via SPSC queue).
-     * @param gain Linear gain multiplier.
-     */
-    void set_input_gain(float gain);
+TEST(gui_manager_initialize_and_shutdown) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    bool ok = manager.initialize(800, 600);
+    if (ok)
+        manager.shutdown();
+    ASSERT_TRUE(true);
+}
 
-    /**
-     * @brief Set the master output gain (enqueued to audio thread via SPSC queue).
-     * @param gain Linear gain multiplier.
-     */
-    void set_output_gain(float gain);
+TEST(gui_manager_initialize_returns_bool) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    bool ok = manager.initialize(1280, 720);
+    (void)ok;
+    if (ok) manager.shutdown();
+    ASSERT_TRUE(true);
+}
 
-    
-    /** @brief Return the current input gain (atomic relaxed read). */
-    float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }
+TEST(gui_manager_various_window_sizes) {
+    const int sizes[][2] = {{320, 240}, {640, 480}, {1280, 720}};
+    for (auto& s : sizes) {
+        AudioEngine engine;
+        GuiManager manager(engine);
+        bool ok = manager.initialize(s[0], s[1]);
+        if (ok) manager.shutdown();
+    }
+    ASSERT_TRUE(true);
+}
 
-    /** @brief Return the current output gain (atomic relaxed read). */
-    float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }
+// ============================================================
+// midi_manager() accessor  (only public accessor in this version)
+// ============================================================
 
-    /** @brief Toggle the metronome on/off (atomic update). */
-    void toggle_metronome();
+TEST(gui_manager_midi_manager_accessible) {
+    AudioEngine engine;
+    GuiManager manager(engine);
+    MidiManager& mm = manager.midi_manager();
+    (void)mm;
+    ASSERT_TRUE(true);
+}
 
-    /** @brief Set the metronome BPM (atomic update). */
-    void set_metronome_bpm(int bpm);
+// ============================================================
+// CommandHistory — tested directly (no GuiManager wrapper
+// needed; command_history_ is private in this local version)
+// ============================================================
 
-    /** @brief Set the metronome click volume (atomic update). */
-    void set_metronome_volume(float volume);
+TEST(command_history_initially_empty) {
+    CommandHistory ch;
+    ASSERT_FALSE(ch.can_undo());
+    ASSERT_FALSE(ch.can_redo());
+}
 
-    /** @brief Return the current metronome enabled state (atomic relaxed read). */
-    bool get_metronome_enabled() const { return metronome_enabled_state_.load(std::memory_order_relaxed); }
+TEST(command_history_execute_enables_undo) {
+    AudioEngine& engine = shared_engine();
+    clear_engine(engine);
 
-    /** @brief Return the current metronome BPM (atomic relaxed read). */
-    int get_metronome_bpm() const { return metronome_bpm_state_.load(std::memory_order_relaxed); }
+    CommandHistory ch;
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<Overdrive>()));
+    ASSERT_TRUE(ch.can_undo());
+    ASSERT_FALSE(ch.can_redo());
 
-    /** @brief Return the current metronome volume (atomic relaxed read). */
-    float get_metronome_volume() const { return metronome_volume_state_.load(std::memory_order_relaxed); }
+    clear_engine(engine);
+}
 
-    /**
-     * @brief Enqueue a parameter value change from the GUI thread (lock-free).
-     * @param effect_index Index of the effect in the chain.
-     * @param param_index  Index of the parameter within the effect.
-     * @param value        New parameter value.
-     */
-    void push_param_change(int effect_index, int param_index, float value);
+TEST(command_history_undo_enables_redo) {
+    AudioEngine& engine = shared_engine();
+    clear_engine(engine);
 
-    /**
-     * @brief Enqueue an effect enabled/disabled change from the GUI thread.
-     * @param effect_index Index of the effect in the chain.
-     * @param enabled      >0.5 means enabled.
-     */
-    void push_effect_enabled(int effect_index, float enabled);
+    CommandHistory ch;
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<Delay>()));
+    ch.undo();
+    ASSERT_FALSE(ch.can_undo());
+    ASSERT_TRUE(ch.can_redo());
 
-    /**
-     * @brief Enqueue a dry/wet mix change from the GUI thread.
-     * @param effect_index Index of the effect in the chain.
-     * @param mix          New mix value (0.0–1.0).
-     */
-    void push_effect_mix(int effect_index, float mix);
+    clear_engine(engine);
+}
 
-    /** @brief Return the current CPU load fraction (0.0–1.0, atomic). */
-    float get_cpu_load() const { return cpu_load_.load(std::memory_order_relaxed); }
+TEST(command_history_redo_restores_undo) {
+    AudioEngine& engine = shared_engine();
+    clear_engine(engine);
 
-    /** @brief Suggest a new buffer size based on current CPU load. */
-    int get_suggested_buffer_size() const;
+    CommandHistory ch;
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<Reverb>()));
+    ch.undo();
+    ch.redo();
+    ASSERT_TRUE(ch.can_undo());
+    ASSERT_FALSE(ch.can_redo());
 
-    /** @brief Return true if automatic buffer-size tuning is enabled. */
-    bool is_auto_buffer_enabled() const { return auto_buffer_enabled_; }
+    clear_engine(engine);
+}
 
-    /** @brief Enable or disable automatic buffer-size tuning. */
-    void set_auto_buffer_enabled(bool enabled) { auto_buffer_enabled_ = enabled; }
+TEST(command_history_multiple_commands_undo_stack) {
+    AudioEngine& engine = shared_engine();
+    clear_engine(engine);
 
-    /** @brief Access the built-in audio recorder. */
-    Recorder& recorder() { return recorder_; }
+    CommandHistory ch;
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<NoiseGate>()));
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<Equalizer>()));
+    ch.execute(std::make_unique<AddEffectCommand>(engine, std::make_shared<Reverb>()));
 
-    /**
-     * @brief Set a tuner tap that receives pre-chain audio each callback.
-     *
-     * The tap is processed before the effect chain. If its mute param is
-     * active it will zero the buffer, silencing the downstream chain.
-     * Protected by effect_mutex_.
-     */
-    void set_tuner_tap(std::shared_ptr<Effect> tap);
+    ASSERT_EQ(static_cast<int>(engine.effects().size()), 3);
 
-    /** @brief Remove the tuner tap. */
-    void clear_tuner_tap();
+    ch.undo();
+    ASSERT_EQ(static_cast<int>(engine.effects().size()), 2);
 
-    /** @brief Return true if a tuner tap is currently installed. */
-    bool has_tuner_tap() const;
+    ch.undo();
+    ASSERT_EQ(static_cast<int>(engine.effects().size()), 1);
 
-    /**
-     * @brief Run the DSP pipeline on a block of audio samples.
-     *
-     * Called by the platform backend's audio callback. Public so that
-     * backend compilation units (which are not class members) can invoke it.
-     */
-    void process_audio(const float* input, float* output, int frame_count);
+    ch.undo();
+    ASSERT_EQ(static_cast<int>(engine.effects().size()), 0);
+    ASSERT_FALSE(ch.can_undo());
 
-    // MIDI instance is managed by the GUI thread's MidiManager.
+    clear_engine(engine);
+}
 
-private:
-    // Platform backend state (defined in the backend .cpp that is compiled)
-    AudioBackendState* backend_ = nullptr;
+// ============================================================
+// Version parsing logic — mirrors the local lambda and
+// comparison loop inside GuiManager::check_for_updates()
+// in gui_manager_update.cpp exactly.  Any change to that
+// function's parsing logic must be reflected here.
+// ============================================================
 
-    bool initialized_ = false;
-    bool running_ = false;
+// Exact copy of the lambda from gui_manager_update.cpp
+static std::vector<int> parse_version(const std::string& v) {
+    std::vector<int> parts;
+    std::string s = v;
+    if (!s.empty() && s[0] == 'v') s = s.substr(1);
+    size_t pos = 0;
+    while (pos < s.size()) {
+        size_t dot = s.find('.', pos);
+        if (dot == std::string::npos) dot = s.size();
+        try { parts.push_back(std::stoi(s.substr(pos, dot - pos))); }
+        catch (...) { parts.push_back(0); }
+        pos = dot + 1;
+    }
+    return parts;
+}
 
-    int input_device_ = -1;
-    int output_device_ = -1;
-    int sample_rate_ = DEFAULT_SAMPLE_RATE;
-    int buffer_size_ = DEFAULT_BUFFER_SIZE;
-    //global transport
-    std::atomic<float> input_gain_{1.0f};
-    std::atomic<float> output_gain_{0.8f};
-    std::atomic<bool> metronome_enabled_state_{false};
-    std::atomic<int> metronome_bpm_state_{120};
-    std::atomic<float> metronome_volume_state_{0.5f};
+// Exact copy of the is_newer block from gui_manager_update.cpp
+static bool is_version_newer(const std::string& latest, const std::string& current) {
+    if (latest.empty()) return false;
+    auto latest_parts  = parse_version(latest);
+    auto current_parts = parse_version(current);
+    bool is_newer = false;
+    size_t max_len = std::max(latest_parts.size(), current_parts.size());
+    for (size_t i = 0; i < max_len; ++i) {
+        int lv = (i < latest_parts.size())  ? latest_parts[i]  : 0;
+        int cv = (i < current_parts.size()) ? current_parts[i] : 0;
+        if (lv > cv) { is_newer = true; break; }
+        if (lv < cv) { break; }
+    }
+    return is_newer;
+}
 
-    std::atomic<float> input_level_{0.0f};
-    std::atomic<float> output_level_{0.0f};
-    std::atomic<float> input_rms_{0.0f};
-    std::atomic<float> output_rms_{0.0f};
-    std::atomic<bool> input_clipped_{false};
-    std::atomic<bool> output_clipped_{false};
-    std::atomic<bool> analyzer_enabled_{false};
+TEST(version_parse_strips_leading_v) {
+    auto p = parse_version("v1.2.3");
+    ASSERT_EQ(static_cast<int>(p.size()), 3);
+    ASSERT_EQ(p[0], 1);
+    ASSERT_EQ(p[1], 2);
+    ASSERT_EQ(p[2], 3);
+}
 
-    // std::vector<std::shared_ptr<Effect>> effects_;
-    std::vector<float> process_buffer_;
-    std::vector<float> process_buffer_right_;
-    std::mutex effect_mutex_;
-    Recorder recorder_;
-    std::shared_ptr<Effect> tuner_tap_;
-    std::string last_error_;
+TEST(version_parse_no_leading_v) {
+    auto p = parse_version("0.1.42");
+    ASSERT_EQ(static_cast<int>(p.size()), 3);
+    ASSERT_EQ(p[0], 0);
+    ASSERT_EQ(p[1], 1);
+    ASSERT_EQ(p[2], 42);
+}
 
-    // Audio-thread-private shadow of the effect chain.
-    // Copied from effects_ / tuner_tap_ whenever effect_mutex_ is acquired
-    // and topology_dirty_ is set, avoiding unnecessary shared_ptr churn on
-    // every callback when the chain is stable.
-    // std::vector<std::shared_ptr<Effect>> audio_shadow_effects_;
-    std::shared_ptr<Effect> audio_shadow_tuner_;
-    std::atomic<bool> topology_dirty_{true};
+TEST(version_parse_single_component) {
+    auto p = parse_version("v5");
+    ASSERT_EQ(static_cast<int>(p.size()), 1);
+    ASSERT_EQ(p[0], 5);
+}
 
-    // The main graph data model (Edited by the GUI/Main thread)
-    AudioGraph main_graph_;
-    
-    // The compiled executor (Built by the GUI thread)
-    std::shared_ptr<AudioGraphExecutor> main_executor_;
-    
-    // The shadow executor (Safely copied by the Audio thread)
-    std::shared_ptr<AudioGraphExecutor> audio_shadow_executor_;
+TEST(version_parse_two_components) {
+    auto p = parse_version("v2.10");
+    ASSERT_EQ(static_cast<int>(p.size()), 2);
+    ASSERT_EQ(p[0], 2);
+    ASSERT_EQ(p[1], 10);
+}
 
-    void sync_graph_with_dummy_effects(bool reset_graph = false);
+TEST(version_parse_empty_string) {
+    auto p = parse_version("");
+    ASSERT_EQ(static_cast<int>(p.size()), 0);
+}
 
-    // Lock-free GUI -> Audio command queue (256 slots)
-    SPSCQueue<AudioCommand, 256> command_queue_;
-    void drain_commands();        // Must be called while holding effect_mutex_
-    void drain_gain_commands();   // Safe to call without effect_mutex_
-    void update_metronome_timing();
+TEST(version_parse_only_v) {
+    auto p = parse_version("v");
+    ASSERT_EQ(static_cast<int>(p.size()), 0);
+}
 
-    // CPU load watchdog for buffer auto-tuning
-    std::atomic<float> cpu_load_{0.0f};
-    std::atomic<float> callback_duration_us_{0.0f};
-    bool auto_buffer_enabled_ = false;
+TEST(version_parse_non_numeric_component_yields_zero) {
+    auto p = parse_version("v1.alpha.3");
+    ASSERT_EQ(static_cast<int>(p.size()), 3);
+    ASSERT_EQ(p[0], 1);
+    ASSERT_EQ(p[1], 0);
+    ASSERT_EQ(p[2], 3);
+}
 
-    // Audio-thread capture for GUI analyzer snapshots.
-    static constexpr int ANALYZER_HOP_SIZE = 1024;
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_capture_input_{};
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_capture_output_{};
-    int analyzer_capture_index_ = 0;
-    int analyzer_samples_since_publish_ = 0;
+TEST(version_is_newer_major_greater) {
+    ASSERT_TRUE(is_version_newer("v2.0.0", "v1.99.99"));
+}
 
-    // Shared snapshot buffers (audio thread writes with try_lock, GUI reads with lock).
-    mutable std::mutex analyzer_mutex_;
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_input_{};
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_output_{};
-    std::atomic<uint64_t> analyzer_sequence_{0};
+TEST(version_is_newer_minor_greater) {
+    ASSERT_TRUE(is_version_newer("v1.2.0", "v1.1.99"));
+}
 
-    // Metronome state (audio thread only)
-    bool metronome_enabled_ = false;
-    int metronome_bpm_ = 120;
-    float metronome_volume_ = 0.5f;
+TEST(version_is_newer_patch_greater) {
+    ASSERT_TRUE(is_version_newer("v1.1.2", "v1.1.1"));
+}
 
-    float metronome_volume_smoothed_ = 0.0f;
-    float metronome_volume_smooth_alpha_ = 0.05f;
-    float metronome_bpm_smoothed_ = 120.0f;
-    float metronome_bpm_smooth_alpha_ = 0.05f;
+TEST(version_is_not_newer_when_equal) {
+    ASSERT_FALSE(is_version_newer("v1.2.3", "v1.2.3"));
+}
 
-    int metronome_sample_rate_ = 0;
-    double metronome_samples_per_beat_ = 0.0;
-    double metronome_sample_counter_ = 0.0;
-    int metronome_click_samples_total_ = 0;
-    int metronome_click_samples_remaining_ = 0;
-    float metronome_click_phase_ = 0.0f;
-    float metronome_click_phase_inc_ = 0.0f;
-    float metronome_click_env_ = 0.0f;
-    float metronome_click_decay_ = 0.0f;
-    // (MIDI instance removed - use MidiManager)
-};
+TEST(version_is_not_newer_when_older) {
+    ASSERT_FALSE(is_version_newer("v1.0.0", "v1.0.1"));
+    ASSERT_FALSE(is_version_newer("v0.9.9", "v1.0.0"));
+}
 
-} // namespace Amplitron
+TEST(version_is_not_newer_when_empty) {
+    ASSERT_FALSE(is_version_newer("", "v1.0.0"));
+}
+
+TEST(version_newer_different_component_counts) {
+    ASSERT_TRUE(is_version_newer("v1.0.1", "v1.0"));
+    ASSERT_FALSE(is_version_newer("v1.0", "v1.0.1"));
+}
+
+TEST(version_newer_extra_fourth_component) {
+    ASSERT_FALSE(is_version_newer("v1.0.0", "v1.0.0.1"));
+    ASSERT_TRUE(is_version_newer("v1.0.0.1", "v1.0.0"));
+}
+
+// ============================================================
+// JSON extraction logic — mirrors the find/substr block in
+// GuiManager::check_for_updates() in gui_manager_update.cpp
+// ============================================================
+
+static std::string extract_tag_name(const std::string& response) {
+    const std::string search_str = "\"tag_name\": \"";
+    size_t pos = response.find(search_str);
+    if (pos == std::string::npos) return "";
+    pos += search_str.length();
+    size_t end_pos = response.find("\"", pos);
+    if (end_pos == std::string::npos) return "";
+    return response.substr(pos, end_pos - pos);
+}
+
+static std::string extract_html_url(const std::string& response) {
+    const std::string url_search_str = "\"html_url\": \"";
+    size_t url_pos = response.find(url_search_str);
+    if (url_pos == std::string::npos) return "";
+    url_pos += url_search_str.length();
+    size_t url_end_pos = response.find("\"", url_pos);
+    if (url_end_pos == std::string::npos) return "";
+    return response.substr(url_pos, url_end_pos - url_pos);
+}
+
+TEST(update_extract_tag_name_found) {
+    std::string json = R"([{"tag_name": "v1.2.3","html_url": "https://example.com/releases/v1.2.3"}])";
+    ASSERT_EQ(extract_tag_name(json), std::string("v1.2.3"));
+}
+
+TEST(update_extract_tag_name_not_found) {
+    ASSERT_EQ(extract_tag_name(R"([{"name": "release"}])"), std::string(""));
+}
+
+TEST(update_extract_html_url_found) {
+    std::string json = R"([{"tag_name": "v1.0.0","html_url": "https://github.com/releases/v1.0.0"}])";
+    ASSERT_EQ(extract_html_url(json), std::string("https://github.com/releases/v1.0.0"));
+}
+
+TEST(update_extract_html_url_not_found) {
+    ASSERT_EQ(extract_html_url(R"([{"tag_name": "v1.0.0"}])"), std::string(""));
+}
+
+TEST(update_extract_tag_name_empty_response) {
+    ASSERT_EQ(extract_tag_name(""), std::string(""));
+}
+
+TEST(update_extract_html_url_empty_response) {
+    ASSERT_EQ(extract_html_url(""), std::string(""));
+}
+
+TEST(update_extract_tag_name_unterminated_value) {
+    ASSERT_EQ(extract_tag_name(R"({"tag_name": "v1.0.0)"), std::string(""));
+}
+
+TEST(update_full_flow_newer_release_detected) {
+    std::string api_response = R"([{"tag_name": "v0.1.999","html_url": "https://github.com/example/releases/tag/v0.1.999"}])";
+    std::string tag = extract_tag_name(api_response);
+    std::string url = extract_html_url(api_response);
+    ASSERT_EQ(tag, std::string("v0.1.999"));
+    ASSERT_FALSE(url.empty());
+    ASSERT_TRUE(is_version_newer(tag, "v0.1.1"));
+}
+
+TEST(update_full_flow_same_version_not_flagged) {
+    std::string api_response = R"([{"tag_name": "v0.1.1","html_url": "https://github.com/example/releases/tag/v0.1.1"}])";
+    ASSERT_FALSE(is_version_newer(extract_tag_name(api_response), "v0.1.1"));
+}
+
+TEST(update_full_flow_older_release_not_flagged) {
+    std::string api_response = R"([{"tag_name": "v0.1.0","html_url": "https://github.com/example/releases/tag/v0.1.0"}])";
+    ASSERT_FALSE(is_version_newer(extract_tag_name(api_response), "v0.1.1"));
+}
