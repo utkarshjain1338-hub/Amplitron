@@ -115,36 +115,17 @@ void PedalBoard::render_signal_chain() {
       ui_state.zoom = 1.0f;
       ui_state.target_zoom = 1.0f;
     }
-    auto& audio_graph = engine_.graph(); 
-    ImDrawList* draw_list = ImGui::GetWindowDrawList();
-    ImVec2 canvas_pos = ImGui::GetCursorScreenPos();
-    ImVec2 canvas_size = ImGui::GetContentRegionAvail();
-    ImVec2 canvas_end = ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y);
-    ui_state.last_canvas_pos = canvas_pos;
-    ImGui::SetCursorScreenPos(canvas_pos);
-    // Left mouse button always pans the canvas on empty space. Widgets (knobs,
-    // drag handles, pins) are rendered on top and capture clicks first — this
-    // InvisibleButton only receives clicks that fall through to empty canvas.
-    ImGuiButtonFlags btn_flags = ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle | ImGuiButtonFlags_MouseButtonLeft;
-    
-    ImGui::SetNextItemAllowOverlap();
-    ImGui::InvisibleButton("canvas_panning_hotspot", canvas_size, btn_flags);
-    // Update canvas_hovered here — after InvisibleButton — so it reflects the actual canvas item
-    ui_state.canvas_hovered = ImGui::IsItemHovered();
-    
-    // Show hand cursor only when hovering empty canvas (no widget underneath)
-    if (ImGui::IsItemHovered() && !ImGui::IsAnyItemHovered()) {
-        ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-    }
-    
-    if (ImGui::IsItemActive() && (ImGui::IsMouseDragging(ImGuiMouseButton_Right) || 
-                                  ImGui::IsMouseDragging(ImGuiMouseButton_Middle) || 
-                                  ImGui::IsMouseDragging(ImGuiMouseButton_Left))) {
-        ui_state.scrolling.x += ImGui::GetIO().MouseDelta.x;
-        ui_state.scrolling.y += ImGui::GetIO().MouseDelta.y;
-        ui_state.target_scrolling = ui_state.scrolling;
-    }
   }
+  std::vector<int> stale_ids;
+  for (auto it = ui_state.node_positions.begin(); it != ui_state.node_positions.end(); ) {
+    bool found = false;
+    for (const auto &node : audio_graph.get_nodes()) {
+      if (node.id == it->first) { found = true; break; }
+    }
+    if (!found) { stale_ids.push_back(it->first); it = ui_state.node_positions.erase(it); }
+    else ++it;
+  }
+  ImVec2 offset(canvas_pos.x + ui_state.scrolling.x, canvas_pos.y + ui_state.scrolling.y);
   for (int id : stale_ids) {
     ui_state.node_positions.erase(id);
   }
@@ -180,6 +161,8 @@ void PedalBoard::render_signal_chain() {
   float level = engine_.get_output_level();
   float time = (float)ImGui::GetTime();
   bool is_running = engine_.is_running();
+  int node_to_delete = -1;
+  std::unordered_map<int, ImVec2> pin_positions_cache;
   for (const auto &node : audio_graph.get_nodes()) {
     auto &node_layout = ui_state.node_positions[node.id];
     ImVec2 node_screen_pos =
