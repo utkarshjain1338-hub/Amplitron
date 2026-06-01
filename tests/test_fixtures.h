@@ -26,16 +26,14 @@ public:
         int width, height;
         io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
         
-        ImGui::StyleColorsDark();
         ImGui::NewFrame();
-        ImGui::SetNextWindowSize(ImVec2(1024, 768));
-        ImGui::Begin("##root", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoDecoration);
+        ImGui::Begin("Test Root Window");
     }
 
     ~ScopedImGuiContext() {
         if (ImGui::GetCurrentContext()) {
             ImGui::End();
-            ImGui::EndFrame();
+            ImGui::Render();
             ImGui::DestroyContext(ctx_);
             ctx_ = nullptr;
         }
