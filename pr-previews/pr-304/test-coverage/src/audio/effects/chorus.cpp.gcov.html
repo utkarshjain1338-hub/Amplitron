@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 07:41:52</td>
+            <td class="headerValue">2026-06-01 07:44:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">71.4&nbsp;%</td>
@@ -68,13 +68,13 @@
 <span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;Chorus&gt; reg(&quot;Chorus&quot;);</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          68 : Chorus::Chorus() {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         136 :     params_ = {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          17 :         {&quot;Rate&quot;,   1.5f, 0.1f, 10.0f, 1.5f, &quot;Hz&quot;, &quot;Speed of the modulation sweep. Higher values create faster wobbling effects.&quot;},</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         153 :     params_ = {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          51 :         {&quot;Rate&quot;,   1.5f, 0.1f, 10.0f, 1.5f, &quot;Hz&quot;, &quot;Speed of the modulation sweep. Higher values create faster wobbling effects.&quot;},</span></span>
 <span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          17 :         {&quot;Depth&quot;,  5.0f, 0.5f, 20.0f, 5.0f, &quot;ms&quot;, &quot;Intensity of the modulation. Higher values create a deeper, more pronounced pitch shift.&quot;},</span></span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          17 :         {&quot;Level&quot;,  0.5f, 0.0f,  1.0f, 0.5f, &quot;&quot;, &quot;Mix volume of the chorus effect. 0 is dry, 1 is fully wet.&quot;},</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         136 :     };</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         153 :     };</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          51 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         136 : }</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         102 : }</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         102 : void Chorus::set_sample_rate(int sample_rate) {</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         102 :     Effect::set_sample_rate(sample_rate);</span></span>

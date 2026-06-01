@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 07:41:52</td>
+            <td class="headerValue">2026-06-01 07:44:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -103,7 +103,7 @@
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          24 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          72 : void Recorder::writer_thread_func() {</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          48 :     while (true) {</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         116 :     while (true) {</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         147 :         int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         147 :         int64_t wp = ring_write_pos_.load(std::memory_order_acquire);</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         147 :         int64_t available = wp - rp;</span></span>
@@ -128,7 +128,7 @@
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          20 :         } else {</span></span>
 <span id="L67"><span class="lineNum">      67</span>              :             // No data available — exit if stopped, otherwise poll briefly</span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          86 :             if (!writer_running_.load(std::memory_order_acquire)) {</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          72 :                 break;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          48 :                 break;</span></span>
 <span id="L70"><span class="lineNum">      70</span>              :             }</span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          14 :             std::this_thread::sleep_for(std::chrono::milliseconds(5));</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :         }</span>

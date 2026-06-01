@@ -37,12 +37,12 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 07:41:52</td>
+            <td class="headerValue">2026-06-01 07:44:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">63</td>
-            <td class="headerCovTableEntry">63</td>
+            <td class="headerCovTableEntry">62</td>
+            <td class="headerCovTableEntry">62</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -80,15 +80,15 @@
 <span id="L18"><span class="lineNum">      18</span>              :     using Creator = std::function&lt;std::shared_ptr&lt;Effect&gt;()&gt;;</span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">         666 :     static EffectFactory&amp; instance() {</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         667 :         static EffectFactory factory;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         669 :         static EffectFactory factory;</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         666 :         return factory;</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :     }</span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         111 :     void register_effect(const std::string&amp; type_name, Creator creator) {</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         111 :         if (creators_.count(type_name) &gt; 0) {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           3 :             throw std::runtime_error(&quot;Duplicate effect registration: &quot; + type_name);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           4 :             throw std::runtime_error(&quot;Duplicate effect registration: &quot; + type_name);</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         }</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         144 :         creators_.emplace(type_name, std::move(creator));</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         108 :         creators_.emplace(type_name, std::move(creator));</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         109 :     }</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         549 :     std::shared_ptr&lt;Effect&gt; create(const std::string&amp; type_name) const {</span></span>
@@ -129,14 +129,14 @@
 <span id="L67"><span class="lineNum">      67</span>              : template &lt;typename T&gt;</span>
 <span id="L68"><span class="lineNum">      68</span>              : struct EffectRegistrar {</span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         144 :     explicit EffectRegistrar(const std::string&amp; type_name) {</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         263 :         EffectFactory::instance().register_effect(type_name, []() {</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         465 :             return std::make_shared&lt;T&gt;();</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         418 :         EffectFactory::instance().register_effect(type_name, []() {</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         310 :             return std::make_shared&lt;T&gt;();</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :         });</span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         144 :     }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : };</span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           3 : inline std::shared_ptr&lt;Effect&gt; Effect::clone() const {</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           5 :     auto new_effect = EffectFactory::instance().create(type_id());</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           4 :     auto new_effect = EffectFactory::instance().create(type_id());</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           3 :     if (new_effect) {</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           3 :         new_effect-&gt;set_params(get_params());</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           3 :         new_effect-&gt;set_enabled(enabled_);</span></span>

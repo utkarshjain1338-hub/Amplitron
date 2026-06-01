@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">70.3&nbsp;%</td>
-            <td class="headerCovTableEntry">671</td>
-            <td class="headerCovTableEntry">472</td>
+            <td class="headerCovTableEntryLo">71.1&nbsp;%</td>
+            <td class="headerCovTableEntry">688</td>
+            <td class="headerCovTableEntry">489</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 07:41:52</td>
+            <td class="headerValue">2026-06-01 07:44:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -133,7 +133,7 @@
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          36 :         float display_y = p0.y + 55 * zoom;</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          36 :         if (has_signal &amp;&amp; note_idx &gt;= 0) {</span></span>
-<span id="L74"><span class="lineNum">      74</span>              :             char note_buf[16];</span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           3 :             char note_buf[16];</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          12 :             snprintf(note_buf, sizeof(note_buf), &quot;%s%d&quot;,</span></span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           3 :                      TunerPedal::note_name(note_idx), octave);</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           9 :             ImVec2 note_size = ImGui::CalcTextSize(note_buf);</span></span>
@@ -144,12 +144,12 @@
 <span id="L82"><span class="lineNum">      82</span>              : </span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           9 :             display_y += 45 * zoom;</span></span>
 <span id="L84"><span class="lineNum">      84</span>              : </span>
-<span id="L85"><span class="lineNum">      85</span>              :             char cents_buf[32];</span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           3 :             char cents_buf[32];</span></span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           9 :             snprintf(cents_buf, sizeof(cents_buf), &quot;%+.1f cents&quot;, cents);</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           9 :             ImVec2 cents_text_size = ImGui::CalcTextSize(cents_buf);</span></span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">           9 :             ImGui::SetCursorScreenPos(ImVec2(cx - cents_text_size.x * 0.5f, display_y));</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           9 :             float abs_cents = std::fabs(cents);</span></span>
-<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           6 :             ImVec4 cents_col = (abs_cents &lt; 2.0f)</span></span>
+<span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           9 :             ImVec4 cents_col = (abs_cents &lt; 2.0f)</span></span>
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           6 :                 ? ImVec4(0.2f, 0.9f, 0.3f, 1.0f)</span></span>
 <span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           3 :                 : (abs_cents &lt; 15.0f)</span></span>
 <span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           9 :                     ? ImVec4(0.9f, 0.8f, 0.2f, 1.0f)</span></span>
@@ -183,7 +183,7 @@
 <span id="L121"><span class="lineNum">     121</span>              : </span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           9 :             display_y += bar_h + 14 * zoom;</span></span>
 <span id="L123"><span class="lineNum">     123</span>              : </span>
-<span id="L124"><span class="lineNum">     124</span>              :             char freq_buf[32];</span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           3 :             char freq_buf[32];</span></span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           9 :             snprintf(freq_buf, sizeof(freq_buf), &quot;%.1f Hz&quot;, freq);</span></span>
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">           9 :             ImVec2 freq_size = ImGui::CalcTextSize(freq_buf);</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           9 :             ImGui::SetCursorScreenPos(ImVec2(cx - freq_size.x * 0.5f, display_y));</span></span>
@@ -192,7 +192,7 @@
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           9 :             ImGui::PopStyleColor();</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           9 :             display_y += 22 * zoom;</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           9 :         } else {</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           6 :         } else {</span></span>
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          27 :             const char* no_sig = &quot;---&quot;;</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          27 :             ImVec2 ns_size = ImGui::CalcTextSize(no_sig);</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          36 :             dl-&gt;AddText(ImGui::GetFont(), ImGui::GetFontSize() * 2.0f,</span></span>
@@ -251,7 +251,7 @@
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">          54 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.22f, 0.20f, 0.16f, 1.0f));</span></span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">          54 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.35f, 0.30f, 0.18f, 1.0f));</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">          54 :         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.50f, 0.42f, 0.20f, 1.0f));</span></span>
-<span id="L192"><span class="lineNum">     192</span>              :         char load_id[64];</span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">          18 :         char load_id[64];</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">          54 :         snprintf(load_id, sizeof(load_id), &quot;Load IR##ir_load_%d&quot;, props.index);</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">          54 :         if (ImGui::Button(load_id, ImVec2(btn_w, 22 * zoom))) {</span></span>
 <span id="L195"><span class="lineNum">     195</span>              : #ifdef __EMSCRIPTEN__</span>
@@ -299,7 +299,7 @@
 <span id="L237"><span class="lineNum">     237</span>              : </span>
 <span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           9 :             display_y += 18 * zoom;</span></span>
 <span id="L239"><span class="lineNum">     239</span>              : </span>
-<span id="L240"><span class="lineNum">     240</span>              :             char dur_buf[32];</span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">           3 :             char dur_buf[32];</span></span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           9 :             snprintf(dur_buf, sizeof(dur_buf), &quot;%.1f ms&quot;, ir_cab-&gt;ir_duration_ms());</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           9 :             ImVec2 dur_size = ImGui::CalcTextSize(dur_buf);</span></span>
 <span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           9 :             ImGui::SetCursorScreenPos(ImVec2(cx - dur_size.x * 0.5f, display_y));</span></span>
@@ -313,7 +313,7 @@
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           9 :             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.18f, 0.12f, 0.10f, 1.0f));</span></span>
 <span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           9 :             ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.35f, 0.15f, 0.12f, 1.0f));</span></span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">           9 :             ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.50f, 0.20f, 0.15f, 1.0f));</span></span>
-<span id="L254"><span class="lineNum">     254</span>              :             char clear_id[64];</span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           3 :             char clear_id[64];</span></span>
 <span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           9 :             snprintf(clear_id, sizeof(clear_id), &quot;Clear##ir_clear_%d&quot;, props.index);</span></span>
 <span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">           9 :             if (ImGui::Button(clear_id, ImVec2(btn_w, 20 * zoom))) {</span></span>
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaUNC tlaBgUNC">           0 :                 ir_cab-&gt;clear_ir();</span></span>
@@ -345,7 +345,7 @@
 <span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">          72 :     const char* state_label = &quot;EMPTY&quot;;</span></span>
 <span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">          72 :     ImVec4 state_col = Theme::TextDim();</span></span>
 <span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">          72 :     switch (st) {</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          63 :         case Looper::State::Empty:      state_label = &quot;EMPTY&quot;;  state_col = Theme::TextDim(); break;</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          42 :         case Looper::State::Empty:      state_label = &quot;EMPTY&quot;;  state_col = Theme::TextDim(); break;</span></span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaUNC tlaBgUNC">           0 :         case Looper::State::Idle:       state_label = &quot;STOP&quot;;   state_col = Theme::TextSecondary(); break;</span></span>
 <span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC tlaBgGNC">           3 :         case Looper::State::Recording:  state_label = &quot;REC&quot;;    state_col = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); break;</span></span>
 <span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           3 :         case Looper::State::Playing:    state_label = &quot;PLAY&quot;;   state_col = ImVec4(0.2f, 0.9f, 0.3f, 1.0f); break;</span></span>
@@ -383,7 +383,7 @@
 <span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.35f, 0.12f, 0.12f, 1.0f));</span></span>
 <span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.50f, 0.18f, 0.18f, 1.0f));</span></span>
 <span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.65f, 0.22f, 0.22f, 1.0f));</span></span>
-<span id="L324"><span class="lineNum">     324</span>              :     char rec_id[64];</span>
+<span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">          24 :     char rec_id[64];</span></span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">          72 :     std::snprintf(rec_id, sizeof(rec_id), &quot;Record##looper_rec_%d&quot;, props.index);</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          72 :     if (ImGui::Button(rec_id, ImVec2(btn_w, btn_h))) {</span></span>
 <span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC tlaBgUNC">           0 :         looper-&gt;request_record_toggle();</span></span>
@@ -395,7 +395,7 @@
 <span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.14f, 0.30f, 0.18f, 1.0f));</span></span>
 <span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.18f, 0.42f, 0.22f, 1.0f));</span></span>
 <span id="L335"><span class="lineNum">     335</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.22f, 0.55f, 0.28f, 1.0f));</span></span>
-<span id="L336"><span class="lineNum">     336</span>              :     char play_id[64];</span>
+<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">          24 :     char play_id[64];</span></span>
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">          72 :     std::snprintf(play_id, sizeof(play_id), &quot;Play/Stop##looper_play_%d&quot;, props.index);</span></span>
 <span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">          72 :     if (ImGui::Button(play_id, ImVec2(btn_w, btn_h))) {</span></span>
 <span id="L339"><span class="lineNum">     339</span> <span class="tlaUNC tlaBgUNC">           0 :         looper-&gt;request_play_toggle();</span></span>
@@ -410,7 +410,7 @@
 <span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.30f, 0.26f, 0.10f, 1.0f));</span></span>
 <span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.40f, 0.34f, 0.12f, 1.0f));</span></span>
 <span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.52f, 0.45f, 0.15f, 1.0f));</span></span>
-<span id="L351"><span class="lineNum">     351</span>              :     char dub_id[64];</span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          24 :     char dub_id[64];</span></span>
 <span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">          72 :     std::snprintf(dub_id, sizeof(dub_id), &quot;Overdub##looper_dub_%d&quot;, props.index);</span></span>
 <span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC">          72 :     if (ImGui::Button(dub_id, ImVec2(btn_w, btn_h))) {</span></span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC tlaBgUNC">           0 :         looper-&gt;request_overdub_toggle();</span></span>
@@ -422,7 +422,7 @@
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.22f, 0.12f, 0.10f, 1.0f));</span></span>
 <span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.35f, 0.15f, 0.12f, 1.0f));</span></span>
 <span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">          72 :     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.50f, 0.20f, 0.15f, 1.0f));</span></span>
-<span id="L363"><span class="lineNum">     363</span>              :     char clr_id[64];</span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">          24 :     char clr_id[64];</span></span>
 <span id="L364"><span class="lineNum">     364</span> <span class="tlaGNC">          72 :     std::snprintf(clr_id, sizeof(clr_id), &quot;Clear##looper_clear_%d&quot;, props.index);</span></span>
 <span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">          72 :     if (ImGui::Button(clr_id, ImVec2(btn_w, btn_h))) {</span></span>
 <span id="L366"><span class="lineNum">     366</span> <span class="tlaUNC tlaBgUNC">           0 :         looper-&gt;request_clear();</span></span>
@@ -437,7 +437,7 @@
 <span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">          72 :         float&amp; level = props.effect-&gt;params()[0].value;</span></span>
 <span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">          72 :         ImGui::SetCursorScreenPos(ImVec2(p0.x + 15 * zoom, display_y));</span></span>
 <span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">          72 :         ImGui::SetNextItemWidth(bar_w);</span></span>
-<span id="L378"><span class="lineNum">     378</span>              :         char slider_id[64];</span>
+<span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">          24 :         char slider_id[64];</span></span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">          72 :         std::snprintf(slider_id, sizeof(slider_id), &quot;##looper_level_%d&quot;, props.index);</span></span>
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">          72 :         if (ImGui::SliderFloat(slider_id, &amp;level, 0.0f, 1.0f, &quot;Loop Level: %.2f&quot;)) {</span></span>
 <span id="L381"><span class="lineNum">     381</span> <span class="tlaUNC tlaBgUNC">           0 :             level = clamp(level, 0.0f, 1.0f);</span></span>
@@ -446,8 +446,8 @@
 <span id="L384"><span class="lineNum">     384</span> <span class="tlaUNC">           0 :             }</span></span>
 <span id="L385"><span class="lineNum">     385</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L386"><span class="lineNum">     386</span>              : </span>
-<span id="L387"><span class="lineNum">     387</span>              :         char popup_id[128];</span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC tlaBgGNC">          72 :         std::snprintf(popup_id, sizeof(popup_id), &quot;Popup_%s&quot;, slider_id);</span></span>
+<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC tlaBgGNC">          24 :         char popup_id[128];</span></span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">          72 :         std::snprintf(popup_id, sizeof(popup_id), &quot;Popup_%s&quot;, slider_id);</span></span>
 <span id="L389"><span class="lineNum">     389</span>              : </span>
 <span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">          72 :         if (ImGui::IsItemActivated()) {</span></span>
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaUNC tlaBgUNC">           0 :             s_active_popup_id = popup_id;</span></span>
@@ -486,9 +486,9 @@
 <span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">         180 :     float col_width = (pedal_width - 24.0f * zoom) / 3.0f;</span></span>
 <span id="L425"><span class="lineNum">     425</span>              : </span>
 <span id="L426"><span class="lineNum">     426</span>              :     // --- REUSABLE KNOB HELPER (LAMBDA) ---</span>
-<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">        2940 :     auto render_mb_knob = [&amp;](ImDrawList* dl, ImVec2 center, int pi, float radius, const char* label_prefix) {</span></span>
+<span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">        3000 :     auto render_mb_knob = [&amp;](ImDrawList* dl, ImVec2 center, int pi, float radius, const char* label_prefix) {</span></span>
 <span id="L428"><span class="lineNum">     428</span> <span class="tlaGNC">        2880 :         auto&amp; param = params[pi];</span></span>
-<span id="L429"><span class="lineNum">     429</span>              :         char label[64];</span>
+<span id="L429"><span class="lineNum">     429</span> <span class="tlaGNC">         960 :         char label[64];</span></span>
 <span id="L430"><span class="lineNum">     430</span> <span class="tlaGNC">        2880 :         std::snprintf(label, sizeof(label), &quot;##knob_%s_%d_%d_%s&quot;, props.effect-&gt;name(), props.index, pi, label_prefix);</span></span>
 <span id="L431"><span class="lineNum">     431</span>              : </span>
 <span id="L432"><span class="lineNum">     432</span> <span class="tlaGNC">        2880 :         float r = radius * zoom;</span></span>
@@ -511,7 +511,7 @@
 <span id="L449"><span class="lineNum">     449</span> <span class="tlaGNC">           3 :             s_active_knob_id = label;</span></span>
 <span id="L450"><span class="lineNum">     450</span> <span class="tlaGNC">           1 :         }</span></span>
 <span id="L451"><span class="lineNum">     451</span>              : </span>
-<span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">        2880 :         if (is_active &amp;&amp; s_active_knob_id == label) {</span></span>
+<span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">        1921 :         if (is_active &amp;&amp; s_active_knob_id == label) {</span></span>
 <span id="L453"><span class="lineNum">     453</span> <span class="tlaGNC">           3 :             float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;</span></span>
 <span id="L454"><span class="lineNum">     454</span> <span class="tlaGNC">           3 :             if (mdy != 0.0f) {</span></span>
 <span id="L455"><span class="lineNum">     455</span> <span class="tlaUNC tlaBgUNC">           0 :                 float sensitivity = 0.005f;</span></span>
@@ -647,7 +647,7 @@
 <span id="L585"><span class="lineNum">     585</span>              : </span>
 <span id="L586"><span class="lineNum">     586</span> <span class="tlaGNC">      115200 :             dl-&gt;AddLine(</span></span>
 <span id="L587"><span class="lineNum">     587</span> <span class="tlaGNC">       86400 :                 ImVec2(center.x + std::cos(a0) * track_radius, center.y + std::sin(a0) * track_radius),</span></span>
-<span id="L588"><span class="lineNum">     588</span> <span class="tlaGNC">      144000 :                 ImVec2(center.x + std::cos(a1) * track_radius, center.y + std::sin(a1) * track_radius),</span></span>
+<span id="L588"><span class="lineNum">     588</span> <span class="tlaGNC">      115200 :                 ImVec2(center.x + std::cos(a1) * track_radius, center.y + std::sin(a1) * track_radius),</span></span>
 <span id="L589"><span class="lineNum">     589</span> <span class="tlaGNC">       86400 :                 seg_color, 2.0f * zoom);</span></span>
 <span id="L590"><span class="lineNum">     590</span> <span class="tlaGNC">       28800 :         }</span></span>
 <span id="L591"><span class="lineNum">     591</span>              : </span>
@@ -657,7 +657,7 @@
 <span id="L595"><span class="lineNum">     595</span>              : </span>
 <span id="L596"><span class="lineNum">     596</span>              : #ifndef AMPLITRON_NO_MIDI</span>
 <span id="L597"><span class="lineNum">     597</span> <span class="tlaGNC">        1568 :         if (props.gui_midi &amp;&amp; props.gui_midi-&gt;midi().is_learning() &amp;&amp;</span></span>
-<span id="L598"><span class="lineNum">     598</span> <span class="tlaGNC">        2528 :             props.gui_midi-&gt;midi().learn_effect_name() == props.effect-&gt;name() &amp;&amp;</span></span>
+<span id="L598"><span class="lineNum">     598</span> <span class="tlaGNC">        2224 :             props.gui_midi-&gt;midi().learn_effect_name() == props.effect-&gt;name() &amp;&amp;</span></span>
 <span id="L599"><span class="lineNum">     599</span> <span class="tlaUNC tlaBgUNC">           0 :             props.gui_midi-&gt;midi().learn_param_name() == param.name) {</span></span>
 <span id="L600"><span class="lineNum">     600</span> <span class="tlaUNC">           0 :             float time = static_cast&lt;float&gt;(ImGui::GetTime());</span></span>
 <span id="L601"><span class="lineNum">     601</span> <span class="tlaUNC">           0 :             float alpha = (std::sin(time * 2.0f * 3.14159f * 10.0f) + 1.0f) * 0.5f;</span></span>
@@ -679,7 +679,7 @@
 <span id="L617"><span class="lineNum">     617</span> <span class="tlaGNC">          24 :             std::string val_str = Theme::formatParameterValue(param.value, param.unit);</span></span>
 <span id="L618"><span class="lineNum">     618</span> <span class="tlaGNC">          24 :             std::string min_str = Theme::formatParameterValue(param.min_val, param.unit);</span></span>
 <span id="L619"><span class="lineNum">     619</span> <span class="tlaGNC">          24 :             std::string max_str = Theme::formatParameterValue(param.max_val, param.unit);</span></span>
-<span id="L620"><span class="lineNum">     620</span> <span class="tlaGNC">          40 :             std::string midi_info = props.gui_midi ? props.gui_midi-&gt;get_mapping_info(props.effect-&gt;name(), param.name) : &quot;&quot;;</span></span>
+<span id="L620"><span class="lineNum">     620</span> <span class="tlaGNC">          32 :             std::string midi_info = props.gui_midi ? props.gui_midi-&gt;get_mapping_info(props.effect-&gt;name(), param.name) : &quot;&quot;;</span></span>
 <span id="L621"><span class="lineNum">     621</span>              :             </span>
 <span id="L622"><span class="lineNum">     622</span> <span class="tlaGNC">          24 :             if (param.tooltip.empty()) {</span></span>
 <span id="L623"><span class="lineNum">     623</span> <span class="tlaUNC tlaBgUNC">           0 :                 ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s&quot;, param.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(), midi_info.c_str());</span></span>
@@ -701,16 +701,16 @@
 <span id="L639"><span class="lineNum">     639</span>              : </span>
 <span id="L640"><span class="lineNum">     640</span> <span class="tlaGNC">        2880 :         std::string val_display = Theme::formatParameterValue(param.value, param.unit);</span></span>
 <span id="L641"><span class="lineNum">     641</span> <span class="tlaGNC">        2880 :         ImVec2 val_size = ImGui::CalcTextSize(val_display.c_str());</span></span>
-<span id="L642"><span class="lineNum">     642</span> <span class="tlaGNC">        4800 :         dl-&gt;AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.75f,</span></span>
-<span id="L643"><span class="lineNum">     643</span> <span class="tlaGNC">        2880 :                     ImVec2(center.x - val_size.x * 0.5f, center.y - r - 13.0f * zoom),</span></span>
+<span id="L642"><span class="lineNum">     642</span> <span class="tlaGNC">        4799 :         dl-&gt;AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.75f,</span></span>
+<span id="L643"><span class="lineNum">     643</span> <span class="tlaGNC">        3840 :                     ImVec2(center.x - val_size.x * 0.5f, center.y - r - 13.0f * zoom),</span></span>
 <span id="L644"><span class="lineNum">     644</span> <span class="tlaGNC">         960 :                     is_active ? Theme::ACCENT_GOLD_HOT : Theme::TEXT_DIM, val_display.c_str());</span></span>
 <span id="L645"><span class="lineNum">     645</span> <span class="tlaGNC">        2880 :     };</span></span>
 <span id="L646"><span class="lineNum">     646</span>              : </span>
 <span id="L647"><span class="lineNum">     647</span>              :     // --- REUSABLE SLIDER HELPER (LAMBDA) ---</span>
-<span id="L648"><span class="lineNum">     648</span> <span class="tlaGNC">         420 :     auto render_xover_slider = [&amp;](ImDrawList* dl, float track_x, int pi, const char* label_prefix, bool ticks_on_left) {</span></span>
-<span id="L649"><span class="lineNum">     649</span>              :         (void)ticks_on_left;</span>
+<span id="L648"><span class="lineNum">     648</span> <span class="tlaGNC">         480 :     auto render_xover_slider = [&amp;](ImDrawList* dl, float track_x, int pi, const char* label_prefix, bool ticks_on_left) {</span></span>
+<span id="L649"><span class="lineNum">     649</span> <span class="tlaGNC">         120 :         (void)ticks_on_left;</span></span>
 <span id="L650"><span class="lineNum">     650</span> <span class="tlaGNC">         360 :         auto&amp; param = params[pi];</span></span>
-<span id="L651"><span class="lineNum">     651</span>              :         char label[64];</span>
+<span id="L651"><span class="lineNum">     651</span> <span class="tlaGNC">         120 :         char label[64];</span></span>
 <span id="L652"><span class="lineNum">     652</span> <span class="tlaGNC">         360 :         std::snprintf(label, sizeof(label), &quot;##slider_%s_%d_%d_%s&quot;, props.effect-&gt;name(), props.index, pi, label_prefix);</span></span>
 <span id="L653"><span class="lineNum">     653</span>              : </span>
 <span id="L654"><span class="lineNum">     654</span> <span class="tlaGNC">         360 :         float track_top = p0.y + 90.0f * zoom;</span></span>
@@ -735,7 +735,7 @@
 <span id="L673"><span class="lineNum">     673</span> <span class="tlaUNC">           0 :             s_active_knob_id = label;</span></span>
 <span id="L674"><span class="lineNum">     674</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L675"><span class="lineNum">     675</span>              : </span>
-<span id="L676"><span class="lineNum">     676</span> <span class="tlaGNC tlaBgGNC">         360 :         if (is_active &amp;&amp; s_active_knob_id == label) {</span></span>
+<span id="L676"><span class="lineNum">     676</span> <span class="tlaGNC tlaBgGNC">         240 :         if (is_active &amp;&amp; s_active_knob_id == label) {</span></span>
 <span id="L677"><span class="lineNum">     677</span> <span class="tlaUNC tlaBgUNC">           0 :             float my = ImGui::GetIO().MousePos.y;</span></span>
 <span id="L678"><span class="lineNum">     678</span> <span class="tlaUNC">           0 :             float norm = (track_bottom - my) / (track_bottom - track_top);</span></span>
 <span id="L679"><span class="lineNum">     679</span> <span class="tlaUNC">           0 :             norm = clamp(norm, 0.0f, 1.0f);</span></span>
@@ -829,7 +829,7 @@
 <span id="L767"><span class="lineNum">     767</span> <span class="tlaGNC">         720 :                 float ty = track_bottom - norm * (track_bottom - track_top);</span></span>
 <span id="L768"><span class="lineNum">     768</span> <span class="tlaGNC">         720 :                 dl-&gt;AddLine(ImVec2(track_x - 4.0f * zoom, ty), ImVec2(track_x, ty), Theme::BORDER_LIGHT, 1.0f * zoom);</span></span>
 <span id="L769"><span class="lineNum">     769</span>              :                 </span>
-<span id="L770"><span class="lineNum">     770</span>              :                 char tick_lbl[16];</span>
+<span id="L770"><span class="lineNum">     770</span> <span class="tlaGNC">         240 :                 char tick_lbl[16];</span></span>
 <span id="L771"><span class="lineNum">     771</span> <span class="tlaGNC">         720 :                 if (hz &gt;= 1000.0f) std::snprintf(tick_lbl, sizeof(tick_lbl), &quot;1k&quot;);</span></span>
 <span id="L772"><span class="lineNum">     772</span> <span class="tlaGNC">         540 :                 else std::snprintf(tick_lbl, sizeof(tick_lbl), &quot;%.0f&quot;, hz);</span></span>
 <span id="L773"><span class="lineNum">     773</span>              : </span>
@@ -845,7 +845,7 @@
 <span id="L783"><span class="lineNum">     783</span> <span class="tlaGNC">         900 :                 float ty = track_bottom - norm * (track_bottom - track_top);</span></span>
 <span id="L784"><span class="lineNum">     784</span> <span class="tlaGNC">         900 :                 dl-&gt;AddLine(ImVec2(track_x, ty), ImVec2(track_x + 4.0f * zoom, ty), Theme::BORDER_LIGHT, 1.0f * zoom);</span></span>
 <span id="L785"><span class="lineNum">     785</span>              : </span>
-<span id="L786"><span class="lineNum">     786</span>              :                 char tick_lbl[16];</span>
+<span id="L786"><span class="lineNum">     786</span> <span class="tlaGNC">         300 :                 char tick_lbl[16];</span></span>
 <span id="L787"><span class="lineNum">     787</span> <span class="tlaGNC">         900 :                 if (hz &gt;= 1000.0f) std::snprintf(tick_lbl, sizeof(tick_lbl), &quot;%.0fk&quot;, hz / 1000.0f);</span></span>
 <span id="L788"><span class="lineNum">     788</span> <span class="tlaUNC tlaBgUNC">           0 :                 else std::snprintf(tick_lbl, sizeof(tick_lbl), &quot;%.0f&quot;, hz);</span></span>
 <span id="L789"><span class="lineNum">     789</span>              : </span>
@@ -859,7 +859,7 @@
 <span id="L797"><span class="lineNum">     797</span>              :         // Draw pill handle</span>
 <span id="L798"><span class="lineNum">     798</span> <span class="tlaGNC">         360 :         ImVec2 handle_center = ImVec2(track_x, handle_y);</span></span>
 <span id="L799"><span class="lineNum">     799</span> <span class="tlaGNC">         360 :         ImU32 handle_bg = is_active ? Theme::KNOB_ACTIVE : (is_hovered ? Theme::KNOB_HOVER : Theme::KNOB_FACE);</span></span>
-<span id="L800"><span class="lineNum">     800</span> <span class="tlaGNC">         360 :         ImU32 border_col = (is_active || is_hovered) ? Theme::ACCENT_GOLD_HOT : Theme::ACCENT_GOLD;</span></span>
+<span id="L800"><span class="lineNum">     800</span> <span class="tlaGNC">         357 :         ImU32 border_col = (is_active || is_hovered) ? Theme::ACCENT_GOLD_HOT : Theme::ACCENT_GOLD;</span></span>
 <span id="L801"><span class="lineNum">     801</span>              : </span>
 <span id="L802"><span class="lineNum">     802</span> <span class="tlaGNC">         360 :         dl-&gt;AddRectFilled(ImVec2(track_x - 8.0f * zoom, handle_y - 5.0f * zoom), ImVec2(track_x + 8.0f * zoom, handle_y + 5.0f * zoom), Theme::KNOB_BG, 3.0f * zoom);</span></span>
 <span id="L803"><span class="lineNum">     803</span> <span class="tlaGNC">         360 :         dl-&gt;AddRectFilled(ImVec2(track_x - 7.0f * zoom, handle_y - 4.0f * zoom), ImVec2(track_x + 7.0f * zoom, handle_y + 4.0f * zoom), handle_bg, 2.0f * zoom);</span></span>
@@ -881,8 +881,8 @@
 <span id="L819"><span class="lineNum">     819</span> <span class="tlaGNC">         120 :                     Theme::TEXT_DIM, s_name);</span></span>
 <span id="L820"><span class="lineNum">     820</span>              : </span>
 <span id="L821"><span class="lineNum">     821</span> <span class="tlaGNC">         360 :         if (is_hovered || is_active) {</span></span>
-<span id="L822"><span class="lineNum">     822</span> <span class="tlaGNC">          15 :             std::string midi_info = props.gui_midi ? props.gui_midi-&gt;get_mapping_info(props.effect-&gt;name(), param.name) : &quot;&quot;;</span></span>
-<span id="L823"><span class="lineNum">     823</span> <span class="tlaGNC">          21 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nDrag vertically to adjust\nShift=fine, Ctrl=coarse\nDbl-click to reset&quot;,</span></span>
+<span id="L822"><span class="lineNum">     822</span> <span class="tlaGNC">          12 :             std::string midi_info = props.gui_midi ? props.gui_midi-&gt;get_mapping_info(props.effect-&gt;name(), param.name) : &quot;&quot;;</span></span>
+<span id="L823"><span class="lineNum">     823</span> <span class="tlaGNC">          18 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nDrag vertically to adjust\nShift=fine, Ctrl=coarse\nDbl-click to reset&quot;,</span></span>
 <span id="L824"><span class="lineNum">     824</span> <span class="tlaGNC">           3 :                               param.name.c_str(), val_str.c_str(),</span></span>
 <span id="L825"><span class="lineNum">     825</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.min_val, param.unit).c_str(),</span></span>
 <span id="L826"><span class="lineNum">     826</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.max_val, param.unit).c_str(),</span></span>

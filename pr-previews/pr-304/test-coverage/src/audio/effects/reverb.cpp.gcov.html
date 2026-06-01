@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 07:41:52</td>
+            <td class="headerValue">2026-06-01 07:44:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -77,13 +77,13 @@
 <span id="L15"><span class="lineNum">      15</span>              : static const int ALLPASS_LENGTHS_R[] = {556 + STEREO_SPREAD, 441 + STEREO_SPREAD};</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         196 : Reverb::Reverb() {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         392 :     params_ = {</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          49 :         {&quot;Decay&quot;,  0.6f, 0.1f, 0.99f, 0.6f, &quot;&quot;, &quot;Length of the reverb tail. Higher values simulate larger acoustic spaces like halls or caves.&quot;},</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         441 :     params_ = {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          98 :         {&quot;Decay&quot;,  0.6f, 0.1f, 0.99f, 0.6f, &quot;&quot;, &quot;Length of the reverb tail. Higher values simulate larger acoustic spaces like halls or caves.&quot;},</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          49 :         {&quot;Damp&quot;,   0.4f, 0.0f, 1.0f,  0.4f, &quot;&quot;, &quot;High-frequency damping. Higher values absorb treble faster, simulating softer room materials.&quot;},</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          49 :         {&quot;Level&quot;,  0.3f, 0.0f, 1.0f,  0.3f, &quot;&quot;, &quot;Mix volume of the reverb effect. Controls how wet or distant the overall sound feels.&quot;},</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         392 :     };</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         441 :     };</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         147 :     init_filters();</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         441 : }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         343 : }</span></span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         165 : void Reverb::set_sample_rate(int sample_rate) {</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         165 :     Effect::set_sample_rate(sample_rate);</span></span>
