@@ -37,12 +37,12 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 09:23:08</td>
+            <td class="headerValue">2026-06-01 12:00:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
-            <td class="headerCovTableEntry">25</td>
-            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryMed">79.2&nbsp;%</td>
+            <td class="headerCovTableEntry">24</td>
+            <td class="headerCovTableEntry">19</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -84,7 +84,7 @@
 <span id="L22"><span class="lineNum">      22</span>              :     int num_inputs = 0;</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           8 :     AddGraphNodeCommand(AudioEngine&amp; engine, const std::string&amp; name, EffectType type, std::shared_ptr&lt;Effect&gt; pedal, ImVec2 pos, int num_inputs = 0)</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          10 :         : engine_(engine), name(name), type(type), pedal(pedal), position(pos), num_inputs(num_inputs) {}</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          12 :         : engine_(engine), name(name), type(type), pedal(pedal), position(pos), num_inputs(num_inputs) {}</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           9 :     bool execute() override {</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           9 :         if (node_id == -1) {</span></span>
@@ -142,9 +142,9 @@
 <span id="L80"><span class="lineNum">      80</span>              : </span>
 <span id="L81"><span class="lineNum">      81</span>              :         // Cache severed links before removal</span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           6 :         severed_links.clear();</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          14 :         for (const auto&amp; link : engine_.graph().get_links()) {</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          12 :             if (std::find(cached_node.input_pin_ids.begin(), cached_node.input_pin_ids.end(), link.dest_pin_id) != cached_node.input_pin_ids.end() ||</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          12 :                 std::find(cached_node.output_pin_ids.begin(), cached_node.output_pin_ids.end(), link.source_pin_id) != cached_node.output_pin_ids.end()) {</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          12 :         for (const auto&amp; link : engine_.graph().get_links()) {</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          10 :             if (std::find(cached_node.input_pin_ids.begin(), cached_node.input_pin_ids.end(), link.dest_pin_id) != cached_node.input_pin_ids.end() ||</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          10 :                 std::find(cached_node.output_pin_ids.begin(), cached_node.output_pin_ids.end(), link.source_pin_id) != cached_node.output_pin_ids.end()) {</span></span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           6 :                 severed_links.push_back(link);</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :             }</span></span>
 <span id="L88"><span class="lineNum">      88</span>              :         }</span>
@@ -153,7 +153,7 @@
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           6 :         GuiGraphState::get_instance().node_positions.erase(node_id);</span></span>
 <span id="L92"><span class="lineNum">      92</span>              :         </span>
 <span id="L93"><span class="lineNum">      93</span>              :         // Clean up empty pins on mixers that were affected by severed links</span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          14 :         for (const auto&amp; link : severed_links) {</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          12 :         for (const auto&amp; link : severed_links) {</span></span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           6 :             int dest_node_id = engine_.graph().get_node_from_pin(link.dest_pin_id);</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           6 :             if (dest_node_id != -1) {</span></span>
 <span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           6 :                 const DSPNode* n = engine_.graph().find_node(dest_node_id);</span></span>
@@ -205,7 +205,7 @@
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC tlaBgGNC">           3 :         for (auto it = auto_removed_out_pins.rbegin(); it != auto_removed_out_pins.rend(); ++it) {</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaUNC tlaBgUNC">           0 :             engine_.graph().restore_output_pin(it-&gt;node_id, it-&gt;pin_id, it-&gt;index);</span></span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC tlaBgGNC">           7 :         for (const auto&amp; link : severed_links) {</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC tlaBgGNC">           6 :         for (const auto&amp; link : severed_links) {</span></span>
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           3 :             engine_.graph().restore_link(link);</span></span>
 <span id="L148"><span class="lineNum">     148</span>              :         }</span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           3 :         engine_.commit_graph_changes();</span></span>
@@ -238,10 +238,10 @@
 <span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">          12 :     bool execute() override {</span></span>
 <span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          12 :         if (link.id == -1) {</span></span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           9 :             bool already_exists = false;</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          12 :             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           9 :             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           3 :                 if (l.source_pin_id == link.source_pin_id &amp;&amp; l.dest_pin_id == link.dest_pin_id) {</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           3 :                     already_exists = true;</span></span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">           3 :                     break;</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">           2 :                     already_exists = true;</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">           2 :                     break;</span></span>
 <span id="L183"><span class="lineNum">     183</span>              :                 }</span>
 <span id="L184"><span class="lineNum">     184</span>              :             }</span>
 <span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           9 :             if (already_exists) return false;</span></span>
@@ -255,8 +255,8 @@
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           6 :                     const DSPNode* node = engine_.graph().find_node(dest_node_id);</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           6 :                     if (node &amp;&amp; (node-&gt;routing_type == NodeRoutingType::Mixer || node-&gt;routing_type == NodeRoutingType::MergeSum)) {</span></span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           6 :                         size_t occupied_count = 0;</span></span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">          20 :                         for (int p : node-&gt;input_pin_ids) {</span></span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">          22 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">          18 :                         for (int p : node-&gt;input_pin_ids) {</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">          18 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">          12 :                                 if (l.dest_pin_id == p) {</span></span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           6 :                                     occupied_count++; break;</span></span>
 <span id="L200"><span class="lineNum">     200</span>              :                                 }</span>
@@ -281,8 +281,8 @@
 <span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">           6 :                     const DSPNode* node = engine_.graph().find_node(source_node_id);</span></span>
 <span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           6 :                     if (node &amp;&amp; node-&gt;routing_type == NodeRoutingType::Splitter) {</span></span>
 <span id="L221"><span class="lineNum">     221</span> <span class="tlaGNC">           6 :                         size_t occupied_count = 0;</span></span>
-<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          20 :                         for (int p : node-&gt;output_pin_ids) {</span></span>
-<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          22 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">          18 :                         for (int p : node-&gt;output_pin_ids) {</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          18 :                             for (const auto&amp; l : engine_.graph().get_links()) {</span></span>
 <span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">          12 :                                 if (l.source_pin_id == p) {</span></span>
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           6 :                                     occupied_count++; break;</span></span>
 <span id="L226"><span class="lineNum">     226</span>              :                                 }</span>
@@ -422,7 +422,7 @@
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">          12 :         if (it == positions.end()) return false;</span></span>
 <span id="L361"><span class="lineNum">     361</span>              :         </span>
 <span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">           9 :         if (it-&gt;second.position.x == new_pos.x &amp;&amp; it-&gt;second.position.y == new_pos.y) {</span></span>
-<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">           3 :             return false;</span></span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">           2 :             return false;</span></span>
 <span id="L364"><span class="lineNum">     364</span>              :         }</span>
 <span id="L365"><span class="lineNum">     365</span>              :         </span>
 <span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">           6 :         it-&gt;second.position = new_pos;</span></span>

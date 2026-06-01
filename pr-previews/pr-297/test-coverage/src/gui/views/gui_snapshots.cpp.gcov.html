@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">64.3&nbsp;%</td>
-            <td class="headerCovTableEntry">70</td>
-            <td class="headerCovTableEntry">45</td>
+            <td class="headerCovTableEntryLo">64.0&nbsp;%</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">48</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 09:23:08</td>
+            <td class="headerValue">2026-06-01 12:00:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -79,7 +79,7 @@
 <span id="L17"><span class="lineNum">      17</span>              :                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span>              :     // Vertically center the button row</span>
-<span id="L20"><span class="lineNum">      20</span>              :     {</span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           4 :     {</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          12 :         float avail_y = ImGui::GetContentRegionAvail().y;</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          12 :         float row_h   = ImGui::GetFrameHeight();</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          12 :         float pad_y   = std::max(0.0f, (avail_y - row_h) * 0.5f);</span></span>
@@ -110,7 +110,7 @@
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          24 :             ImGui::PushStyleColor(ImGuiCol_ButtonActive,  ImVec4(0.25f, 0.23f, 0.19f, 1.0f));</span></span>
 <span id="L49"><span class="lineNum">      49</span>              :         }</span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
-<span id="L51"><span class="lineNum">      51</span>              :         char btn_id[16];</span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          16 :         char btn_id[16];</span></span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          48 :         std::snprintf(btn_id, sizeof(btn_id), &quot;%s##snap_%d&quot;, lbl, i);</span></span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          48 :         if (ImGui::Button(btn_id)) {</span></span>
@@ -132,18 +132,18 @@
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L71"><span class="lineNum">      71</span>              : </span>
 <span id="L72"><span class="lineNum">      72</span>              :         // Right-click context menu</span>
-<span id="L73"><span class="lineNum">      73</span>              :         char popup_id[24];</span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC tlaBgGNC">          48 :         std::snprintf(popup_id, sizeof(popup_id), &quot;SnapCtx_%d&quot;, i);</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC tlaBgGNC">          16 :         char popup_id[24];</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          48 :         std::snprintf(popup_id, sizeof(popup_id), &quot;SnapCtx_%d&quot;, i);</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          48 :         if (ImGui::BeginPopupContextItem(popup_id)) {</span></span>
-<span id="L76"><span class="lineNum">      76</span>              :             char save_label[40];</span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaUNC tlaBgUNC">           0 :             std::snprintf(save_label, sizeof(save_label), &quot;Save current board to %s&quot;, lbl);</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaUNC tlaBgUNC">           0 :             char save_label[40];</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaUNC">           0 :             std::snprintf(save_label, sizeof(save_label), &quot;Save current board to %s&quot;, lbl);</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaUNC">           0 :             if (ImGui::MenuItem(save_label)) {</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaUNC">           0 :                 if (p.on_save_slot) p.on_save_slot(i);</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaUNC">           0 :                 std::snprintf(status_msg_, sizeof(status_msg_), &quot;Saved to %s&quot;, lbl);</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaUNC">           0 :                 status_timer_ = STATUS_DISPLAY_SECONDS;</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC">           0 :             }</span></span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaUNC">           0 :             if (is_filled) {</span></span>
-<span id="L84"><span class="lineNum">      84</span>              :                 char clear_label[24];</span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaUNC">           0 :                 char clear_label[24];</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaUNC">           0 :                 std::snprintf(clear_label, sizeof(clear_label), &quot;Clear %s&quot;, lbl);</span></span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 :                 ImGui::Separator();</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC">           0 :                 if (ImGui::MenuItem(clear_label)) {</span></span>

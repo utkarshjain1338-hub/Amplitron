@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">15</td>
-            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">16</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 09:23:08</td>
+            <td class="headerValue">2026-06-01 12:00:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              :     std::function&lt;void()&gt; on_discard;</span>
 <span id="L29"><span class="lineNum">      29</span>              : };</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          11 : struct RecordingState {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          37 : struct RecordingState {</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          11 :     bool        needs_save = false;   // true after stop/save-as is requested</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :     std::string status_msg;</span>
 <span id="L34"><span class="lineNum">      34</span>              : };</span>
@@ -108,7 +108,7 @@
 <span id="L46"><span class="lineNum">      46</span>              :  *   3. GuiManager calls render_save_dialog(callback) which runs the native</span>
 <span id="L47"><span class="lineNum">      47</span>              :  *      file picker and invokes the callback with the destination path.</span>
 <span id="L48"><span class="lineNum">      48</span>              :  */</span>
-<span id="L49"><span class="lineNum">      49</span>              : class GuiRecording : public UIComponent&lt;RecordingProps, RecordingState&gt; {</span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          11 : class GuiRecording : public UIComponent&lt;RecordingProps, RecordingState&gt; {</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : public:</span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          44 :     GuiRecording() = default;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
@@ -125,7 +125,7 @@
 <span id="L63"><span class="lineNum">      63</span>              :     void render_save_dialog(std::function&lt;void(const std::string&amp; dest)&gt; on_save_done);</span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
 <span id="L65"><span class="lineNum">      65</span>              :     /** @brief Returns true if the save dialog should be opened this frame. */</span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           9 :     bool needs_save_dialog() const { return state_.needs_save; }</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           8 :     bool needs_save_dialog() const { return state_.needs_save; }</span></span>
 <span id="L67"><span class="lineNum">      67</span>              : };</span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              : } // namespace Amplitron</span>

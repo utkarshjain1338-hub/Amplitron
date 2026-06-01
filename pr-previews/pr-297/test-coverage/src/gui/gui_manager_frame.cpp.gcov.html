@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">60.7&nbsp;%</td>
-            <td class="headerCovTableEntry">295</td>
+            <td class="headerCovTableEntryLo">60.1&nbsp;%</td>
+            <td class="headerCovTableEntry">298</td>
             <td class="headerCovTableEntry">179</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 09:23:08</td>
+            <td class="headerValue">2026-06-01 12:00:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">86.2&nbsp;%</td>
@@ -132,7 +132,7 @@
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           6 :     SettingsProps p;</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           6 :     p.input_device_name  = engine_.get_input_device_name();</span></span>
 <span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           6 :     p.output_device_name = engine_.get_output_device_name();</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           6 :     p.device_error       = engine_.get_last_error();</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           8 :     p.device_error       = engine_.get_last_error();</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           6 :     p.buffer_size        = engine_.get_buffer_size();</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           6 :     p.sample_rate        = engine_.get_sample_rate();</span></span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :     p.suggested_buf      = engine_.get_suggested_buffer_size();</span></span>
@@ -142,9 +142,9 @@
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           6 :     p.current_input      = engine_.get_input_device();</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           6 :     p.current_output     = engine_.get_output_device();</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          14 :     for (auto&amp; dev : engine_.get_input_devices())</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          12 :     for (auto&amp; dev : engine_.get_input_devices())</span></span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">          10 :         p.input_devices.push_back({dev.index, dev.name, dev.is_usb_device});</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          14 :     for (auto&amp; dev : engine_.get_output_devices())</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          12 :     for (auto&amp; dev : engine_.get_output_devices())</span></span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">          10 :         p.output_devices.push_back({dev.index, dev.name, dev.is_usb_device});</span></span>
 <span id="L87"><span class="lineNum">      87</span>              : </span>
 <span id="L88"><span class="lineNum">      88</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>
@@ -153,8 +153,8 @@
 <span id="L91"><span class="lineNum">      91</span>              : </span>
 <span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           9 :     p.on_buffer_size_changed   = [this](int s) { engine_.set_buffer_size(s); };</span></span>
 <span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           9 :     p.on_sample_rate_changed   = [this](int r) { engine_.set_sample_rate(r); };</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           9 :     p.on_auto_buf_changed      = [this](bool b) { engine_.set_auto_buffer_enabled(b); };</span></span>
-<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           9 :     p.on_clear_error           = [this]() { engine_.clear_error(); };</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           8 :     p.on_auto_buf_changed      = [this](bool b) { engine_.set_auto_buffer_enabled(b); };</span></span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           8 :     p.on_clear_error           = [this]() { engine_.clear_error(); };</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           9 :     p.on_input_device_changed  = [this](int i) { engine_.set_input_device(i); };</span></span>
 <span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           9 :     p.on_output_device_changed = [this](int i) { engine_.set_output_device(i); };</span></span>
 <span id="L98"><span class="lineNum">      98</span> <span class="tlaGNC">           6 :     return p;</span></span>
@@ -251,7 +251,7 @@
 <span id="L189"><span class="lineNum">     189</span>              : // run_frame — reactive root render loop</span>
 <span id="L190"><span class="lineNum">     190</span>              : // ─────────────────────────────────────────────────────────────────────────────</span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaUNC tlaBgUNC">           0 : bool GuiManager::run_frame() {</span></span>
-<span id="L192"><span class="lineNum">     192</span>              :     SDL_Event event;</span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     SDL_Event event;</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaUNC">           0 :     while (SDL_PollEvent(&amp;event)) {</span></span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC">           0 :         ImGui_ImplSDL2_ProcessEvent(&amp;event);</span></span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaUNC">           0 :         if (event.type == SDL_QUIT) return false;</span></span>
@@ -268,7 +268,7 @@
 <span id="L206"><span class="lineNum">     206</span> <span class="tlaUNC">           0 :     ImGui::NewFrame();</span></span>
 <span id="L207"><span class="lineNum">     207</span>              : </span>
 <span id="L208"><span class="lineNum">     208</span>              :     // ── Keyboard shortcuts ──</span>
-<span id="L209"><span class="lineNum">     209</span>              :     {</span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :     {</span></span>
 <span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC">           0 :         ImGuiIO&amp; io = ImGui::GetIO();</span></span>
 <span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC">           0 :         bool mod = io.KeySuper || io.KeyCtrl;</span></span>
 <span id="L212"><span class="lineNum">     212</span>              : </span>
@@ -381,7 +381,7 @@
 <span id="L319"><span class="lineNum">     319</span>              : </span>
 <span id="L320"><span class="lineNum">     320</span>              :     // ── Render ──</span>
 <span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC">           0 :     ImGui::Render();</span></span>
-<span id="L322"><span class="lineNum">     322</span>              :     int display_w, display_h;</span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :     int display_w, display_h;</span></span>
 <span id="L323"><span class="lineNum">     323</span> <span class="tlaUNC">           0 :     SDL_GL_GetDrawableSize(window_, &amp;display_w, &amp;display_h);</span></span>
 <span id="L324"><span class="lineNum">     324</span> <span class="tlaUNC">           0 :     glViewport(0, 0, display_w, display_h);</span></span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaUNC">           0 :     glClearColor(0.078f, 0.071f, 0.063f, 1.0f);</span></span>
@@ -418,8 +418,8 @@
 <span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC">           3 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
 <span id="L357"><span class="lineNum">     357</span>              :                       Theme::METER_BG, Theme::ROUNDING_SM);</span>
 <span id="L358"><span class="lineNum">     358</span> <span class="tlaGNC">           3 :     float fill = std::min(smoothed_input_level_, 1.0f) * meter_w;</span></span>
-<span id="L359"><span class="lineNum">     359</span> <span class="tlaGNC">           5 :     ImU32 meter_color = (smoothed_input_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
-<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">           3 :                         (smoothed_input_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
+<span id="L359"><span class="lineNum">     359</span> <span class="tlaGNC">           4 :     ImU32 meter_color = (smoothed_input_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
+<span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">           2 :                         (smoothed_input_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
 <span id="L361"><span class="lineNum">     361</span>              :                                                           Theme::METER_GREEN;</span>
 <span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">           4 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
 <span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">           1 :                       meter_color, Theme::ROUNDING_SM);</span></span>
@@ -434,8 +434,8 @@
 <span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">           3 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + meter_w, meter_pos.y + 20),</span></span>
 <span id="L373"><span class="lineNum">     373</span>              :                       Theme::METER_BG, Theme::ROUNDING_SM);</span>
 <span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">           3 :     fill = std::min(smoothed_output_level_, 1.0f) * meter_w;</span></span>
-<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">           5 :     meter_color = (smoothed_output_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
-<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           3 :                   (smoothed_output_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
+<span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">           4 :     meter_color = (smoothed_output_level_ &gt; 0.9f) ? Theme::METER_RED :</span></span>
+<span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           2 :                   (smoothed_output_level_ &gt; 0.6f) ? Theme::METER_YELLOW :</span></span>
 <span id="L377"><span class="lineNum">     377</span>              :                                                      Theme::METER_GREEN;</span>
 <span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">           4 :     dl-&gt;AddRectFilled(meter_pos, ImVec2(meter_pos.x + fill, meter_pos.y + 20),</span></span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">           1 :                       meter_color, Theme::ROUNDING_SM);</span></span>
@@ -459,7 +459,7 @@
 <span id="L397"><span class="lineNum">     397</span>              : </span>
 <span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">           3 :     ImGui::Text(&quot;METRONOME&quot;);</span></span>
 <span id="L399"><span class="lineNum">     399</span> <span class="tlaGNC">           3 :     bool metronome_on = engine_.get_metronome_enabled();</span></span>
-<span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">           3 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;))</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">           4 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;))</span></span>
 <span id="L401"><span class="lineNum">     401</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.toggle_metronome();</span></span>
 <span id="L402"><span class="lineNum">     402</span>              : </span>
 <span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::NextColumn();</span></span>

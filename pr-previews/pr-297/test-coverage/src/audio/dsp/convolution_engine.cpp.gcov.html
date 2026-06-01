@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 09:23:08</td>
+            <td class="headerValue">2026-06-01 12:00:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -87,7 +87,7 @@
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          52 :                                      int block_size)</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          52 :     : block_size_(block_size)</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          52 :     , fft_size_(block_size * 2)</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         104 :     , ir_length_(static_cast&lt;int&gt;(ir_samples.size()))</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          78 :     , ir_length_(static_cast&lt;int&gt;(ir_samples.size()))</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          78 :     , ir_time_(ir_samples) {</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          78 :     if (ir_samples.empty() || block_size &lt;= 0) {</span></span>
@@ -102,7 +102,7 @@
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          75 :     fft_cfg_ = kiss_fft_alloc(fft_size_, 0, nullptr, nullptr);</span></span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              :     // Pre-compute frequency-domain representation of each partition</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         125 :     std::vector&lt;kiss_fft_cpx&gt; time_buf(static_cast&lt;size_t&gt;(fft_size_));</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         100 :     std::vector&lt;kiss_fft_cpx&gt; time_buf(static_cast&lt;size_t&gt;(fft_size_));</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          75 :     std::vector&lt;kiss_fft_cpx&gt; freq_buf(static_cast&lt;size_t&gt;(fft_size_));</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          75 :     partitions_freq_.resize(static_cast&lt;size_t&gt;(num_partitions_));</span></span>
@@ -135,7 +135,7 @@
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         104 : }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          21 : const void* ConvolutionKernel::partition_freq(int index) const {</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          21 :     if (index &lt; 0 || index &gt;= num_partitions_) return nullptr;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          17 :     if (index &lt; 0 || index &gt;= num_partitions_) return nullptr;</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          15 :     return partitions_freq_[static_cast&lt;size_t&gt;(index)].data();</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           7 : }</span></span>
 <span id="L79"><span class="lineNum">      79</span>              : </span>
@@ -194,7 +194,7 @@
 <span id="L132"><span class="lineNum">     132</span>              : </span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          36 :     size_t cpx_bytes = sizeof(kiss_fft_cpx) * static_cast&lt;size_t&gt;(fft_size);</span></span>
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          36 :     fdl_.resize(static_cast&lt;size_t&gt;(num_parts));</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          93 :     for (auto&amp; buf : fdl_) {</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          81 :     for (auto&amp; buf : fdl_) {</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          45 :         buf.assign(cpx_bytes, 0);</span></span>
 <span id="L137"><span class="lineNum">     137</span>              :     }</span>
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          36 :     fdl_index_ = 0;</span></span>
@@ -300,7 +300,7 @@
 <span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">         256 :     }</span></span>
 <span id="L239"><span class="lineNum">     239</span>              : </span>
 <span id="L240"><span class="lineNum">     240</span>              :     // 2. Forward FFT of input -&gt; store in FDL at current index</span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           1 :     auto* fdl_data = reinterpret_cast&lt;kiss_fft_cpx*&gt;(</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           2 :     auto* fdl_data = reinterpret_cast&lt;kiss_fft_cpx*&gt;(</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           3 :         fdl_[static_cast&lt;size_t&gt;(fdl_index_)].data());</span></span>
 <span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           3 :     kiss_fft(fft_cfg_, input_cpx, fdl_data);</span></span>
 <span id="L244"><span class="lineNum">     244</span>              : </span>
@@ -311,9 +311,9 @@
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">          15 :     for (int k = 0; k &lt; num_parts; ++k) {</span></span>
 <span id="L250"><span class="lineNum">     250</span>              :         // FDL index for partition k (circular)</span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          12 :         int fdl_idx = (fdl_index_ - k + num_parts) % num_parts;</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           4 :         const auto* fdl_block = reinterpret_cast&lt;const kiss_fft_cpx*&gt;(</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">           8 :         const auto* fdl_block = reinterpret_cast&lt;const kiss_fft_cpx*&gt;(</span></span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          12 :             fdl_[static_cast&lt;size_t&gt;(fdl_idx)].data());</span></span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           4 :         const auto* ir_block = reinterpret_cast&lt;const kiss_fft_cpx*&gt;(</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           8 :         const auto* ir_block = reinterpret_cast&lt;const kiss_fft_cpx*&gt;(</span></span>
 <span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">          12 :             kernel_-&gt;partition_freq(k));</span></span>
 <span id="L256"><span class="lineNum">     256</span>              : </span>
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          12 :         complex_multiply_accumulate(accum, fdl_block, ir_block, fft_size);</span></span>
