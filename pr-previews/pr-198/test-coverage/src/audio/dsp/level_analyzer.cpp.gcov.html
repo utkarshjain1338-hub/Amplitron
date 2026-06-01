@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">31</td>
-            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntry">33</td>
+            <td class="headerCovTableEntry">33</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -70,28 +70,28 @@
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              : namespace {</span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          48 : inline bool is_invalid_rms(float x) {</span></span>
-<span id="L11"><span class="lineNum">      11</span>              :     uint32_t bits;</span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          16 :     uint32_t bits;</span></span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          48 :     std::memcpy(&amp;bits, &amp;x, sizeof(float));</span></span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          48 :     volatile uint32_t vbits = bits; // Bypass -ffast-math optimizations</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          48 :     if ((vbits &amp; 0x7F800000) == 0x7F800000) {</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           6 :         return true; // NaN or Infinity</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           4 :         return true; // NaN or Infinity</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :     }</span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          42 :     return x &lt; 0.0f;</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          16 : }</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          33 : inline bool is_invalid_dt(float x) {</span></span>
-<span id="L21"><span class="lineNum">      21</span>              :     uint32_t bits;</span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          11 :     uint32_t bits;</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          33 :     std::memcpy(&amp;bits, &amp;x, sizeof(float));</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          33 :     volatile uint32_t vbits = bits; // Bypass -ffast-math optimizations</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          33 :     if ((vbits &amp; 0x7F800000) == 0x7F800000) {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :         return true; // NaN or Infinity</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :         return true; // NaN or Infinity</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     }</span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          30 :     return x &lt;= 0.0f;</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          11 : }</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : } // namespace</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          33 : void LevelAnalyzer::update(float input_rms, float output_rms, bool input_clipped, bool output_clipped, float dt) {</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          33 :     if (is_invalid_dt(dt) || is_invalid_rms(input_rms) || is_invalid_rms(output_rms)) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          47 :     if (is_invalid_dt(dt) || is_invalid_rms(input_rms) || is_invalid_rms(output_rms)) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          18 :         return;</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :     }</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -83,16 +83,16 @@
 <span id="L21"><span class="lineNum">      21</span>              : }</span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          40 : PitchShifter::PitchShifter() {</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          80 :     params_ = {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          10 :         {&quot;Shift&quot;, 0.0f, -12.0f, 12.0f, 0.0f, &quot;st&quot;,</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          90 :     params_ = {</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          30 :         {&quot;Shift&quot;, 0.0f, -12.0f, 12.0f, 0.0f, &quot;st&quot;,</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          10 :          &quot;Pitch shift in semitones. Negative shifts down, positive shifts up. 12 = one octave.&quot;},</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          10 :         {&quot;Fine&quot;,  0.0f, -50.0f, 50.0f, 0.0f, &quot;ct&quot;,</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          10 :          &quot;Fine-tune adjustment in cents (hundredths of a semitone) for precise detuning.&quot;},</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          10 :         {&quot;Mix&quot;,   0.0f,   0.0f,  1.0f, 0.0f, &quot;&quot;,</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          10 :          &quot;Dry/wet blend. 0 = fully dry, 1 = fully pitch-shifted.&quot;},</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          80 :     };</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          90 :     };</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          30 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          80 : }</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          60 : }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          57 : void PitchShifter::set_sample_rate(int sample_rate) {</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          57 :     Effect::set_sample_rate(sample_rate);</span></span>

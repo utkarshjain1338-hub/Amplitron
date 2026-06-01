@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">29.8&nbsp;%</td>
-            <td class="headerCovTableEntry">255</td>
-            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntryLo">30.4&nbsp;%</td>
+            <td class="headerCovTableEntry">260</td>
+            <td class="headerCovTableEntry">79</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -270,7 +270,7 @@
 <span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 :             if (ImGui::MenuItem(&quot;Settings&quot;)) show_settings_ = true;</span></span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :             ImGui::Separator();</span></span>
 <span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC">           0 :             if (ImGui::MenuItem(&quot;Quit&quot;, &quot;Alt+F4&quot;)) {</span></span>
-<span id="L211"><span class="lineNum">     211</span>              :                 SDL_Event quit_event;</span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC">           0 :                 SDL_Event quit_event;</span></span>
 <span id="L212"><span class="lineNum">     212</span> <span class="tlaUNC">           0 :                 quit_event.type = SDL_QUIT;</span></span>
 <span id="L213"><span class="lineNum">     213</span> <span class="tlaUNC">           0 :                 SDL_PushEvent(&amp;quit_event);</span></span>
 <span id="L214"><span class="lineNum">     214</span> <span class="tlaUNC">           0 :             }</span></span>
@@ -330,7 +330,7 @@
 <span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">           6 :         float padding = 8.0f;</span></span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
 <span id="L270"><span class="lineNum">     270</span>              :         // Build a vector of status items from right to left (for right-alignment)</span>
-<span id="L271"><span class="lineNum">     271</span>              :         struct StatusItem {</span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">          28 :         struct StatusItem {</span></span>
 <span id="L272"><span class="lineNum">     272</span>              :             std::string label;</span>
 <span id="L273"><span class="lineNum">     273</span>              :             bool is_clickable = false;</span>
 <span id="L274"><span class="lineNum">     274</span>              :         };</span>
@@ -344,36 +344,36 @@
 <span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC tlaBgGNC">           6 :         items.push_back({preset_label, false});</span></span>
 <span id="L283"><span class="lineNum">     283</span>              : </span>
 <span id="L284"><span class="lineNum">     284</span>              :         // Sample rate (rightmost)</span>
-<span id="L285"><span class="lineNum">     285</span>              :         char sr_buf[16];</span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">           2 :         char sr_buf[16];</span></span>
 <span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">           6 :         snprintf(sr_buf, sizeof(sr_buf), &quot;%dHz&quot;, engine_.get_sample_rate());</span></span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           6 :         items.push_back({sr_buf, false});</span></span>
 <span id="L288"><span class="lineNum">     288</span>              : </span>
 <span id="L289"><span class="lineNum">     289</span>              :         // Audio status (LIVE/STOPPED)</span>
-<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">          10 :         items.push_back({engine_.is_running() ? &quot;LIVE&quot; : &quot;STOPPED&quot;, false});</span></span>
+<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           8 :         items.push_back({engine_.is_running() ? &quot;LIVE&quot; : &quot;STOPPED&quot;, false});</span></span>
 <span id="L291"><span class="lineNum">     291</span>              : </span>
 <span id="L292"><span class="lineNum">     292</span>              :         // Recording indicator if recording</span>
 <span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           6 :         if (engine_.recorder().is_recording()) {</span></span>
-<span id="L294"><span class="lineNum">     294</span>              :             char rec_dur[32];</span>
-<span id="L295"><span class="lineNum">     295</span> <span class="tlaUNC tlaBgUNC">           0 :             snprintf(rec_dur, sizeof(rec_dur), &quot;%.1fs&quot;, engine_.recorder().get_duration());</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaUNC tlaBgUNC">           0 :             char rec_dur[32];</span></span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaUNC">           0 :             snprintf(rec_dur, sizeof(rec_dur), &quot;%.1fs&quot;, engine_.recorder().get_duration());</span></span>
 <span id="L296"><span class="lineNum">     296</span> <span class="tlaUNC">           0 :             items.push_back({rec_dur, false});</span></span>
 <span id="L297"><span class="lineNum">     297</span> <span class="tlaUNC">           0 :             items.push_back({&quot;REC&quot;, false});</span></span>
 <span id="L298"><span class="lineNum">     298</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L299"><span class="lineNum">     299</span>              : </span>
 <span id="L300"><span class="lineNum">     300</span>              :         // MIDI status</span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC tlaBgGNC">          10 :         items.push_back({midi_manager_.is_port_open() ? &quot;MIDI&quot; : &quot;MIDI&quot;, true});</span></span>
+<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC tlaBgGNC">           8 :         items.push_back({midi_manager_.is_port_open() ? &quot;MIDI&quot; : &quot;MIDI&quot;, true});</span></span>
 <span id="L302"><span class="lineNum">     302</span>              : </span>
 <span id="L303"><span class="lineNum">     303</span>              :         // Check for update (leftmost of right-aligned group)</span>
 <span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">           6 :         bool show_update = false;</span></span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">           6 :         std::string update_version;</span></span>
 <span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">           6 :         std::string update_url;</span></span>
-<span id="L307"><span class="lineNum">     307</span>              :         {</span>
+<span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">           2 :         {</span></span>
 <span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">           6 :             std::lock_guard&lt;std::mutex&gt; lock(update_mutex_);</span></span>
 <span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">           6 :             if (has_new_release_) {</span></span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaGNC">           3 :                 show_update = true;</span></span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">           3 :                 update_version = new_release_version_;</span></span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           3 :                 update_url = new_release_url_;</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           5 :                 update_url = new_release_url_;</span></span>
 <span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">           1 :             }</span></span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           5 :         }</span></span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           3 :         }</span></span>
 <span id="L315"><span class="lineNum">     315</span>              : </span>
 <span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">           5 :         if (show_update) {</span></span>
 <span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">           3 :             std::string release_text = &quot;New Release Available: &quot; + update_version;</span></span>
@@ -388,7 +388,7 @@
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">           9 :         }</span></span>
 <span id="L327"><span class="lineNum">     327</span>              : </span>
 <span id="L328"><span class="lineNum">     328</span>              :         // Render items from left to right</span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           6 :         x_pos = bar_w - padding;</span></span>
+<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           4 :         x_pos = bar_w - padding;</span></span>
 <span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">          33 :         for (auto it = items.rbegin(); it != items.rend(); ++it) {</span></span>
 <span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">          27 :             ImVec2 text_size = ImGui::CalcTextSize(it-&gt;label.c_str());</span></span>
 <span id="L332"><span class="lineNum">     332</span> <span class="tlaGNC">          27 :             x_pos -= text_size.x + padding;</span></span>
@@ -453,7 +453,7 @@
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC tlaBgGNC">           2 :         ImGui::EndChild();</span></span>
 <span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">           2 :         ImGui::PopStyleColor();</span></span>
 <span id="L393"><span class="lineNum">     393</span> <span class="tlaGNC">           2 :     }</span></span>
-<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC">          49 : }</span></span>
+<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC">          39 : }</span></span>
 <span id="L395"><span class="lineNum">     395</span>              : </span>
 <span id="L396"><span class="lineNum">     396</span>              : } // namespace Amplitron</span>
         </pre>

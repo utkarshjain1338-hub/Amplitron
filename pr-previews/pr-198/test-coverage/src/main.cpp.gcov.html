@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">5.9&nbsp;%</td>
-            <td class="headerCovTableEntry">203</td>
+            <td class="headerCovTableEntryLo">5.8&nbsp;%</td>
+            <td class="headerCovTableEntry">208</td>
             <td class="headerCovTableEntry">12</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">57.1&nbsp;%</td>
@@ -345,8 +345,8 @@
 <span id="L283"><span class="lineNum">     283</span>              : #endif</span>
 <span id="L284"><span class="lineNum">     284</span>              : </span>
 <span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC tlaBgGNC">           6 : void signal_handler(int /*signal*/) {</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">           6 :     g_running = false;</span></span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           6 : }</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">           5 :     g_running = false;</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           4 : }</span></span>
 <span id="L288"><span class="lineNum">     288</span>              : </span>
 <span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           9 : int main(int argc, char* argv[]) {</span></span>
 <span id="L290"><span class="lineNum">     290</span>              :     //breaks global iostream lock</span>
@@ -365,7 +365,7 @@
 <span id="L303"><span class="lineNum">     303</span>              :     #endif</span>
 <span id="L304"><span class="lineNum">     304</span>              : </span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC tlaBgGNC">           9 :     if(cli_opts.exit_early){</span></span>
-<span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">           9 :         std::cout &lt;&lt; &quot;[CLI]Application exited early :&quot; &lt;&lt; cli_opts.exit_reason &lt;&lt; std::endl;</span></span>
+<span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC">          12 :         std::cout &lt;&lt; &quot;[CLI]Application exited early :&quot; &lt;&lt; cli_opts.exit_reason &lt;&lt; std::endl;</span></span>
 <span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">           9 :         return cli_opts.exit_code;</span></span>
 <span id="L308"><span class="lineNum">     308</span>              :     }</span>
 <span id="L309"><span class="lineNum">     309</span>              : </span>
@@ -469,7 +469,7 @@
 <span id="L407"><span class="lineNum">     407</span>              : </span>
 <span id="L408"><span class="lineNum">     408</span> <span class="tlaUNC">           0 :         if (sessionManager.hasUnsavedSession()) {</span></span>
 <span id="L409"><span class="lineNum">     409</span> <span class="tlaUNC">           0 :             if (promptRestoreSession()) {</span></span>
-<span id="L410"><span class="lineNum">     410</span>              :                 try {</span>
+<span id="L410"><span class="lineNum">     410</span> <span class="tlaUNC">           0 :                 try {</span></span>
 <span id="L411"><span class="lineNum">     411</span> <span class="tlaUNC">           0 :                     nlohmann::json savedState = sessionManager.loadSession();</span></span>
 <span id="L412"><span class="lineNum">     412</span> <span class="tlaUNC">           0 :                     engine.deserialize(savedState);</span></span>
 <span id="L413"><span class="lineNum">     413</span> <span class="tlaUNC">           0 :                 } catch (const nlohmann::json::parse_error&amp; e) {</span></span>
@@ -537,14 +537,14 @@
 <span id="L475"><span class="lineNum">     475</span> <span class="tlaUNC">           0 :         while(g_running){</span></span>
 <span id="L476"><span class="lineNum">     476</span> <span class="tlaUNC">           0 :             std::this_thread::sleep_for(std::chrono::milliseconds(100));</span></span>
 <span id="L477"><span class="lineNum">     477</span> <span class="tlaUNC">           0 :             std::vector&lt;std::string&gt; pending_commands;</span></span>
-<span id="L478"><span class="lineNum">     478</span>              :             {</span>
+<span id="L478"><span class="lineNum">     478</span> <span class="tlaUNC">           0 :             {</span></span>
 <span id="L479"><span class="lineNum">     479</span> <span class="tlaUNC">           0 :                 std::lock_guard&lt;std::mutex&gt; lock(cli_mutex);</span></span>
 <span id="L480"><span class="lineNum">     480</span> <span class="tlaUNC">           0 :                 std::swap(pending_commands,cli_commands);</span></span>
 <span id="L481"><span class="lineNum">     481</span> <span class="tlaUNC">           0 :             }</span></span>
 <span id="L482"><span class="lineNum">     482</span>              : </span>
 <span id="L483"><span class="lineNum">     483</span> <span class="tlaUNC">           0 :             for(const std::string&amp; line : pending_commands){     </span></span>
 <span id="L484"><span class="lineNum">     484</span> <span class="tlaUNC">           0 :             if(line.find(&quot;gain &quot;) == 0){</span></span>
-<span id="L485"><span class="lineNum">     485</span>              :                     try{</span>
+<span id="L485"><span class="lineNum">     485</span> <span class="tlaUNC">           0 :                     try{</span></span>
 <span id="L486"><span class="lineNum">     486</span> <span class="tlaUNC">           0 :                         float val = std::stof(line.substr(5));</span></span>
 <span id="L487"><span class="lineNum">     487</span> <span class="tlaUNC">           0 :                         engine.set_output_gain(val);</span></span>
 <span id="L488"><span class="lineNum">     488</span> <span class="tlaUNC">           0 :                         std::cout &lt;&lt; &quot;&gt;&gt; Output gain set to &quot; &lt;&lt; val &lt;&lt; std::endl;</span></span>
@@ -552,7 +552,7 @@
 <span id="L490"><span class="lineNum">     490</span> <span class="tlaUNC">           0 :                         std::cout &lt;&lt; &quot;&gt;&gt; Invalid gain&quot; &lt;&lt; std::endl;</span></span>
 <span id="L491"><span class="lineNum">     491</span> <span class="tlaUNC">           0 :                     }</span></span>
 <span id="L492"><span class="lineNum">     492</span> <span class="tlaUNC">           0 :                 } else if (line.find(&quot;bypass &quot;) == 0){</span></span>
-<span id="L493"><span class="lineNum">     493</span>              :                     try {</span>
+<span id="L493"><span class="lineNum">     493</span> <span class="tlaUNC">           0 :                     try {</span></span>
 <span id="L494"><span class="lineNum">     494</span> <span class="tlaUNC">           0 :                         int idx = std::stoi(line.substr(7));</span></span>
 <span id="L495"><span class="lineNum">     495</span>              :                         //push_effect_enabled expects a float(&gt;0.5 is enabled, &lt;0.5 is bypassed)</span>
 <span id="L496"><span class="lineNum">     496</span> <span class="tlaUNC">           0 :                         engine.push_effect_enabled(idx, 0.0f);</span></span>
@@ -561,7 +561,7 @@
 <span id="L499"><span class="lineNum">     499</span> <span class="tlaUNC">           0 :                         std::cout &lt;&lt; &quot;&gt;&gt; Invalid index.&quot; &lt;&lt; std::endl;</span></span>
 <span id="L500"><span class="lineNum">     500</span> <span class="tlaUNC">           0 :                     }</span></span>
 <span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC">           0 :                 } else if (line.find(&quot;enable &quot;) == 0){</span></span>
-<span id="L502"><span class="lineNum">     502</span>              :                     try{</span>
+<span id="L502"><span class="lineNum">     502</span> <span class="tlaUNC">           0 :                     try{</span></span>
 <span id="L503"><span class="lineNum">     503</span> <span class="tlaUNC">           0 :                         int idx = std::stoi(line.substr(7));</span></span>
 <span id="L504"><span class="lineNum">     504</span> <span class="tlaUNC">           0 :                         engine.push_effect_enabled(idx, 1.0f);</span></span>
 <span id="L505"><span class="lineNum">     505</span> <span class="tlaUNC">           0 :                         std::cout &lt;&lt; &quot;&gt;&gt; Effect &quot; &lt;&lt; idx &lt;&lt; &quot; enabled.&quot; &lt;&lt; std::endl;</span></span>

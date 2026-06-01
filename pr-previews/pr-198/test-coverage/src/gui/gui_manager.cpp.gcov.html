@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">11.5&nbsp;%</td>
-            <td class="headerCovTableEntry">148</td>
+            <td class="headerCovTableEntryLo">11.3&nbsp;%</td>
+            <td class="headerCovTableEntry">151</td>
             <td class="headerCovTableEntry">17</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">42.9&nbsp;%</td>
@@ -103,9 +103,9 @@
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC tlaBgGNC">          20 : GuiManager::GuiManager(AudioEngine&amp; engine)</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          15 :     : engine_(engine),</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          15 :       command_history_(),</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          10 :       tuner_pedal_(std::make_shared&lt;TunerPedal&gt;()),</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           5 :       tuner_pedal_(std::make_shared&lt;TunerPedal&gt;()),</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          10 :       gui_presets_(engine, command_history_),</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          30 :       gui_midi_(midi_manager_)</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          20 :       gui_midi_(midi_manager_)</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           5 : {</span></span>
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          15 :     pedal_board_ = std::make_unique&lt;PedalBoard&gt;(engine_, command_history_, &amp;gui_midi_);</span></span>
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          15 :     gui_presets_.set_pedal_board(pedal_board_.get());</span></span>
@@ -114,7 +114,7 @@
 <span id="L52"><span class="lineNum">      52</span>              : </span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          20 : GuiManager::~GuiManager() {</span></span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          15 :     shutdown();</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          20 : }</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC tlaBgUNC">           0 : bool GuiManager::initialize(int width, int height) {</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC">           0 :     window_width_ = width;</span></span>
@@ -165,7 +165,7 @@
 <span id="L103"><span class="lineNum">     103</span>              : </span>
 <span id="L104"><span class="lineNum">     104</span>              :     // --- DPI scaling and font loading ---</span>
 <span id="L105"><span class="lineNum">     105</span> <span class="tlaUNC">           0 :     float dpi_scale = 1.0f;</span></span>
-<span id="L106"><span class="lineNum">     106</span>              :     {</span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaUNC">           0 :     {</span></span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaUNC">           0 :         int draw_w = window_width_, draw_h = window_height_;</span></span>
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaUNC">           0 :         SDL_GL_GetDrawableSize(window_, &amp;draw_w, &amp;draw_h);</span></span>
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaUNC">           0 :         if (window_width_ &gt; 0)</span></span>
@@ -182,7 +182,7 @@
 <span id="L120"><span class="lineNum">     120</span>              : </span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaUNC">           0 :     GuiGraphState::get_instance().dpi_scale = dpi_scale;</span></span>
 <span id="L122"><span class="lineNum">     122</span>              : </span>
-<span id="L123"><span class="lineNum">     123</span>              :     {</span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaUNC">           0 :     {</span></span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaUNC">           0 :         const float base_font_size = 14.0f;</span></span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaUNC">           0 :         const float scaled_size    = base_font_size * dpi_scale;</span></span>
 <span id="L126"><span class="lineNum">     126</span>              : </span>
@@ -214,7 +214,7 @@
 <span id="L152"><span class="lineNum">     152</span>              :     }</span>
 <span id="L153"><span class="lineNum">     153</span>              : </span>
 <span id="L154"><span class="lineNum">     154</span>              :     // Load window icon from assets/icon.svg</span>
-<span id="L155"><span class="lineNum">     155</span>              :     {</span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :     {</span></span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC">           0 :         std::string icon_path;</span></span>
 <span id="L157"><span class="lineNum">     157</span> <span class="tlaUNC">           0 :         char* base = SDL_GetBasePath();</span></span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :         if (base) {</span></span>

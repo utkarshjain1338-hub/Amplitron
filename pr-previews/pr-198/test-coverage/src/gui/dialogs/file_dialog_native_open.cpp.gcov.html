@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryLo">2.1&nbsp;%</td>
-            <td class="headerCovTableEntry">95</td>
+            <td class="headerCovTableEntry">97</td>
             <td class="headerCovTableEntry">2</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              : #ifdef AMPLITRON_HEADLESS</span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">           3 : std::string show_open_dialog(const std::string&amp;, const std::string&amp;, const std::string&amp;) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           5 :     return &quot;&quot;;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           4 :     return &quot;&quot;;</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : }</span>
 <span id="L33"><span class="lineNum">      33</span>              : #else</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
@@ -100,7 +100,7 @@
 <span id="L38"><span class="lineNum">      38</span>              :                              const std::string&amp; filter_ext) {</span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :     char filename[MAX_PATH] = &quot;&quot;;</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              :     char filter[256];</span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :     char filter[256];</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     std::memset(filter, 0, sizeof(filter));</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :     int pos = 0;</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :     pos += snprintf(filter + pos, 256 - pos, &quot;%s (*.%s)&quot;, filter_desc.c_str(), filter_ext.c_str());</span></span>
@@ -111,7 +111,7 @@
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :     pos++;</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaUNC">           0 :     pos += snprintf(filter + pos, 256 - pos, &quot;*.*&quot;);</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span>              :     OPENFILENAMEA ofn;</span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :     OPENFILENAMEA ofn;</span></span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :     std::memset(&amp;ofn, 0, sizeof(ofn));</span></span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :     ofn.lStructSize = sizeof(ofn);</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaUNC">           0 :     ofn.hwndOwner = NULL;</span></span>

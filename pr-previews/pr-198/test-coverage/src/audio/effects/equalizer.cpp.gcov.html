@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -68,14 +68,14 @@
 <span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;Equalizer&gt; reg(&quot;Equalizer&quot;);</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          96 : Equalizer::Equalizer() {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         240 :     params_ = {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          24 :         {&quot;Bass&quot;,    0.0f, -12.0f, 12.0f, 0.0f, &quot;dB&quot;, &quot;Low shelf filter (200Hz). Boosts or cuts the heavy low-end thud and body of the tone.&quot;},</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         264 :     params_ = {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">          72 :         {&quot;Bass&quot;,    0.0f, -12.0f, 12.0f, 0.0f, &quot;dB&quot;, &quot;Low shelf filter (200Hz). Boosts or cuts the heavy low-end thud and body of the tone.&quot;},</span></span>
 <span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          24 :         {&quot;Mid&quot;,     0.0f, -12.0f, 12.0f, 0.0f, &quot;dB&quot;, &quot;Bell filter (800Hz). Boosts for leads that cut through a mix, cuts for a hollow metal rhythm tone.&quot;},</span></span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          24 :         {&quot;Treble&quot;,  0.0f, -12.0f, 12.0f, 0.0f, &quot;dB&quot;, &quot;High shelf filter (3kHz). Adjusts the bite, pick attack, and overall brightness.&quot;},</span></span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          24 :         {&quot;Presence&quot;, 0.0f, -12.0f, 12.0f, 0.0f, &quot;dB&quot;, &quot;Ultra-high frequency contour. Adds 'air' and glassiness to the very top end.&quot;},</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         240 :     };</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         264 :     };</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          72 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         192 : }</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         144 : }</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         135 : void Equalizer::set_sample_rate(int sample_rate) {</span></span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         135 :     Effect::set_sample_rate(sample_rate);</span></span>

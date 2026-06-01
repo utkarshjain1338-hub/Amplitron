@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -72,7 +72,7 @@
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span>              : namespace Amplitron {</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span>              : class Distortion : public Effect {</span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">           2 : class Distortion : public Effect {</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : public:</span>
 <span id="L15"><span class="lineNum">      15</span>              :     // Create a distortion effect with drive, tone, and output gain controls.</span>
 <span id="L16"><span class="lineNum">      16</span>              :     Distortion();</span>
@@ -81,7 +81,7 @@
 <span id="L19"><span class="lineNum">      19</span>              :     // Clear any filter state held by the effect.</span>
 <span id="L20"><span class="lineNum">      20</span>              :     void reset() override;</span>
 <span id="L21"><span class="lineNum">      21</span>              :     // Return the display name for this effect.</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">         117 :     const char* name() const override { return &quot;Distortion&quot;; }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         116 :     const char* name() const override { return &quot;Distortion&quot;; }</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :     const char* type_id() const override { return &quot;Distortion&quot;; }</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :     // Return editable parameters exposed by this effect.</span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         117 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>

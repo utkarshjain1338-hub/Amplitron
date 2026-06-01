@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">81.7&nbsp;%</td>
-            <td class="headerCovTableEntry">191</td>
-            <td class="headerCovTableEntry">156</td>
+            <td class="headerCovTableEntryMed">81.8&nbsp;%</td>
+            <td class="headerCovTableEntry">192</td>
+            <td class="headerCovTableEntry">157</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-29 18:17:43</td>
+            <td class="headerValue">2026-06-01 15:56:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -88,7 +88,7 @@
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         741 :     constexpr float ARC_START = 2.356f;</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         741 :     constexpr float ARC_RANGE = 4.712f;</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         988 :     ImGui::SetCursorScreenPos(ImVec2(</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         741 :         center.x - knob_hit_size * 0.5f,</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         741 :         center.y - knob_hit_size * 0.5f));</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         741 :     ImGui::SetNextItemAllowOverlap();</span></span>
@@ -108,7 +108,7 @@
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           4 :     }</span></span>
 <span id="L47"><span class="lineNum">      47</span>              : </span>
 <span id="L48"><span class="lineNum">      48</span>              :     // 2. Mouse Panning/Rotary Drag Action</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         741 :     if (is_active &amp;&amp; s_active_knob_id == imgui_id) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         512 :     if (is_active &amp;&amp; s_active_knob_id == imgui_id) {</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          54 :         float mdx = ImGui::GetIO().MousePos.x - ImGui::GetIO().MousePosPrev.x;</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          54 :         float mdy = ImGui::GetIO().MousePos.y - ImGui::GetIO().MousePosPrev.y;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
@@ -178,7 +178,7 @@
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L117"><span class="lineNum">     117</span>              : </span>
 <span id="L118"><span class="lineNum">     118</span>              :     // 6. Right-Click context popup sliders and MIDI options</span>
-<span id="L119"><span class="lineNum">     119</span>              :     char popup_id[128];</span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">         247 :     char popup_id[128];</span></span>
 <span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">         741 :     std::snprintf(popup_id, sizeof(popup_id), &quot;Popup_%s&quot;, imgui_id);</span></span>
 <span id="L121"><span class="lineNum">     121</span>              : </span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">         741 :     if (is_hovered &amp;&amp; ImGui::IsMouseClicked(1)) {</span></span>
@@ -265,7 +265,7 @@
 <span id="L203"><span class="lineNum">     203</span>              : </span>
 <span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">       39520 :         dl-&gt;AddLine(</span></span>
 <span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">       29640 :             ImVec2(center.x + std::cos(a0) * track_radius, center.y + std::sin(a0) * track_radius),</span></span>
-<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">       49400 :             ImVec2(center.x + std::cos(a1) * track_radius, center.y + std::sin(a1) * track_radius),</span></span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">       39520 :             ImVec2(center.x + std::cos(a1) * track_radius, center.y + std::sin(a1) * track_radius),</span></span>
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">        9880 :             seg_color, 3.0f * zoom);</span></span>
 <span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">        9880 :     }</span></span>
 <span id="L209"><span class="lineNum">     209</span>              : </span>
@@ -317,7 +317,7 @@
 <span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         741 :     std::string val_display = Theme::formatParameterValue(props.value, props.unit);</span></span>
 <span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">         741 :     ImVec2 val_size = ImGui::CalcTextSize(val_display.c_str());</span></span>
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(center.x - val_size.x * 0.5f, center.y - knob_radius - 20 * zoom));</span></span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">         741 :     ImGui::PushStyleColor(ImGuiCol_Text, is_active ? Theme::GoldHot() : Theme::TextDim());</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">         988 :     ImGui::PushStyleColor(ImGuiCol_Text, is_active ? Theme::GoldHot() : Theme::TextDim());</span></span>
 <span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">         741 :     ImGui::TextUnformatted(val_display.c_str());</span></span>
 <span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         741 :     ImGui::PopStyleColor();</span></span>
 <span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">         741 : }</span></span>
