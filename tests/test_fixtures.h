@@ -26,6 +26,7 @@ public:
         int width, height;
         io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
         
+        ImGui::StyleColorsDark();
         ImGui::NewFrame();
     }
 

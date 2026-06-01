@@ -297,7 +297,6 @@ TEST(pedal_board_signal_chain_ui_interactions) {
 
 TEST(pedal_widget_body_and_knob_adjustments) {
     ScopedImGuiContext imgui;
-    ImGui::StyleColorsDark();
     AudioEngine engine;
     engine.initialize();
     CommandHistory history;
