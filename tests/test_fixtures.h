@@ -31,8 +31,12 @@ public:
     }
 
     ~ScopedImGuiContext() {
-        ImGui::Render();
-        ImGui::DestroyContext(ctx_);
+        if (ImGui::GetCurrentContext()) {
+            ImGui::GetStyle() = ImGuiStyle();
+            ImGui::EndFrame();
+            ImGui::DestroyContext(ctx_);
+            ctx_ = nullptr;
+        }
     }
 
 private:
