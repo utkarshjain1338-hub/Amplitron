@@ -297,6 +297,8 @@ TEST(pedal_board_signal_chain_ui_interactions) {
 
 TEST(pedal_widget_body_and_knob_adjustments) {
     ScopedImGuiContext imgui;
+    ImGuiIO& io = ImGui::GetIO();
+    io.DisplaySize = ImVec2(1280, 720);
     AudioEngine engine;
     engine.initialize();
     CommandHistory history;
