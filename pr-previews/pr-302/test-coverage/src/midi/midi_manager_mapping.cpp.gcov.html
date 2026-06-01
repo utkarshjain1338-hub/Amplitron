@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 11:20:39</td>
+            <td class="headerValue">2026-06-01 17:34:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -69,35 +69,35 @@
 <span id="L7"><span class="lineNum">       7</span>              : // Mapping management</span>
 <span id="L8"><span class="lineNum">       8</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">         183 : void MidiManager::add_mapping(const MidiMapping&amp; mapping) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">         192 : void MidiManager::add_mapping(const MidiMapping&amp; mapping) {</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :     // Remove any existing mapping with the same CC + channel</span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         291 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         116 :         if (it-&gt;cc_number == mapping.cc_number &amp;&amp;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         303 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         119 :         if (it-&gt;cc_number == mapping.cc_number &amp;&amp;</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           6 :             it-&gt;midi_channel == mapping.midi_channel) {</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           6 :             mappings_.erase(it);</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           6 :             break;</span></span>
 <span id="L17"><span class="lineNum">      17</span>              :         }</span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          36 :     }</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         183 :     mappings_.push_back(mapping);</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         183 : }</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          37 :     }</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         192 :     mappings_.push_back(mapping);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         192 : }</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 : void MidiManager::remove_mapping(int index) {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :     if (index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt;(mappings_.size())) {</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           3 :         mappings_.erase(mappings_.begin() + index);</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :     }</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           6 : void MidiManager::remove_mapping(int index) {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           6 :     if (index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt;(mappings_.size())) {</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           6 :         mappings_.erase(mappings_.begin() + index);</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          15 : void MidiManager::remove_mapping_for_param(const std::string&amp; effect_name,</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          18 : void MidiManager::remove_mapping_for_param(const std::string&amp; effect_name,</span></span>
 <span id="L29"><span class="lineNum">      29</span>              :                                            const std::string&amp; param_name) {</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          24 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          28 :         if (it-&gt;target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          20 :             it-&gt;effect_name == effect_name &amp;&amp;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           9 :             it-&gt;param_name == param_name) {</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           6 :             mappings_.erase(it);</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           6 :             return;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          27 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          34 :         if (it-&gt;target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          24 :             it-&gt;effect_name == effect_name &amp;&amp;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          12 :             it-&gt;param_name == param_name) {</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           9 :             mappings_.erase(it);</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           9 :             return;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :         }</span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           3 :     }</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           5 : }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          60 : void MidiManager::clear_mappings() {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          60 :     mappings_.clear();</span></span>
@@ -184,14 +184,14 @@
 <span id="L122"><span class="lineNum">     122</span>              : // MIDI Learn</span>
 <span id="L123"><span class="lineNum">     123</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          30 : void MidiManager::start_learn(MidiTargetType type,</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          42 : void MidiManager::start_learn(MidiTargetType type,</span></span>
 <span id="L126"><span class="lineNum">     126</span>              :                               const std::string&amp; effect_name,</span>
 <span id="L127"><span class="lineNum">     127</span>              :                               const std::string&amp; param_name) {</span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          30 :     learn_active_ = true;</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          30 :     learn_target_type_ = type;</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          30 :     learn_effect_name_ = effect_name;</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          30 :     learn_param_name_ = param_name;</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          30 : }</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          42 :     learn_active_ = true;</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          42 :     learn_target_type_ = type;</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          42 :     learn_effect_name_ = effect_name;</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          42 :     learn_param_name_ = param_name;</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          42 : }</span></span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          18 : void MidiManager::cancel_learn() {</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          18 :     learn_active_ = false;</span></span>

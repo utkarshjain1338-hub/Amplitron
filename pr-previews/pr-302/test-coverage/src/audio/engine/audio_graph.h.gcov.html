@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 11:20:39</td>
+            <td class="headerValue">2026-06-01 17:34:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -78,7 +78,7 @@
 <span id="L16"><span class="lineNum">      16</span>              :   MergeSum = Mixer</span>
 <span id="L17"><span class="lineNum">      17</span>              : };</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">        4137 : struct DSPNode {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">        4156 : struct DSPNode {</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :   int id;</span>
 <span id="L21"><span class="lineNum">      21</span>              :   std::string name;</span>
 <span id="L22"><span class="lineNum">      22</span>              :   NodeRoutingType routing_type;</span>
@@ -87,12 +87,12 @@
 <span id="L25"><span class="lineNum">      25</span>              :   std::vector&lt;int&gt; input_pin_ids;</span>
 <span id="L26"><span class="lineNum">      26</span>              :   std::vector&lt;int&gt; output_pin_ids;</span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">        1535 :   bool is_graph_input = false;</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">        1535 :   bool is_graph_output = false;</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        1535 :   bool is_reachable = true;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">        1545 :   bool is_graph_input = false;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">        1545 :   bool is_graph_output = false;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        1545 :   bool is_reachable = true;</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">        1535 :   float x = 0.0f;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        1535 :   float y = 0.0f;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">        1545 :   float x = 0.0f;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        1545 :   float y = 0.0f;</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :   std::vector&lt;float&gt; input_gains; // Gain for each input pin (Mixer only)</span>
 <span id="L36"><span class="lineNum">      36</span>              : };</span>
@@ -105,8 +105,8 @@
 <span id="L43"><span class="lineNum">      43</span>              : </span>
 <span id="L44"><span class="lineNum">      44</span>              : class AudioGraph {</span>
 <span id="L45"><span class="lineNum">      45</span>              : public:</span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">        3891 :   AudioGraph() = default;</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">        3110 :   ~AudioGraph() = default;</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">        3941 :   AudioGraph() = default;</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">        3150 :   ~AudioGraph() = default;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
 <span id="L49"><span class="lineNum">      49</span>              :   // Graph Construction Interface</span>
 <span id="L50"><span class="lineNum">      50</span>              :   int add_node(const std::string &amp;name, NodeRoutingType type,</span>
@@ -138,9 +138,9 @@
 <span id="L76"><span class="lineNum">      76</span>              :   void restore_output_pin(int node_id, int pin_id, int index);</span>
 <span id="L77"><span class="lineNum">      77</span>              : </span>
 <span id="L78"><span class="lineNum">      78</span>              :   // Accessors</span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        2452 :   const std::vector&lt;int&gt; &amp;get_sorted_nodes() const { return sorted_node_ids_; }</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">        8245 :   const std::vector&lt;DSPNode&gt; &amp;get_nodes() const { return nodes_; }</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">        2749 :   const std::vector&lt;GraphLink&gt; &amp;get_links() const { return links_; }</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        2473 :   const std::vector&lt;int&gt; &amp;get_sorted_nodes() const { return sorted_node_ids_; }</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">        8661 :   const std::vector&lt;DSPNode&gt; &amp;get_nodes() const { return nodes_; }</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">        2962 :   const std::vector&lt;GraphLink&gt; &amp;get_links() const { return links_; }</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
 <span id="L83"><span class="lineNum">      83</span>              :   int get_node_from_pin(int pin_id) const;</span>
 <span id="L84"><span class="lineNum">      84</span>              :   const DSPNode *find_node(int node_id) const;</span>
@@ -148,7 +148,7 @@
 <span id="L86"><span class="lineNum">      86</span>              : private:</span>
 <span id="L87"><span class="lineNum">      87</span>              :   size_t get_node_index(int node_id) const;</span>
 <span id="L88"><span class="lineNum">      88</span>              : </span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">         781 :   int next_id_ = 1;</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">         791 :   int next_id_ = 1;</span></span>
 <span id="L90"><span class="lineNum">      90</span>              :   std::vector&lt;DSPNode&gt; nodes_;</span>
 <span id="L91"><span class="lineNum">      91</span>              :   std::vector&lt;GraphLink&gt; links_;</span>
 <span id="L92"><span class="lineNum">      92</span>              :   std::vector&lt;int&gt; sorted_node_ids_;</span>
