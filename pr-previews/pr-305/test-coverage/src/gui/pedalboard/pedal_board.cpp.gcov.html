@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">76.9&nbsp;%</td>
-            <td class="headerCovTableEntry">130</td>
-            <td class="headerCovTableEntry">100</td>
+            <td class="headerCovTableEntryMed">77.1&nbsp;%</td>
+            <td class="headerCovTableEntry">131</td>
+            <td class="headerCovTableEntry">101</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -89,7 +89,7 @@
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         132 :     std::set&lt;Effect*&gt; prev_visible;</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         168 :     for (int idx : visible_indices_) {</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          36 :         if (idx &gt;= 0 &amp;&amp; idx &lt; static_cast&lt;int&gt;(widgets_.size())) {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          36 :             prev_visible.insert(widgets_[idx]-&gt;get_effect().get());</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          48 :             prev_visible.insert(widgets_[idx]-&gt;get_effect().get());</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          12 :         }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :     }</span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
@@ -103,11 +103,11 @@
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          81 :         auto w = std::make_unique&lt;PedalWidget&gt;(engine_, effects[i], i);</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          81 :         w-&gt;set_history(&amp;history_);</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          81 :         w-&gt;set_gui_midi(gui_midi_);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         108 :         widgets_.push_back(std::move(w));</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          81 :         widgets_.push_back(std::move(w));</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          81 :         Effect* ptr = effects[i].get();</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          81 :         bool is_amp = (amp_idx &gt;= 0 &amp;&amp; i == amp_idx);</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          81 :         bool is_post_amp = (amp_idx &gt;= 0 &amp;&amp; i &gt; amp_idx);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          63 :         bool is_post_amp = (amp_idx &gt;= 0 &amp;&amp; i &gt; amp_idx);</span></span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          81 :         if (is_post_amp) continue;</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
@@ -125,7 +125,7 @@
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         225 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(fx.size()); ++i) {</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          99 :         if (std::strcmp(fx[i]-&gt;name(), &quot;Amp Sim&quot;) == 0) return i;</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          23 :     }</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">         126 :     return -1;</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          84 :     return -1;</span></span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          52 : }</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              : /** @brief Render the toolbar (add/reset) and the scrollable signal chain area. */</span>
@@ -134,7 +134,7 @@
 <span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           6 :     ImGui::BeginChild(&quot;PedalToolbar&quot;, ImVec2(0, bar_height), true,</span></span>
 <span id="L73"><span class="lineNum">      73</span>              :                        ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);</span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span>              :     {</span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           2 :     {</span></span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :         float avail = ImGui::GetContentRegionAvail().y;</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           6 :         float row_h = ImGui::GetFrameHeight();</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           6 :         float offset = std::max(0.0f, (avail - row_h) * 0.5f);</span></span>
@@ -243,7 +243,7 @@
 <span id="L181"><span class="lineNum">     181</span>              : </span>
 <span id="L182"><span class="lineNum">     182</span>              : /** @brief Add an effect to the chain via undo system, rebuild widgets, and make it visible. */</span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           3 : void PedalBoard::add_effect_and_show(std::shared_ptr&lt;Effect&gt; effect) {</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           4 :     history_.execute(std::make_unique&lt;AddEffectCommand&gt;(engine_, std::move(effect)));</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           3 :     history_.execute(std::make_unique&lt;AddEffectCommand&gt;(engine_, std::move(effect)));</span></span>
 <span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           3 :     rebuild_widgets();</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           3 : }</span></span>
 <span id="L187"><span class="lineNum">     187</span>              : </span>

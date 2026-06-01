@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">70.8&nbsp;%</td>
-            <td class="headerCovTableEntry">113</td>
-            <td class="headerCovTableEntry">80</td>
+            <td class="headerCovTableEntryLo">71.1&nbsp;%</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntry">81</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         805 :         destroy_audio_backend(backend_);</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         805 :         backend_ = nullptr;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1078 :     }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1623 :     }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              :     // --- Serialization Methods ---</span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
@@ -103,7 +103,7 @@
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           9 :         j[&quot;input_gain&quot;] = input_gain_.load(std::memory_order_relaxed);</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           9 :         auto effects_array = nlohmann::json::array();</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          18 :         for (const auto &amp;fx : dummy_effects_)</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          15 :         for (const auto &amp;fx : dummy_effects_)</span></span>
 <span id="L45"><span class="lineNum">      45</span>              :         {</span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           6 :             if (fx)</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :             {</span>
@@ -128,12 +128,12 @@
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           6 :         if (j.contains(&quot;effects&quot;))</span></span>
 <span id="L68"><span class="lineNum">      68</span>              :         {</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          12 :             for (const auto &amp;fx_data : j[&quot;effects&quot;])</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          16 :             for (const auto &amp;fx_data : j[&quot;effects&quot;])</span></span>
 <span id="L70"><span class="lineNum">      70</span>              :             {</span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           6 :                 std::string name = fx_data[&quot;name&quot;];</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          20 :                 for (auto &amp;fx : dummy_effects_)</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          18 :                 for (auto &amp;fx : dummy_effects_)</span></span>
 <span id="L73"><span class="lineNum">      73</span>              :                 {</span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          28 :                     if (fx &amp;&amp; std::string(fx-&gt;name()) == name)</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          20 :                     if (fx &amp;&amp; std::string(fx-&gt;name()) == name)</span></span>
 <span id="L75"><span class="lineNum">      75</span>              :                     {</span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :                         fx-&gt;set_params(fx_data[&quot;params&quot;]);</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           2 :                     }</span></span>
@@ -176,10 +176,10 @@
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC tlaBgUNC">           0 :             stop();</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC tlaBgGNC">          41 :         sample_rate_ = rate;</span></span>
 <span id="L116"><span class="lineNum">     116</span>              : </span>
-<span id="L117"><span class="lineNum">     117</span>              :         {</span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          14 :         {</span></span>
 <span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          41 :             std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
 <span id="L119"><span class="lineNum">     119</span>              :             // FIX: Iterate over the nodes in the new AudioGraph</span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          67 :             for (const auto &amp;node : main_graph_.get_nodes())</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          53 :             for (const auto &amp;node : main_graph_.get_nodes())</span></span>
 <span id="L121"><span class="lineNum">     121</span>              :             {</span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          12 :                 if (node.pedal)</span></span>
 <span id="L123"><span class="lineNum">     123</span>              :                 { // Check if it's a standard effect and not a bare merge node</span>
@@ -192,7 +192,7 @@
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC tlaBgUNC">           0 :                 tuner_tap_-&gt;set_sample_rate(rate);</span></span>
 <span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :                 tuner_tap_-&gt;reset();</span></span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaUNC">           0 :             }</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC tlaBgGNC">          41 :         }</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC tlaBgGNC">          27 :         }</span></span>
 <span id="L134"><span class="lineNum">     134</span>              : </span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          41 :         if (was_running)</span></span>
 <span id="L136"><span class="lineNum">     136</span>              :         {</span>

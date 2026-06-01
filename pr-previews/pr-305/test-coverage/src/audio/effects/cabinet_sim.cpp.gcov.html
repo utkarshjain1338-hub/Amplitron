@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -70,8 +70,8 @@
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;CabinetSim&gt; reg(&quot;Cabinet&quot;);</span></span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         152 : CabinetSim::CabinetSim() {</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         228 :     params_ = {</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          38 :         {&quot;Type&quot;,    0.0f, 0.0f, 2.0f, 0.0f, &quot;&quot;, &quot;Speaker cabinet type. 0 = 1x12 (bright/focused), 1 = 2x12 (balanced), 2 = 4x12 (huge low-end).&quot;},</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         266 :     params_ = {</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         114 :         {&quot;Type&quot;,    0.0f, 0.0f, 2.0f, 0.0f, &quot;&quot;, &quot;Speaker cabinet type. 0 = 1x12 (bright/focused), 1 = 2x12 (balanced), 2 = 4x12 (huge low-end).&quot;},</span></span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          38 :         {&quot;Bright&quot;,  0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;, &quot;Simulates microphone placement. Higher values add a high-frequency resonance peak for more cut.&quot;},</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         228 :     };</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         114 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         114 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         114 :     dry_buffer_.reserve(1024);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         342 : }</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         266 : }</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         152 : CabinetSim::~CabinetSim() {</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :     // Clean up any unconsumed pending kernel</span>
@@ -120,7 +120,7 @@
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     // Extract filename from path</span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          51 :     size_t sep = filepath.find_last_of(&quot;/\\&quot;);</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          51 :     ir_name_ = (sep != std::string::npos) ? filepath.substr(sep + 1) : filepath;</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          83 :     ir_name_ = (sep != std::string::npos) ? filepath.substr(sep + 1) : filepath;</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          85 :     ir_duration_ms_ = static_cast&lt;float&gt;(raw_ir_samples_.size()) /</span></span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          68 :                       static_cast&lt;float&gt;(sample_rate_) * 1000.0f;</span></span>
 <span id="L64"><span class="lineNum">      64</span>              : </span>
@@ -129,7 +129,7 @@
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          51 :     if (bs &lt;= 0) bs = 256;</span></span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          51 :     build_kernel(bs);</span></span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          51 :     return true;</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          34 :     return true;</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          66 : }</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           9 : void CabinetSim::clear_ir() {</span></span>

@@ -31,18 +31,18 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">95.1&nbsp;%</td>
-            <td class="headerCovTableEntry">41</td>
-            <td class="headerCovTableEntry">39</td>
+            <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">36</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -102,7 +102,7 @@
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">        1546 :     std::transform(lower.begin(), lower.end(), lower.begin(),</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">       35332 :                    [](unsigned char c) { return std::tolower(c); });</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span>              :     static const char* usb_keywords[] = {</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          16 :     static const char* usb_keywords[] = {</span></span>
 <span id="L44"><span class="lineNum">      44</span>              :         &quot;usb&quot;, &quot;guitar&quot;, &quot;guitar link&quot;, &quot;irig&quot;, &quot;scarlett&quot;,</span>
 <span id="L45"><span class="lineNum">      45</span>              :         &quot;behringer&quot;, &quot;focusrite&quot;, &quot;presonus&quot;, &quot;steinberg&quot;,</span>
 <span id="L46"><span class="lineNum">      46</span>              :         &quot;audio interface&quot;, &quot;line 6&quot;, &quot;rocksmith&quot;, &quot;umc&quot;,</span>
@@ -111,10 +111,10 @@
 <span id="L49"><span class="lineNum">      49</span>              : </span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">       27632 :     for (const auto* keyword : usb_keywords) {</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">       26098 :         if (lower.find(keyword) != std::string::npos) {</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          12 :             return true;</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           6 :             return true;</span></span>
 <span id="L53"><span class="lineNum">      53</span>              :         }</span>
 <span id="L54"><span class="lineNum">      54</span>              :     }</span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        1534 :     return false;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">        1524 :     return false;</span></span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1546 : }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        1261 : int get_host_api_priority(int host_api_type) {</span></span>
@@ -127,11 +127,11 @@
 <span id="L65"><span class="lineNum">      65</span>              :     }</span>
 <span id="L66"><span class="lineNum">      66</span>              : #elif defined(_WIN32)</span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">        1004 :     switch (type) {</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC tlaBgUNC">           0 :         case paASIO:          return 100;</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC tlaBgGNC">         250 :         case paWASAPI:        return 90;</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         249 :         case paDirectSound:   return 40;</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         249 :         case paMME:           return 10;</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">         256 :         default:              return 20;</span></span>
+<span id="L68"><span class="lineNum">      68</span>              :         case paASIO:          return 100;</span>
+<span id="L69"><span class="lineNum">      69</span>              :         case paWASAPI:        return 90;</span>
+<span id="L70"><span class="lineNum">      70</span>              :         case paDirectSound:   return 40;</span>
+<span id="L71"><span class="lineNum">      71</span>              :         case paMME:           return 10;</span>
+<span id="L72"><span class="lineNum">      72</span>              :         default:              return 20;</span>
 <span id="L73"><span class="lineNum">      73</span>              :     }</span>
 <span id="L74"><span class="lineNum">      74</span>              : #elif defined(__APPLE__)</span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         257 :     switch (type) {</span></span>
@@ -151,7 +151,7 @@
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">         763 :     return lower.find(&quot;epson&quot;) != std::string::npos</span></span>
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">         762 :         || lower.find(&quot;projector&quot;) != std::string::npos</span></span>
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         761 :         || lower.find(&quot;hdmi&quot;) != std::string::npos</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         777 :         || lower.find(&quot;displayport&quot;) != std::string::npos;</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         771 :         || lower.find(&quot;displayport&quot;) != std::string::npos;</span></span>
 <span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">         763 : }</span></span>
 <span id="L94"><span class="lineNum">      94</span>              : </span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           2 : bool devices_share_host_api(int input_dev, int output_dev) {</span></span>

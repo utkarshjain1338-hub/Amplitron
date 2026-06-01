@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">85.7&nbsp;%</td>
@@ -76,7 +76,7 @@
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              : // Raw MIDI event pushed from the RtMidi callback thread.</span>
 <span id="L16"><span class="lineNum">      16</span>              : // Must be trivially copyable for SPSCQueue.</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">       23808 : struct MidiEvent {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">       47616 : struct MidiEvent {</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :     uint8_t status;  // e.g. 0xB0 = CC on channel 0</span>
 <span id="L19"><span class="lineNum">      19</span>              :     uint8_t data1;   // CC number (0-127)</span>
 <span id="L20"><span class="lineNum">      20</span>              :     uint8_t data2;   // CC value (0-127)</span>
@@ -95,7 +95,7 @@
 <span id="L33"><span class="lineNum">      33</span>              :     OutputGain,   // Maps to master output gain</span>
 <span id="L34"><span class="lineNum">      34</span>              : };</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         288 : struct MidiMapping {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         595 : struct MidiMapping {</span></span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          92 :     int cc_number = 0;    // 0-127</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          92 :     int midi_channel = -1; // 0-15, or -1 for &quot;any channel&quot;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          92 :     MidiTargetType target_type = MidiTargetType::EffectParam;</span></span>
@@ -186,10 +186,10 @@
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaUNC tlaBgUNC">           0 :     int current_port() const { return current_port_; }</span></span>
 <span id="L125"><span class="lineNum">     125</span>              : </span>
 <span id="L126"><span class="lineNum">     126</span>              :     /** @brief Return the name of the currently open port, or empty string. */</span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC tlaBgGNC">           6 :     std::string current_port_name() const { return current_port_name_; }</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC tlaBgGNC">           8 :     std::string current_port_name() const { return current_port_name_; }</span></span>
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span>              :     /** @brief Return true if a MIDI port is currently open. */</span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          18 :     bool is_port_open() const { return current_port_ &gt;= 0; }</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          16 :     bool is_port_open() const { return current_port_ &gt;= 0; }</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
 <span id="L132"><span class="lineNum">     132</span>              :     // --- Mapping management ---</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
@@ -197,7 +197,7 @@
 <span id="L135"><span class="lineNum">     135</span>              :     void remove_mapping(int index);</span>
 <span id="L136"><span class="lineNum">     136</span>              :     void remove_mapping_for_param(const std::string&amp; effect_name, const std::string&amp; param_name);</span>
 <span id="L137"><span class="lineNum">     137</span>              :     void clear_mappings();</span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         861 :     const std::vector&lt;MidiMapping&gt;&amp; mappings() const { return mappings_; }</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         783 :     const std::vector&lt;MidiMapping&gt;&amp; mappings() const { return mappings_; }</span></span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
 <span id="L140"><span class="lineNum">     140</span>              :     /** @brief Install default CC mappings (CC7, CC11, CC64, CC74). */</span>
 <span id="L141"><span class="lineNum">     141</span>              :     void install_default_mappings();</span>

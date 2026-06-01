@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">113</td>
-            <td class="headerCovTableEntry">113</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntry">114</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -66,7 +66,7 @@
 <span id="L4"><span class="lineNum">       4</span>              : namespace Amplitron {</span>
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         981 : void AudioEngine::sync_graph_with_dummy_effects(bool reset_graph) {</span></span>
-<span id="L7"><span class="lineNum">       7</span>              :     {</span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         327 :     {</span></span>
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">         981 :         std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
 <span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         981 :         if (reset_graph) {</span></span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         114 :             main_graph_ = AudioGraph();</span></span>
@@ -79,7 +79,7 @@
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         348 :             float cursor_x = 40.0f;</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         348 :             float cursor_y = 60.0f;</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :             </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         812 :             int input_node_id = main_graph_.add_node(&quot;Input&quot;, NodeRoutingType::StandardEffect, nullptr);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         580 :             int input_node_id = main_graph_.add_node(&quot;Input&quot;, NodeRoutingType::StandardEffect, nullptr);</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         348 :             main_graph_.set_node_as_input(input_node_id, true);</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         348 :             main_graph_.set_node_position(input_node_id, cursor_x, cursor_y);</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         348 :             cursor_x += 160.0f; // Input node is narrower</span></span>
@@ -87,10 +87,10 @@
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         348 :             int prev_output_pin = main_graph_.get_nodes().back().output_pin_ids.empty() ? -1 : main_graph_.get_nodes().back().output_pin_ids[0];</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :             </span>
 <span id="L27"><span class="lineNum">      27</span>              :             // Loop through the linear pedals and wire them back-to-back in the DAG</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         962 :             for (auto&amp; fx : dummy_effects_) {</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         846 :             for (auto&amp; fx : dummy_effects_) {</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         498 :                 fx-&gt;set_sample_rate(sample_rate_);</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         498 :                 fx-&gt;reset();</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1162 :                 int node_id = main_graph_.add_node(fx-&gt;name(), NodeRoutingType::StandardEffect, fx);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         830 :                 int node_id = main_graph_.add_node(fx-&gt;name(), NodeRoutingType::StandardEffect, fx);</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         498 :                 main_graph_.set_node_position(node_id, cursor_x, cursor_y);</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         498 :                 cursor_x += 230.0f; // Standard pedals width + comfortable gap</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :                 </span>
@@ -116,15 +116,15 @@
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         116 :         } else {</span></span>
 <span id="L55"><span class="lineNum">      55</span>              :             // 2. MODULAR MODE: Remove standard nodes that are no longer in dummy_effects_</span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         633 :             std::vector&lt;int&gt; nodes_to_remove;</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        2515 :             for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        2304 :             for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        1671 :                 if (node.routing_type == NodeRoutingType::StandardEffect &amp;&amp; node.pedal != nullptr) {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">        1032 :                     auto it = std::find(dummy_effects_.begin(), dummy_effects_.end(), node.pedal);</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1376 :                     if (it == dummy_effects_.end()) {</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1032 :                     if (it == dummy_effects_.end()) {</span></span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">         264 :                         nodes_to_remove.push_back(node.id);</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          88 :                     }</span></span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         344 :                 }</span></span>
 <span id="L64"><span class="lineNum">      64</span>              :             }</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">        1108 :             for (int nid : nodes_to_remove) {</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">         897 :             for (int nid : nodes_to_remove) {</span></span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">         264 :                 main_graph_.remove_node(nid);</span></span>
 <span id="L67"><span class="lineNum">      67</span>              :             }</span>
 <span id="L68"><span class="lineNum">      68</span>              :             </span>
@@ -133,18 +133,18 @@
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">        1116 :                 auto&amp; fx = dummy_effects_[i];</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :                 // Find if a node already exists for this effect</span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">        1116 :                 bool exists = false;</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">        3963 :                 for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">        3591 :                 for (const auto&amp; node : main_graph_.get_nodes()) {</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">        3243 :                     if (node.pedal == fx) {</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         768 :                         exists = true;</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         768 :                         break;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         512 :                         exists = true;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         512 :                         break;</span></span>
 <span id="L78"><span class="lineNum">      78</span>              :                     }</span>
 <span id="L79"><span class="lineNum">      79</span>              :                 }</span>
 <span id="L80"><span class="lineNum">      80</span>              :                 </span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">        1116 :                 if (!exists) {</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">         348 :                     fx-&gt;set_sample_rate(sample_rate_);</span></span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">         348 :                     fx-&gt;reset();</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">         812 :                     int node_id = main_graph_.add_node(fx-&gt;name(), NodeRoutingType::StandardEffect, fx);</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">         580 :                     if (std::string(fx-&gt;name()) == &quot;Amp Sim&quot;) {</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">         580 :                     int node_id = main_graph_.add_node(fx-&gt;name(), NodeRoutingType::StandardEffect, fx);</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">         464 :                     if (std::string(fx-&gt;name()) == &quot;Amp Sim&quot;) {</span></span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           6 :                         main_graph_.set_node_as_output(node_id, true);</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :                     }</span></span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">         116 :                 }</span></span>
@@ -163,14 +163,14 @@
 <span id="L101"><span class="lineNum">     101</span>              : </span>
 <span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">           3 : void AudioEngine::insert_effect(int index, std::shared_ptr&lt;Effect&gt; fx) {</span></span>
 <span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">           3 :     if (index &gt;= 0 &amp;&amp; index &lt;= static_cast&lt;int&gt;(dummy_effects_.size())) {</span></span>
-<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">           5 :         dummy_effects_.insert(dummy_effects_.begin() + index, fx);</span></span>
+<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">           3 :         dummy_effects_.insert(dummy_effects_.begin() + index, fx);</span></span>
 <span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           3 :         sync_graph_with_dummy_effects();</span></span>
 <span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">           3 : }</span></span>
 <span id="L108"><span class="lineNum">     108</span>              : </span>
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         201 : void AudioEngine::remove_effect(int index) {</span></span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         201 :     if (index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt;(dummy_effects_.size())) {</span></span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         325 :         dummy_effects_.erase(dummy_effects_.begin() + index);</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         195 :         dummy_effects_.erase(dummy_effects_.begin() + index);</span></span>
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         195 :         sync_graph_with_dummy_effects();</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          65 :     }</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">         201 : }</span></span>
@@ -189,8 +189,8 @@
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          18 :     if (from == to) return;</span></span>
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          15 :     auto fx = dummy_effects_[from];</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          25 :     dummy_effects_.erase(dummy_effects_.begin() + from);</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          25 :     dummy_effects_.insert(dummy_effects_.begin() + to, fx);</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          15 :     dummy_effects_.erase(dummy_effects_.begin() + from);</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          15 :     dummy_effects_.insert(dummy_effects_.begin() + to, fx);</span></span>
 <span id="L132"><span class="lineNum">     132</span>              :     </span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          15 :     sync_graph_with_dummy_effects();</span></span>
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          18 : }</span></span>

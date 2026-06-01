@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
+            <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
             <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">2</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
@@ -82,7 +82,7 @@
 <span id="L20"><span class="lineNum">      20</span>              :  *</span>
 <span id="L21"><span class="lineNum">      21</span>              :  * Classic references: Boss OC-2, EHX Octave Multiplexer.</span>
 <span id="L22"><span class="lineNum">      22</span>              :  */</span>
-<span id="L23"><span class="lineNum">      23</span>              : class Octaver : public Effect {</span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC tlaBgGNC">           7 : class Octaver : public Effect {</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : public:</span>
 <span id="L25"><span class="lineNum">      25</span>              :     Octaver();</span>
 <span id="L26"><span class="lineNum">      26</span>              :     void process(float* buffer, int num_samples) override;</span>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              :     void reset() override;</span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* name() const override { return &quot;Octaver&quot;; }</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC tlaBgGNC">           3 :     const char* type_id() const override { return &quot;Octaver&quot;; }</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         291 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         194 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              : private:</span>
 <span id="L34"><span class="lineNum">      34</span>              :     std::vector&lt;EffectParam&gt; params_;</span>

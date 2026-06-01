@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">64.7&nbsp;%</td>
-            <td class="headerCovTableEntry">581</td>
-            <td class="headerCovTableEntry">376</td>
+            <td class="headerCovTableEntryLo">65.0&nbsp;%</td>
+            <td class="headerCovTableEntry">586</td>
+            <td class="headerCovTableEntry">381</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -77,7 +77,7 @@
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         150 :   float lerp_factor = 1.0f - std::exp(-30.0f * dt);</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         150 :   if (lerp_factor &lt; 0.0f)</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC tlaBgUNC">           0 :     lerp_factor = 0.0f;</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">         150 :   if (lerp_factor &gt; 1.0f)</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">         100 :   if (lerp_factor &gt; 1.0f)</span></span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC tlaBgUNC">           0 :     lerp_factor = 1.0f;</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">         150 :   float old_zoom = ui_state.zoom;</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         150 :   if (std::abs(ui_state.target_zoom - ui_state.zoom) &gt; 0.0001f) {</span></span>
@@ -99,7 +99,7 @@
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          39 :         local_y - (local_y - ui_state.scrolling.y) * actual_factor;</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          39 :     ui_state.target_scrolling = ui_state.scrolling;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          13 :   }</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         250 :   if (std::abs(ui_state.target_scrolling.x - ui_state.scrolling.x) &gt; 0.01f ||</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         200 :   if (std::abs(ui_state.target_scrolling.x - ui_state.scrolling.x) &gt; 0.01f ||</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         150 :       std::abs(ui_state.target_scrolling.y - ui_state.scrolling.y) &gt; 0.01f) {</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC tlaBgUNC">           0 :     ui_state.scrolling.x +=</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :         (ui_state.target_scrolling.x - ui_state.scrolling.x) * lerp_factor;</span></span>
@@ -112,7 +112,7 @@
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         150 :   ImDrawList *draw_list = ImGui::GetWindowDrawList();</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         150 :   ImVec2 canvas_pos = ImGui::GetCursorScreenPos();</span></span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         150 :   ImVec2 canvas_size = ImGui::GetContentRegionAvail();</span></span>
-<span id="L53"><span class="lineNum">      53</span>              :   ImVec2 canvas_end =</span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          50 :   ImVec2 canvas_end =</span></span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         150 :       ImVec2(canvas_pos.x + canvas_size.x, canvas_pos.y + canvas_size.y);</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         150 :   ui_state.last_canvas_pos = canvas_pos;</span></span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         150 :   ImGui::SetCursorScreenPos(canvas_pos);</span></span>
@@ -131,7 +131,7 @@
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaUNC">           0 :   }</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : </span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC tlaBgGNC">         176 :   if (ImGui::IsItemActive() &amp;&amp; (ImGui::IsMouseDragging(ImGuiMouseButton_Right) || </span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          27 :                                 ImGui::IsMouseDragging(ImGuiMouseButton_Middle) || </span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          35 :                                 ImGui::IsMouseDragging(ImGuiMouseButton_Middle) || </span></span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          24 :                                 ImGui::IsMouseDragging(ImGuiMouseButton_Left))) {</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          12 :     ui_state.scrolling.x += ImGui::GetIO().MouseDelta.x;</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          12 :     ui_state.scrolling.y += ImGui::GetIO().MouseDelta.y;</span></span>
@@ -145,7 +145,7 @@
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           9 :       if (ImGui::GetIO().KeyCtrl) {</span></span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           6 :         float zoom_factor = std::pow(1.1f, scroll_y);</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           6 :         ImVec2 mouse_pos = ImGui::GetMousePos();</span></span>
-<span id="L86"><span class="lineNum">      86</span>              :         ImVec2 mouse_in_canvas =</span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           2 :         ImVec2 mouse_in_canvas =</span></span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           6 :             ImVec2(mouse_pos.x - canvas_pos.x, mouse_pos.y - canvas_pos.y);</span></span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">           6 :         float old_zoom = ui_state.target_zoom;</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           6 :         float new_zoom = old_zoom * zoom_factor;</span></span>
@@ -171,7 +171,7 @@
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         150 :   ImGui::SetCursorScreenPos(</span></span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         150 :       ImVec2(canvas_pos.x + canvas_size.x - 70, canvas_pos.y + 10));</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         150 :   ImGui::SetNextItemAllowOverlap();</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         150 :   if (ImGui::Button(ui_state.is_fullscreen ? &quot;Exit FS&quot; : &quot;Full Screen&quot;)) {</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         200 :   if (ImGui::Button(ui_state.is_fullscreen ? &quot;Exit FS&quot; : &quot;Full Screen&quot;)) {</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaUNC tlaBgUNC">           0 :     ui_state.is_fullscreen = !ui_state.is_fullscreen;</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC">           0 :     if (!ui_state.is_fullscreen) {</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaUNC">           0 :       ui_state.zoom = 1.0f;</span></span>
@@ -183,13 +183,13 @@
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         150 :     ImU32 GRID_COLOR = IM_COL32(36, 34, 30, 255);</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">        4393 :     for (float x = std::fmod(ui_state.scrolling.x, GRID_SZ); x &lt; canvas_size.x;</span></span>
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        4243 :          x += GRID_SZ) {</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        5654 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x + x, canvas_pos.y),</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        7075 :                          ImVec2(canvas_pos.x + x, canvas_end.y), GRID_COLOR);</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        7075 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x + x, canvas_pos.y),</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        5654 :                          ImVec2(canvas_pos.x + x, canvas_end.y), GRID_COLOR);</span></span>
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">        1411 :     }</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">        3192 :     for (float y = std::fmod(ui_state.scrolling.y, GRID_SZ); y &lt; canvas_size.y;</span></span>
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">        3042 :          y += GRID_SZ) {</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        4055 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x, canvas_pos.y + y),</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">        5071 :                          ImVec2(canvas_end.x, canvas_pos.y + y), GRID_COLOR);</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        5071 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x, canvas_pos.y + y),</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">        4055 :                          ImVec2(canvas_end.x, canvas_pos.y + y), GRID_COLOR);</span></span>
 <span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">        1013 :     }</span></span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          50 :   }</span></span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">         150 :   draw_list-&gt;PushClipRect(canvas_pos, canvas_end, true);</span></span>
@@ -205,14 +205,14 @@
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          52 :       stale_ids.push_back(pair.first);</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          21 :     }</span></span>
 <span id="L145"><span class="lineNum">     145</span>              :   }</span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">         252 :   for (int id : stale_ids) {</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">         202 :   for (int id : stale_ids) {</span></span>
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          52 :     ui_state.node_positions.erase(id);</span></span>
 <span id="L148"><span class="lineNum">     148</span>              :   }</span>
 <span id="L149"><span class="lineNum">     149</span>              :   // Give all new nodes a default position at the end of the chain without</span>
 <span id="L150"><span class="lineNum">     150</span>              :   // shifting existing nodes</span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         503 :   for (const auto &amp;node : audio_graph.get_nodes()) {</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         453 :   for (const auto &amp;node : audio_graph.get_nodes()) {</span></span>
 <span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         303 :     if (ui_state.node_positions.find(node.id) ==</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         505 :         ui_state.node_positions.end()) {</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         404 :         ui_state.node_positions.end()) {</span></span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           2 :       if (node.x != 0.0f || node.y != 0.0f) {</span></span>
 <span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           2 :         ui_state.node_positions[node.id] = {ImVec2(node.x, node.y), false, ImVec2(0, 0)};</span></span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC tlaBgUNC">           0 :       } else {</span></span>
@@ -240,36 +240,36 @@
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC tlaBgGNC">         150 :   float level = engine_.get_output_level();</span></span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">         150 :   float time = (float)ImGui::GetTime();</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">         150 :   bool is_running = engine_.is_running();</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         503 :   for (const auto &amp;node : audio_graph.get_nodes()) {</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         453 :   for (const auto &amp;node : audio_graph.get_nodes()) {</span></span>
 <span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">         303 :     auto &amp;node_layout = ui_state.node_positions[node.id];</span></span>
-<span id="L183"><span class="lineNum">     183</span>              :     ImVec2 node_screen_pos =</span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         101 :     ImVec2 node_screen_pos =</span></span>
 <span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         404 :         ImVec2(offset.x + node_layout.position.x * ui_state.zoom,</span></span>
 <span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         303 :                offset.y + node_layout.position.y * ui_state.zoom);</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         303 :     PedalWidget *target_widget = nullptr;</span></span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">         303 :     if (node.routing_type == NodeRoutingType::StandardEffect) {</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">         560 :       for (auto &amp;w : widgets_) {</span></span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         309 :         if (w-&gt;get_effect() == node.pedal) {</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">         459 :       for (auto &amp;w : widgets_) {</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">         412 :         if (w-&gt;get_effect() == node.pedal) {</span></span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         153 :           target_widget = w.get();</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         153 :           break;</span></span>
 <span id="L192"><span class="lineNum">     192</span>              :         }</span>
 <span id="L193"><span class="lineNum">     193</span>              :       }</span>
 <span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">         101 :     }</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">         303 :     bool is_mb_comp = false;</span></span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">         303 :     if (target_widget &amp;&amp; std::strcmp(target_widget-&gt;get_effect()-&gt;name(),</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">         404 :     bool is_mb_comp = false;</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">         405 :     if (target_widget &amp;&amp; std::strcmp(target_widget-&gt;get_effect()-&gt;name(),</span></span>
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">          51 :                                      &quot;MultiBand Compressor&quot;) == 0) {</span></span>
 <span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC tlaBgUNC">           0 :       is_mb_comp = true;</span></span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC tlaBgGNC">         303 :     float node_width =</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC tlaBgGNC">         404 :     float node_width =</span></span>
 <span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">         303 :         (target_widget ? (is_mb_comp ? 190.0f * 2.2f : 190.0f) : 110.0f) *</span></span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">         303 :         ui_state.zoom;</span></span>
 <span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">         303 :     float node_height = (target_widget ? 360.0f : 70.0f) * ui_state.zoom;</span></span>
 <span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         303 :     if (!target_widget &amp;&amp; (node.routing_type == NodeRoutingType::Mixer ||</span></span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">         150 :                            node.routing_type == NodeRoutingType::MergeSum)) {</span></span>
+<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">         100 :                            node.routing_type == NodeRoutingType::MergeSum)) {</span></span>
 <span id="L206"><span class="lineNum">     206</span> <span class="tlaUNC tlaBgUNC">           0 :       node_width = 130.0f * ui_state.zoom;</span></span>
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaUNC">           0 :       node_height =</span></span>
 <span id="L208"><span class="lineNum">     208</span> <span class="tlaUNC">           0 :           std::max(70.0f, (float)node.input_pin_ids.size() * 32.0f + 55.0f) *</span></span>
 <span id="L209"><span class="lineNum">     209</span> <span class="tlaUNC">           0 :           ui_state.zoom;</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC tlaBgGNC">         303 :     } else if (!target_widget &amp;&amp; node.routing_type == NodeRoutingType::Splitter) {</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC tlaBgGNC">         252 :     } else if (!target_widget &amp;&amp; node.routing_type == NodeRoutingType::Splitter) {</span></span>
 <span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC tlaBgUNC">           0 :       node_width = 130.0f * ui_state.zoom;</span></span>
 <span id="L212"><span class="lineNum">     212</span> <span class="tlaUNC">           0 :       node_height =</span></span>
 <span id="L213"><span class="lineNum">     213</span> <span class="tlaUNC">           0 :           std::max(70.0f, (float)node.output_pin_ids.size() * 32.0f + 55.0f) *</span></span>
@@ -310,7 +310,7 @@
 <span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">         200 :       draw_list-&gt;AddRectFilled(node_screen_pos, node_end, bg_color,</span></span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">         150 :                                Theme::ROUNDING_MD * ui_state.zoom);</span></span>
 <span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">         200 :       draw_list-&gt;AddRect(node_screen_pos, node_end, IM_COL32(180, 140, 80, 180),</span></span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         150 :                          Theme::ROUNDING_MD * ui_state.zoom, 0,</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         100 :                          Theme::ROUNDING_MD * ui_state.zoom, 0,</span></span>
 <span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         150 :                          1.5f * ui_state.zoom);</span></span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">         150 :       ImGui::SetCursorScreenPos(node_screen_pos);</span></span>
 <span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">         150 :       ImGui::SetNextItemAllowOverlap();</span></span>
@@ -338,8 +338,8 @@
 <span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         150 :       ImGui::SetWindowFontScale(1.0f);</span></span>
 <span id="L277"><span class="lineNum">     277</span>              :     }</span>
 <span id="L278"><span class="lineNum">     278</span>              : </span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         505 :       bool is_mixer = (node.routing_type == NodeRoutingType::Mixer ||</span></span>
-<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">         303 :                        node.routing_type == NodeRoutingType::MergeSum);</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         404 :       bool is_mixer = (node.routing_type == NodeRoutingType::Mixer ||</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">         202 :                        node.routing_type == NodeRoutingType::MergeSum);</span></span>
 <span id="L281"><span class="lineNum">     281</span>              : </span>
 <span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">         303 :       if (is_mixer &amp;&amp; ImGui::IsItemHovered() &amp;&amp;</span></span>
 <span id="L283"><span class="lineNum">     283</span> <span class="tlaUNC tlaBgUNC">           0 :           ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {</span></span>
@@ -430,7 +430,7 @@
 <span id="L368"><span class="lineNum">     368</span>              :                                IM_COL32(0, 0, 0, 180),</span>
 <span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">           3 :                                Theme::ROUNDING_MD * ui_state.zoom);</span></span>
 <span id="L370"><span class="lineNum">     370</span>              : </span>
-<span id="L371"><span class="lineNum">     371</span>              :       ImVec2 text_pos =</span>
+<span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">           1 :       ImVec2 text_pos =</span></span>
 <span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">           4 :           ImVec2(node_screen_pos.x + 10.0f * ui_state.zoom,</span></span>
 <span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">           3 :                  node_screen_pos.y + node_height - 25.0f * ui_state.zoom);</span></span>
 <span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">           3 :       ImGui::SetWindowFontScale(ui_state.zoom * 0.9f);</span></span>
@@ -438,11 +438,11 @@
 <span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           3 :       ImGui::SetWindowFontScale(1.0f);</span></span>
 <span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L378"><span class="lineNum">     378</span>              :     // --- INTERNAL SIGNAL FLOW / ELECTRICITY EFFECT ---</span>
-<span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">         503 :     if (node.is_reachable &amp;&amp;</span></span>
+<span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">         403 :     if (node.is_reachable &amp;&amp;</span></span>
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">         300 :         (!node.input_pin_ids.empty() || !node.output_pin_ids.empty())) {</span></span>
 <span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">         300 :       bool enabled = true;</span></span>
 <span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">         300 :       if (target_widget) {</span></span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">         150 :         enabled = target_widget-&gt;get_effect()-&gt;is_enabled();</span></span>
+<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">         200 :         enabled = target_widget-&gt;get_effect()-&gt;is_enabled();</span></span>
 <span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">          50 :       }</span></span>
 <span id="L385"><span class="lineNum">     385</span>              :       // Align with pins</span>
 <span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">         300 :       float in_y = node_screen_pos.y + node_height * 0.5f;</span></span>
@@ -461,7 +461,7 @@
 <span id="L399"><span class="lineNum">     399</span>              :       // --- COLOR &amp; PULSE CALCULATIONS (SHARED) ---</span>
 <span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">         300 :       ImU32 flow_col = IM_COL32(200, 230, 255, 255);</span></span>
 <span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">         300 :       if (target_widget) {</span></span>
-<span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">          50 :         const auto *colors =</span></span>
+<span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">         100 :         const auto *colors =</span></span>
 <span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">         150 :             get_effect_color(target_widget-&gt;get_effect()-&gt;name());</span></span>
 <span id="L404"><span class="lineNum">     404</span> <span class="tlaGNC">         150 :         flow_col = ImGui::ColorConvertFloat4ToU32(colors-&gt;led_color);</span></span>
 <span id="L405"><span class="lineNum">     405</span> <span class="tlaGNC">          50 :       }</span></span>
@@ -480,8 +480,8 @@
 <span id="L418"><span class="lineNum">     418</span> <span class="tlaGNC">         294 :                      node_screen_pos.y + node_height + (2.0f + jitter));</span></span>
 <span id="L419"><span class="lineNum">     419</span>              : </span>
 <span id="L420"><span class="lineNum">     420</span> <span class="tlaGNC">         392 :         draw_list-&gt;AddRect(p_min, p_max, IM_COL32(r, g, b, (int)(180 * pulse)),</span></span>
-<span id="L421"><span class="lineNum">     421</span> <span class="tlaGNC">         294 :                            Theme::ROUNDING_MD * ui_state.zoom, 0,</span></span>
-<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC">         294 :                            3.0f * ui_state.zoom);</span></span>
+<span id="L421"><span class="lineNum">     421</span> <span class="tlaGNC">         196 :                            Theme::ROUNDING_MD * ui_state.zoom, 0,</span></span>
+<span id="L422"><span class="lineNum">     422</span> <span class="tlaGNC">         196 :                            3.0f * ui_state.zoom);</span></span>
 <span id="L423"><span class="lineNum">     423</span> <span class="tlaGNC">         392 :         draw_list-&gt;AddRect(</span></span>
 <span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">         294 :             p_min, p_max, IM_COL32(255, 255, 255, (int)(220 * pulse)),</span></span>
 <span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">         294 :             Theme::ROUNDING_MD * ui_state.zoom, 0, 1.0f * ui_state.zoom);</span></span>
@@ -493,7 +493,7 @@
 <span id="L431"><span class="lineNum">     431</span>              : </span>
 <span id="L432"><span class="lineNum">     432</span> <span class="tlaGNC">           6 :         ImVec2 p_rail_in(flow_p1.x, rail_y);</span></span>
 <span id="L433"><span class="lineNum">     433</span> <span class="tlaGNC">           6 :         ImVec2 p_rail_out(flow_p2.x, rail_y);</span></span>
-<span id="L434"><span class="lineNum">     434</span> <span class="tlaGNC">          20 :         auto draw_consistent_glow_line = [&amp;](ImVec2 p1, ImVec2 p2) {</span></span>
+<span id="L434"><span class="lineNum">     434</span> <span class="tlaGNC">          22 :         auto draw_consistent_glow_line = [&amp;](ImVec2 p1, ImVec2 p2) {</span></span>
 <span id="L435"><span class="lineNum">     435</span> <span class="tlaGNC">          18 :           ImVec2 p1j(p1.x, p1.y + jitter);</span></span>
 <span id="L436"><span class="lineNum">     436</span> <span class="tlaGNC">          18 :           ImVec2 p2j(p2.x, p2.y + jitter);</span></span>
 <span id="L437"><span class="lineNum">     437</span> <span class="tlaGNC">          24 :           draw_list-&gt;AddLine(p1j, p2j, IM_COL32(r, g, b, (int)(180 * pulse)),</span></span>
@@ -501,7 +501,7 @@
 <span id="L439"><span class="lineNum">     439</span> <span class="tlaGNC">          24 :           draw_list-&gt;AddLine(p1j, p2j,</span></span>
 <span id="L440"><span class="lineNum">     440</span> <span class="tlaGNC">          18 :                              IM_COL32(255, 255, 255, (int)(220 * pulse)),</span></span>
 <span id="L441"><span class="lineNum">     441</span> <span class="tlaGNC">          18 :                              1.5f * ui_state.zoom);</span></span>
-<span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          18 :         };</span></span>
+<span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          20 :         };</span></span>
 <span id="L443"><span class="lineNum">     443</span>              :         // Bridge segments</span>
 <span id="L444"><span class="lineNum">     444</span> <span class="tlaGNC">           6 :         draw_consistent_glow_line(flow_p1, p_rail_in);</span></span>
 <span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">           6 :         draw_consistent_glow_line(p_rail_in, p_rail_out);</span></span>
@@ -554,7 +554,7 @@
 <span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">         303 :     bool is_amp = (node.name == &quot;Amp Sim&quot;);</span></span>
 <span id="L493"><span class="lineNum">     493</span> <span class="tlaGNC">         303 :     bool is_input_node = (node.name == &quot;Input&quot;);</span></span>
 <span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">         303 :     if (!is_amp &amp;&amp; !is_input_node) {</span></span>
-<span id="L495"><span class="lineNum">     495</span>              :       ImVec2 cross_pos =</span>
+<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">          48 :       ImVec2 cross_pos =</span></span>
 <span id="L496"><span class="lineNum">     496</span> <span class="tlaGNC">         192 :           ImVec2(node_screen_pos.x + node_width - 24.0f * ui_state.zoom,</span></span>
 <span id="L497"><span class="lineNum">     497</span> <span class="tlaGNC">         144 :                  node_screen_pos.y + 4.0f * ui_state.zoom);</span></span>
 <span id="L498"><span class="lineNum">     498</span> <span class="tlaGNC">         144 :       ImGui::SetCursorScreenPos(cross_pos);</span></span>
@@ -582,7 +582,7 @@
 <span id="L520"><span class="lineNum">     520</span> <span class="tlaGNC">         303 :     if (!is_input_node) {</span></span>
 <span id="L521"><span class="lineNum">     521</span> <span class="tlaGNC">         306 :       for (size_t idx = 0; idx &lt; node.input_pin_ids.size(); ++idx) {</span></span>
 <span id="L522"><span class="lineNum">     522</span> <span class="tlaGNC">         153 :         int pin_id = node.input_pin_ids[idx];</span></span>
-<span id="L523"><span class="lineNum">     523</span> <span class="tlaGNC">         306 :         float pin_y = node_screen_pos.y + (node_height * (idx + 1.0f) /</span></span>
+<span id="L523"><span class="lineNum">     523</span> <span class="tlaGNC">         255 :         float pin_y = node_screen_pos.y + (node_height * (idx + 1.0f) /</span></span>
 <span id="L524"><span class="lineNum">     524</span> <span class="tlaGNC">         153 :                                            (node.input_pin_ids.size() + 1.0f));</span></span>
 <span id="L525"><span class="lineNum">     525</span> <span class="tlaGNC">         153 :         ImVec2 pin_pos(node_screen_pos.x - 2.0f * ui_state.zoom, pin_y);</span></span>
 <span id="L526"><span class="lineNum">     526</span> <span class="tlaGNC">         153 :         pin_positions_cache[pin_id] = pin_pos;</span></span>
@@ -590,7 +590,7 @@
 <span id="L528"><span class="lineNum">     528</span>              :                                    IM_COL32(46, 204, 113, 255));</span>
 <span id="L529"><span class="lineNum">     529</span> <span class="tlaGNC">         153 :         draw_list-&gt;AddCircle(pin_pos, 6.5f * ui_state.zoom,</span></span>
 <span id="L530"><span class="lineNum">     530</span>              :                              IM_COL32(255, 255, 255, 200));</span>
-<span id="L531"><span class="lineNum">     531</span> <span class="tlaGNC">         204 :         ImGui::SetCursorScreenPos(ImVec2(pin_pos.x - 10.0f * ui_state.zoom,</span></span>
+<span id="L531"><span class="lineNum">     531</span> <span class="tlaGNC">         255 :         ImGui::SetCursorScreenPos(ImVec2(pin_pos.x - 10.0f * ui_state.zoom,</span></span>
 <span id="L532"><span class="lineNum">     532</span> <span class="tlaGNC">         153 :                                          pin_pos.y - 10.0f * ui_state.zoom));</span></span>
 <span id="L533"><span class="lineNum">     533</span> <span class="tlaGNC">         153 :         ImGui::PushID(pin_id);</span></span>
 <span id="L534"><span class="lineNum">     534</span> <span class="tlaGNC">         153 :         ImGui::SetNextItemAllowOverlap();</span></span>
@@ -618,7 +618,7 @@
 <span id="L556"><span class="lineNum">     556</span> <span class="tlaGNC">         303 :     if (!is_amp) {</span></span>
 <span id="L557"><span class="lineNum">     557</span> <span class="tlaGNC">         588 :       for (size_t idx = 0; idx &lt; node.output_pin_ids.size(); ++idx) {</span></span>
 <span id="L558"><span class="lineNum">     558</span> <span class="tlaGNC">         294 :         int pin_id = node.output_pin_ids[idx];</span></span>
-<span id="L559"><span class="lineNum">     559</span> <span class="tlaGNC">         588 :         float pin_y = node_screen_pos.y + (node_height * (idx + 1.0f) /</span></span>
+<span id="L559"><span class="lineNum">     559</span> <span class="tlaGNC">         490 :         float pin_y = node_screen_pos.y + (node_height * (idx + 1.0f) /</span></span>
 <span id="L560"><span class="lineNum">     560</span> <span class="tlaGNC">         294 :                                            (node.output_pin_ids.size() + 1.0f));</span></span>
 <span id="L561"><span class="lineNum">     561</span> <span class="tlaGNC">         392 :         ImVec2 pin_pos(node_screen_pos.x + node_width + 2.0f * ui_state.zoom,</span></span>
 <span id="L562"><span class="lineNum">     562</span> <span class="tlaGNC">         294 :                        pin_y);</span></span>
@@ -630,7 +630,7 @@
 <span id="L568"><span class="lineNum">     568</span>              :                                    IM_COL32(231, 76, 60, 255));</span>
 <span id="L569"><span class="lineNum">     569</span> <span class="tlaGNC">         294 :         draw_list-&gt;AddCircle(pin_pos, 6.5f * ui_state.zoom,</span></span>
 <span id="L570"><span class="lineNum">     570</span>              :                              IM_COL32(255, 255, 255, 200));</span>
-<span id="L571"><span class="lineNum">     571</span> <span class="tlaGNC">         392 :         ImGui::SetCursorScreenPos(ImVec2(pin_pos.x - 10.0f * ui_state.zoom,</span></span>
+<span id="L571"><span class="lineNum">     571</span> <span class="tlaGNC">         490 :         ImGui::SetCursorScreenPos(ImVec2(pin_pos.x - 10.0f * ui_state.zoom,</span></span>
 <span id="L572"><span class="lineNum">     572</span> <span class="tlaGNC">         294 :                                          pin_pos.y - 10.0f * ui_state.zoom));</span></span>
 <span id="L573"><span class="lineNum">     573</span> <span class="tlaGNC">         294 :         ImGui::PushID(pin_id);</span></span>
 <span id="L574"><span class="lineNum">     574</span> <span class="tlaGNC">         294 :         ImGui::SetNextItemAllowOverlap();</span></span>
@@ -681,8 +681,8 @@
 <span id="L619"><span class="lineNum">     619</span> <span class="tlaUNC">           0 :   }</span></span>
 <span id="L620"><span class="lineNum">     620</span>              :   // Draw Patch Cables</span>
 <span id="L621"><span class="lineNum">     621</span> <span class="tlaGNC tlaBgGNC">         150 :   int link_to_delete = -1;</span></span>
-<span id="L622"><span class="lineNum">     622</span> <span class="tlaGNC">         350 :   for (const auto &amp;link : audio_graph.get_links()) {</span></span>
-<span id="L623"><span class="lineNum">     623</span> <span class="tlaGNC">         300 :     if (pin_positions_cache.count(link.source_pin_id) &amp;&amp;</span></span>
+<span id="L622"><span class="lineNum">     622</span> <span class="tlaGNC">         300 :   for (const auto &amp;link : audio_graph.get_links()) {</span></span>
+<span id="L623"><span class="lineNum">     623</span> <span class="tlaGNC">         250 :     if (pin_positions_cache.count(link.source_pin_id) &amp;&amp;</span></span>
 <span id="L624"><span class="lineNum">     624</span> <span class="tlaGNC">         150 :         pin_positions_cache.count(link.dest_pin_id)) {</span></span>
 <span id="L625"><span class="lineNum">     625</span> <span class="tlaGNC">         150 :       ImVec2 p1 = pin_positions_cache[link.source_pin_id];</span></span>
 <span id="L626"><span class="lineNum">     626</span> <span class="tlaGNC">         150 :       ImVec2 p2 = pin_positions_cache[link.dest_pin_id];</span></span>
@@ -707,7 +707,7 @@
 <span id="L645"><span class="lineNum">     645</span> <span class="tlaGNC tlaBgGNC">         500 :       }</span></span>
 <span id="L646"><span class="lineNum">     646</span> <span class="tlaGNC">         150 :       ImU32 color =</span></span>
 <span id="L647"><span class="lineNum">     647</span> <span class="tlaGNC">         150 :           hovered ? IM_COL32(255, 100, 100, 255) : IM_COL32(212, 175, 55, 255);</span></span>
-<span id="L648"><span class="lineNum">     648</span> <span class="tlaGNC">         300 :       draw_list-&gt;AddBezierCubic(p1, cp1, cp2, p2, color,</span></span>
+<span id="L648"><span class="lineNum">     648</span> <span class="tlaGNC">         250 :       draw_list-&gt;AddBezierCubic(p1, cp1, cp2, p2, color,</span></span>
 <span id="L649"><span class="lineNum">     649</span> <span class="tlaGNC">          50 :                                 hovered ? 5.0f * ui_state.zoom</span></span>
 <span id="L650"><span class="lineNum">     650</span> <span class="tlaGNC">         150 :                                         : 3.0f * ui_state.zoom);</span></span>
 <span id="L651"><span class="lineNum">     651</span>              :       // --- Signal Pulse Animation on Cables ---</span>

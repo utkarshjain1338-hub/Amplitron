@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">86.7&nbsp;%</td>
-            <td class="headerCovTableEntry">90</td>
-            <td class="headerCovTableEntry">78</td>
+            <td class="headerCovTableEntryMed">87.1&nbsp;%</td>
+            <td class="headerCovTableEntry">93</td>
+            <td class="headerCovTableEntry">81</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -73,7 +73,7 @@
 <span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">          72 : void Recorder::write_wav_header() {</span></span>
 <span id="L12"><span class="lineNum">      12</span>              :     // Write a placeholder WAV header (44 bytes)</span>
 <span id="L13"><span class="lineNum">      13</span>              :     // Will be finalized when recording stops</span>
-<span id="L14"><span class="lineNum">      14</span>              :     char header[44];</span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          24 :     char header[44];</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          72 :     std::memset(header, 0, 44);</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          72 :     int byte_rate = sample_rate_ * channels_ * 2; // 16-bit = 2 bytes</span></span>
@@ -113,7 +113,7 @@
 <span id="L51"><span class="lineNum">      51</span>              : // Clamp channels_ to a safe positive value before multiplication to prevent</span>
 <span id="L52"><span class="lineNum">      52</span>              : // signed overflow or negative data_size_64 if channels_ is zero or negative.</span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          72 : int64_t safe_channels = (channels_ &gt; 0 &amp;&amp; channels_ &lt;= 8)</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         120 :                         ? static_cast&lt;int64_t&gt;(channels_)</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          96 :                         ? static_cast&lt;int64_t&gt;(channels_)</span></span>
 <span id="L55"><span class="lineNum">      55</span>              :                         : 1LL;</span>
 <span id="L56"><span class="lineNum">      56</span>              : // Compute data size in 64-bit to avoid overflow</span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          72 : int64_t data_size_64 = total_samples * safe_channels * 2LL;</span></span>
@@ -155,8 +155,8 @@
 <span id="L93"><span class="lineNum">      93</span>              :     }</span>
 <span id="L94"><span class="lineNum">      94</span>              : </span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC tlaBgGNC">           9 :     std::time_t now = std::time(nullptr);</span></span>
-<span id="L96"><span class="lineNum">      96</span>              :     char timebuf[64];</span>
-<span id="L97"><span class="lineNum">      97</span>              :     std::tm time_info;</span>
+<span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           3 :     char timebuf[64];</span></span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           3 :     std::tm time_info;</span></span>
 <span id="L98"><span class="lineNum">      98</span>              : #ifdef _WIN32</span>
 <span id="L99"><span class="lineNum">      99</span> <span class="tlaGNC">           3 :     localtime_s(&amp;time_info, &amp;now);</span></span>
 <span id="L100"><span class="lineNum">     100</span>              : #else</span>
@@ -171,7 +171,7 @@
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">           9 :     recording[&quot;filename&quot;]         = wav_path;</span></span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">           9 :     recording[&quot;recorded_at&quot;]      = timebuf;</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">           9 :     recording[&quot;duration_seconds&quot;] = duration;</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          15 :     recording[&quot;total_samples&quot;]    = samples_written_.load();</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          12 :     recording[&quot;total_samples&quot;]    = samples_written_.load();</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           9 :     recording[&quot;format&quot;]           = &quot;WAV PCM 16-bit&quot;;</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           9 :     recording[&quot;sample_rate&quot;]      = sample_rate_;</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           9 :     recording[&quot;channels&quot;]         = channels_;</span></span>
@@ -209,9 +209,9 @@
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           9 :     root[&quot;audio_settings&quot;] = std::move(audio_settings);</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           9 :     root[&quot;signal_chain&quot;]   = std::move(signal_chain);</span></span>
 <span id="L149"><span class="lineNum">     149</span>              : </span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           9 :     meta &lt;&lt; root.dump(2) &lt;&lt; &quot;\n&quot;;</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          12 :     meta &lt;&lt; root.dump(2) &lt;&lt; &quot;\n&quot;;</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           9 :     meta.close();</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           9 :     std::cout &lt;&lt; &quot;Metadata written: &quot; &lt;&lt; meta_path &lt;&lt; std::endl;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          12 :     std::cout &lt;&lt; &quot;Metadata written: &quot; &lt;&lt; meta_path &lt;&lt; std::endl;</span></span>
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           9 : }</span></span>
 <span id="L154"><span class="lineNum">     154</span>              : </span>
 <span id="L155"><span class="lineNum">     155</span>              : } // namespace Amplitron</span>

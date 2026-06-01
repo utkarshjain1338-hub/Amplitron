@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">89.9&nbsp;%</td>
-            <td class="headerCovTableEntry">89</td>
-            <td class="headerCovTableEntry">80</td>
+            <td class="headerCovTableEntryHi">90.2&nbsp;%</td>
+            <td class="headerCovTableEntry">92</td>
+            <td class="headerCovTableEntry">83</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           6 :     if (p.has_signal &amp;&amp; p.note_idx &gt;= 0 &amp;&amp; p.note_name_fn) {</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :         // ── Note name (large, centered) ──</span>
-<span id="L31"><span class="lineNum">      31</span>              :         char note_buf[16];</span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :         char note_buf[16];</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           3 :         std::snprintf(note_buf, sizeof(note_buf), &quot;%s%d&quot;, p.note_name_fn(p.note_idx), p.octave);</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           3 :         ImVec2 note_size = ImGui::CalcTextSize(note_buf);</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :         float  scale     = 3.0f;</span></span>
@@ -103,12 +103,12 @@
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              :         // ── Cents indicator ──</span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           3 :         float abs_cents  = std::fabs(p.cents);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           2 :         ImVec4 cents_col = (abs_cents &lt; 2.0f)</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           3 :         ImVec4 cents_col = (abs_cents &lt; 2.0f)</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           2 :                            ? ImVec4(0.2f, 0.9f, 0.3f, 1.0f)</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           1 :                            : (abs_cents &lt; 15.0f)</span></span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           3 :                                ? ImVec4(0.9f, 0.8f, 0.2f, 1.0f)</span></span>
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           2 :                                : ImVec4(0.9f, 0.2f, 0.2f, 1.0f);</span></span>
-<span id="L49"><span class="lineNum">      49</span>              :         char cents_buf[32];</span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           1 :         char cents_buf[32];</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           3 :         std::snprintf(cents_buf, sizeof(cents_buf), &quot;%+.1f cents&quot;, p.cents);</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           3 :         ImVec2 cents_size = ImGui::CalcTextSize(cents_buf);</span></span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           3 :         ImGui::SetCursorPosX((win_w - cents_size.x) * 0.5f);</span></span>
@@ -131,13 +131,13 @@
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           3 :         float needle_norm = clamp(p.cents / 50.0f, -1.0f, 1.0f);</span></span>
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           3 :         float needle_x    = cx + needle_norm * (bar_w * 0.5f);</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           3 :         ImU32 needle_col  = ImGui::ColorConvertFloat4ToU32(cents_col);</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           4 :         dl-&gt;AddRectFilled(ImVec2(needle_x - 4, bar_pos.y - 3),</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           5 :         dl-&gt;AddRectFilled(ImVec2(needle_x - 4, bar_pos.y - 3),</span></span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           3 :                           ImVec2(needle_x + 4, bar_pos.y + bar_h + 3),</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           1 :                           needle_col, 3.0f);</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           3 :         ImGui::Dummy(ImVec2(0, bar_h + 12));</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
 <span id="L77"><span class="lineNum">      77</span>              :         // ── Frequency ──</span>
-<span id="L78"><span class="lineNum">      78</span>              :         char freq_buf[32];</span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           1 :         char freq_buf[32];</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           3 :         std::snprintf(freq_buf, sizeof(freq_buf), &quot;%.1f Hz&quot;, p.freq);</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           3 :         float freq_w = ImGui::CalcTextSize(freq_buf).x;</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           3 :         ImGui::SetCursorPosX((win_w - freq_w) * 0.5f);</span></span>
@@ -174,7 +174,7 @@
 <span id="L112"><span class="lineNum">     112</span>              :     }</span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           6 :     float btn_w = 140;</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           6 :     ImGui::SetCursorPosX((win_w - btn_w) * 0.5f);</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           6 :     if (ImGui::Button(p.mute_on ? &quot;MUTE ON&quot; : &quot;MUTE OFF&quot;, ImVec2(btn_w, 30))) {</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           8 :     if (ImGui::Button(p.mute_on ? &quot;MUTE ON&quot; : &quot;MUTE OFF&quot;, ImVec2(btn_w, 30))) {</span></span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaUNC tlaBgUNC">           0 :         if (p.on_mute_changed) p.on_mute_changed(!p.mute_on);</span></span>
 <span id="L117"><span class="lineNum">     117</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC tlaBgGNC">           6 :     ImGui::PopStyleColor(2);</span></span>

@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">90.6&nbsp;%</td>
-            <td class="headerCovTableEntry">149</td>
-            <td class="headerCovTableEntry">135</td>
+            <td class="headerCovTableEntryHi">90.8&nbsp;%</td>
+            <td class="headerCovTableEntry">153</td>
+            <td class="headerCovTableEntry">139</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -102,14 +102,14 @@
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC tlaBgGNC">         463 : void append_json_files(const std::string&amp; dir,</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :                        std::vector&lt;std::string&gt;&amp; result) {</span>
-<span id="L43"><span class="lineNum">      43</span>              :     try {</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">        3089 :         for (const auto&amp; entry : std::filesystem::directory_iterator(dir)) {</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         159 :     try {</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">        3549 :         for (const auto&amp; entry : std::filesystem::directory_iterator(dir)) {</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        2620 :             if (!entry.is_regular_file()) continue;</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">        2605 :             const auto&amp; path = entry.path();</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">        2605 :             if (path.extension() == &quot;.json&quot;) {</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">        2602 :                 result.push_back(path.string());</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">        5296 :             if (path.extension() == &quot;.json&quot;) {</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">        3498 :                 result.push_back(path.string());</span></span>
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         853 :             }</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         305 :         }</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         453 :         }</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         158 :     } catch (...) {</span></span>
 <span id="L52"><span class="lineNum">      52</span>              :         // Ignore invalid or non-existent directories</span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           9 :     }</span></span>
@@ -117,19 +117,19 @@
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          21 : std::string get_bundled_presets_dir() {</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : #ifdef _WIN32</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           7 :     auto has_json_presets = [](const std::string&amp; dir) -&gt; bool {</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          14 :     auto has_json_presets = [](const std::string&amp; dir) -&gt; bool {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           7 :         std::vector&lt;std::string&gt; files;</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           7 :         append_json_files(dir, files);</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          14 :         return !files.empty();</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           7 :         return !files.empty();</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           7 :     };</span></span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
-<span id="L64"><span class="lineNum">      64</span>              :     char path[MAX_PATH];</span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           7 :     char path[MAX_PATH];</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           7 :     if (GetModuleFileNameA(nullptr, path, sizeof(path))) {</span></span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           7 :         std::filesystem::path exe_path(path);</span></span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           7 :         std::filesystem::path exe_dir = exe_path.parent_path();</span></span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
 <span id="L69"><span class="lineNum">      69</span>              :         // Installed/bundled layout: presets next to the executable.</span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           7 :         std::string bundled = (exe_dir / &quot;presets&quot;).string();</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          14 :         std::string bundled = (exe_dir / &quot;presets&quot;).string();</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           7 :         if (dir_exists(bundled) &amp;&amp; has_json_presets(bundled)) return bundled;</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span>              :         // Dev/CMake layout: executable under build dir, presets at repo root.</span>
@@ -164,16 +164,16 @@
 <span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">         411 : void PresetManager::set_presets_dir(const std::string&amp; dir) {</span></span>
 <span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">         411 :     if (dir.empty()) {</span></span>
 <span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">          30 :         custom_presets_dir_ = &quot;&quot;;</span></span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">          30 :         return;</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">          40 :         return;</span></span>
 <span id="L106"><span class="lineNum">     106</span>              :     }</span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">         381 :     std::string normalized = dir;</span></span>
 <span id="L108"><span class="lineNum">     108</span>              : #ifdef _WIN32</span>
 <span id="L109"><span class="lineNum">     109</span>              :     // Allow callers/tests to pass forward slashes; normalize for _findfirst/_mkdir.</span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">        6636 :     for (char&amp; c : normalized) {</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">        6509 :     for (char&amp; c : normalized) {</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        6382 :         if (c == '/') c = '\\';</span></span>
 <span id="L112"><span class="lineNum">     112</span>              :     }</span>
 <span id="L113"><span class="lineNum">     113</span>              : #endif</span>
-<span id="L114"><span class="lineNum">     114</span>              :     try {</span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">         127 :     try {</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">         381 :         std::filesystem::create_directories(normalized);</span></span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         127 :     } catch (...) {</span></span>
 <span id="L117"><span class="lineNum">     117</span> <span class="tlaUNC tlaBgUNC">           0 :         return;</span></span>
@@ -194,13 +194,13 @@
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          15 :     if (!f.is_open()) return;</span></span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           9 :     f &lt;&lt; &quot;{\n&quot;;</span></span>
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           9 :     f &lt;&lt; &quot;  \&quot;presets_dir\&quot;: \&quot;&quot;;</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">         328 :     for (char c : custom_presets_dir_) {</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">         325 :     for (char c : custom_presets_dir_) {</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">         316 :         if (c == '\\') f &lt;&lt; &quot;\\\\&quot;;</span></span>
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">         309 :         else if (c == '&quot;') f &lt;&lt; &quot;\\\&quot;&quot;;</span></span>
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         309 :         else f &lt;&lt; c;</span></span>
 <span id="L139"><span class="lineNum">     139</span>              :     }</span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           9 :     f &lt;&lt; &quot;\&quot;\n}\n&quot;;</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          19 : }</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          17 : }</span></span>
 <span id="L142"><span class="lineNum">     142</span>              : </span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          45 : void PresetManager::load_config() {</span></span>
 <span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          45 :     std::string path = get_config_path();</span></span>
@@ -228,7 +228,7 @@
 <span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          17 :             if (content[i] == '\\') value += '\\';</span></span>
 <span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           8 :             else if (content[i] == '&quot;') value += '&quot;';</span></span>
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           6 :             else if (content[i] == 'n') value += '\n';</span></span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           4 :             else { value += '\\'; value += content[i]; }</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           6 :             else { value += '\\'; value += content[i]; }</span></span>
 <span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           4 :         } else {</span></span>
 <span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         651 :             value += content[i];</span></span>
 <span id="L172"><span class="lineNum">     172</span>              :         }</span>
@@ -236,22 +236,22 @@
 <span id="L174"><span class="lineNum">     174</span>              :     }</span>
 <span id="L175"><span class="lineNum">     175</span>              : </span>
 <span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">          19 :     if (!value.empty() &amp;&amp; dir_exists(value)) {</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          12 :         custom_presets_dir_ = value;</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          17 :         custom_presets_dir_ = value;</span></span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           4 :     }</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          79 : }</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          63 : }</span></span>
 <span id="L180"><span class="lineNum">     180</span>              : </span>
 <span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">         453 : std::string PresetManager::get_presets_dir() {</span></span>
 <span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">         453 :     if (!custom_presets_dir_.empty()) {</span></span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         440 :         MKDIR(custom_presets_dir_.c_str());</span></span>
 <span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">         440 :         if (dir_exists(custom_presets_dir_)) {</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         440 :             return custom_presets_dir_;</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         591 :             return custom_presets_dir_;</span></span>
 <span id="L186"><span class="lineNum">     186</span>              :         }</span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC tlaBgUNC">           0 :     }</span></span>
 <span id="L188"><span class="lineNum">     188</span>              : </span>
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC tlaBgGNC">          13 :     std::string user_dir = get_user_presets_dir();</span></span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">          13 :     if (!user_dir.empty()) {</span></span>
-<span id="L191"><span class="lineNum">     191</span>              :         try {</span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">          11 :             std::filesystem::create_directories(user_dir);</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           2 :         try {</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">          12 :             std::filesystem::create_directories(user_dir);</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           5 :         } catch (...) {</span></span>
 <span id="L194"><span class="lineNum">     194</span>              :             // Fall through to local fallback if creation fails</span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           1 :         }</span></span>
@@ -263,7 +263,7 @@
 <span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC tlaBgGNC">           4 :     std::string dir = &quot;presets&quot;;</span></span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           4 :     MKDIR(dir.c_str());</span></span>
 <span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">           4 :     return dir;</span></span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         160 : }</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         162 : }</span></span>
 <span id="L205"><span class="lineNum">     205</span>              : </span>
 <span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          21 : void PresetManager::save_factory_presets(const std::string&amp; dir) {</span></span>
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">          21 :     std::string src_dir = get_bundled_presets_dir();</span></span>
@@ -275,7 +275,7 @@
 <span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC tlaBgGNC">          21 :     std::vector&lt;std::string&gt; preset_files;</span></span>
 <span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">          21 :     append_json_files(src_dir, preset_files);</span></span>
 <span id="L215"><span class="lineNum">     215</span>              : </span>
-<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">         157 :     for (const auto&amp; src_path : preset_files) {</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">         150 :     for (const auto&amp; src_path : preset_files) {</span></span>
 <span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC">         129 :         size_t last_slash = src_path.find_last_of(&quot;/\\&quot;);</span></span>
 <span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC">         172 :         std::string filename = (last_slash != std::string::npos) ?</span></span>
 <span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC">         129 :                                 src_path.substr(last_slash + 1) : src_path;</span></span>

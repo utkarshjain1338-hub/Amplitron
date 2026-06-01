@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -79,8 +79,8 @@
 <span id="L17"><span class="lineNum">      17</span>              : static constexpr int STAGE_COUNTS[4] = {4, 6, 8, 12};</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          76 : Phaser::Phaser() {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         228 :     params_ = {</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          19 :         {&quot;Rate&quot;,     0.5f, 0.05f, 10.0f, 0.5f, &quot;Hz&quot;,</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         247 :     params_ = {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          57 :         {&quot;Rate&quot;,     0.5f, 0.05f, 10.0f, 0.5f, &quot;Hz&quot;,</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          19 :          &quot;LFO speed. Low values create a slow, hypnotic sweep; high values create a fast vibrato-like effect.&quot;},</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          19 :         {&quot;Depth&quot;,    0.7f,  0.0f,  1.0f, 0.7f, &quot;&quot;,</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          19 :          &quot;Modulation depth. Controls how wide the all-pass frequency sweeps across the spectrum.&quot;},</span></span>
@@ -90,14 +90,14 @@
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          19 :          &quot;Feeds the chain output back to the input, adding resonance and intensity to the phasing notches.&quot;},</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          19 :         {&quot;Mix&quot;,      0.5f,  0.0f,  1.0f, 0.5f, &quot;&quot;,</span></span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          19 :          &quot;Dry/wet blend. At 0.5 the notch effect is most pronounced (classic phaser mix point).&quot;},</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         228 :     };</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          57 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         152 : }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         247 :     };</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          76 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         114 : }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         108 : void Phaser::set_sample_rate(int sample_rate) {</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         108 :     Effect::set_sample_rate(sample_rate);</span></span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         108 :     reset();</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         108 : }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          89 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          45 : void Phaser::process(float* buffer, int num_samples) {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          45 :     if (!enabled_) return;</span></span>
@@ -121,7 +121,7 @@
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              :         // Modulated all-pass corner frequency (log sweep)</span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">       20480 :         const float fc = clamp(200.0f * std::exp(lfo * depth * log_ratio),</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">       15360 :                                80.0f, static_cast&lt;float&gt;(sample_rate_) * 0.40f);</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">       10240 :                                80.0f, static_cast&lt;float&gt;(sample_rate_) * 0.40f);</span></span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
 <span id="L64"><span class="lineNum">      64</span>              :         // 1st-order all-pass coefficient: c = (tan(π*fc/fs) - 1) / (tan(π*fc/fs) + 1)</span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">       15360 :         const float t   = std::tan(3.14159265f * fc / static_cast&lt;float&gt;(sample_rate_));</span></span>

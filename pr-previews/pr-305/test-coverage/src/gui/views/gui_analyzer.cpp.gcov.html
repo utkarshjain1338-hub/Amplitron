@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-31 07:32:52</td>
+            <td class="headerValue">2026-06-01 11:15:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -153,7 +153,7 @@
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           3 :     const ImU32 output_col = IM_COL32(92, 170, 255, 220);</span></span>
 <span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           3 :     const ImU32 peak_col   = IM_COL32(255, 240, 165, 255);</span></span>
 <span id="L93"><span class="lineNum">      93</span>              : </span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           4 :     const auto draw_set = [&amp;](const std::array&lt;float, BARS&gt;&amp; bars,</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           5 :     const auto draw_set = [&amp;](const std::array&lt;float, BARS&gt;&amp; bars,</span></span>
 <span id="L95"><span class="lineNum">      95</span>              :                                const std::array&lt;float, BARS&gt;&amp; peaks,</span>
 <span id="L96"><span class="lineNum">      96</span>              :                                ImU32 bar_col,</span>
 <span id="L97"><span class="lineNum">      97</span>              :                                float width_scale) {</span>
@@ -172,7 +172,7 @@
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         288 :             const float py     = pmax.y - peak_t * size.y;</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         288 :             dl-&gt;AddLine(ImVec2(center - half, py), ImVec2(center + half, py), peak_col, 1.0f);</span></span>
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          96 :         }</span></span>
-<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           3 :     };</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           4 :     };</span></span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           3 :     switch (mode_) {</span></span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaUNC tlaBgUNC">           0 :         case SpectrumDisplayMode::Input:</span></span>
@@ -180,7 +180,7 @@
 <span id="L118"><span class="lineNum">     118</span> <span class="tlaUNC">           0 :             break;</span></span>
 <span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC tlaBgGNC">           2 :         case SpectrumDisplayMode::Output:</span></span>
 <span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">           3 :             draw_set(sa.smoothed_output_db, sa.output_peak_db, output_col, 0.82f);</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           3 :             break;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           2 :             break;</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaUNC tlaBgUNC">           0 :         case SpectrumDisplayMode::Overlay:</span></span>
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaUNC">           0 :             draw_set(sa.smoothed_input_db,  sa.input_peak_db,  input_col,  0.42f);</span></span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaUNC">           0 :             draw_set(sa.smoothed_output_db, sa.output_peak_db, output_col, 0.42f);</span></span>
