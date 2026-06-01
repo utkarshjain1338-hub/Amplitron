@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 14:50:32</td>
+            <td class="headerValue">2026-06-01 14:51:04</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">40.0&nbsp;%</td>
@@ -239,29 +239,24 @@
 <span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">           3 :         ImGui::PopStyleColor(3);</span></span>
 <span id="L178"><span class="lineNum">     178</span>              : </span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           3 :         ImGui::SameLine();</span></span>
-<span id="L180"><span class="lineNum">     180</span>              :         #ifdef __EMSCRIPTEN__</span>
-<span id="L181"><span class="lineNum">     181</span>              :         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),</span>
-<span id="L182"><span class="lineNum">     182</span>              :                            &quot;Ready to record&quot;);</span>
-<span id="L183"><span class="lineNum">     183</span>              :         #else</span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           4 :         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),</span></span>
-<span id="L185"><span class="lineNum">     185</span>              :                            &quot;  Ready to record  |  WAV 16-bit %d Hz&quot;,</span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           3 :                            p.sample_rate);</span></span>
-<span id="L187"><span class="lineNum">     187</span>              :         #endif</span>
-<span id="L188"><span class="lineNum">     188</span>              :     }</span>
-<span id="L189"><span class="lineNum">     189</span>              : </span>
-<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           9 :     ImGui::EndChild();</span></span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           9 : }</span></span>
-<span id="L192"><span class="lineNum">     192</span>              : </span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           3 : void GuiRecording::render_save_dialog(std::function&lt;void(const std::string&amp; dest)&gt; on_save_done) {</span></span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           3 :     if (!state_.needs_save) return;</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           3 :     state_.needs_save = false;</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           4 :         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f),</span></span>
+<span id="L181"><span class="lineNum">     181</span>              :                            &quot;  Ready to record  |  WAV 16-bit %d Hz&quot;,</span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">           3 :                            p.sample_rate);</span></span>
+<span id="L183"><span class="lineNum">     183</span>              :     }</span>
+<span id="L184"><span class="lineNum">     184</span>              : </span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           9 :     ImGui::EndChild();</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           9 : }</span></span>
+<span id="L187"><span class="lineNum">     187</span>              : </span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           3 : void GuiRecording::render_save_dialog(std::function&lt;void(const std::string&amp; dest)&gt; on_save_done) {</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           3 :     if (!state_.needs_save) return;</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           3 :     state_.needs_save = false;</span></span>
+<span id="L191"><span class="lineNum">     191</span>              : </span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           8 :     std::string dest = show_save_dialog(&quot;recording.wav&quot;, &quot;WAV Audio&quot;, &quot;wav&quot;);</span></span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           3 :     if (!dest.empty() &amp;&amp; on_save_done)</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaUNC tlaBgUNC">           0 :         on_save_done(dest);</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC tlaBgGNC">           3 : }</span></span>
 <span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           8 :     std::string dest = show_save_dialog(&quot;recording.wav&quot;, &quot;WAV Audio&quot;, &quot;wav&quot;);</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           3 :     if (!dest.empty() &amp;&amp; on_save_done)</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC tlaBgUNC">           0 :         on_save_done(dest);</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC tlaBgGNC">           3 : }</span></span>
-<span id="L201"><span class="lineNum">     201</span>              : </span>
-<span id="L202"><span class="lineNum">     202</span>              : } // namespace Amplitron</span>
+<span id="L197"><span class="lineNum">     197</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
