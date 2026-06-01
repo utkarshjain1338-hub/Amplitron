@@ -297,8 +297,7 @@ TEST(pedal_board_signal_chain_ui_interactions) {
 
 TEST(pedal_widget_body_and_knob_adjustments) {
     ScopedImGuiContext imgui;
-    ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize = ImVec2(1280, 720);
+    ImGui::StyleColorsDark();
     AudioEngine engine;
     engine.initialize();
     CommandHistory history;
@@ -311,12 +310,14 @@ TEST(pedal_widget_body_and_knob_adjustments) {
     widget.set_gui_midi(&gui_midi);
 
     // Call individual rendering helpers in PedalWidget
-    ImGui::Begin("Test");
+    ImGui::SetNextWindowSize(ImVec2(800, 600));
+    ImGui::Begin("Test", nullptr, ImGuiWindowFlags_NoSavedSettings);
     ImDrawList* dl = ImGui::GetWindowDrawList();
     widget.render_standard_pedal(dl, ImVec2(0, 0), ImVec2(200, 300), 200.0f, true, 1.0f);
     widget.render_knobs(dl, ImVec2(0, 0), 200.0f, false, false, false, 1.0f);
 
     // Simulate knob scroll wheel adjustments
+    ImGuiIO& io = ImGui::GetIO();
     io.MouseWheel = 1.0f;
     widget.render_knobs(dl, ImVec2(0, 0), 200.0f, false, false, false, 1.0f);
     io.MouseWheel = 0.0f;
