@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 14:34:59</td>
+            <td class="headerValue">2026-06-01 14:37:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -882,99 +882,89 @@
 <span id="L820"><span class="lineNum">     820</span>              : </span>
 <span id="L821"><span class="lineNum">     821</span> <span class="tlaGNC">         360 :         if (is_hovered || is_active) {</span></span>
 <span id="L822"><span class="lineNum">     822</span> <span class="tlaGNC">          12 :             std::string midi_info = props.gui_midi ? props.gui_midi-&gt;get_mapping_info(props.effect-&gt;name(), param.name) : &quot;&quot;;</span></span>
-<span id="L823"><span class="lineNum">     823</span>              :         #ifdef __EMSCRIPTEN__    </span>
-<span id="L824"><span class="lineNum">     824</span>              :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nDrag vertically to adjust&quot;,</span>
-<span id="L825"><span class="lineNum">     825</span>              :                               param.name.c_str(), val_str.c_str(),</span>
-<span id="L826"><span class="lineNum">     826</span>              :                               Theme::formatParameterValue(param.min_val, param.unit).c_str(),</span>
-<span id="L827"><span class="lineNum">     827</span>              :                               Theme::formatParameterValue(param.max_val, param.unit).c_str(),</span>
-<span id="L828"><span class="lineNum">     828</span>              :                               midi_info.c_str()</span>
-<span id="L829"><span class="lineNum">     829</span>              :             );</span>
-<span id="L830"><span class="lineNum">     830</span>              :         #else</span>
-<span id="L831"><span class="lineNum">     831</span> <span class="tlaGNC">          18 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nDrag vertically to adjust\nShift=fine, Ctrl=coarse\nDbl-click to reset&quot;,</span></span>
-<span id="L832"><span class="lineNum">     832</span> <span class="tlaGNC">           3 :                               param.name.c_str(), val_str.c_str(),</span></span>
-<span id="L833"><span class="lineNum">     833</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.min_val, param.unit).c_str(),</span></span>
-<span id="L834"><span class="lineNum">     834</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.max_val, param.unit).c_str(),</span></span>
-<span id="L835"><span class="lineNum">     835</span> <span class="tlaGNC">           3 :                               midi_info.c_str() </span></span>
-<span id="L836"><span class="lineNum">     836</span>              :             );</span>
-<span id="L837"><span class="lineNum">     837</span>              :         #endif</span>
-<span id="L838"><span class="lineNum">     838</span> <span class="tlaGNC">           9 :         }</span></span>
-<span id="L839"><span class="lineNum">     839</span> <span class="tlaGNC">         360 :     };</span></span>
-<span id="L840"><span class="lineNum">     840</span>              : </span>
-<span id="L841"><span class="lineNum">     841</span>              :     // --- RENDER 3 COLUMNS &amp; THEIR METERS/KNOBS ---</span>
-<span id="L842"><span class="lineNum">     842</span> <span class="tlaGNC">         180 :     const char* titles[3] = { &quot;LOW BAND&quot;, &quot;MID BAND&quot;, &quot;HIGH BAND&quot; };</span></span>
-<span id="L843"><span class="lineNum">     843</span> <span class="tlaGNC">         180 :     int band_param_offsets[3] = { 2, 7, 12 };</span></span>
+<span id="L823"><span class="lineNum">     823</span> <span class="tlaGNC">          18 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nDrag vertically to adjust\nShift=fine, Ctrl=coarse\nDbl-click to reset&quot;,</span></span>
+<span id="L824"><span class="lineNum">     824</span> <span class="tlaGNC">           3 :                               param.name.c_str(), val_str.c_str(),</span></span>
+<span id="L825"><span class="lineNum">     825</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.min_val, param.unit).c_str(),</span></span>
+<span id="L826"><span class="lineNum">     826</span> <span class="tlaGNC">          15 :                               Theme::formatParameterValue(param.max_val, param.unit).c_str(),</span></span>
+<span id="L827"><span class="lineNum">     827</span> <span class="tlaGNC">           3 :                               midi_info.c_str());</span></span>
+<span id="L828"><span class="lineNum">     828</span> <span class="tlaGNC">           9 :         }</span></span>
+<span id="L829"><span class="lineNum">     829</span> <span class="tlaGNC">         360 :     };</span></span>
+<span id="L830"><span class="lineNum">     830</span>              : </span>
+<span id="L831"><span class="lineNum">     831</span>              :     // --- RENDER 3 COLUMNS &amp; THEIR METERS/KNOBS ---</span>
+<span id="L832"><span class="lineNum">     832</span> <span class="tlaGNC">         180 :     const char* titles[3] = { &quot;LOW BAND&quot;, &quot;MID BAND&quot;, &quot;HIGH BAND&quot; };</span></span>
+<span id="L833"><span class="lineNum">     833</span> <span class="tlaGNC">         180 :     int band_param_offsets[3] = { 2, 7, 12 };</span></span>
+<span id="L834"><span class="lineNum">     834</span>              : </span>
+<span id="L835"><span class="lineNum">     835</span> <span class="tlaGNC">         720 :     for (int b = 0; b &lt; 3; ++b) {</span></span>
+<span id="L836"><span class="lineNum">     836</span> <span class="tlaGNC">         540 :         float col_left = p0.x + 12.0f * zoom + b * col_width;</span></span>
+<span id="L837"><span class="lineNum">     837</span> <span class="tlaGNC">         540 :         float col_center = col_left + col_width * 0.5f;</span></span>
+<span id="L838"><span class="lineNum">     838</span>              : </span>
+<span id="L839"><span class="lineNum">     839</span>              :         // Title</span>
+<span id="L840"><span class="lineNum">     840</span> <span class="tlaGNC">         540 :         ImVec2 tsz = ImGui::CalcTextSize(titles[b]);</span></span>
+<span id="L841"><span class="lineNum">     841</span> <span class="tlaGNC">         720 :         dl-&gt;AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.9f,</span></span>
+<span id="L842"><span class="lineNum">     842</span> <span class="tlaGNC">         540 :                     ImVec2(col_center - tsz.x * 0.5f, p0.y + 55.0f * zoom),</span></span>
+<span id="L843"><span class="lineNum">     843</span> <span class="tlaGNC">         180 :                     Theme::TEXT_PRIMARY, titles[b]);</span></span>
 <span id="L844"><span class="lineNum">     844</span>              : </span>
-<span id="L845"><span class="lineNum">     845</span> <span class="tlaGNC">         720 :     for (int b = 0; b &lt; 3; ++b) {</span></span>
-<span id="L846"><span class="lineNum">     846</span> <span class="tlaGNC">         540 :         float col_left = p0.x + 12.0f * zoom + b * col_width;</span></span>
-<span id="L847"><span class="lineNum">     847</span> <span class="tlaGNC">         540 :         float col_center = col_left + col_width * 0.5f;</span></span>
-<span id="L848"><span class="lineNum">     848</span>              : </span>
-<span id="L849"><span class="lineNum">     849</span>              :         // Title</span>
-<span id="L850"><span class="lineNum">     850</span> <span class="tlaGNC">         540 :         ImVec2 tsz = ImGui::CalcTextSize(titles[b]);</span></span>
-<span id="L851"><span class="lineNum">     851</span> <span class="tlaGNC">         720 :         dl-&gt;AddText(ImGui::GetFont(), ImGui::GetFontSize() * 0.9f,</span></span>
-<span id="L852"><span class="lineNum">     852</span> <span class="tlaGNC">         540 :                     ImVec2(col_center - tsz.x * 0.5f, p0.y + 55.0f * zoom),</span></span>
-<span id="L853"><span class="lineNum">     853</span> <span class="tlaGNC">         180 :                     Theme::TEXT_PRIMARY, titles[b]);</span></span>
-<span id="L854"><span class="lineNum">     854</span>              : </span>
-<span id="L855"><span class="lineNum">     855</span>              :         // Horizontal Gain Reduction Meter</span>
-<span id="L856"><span class="lineNum">     856</span> <span class="tlaGNC">         540 :         float meter_y = p0.y + 76.0f * zoom;</span></span>
-<span id="L857"><span class="lineNum">     857</span> <span class="tlaGNC">         540 :         float meter_h = 7.0f * zoom;</span></span>
-<span id="L858"><span class="lineNum">     858</span> <span class="tlaGNC">         540 :         float meter_w = col_width - 24.0f * zoom;</span></span>
-<span id="L859"><span class="lineNum">     859</span> <span class="tlaGNC">         540 :         float meter_x = col_left + 12.0f * zoom;</span></span>
-<span id="L860"><span class="lineNum">     860</span>              : </span>
-<span id="L861"><span class="lineNum">     861</span> <span class="tlaGNC">         540 :         dl-&gt;AddRectFilled(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::METER_BG, 3.0f * zoom);</span></span>
-<span id="L862"><span class="lineNum">     862</span> <span class="tlaGNC">         540 :         dl-&gt;AddRect(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::BORDER_DARK, 3.0f * zoom, 0, 1.0f * zoom);</span></span>
+<span id="L845"><span class="lineNum">     845</span>              :         // Horizontal Gain Reduction Meter</span>
+<span id="L846"><span class="lineNum">     846</span> <span class="tlaGNC">         540 :         float meter_y = p0.y + 76.0f * zoom;</span></span>
+<span id="L847"><span class="lineNum">     847</span> <span class="tlaGNC">         540 :         float meter_h = 7.0f * zoom;</span></span>
+<span id="L848"><span class="lineNum">     848</span> <span class="tlaGNC">         540 :         float meter_w = col_width - 24.0f * zoom;</span></span>
+<span id="L849"><span class="lineNum">     849</span> <span class="tlaGNC">         540 :         float meter_x = col_left + 12.0f * zoom;</span></span>
+<span id="L850"><span class="lineNum">     850</span>              : </span>
+<span id="L851"><span class="lineNum">     851</span> <span class="tlaGNC">         540 :         dl-&gt;AddRectFilled(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::METER_BG, 3.0f * zoom);</span></span>
+<span id="L852"><span class="lineNum">     852</span> <span class="tlaGNC">         540 :         dl-&gt;AddRect(ImVec2(meter_x, meter_y), ImVec2(meter_x + meter_w, meter_y + meter_h), Theme::BORDER_DARK, 3.0f * zoom, 0, 1.0f * zoom);</span></span>
+<span id="L853"><span class="lineNum">     853</span>              : </span>
+<span id="L854"><span class="lineNum">     854</span> <span class="tlaGNC">         540 :         float gr_db = mb_comp-&gt;get_gain_reduction_db(b);</span></span>
+<span id="L855"><span class="lineNum">     855</span> <span class="tlaGNC">         540 :         float norm_gr = clamp(gr_db / 20.0f, 0.0f, 1.0f);</span></span>
+<span id="L856"><span class="lineNum">     856</span>              : </span>
+<span id="L857"><span class="lineNum">     857</span> <span class="tlaGNC">         540 :         if (norm_gr &gt; 0.0f) {</span></span>
+<span id="L858"><span class="lineNum">     858</span> <span class="tlaUNC tlaBgUNC">           0 :             float fill_x1 = meter_x + meter_w;</span></span>
+<span id="L859"><span class="lineNum">     859</span> <span class="tlaUNC">           0 :             float fill_x0 = meter_x + meter_w - norm_gr * meter_w;</span></span>
+<span id="L860"><span class="lineNum">     860</span> <span class="tlaUNC">           0 :             ImU32 fill_color = Theme::METER_GREEN;</span></span>
+<span id="L861"><span class="lineNum">     861</span> <span class="tlaUNC">           0 :             if (gr_db &gt; 12.0f) fill_color = Theme::METER_RED;</span></span>
+<span id="L862"><span class="lineNum">     862</span> <span class="tlaUNC">           0 :             else if (gr_db &gt; 6.0f) fill_color = Theme::METER_YELLOW;</span></span>
 <span id="L863"><span class="lineNum">     863</span>              : </span>
-<span id="L864"><span class="lineNum">     864</span> <span class="tlaGNC">         540 :         float gr_db = mb_comp-&gt;get_gain_reduction_db(b);</span></span>
-<span id="L865"><span class="lineNum">     865</span> <span class="tlaGNC">         540 :         float norm_gr = clamp(gr_db / 20.0f, 0.0f, 1.0f);</span></span>
+<span id="L864"><span class="lineNum">     864</span> <span class="tlaUNC">           0 :             dl-&gt;AddRectFilled(ImVec2(fill_x0, meter_y + 1.0f * zoom), ImVec2(fill_x1 - 1.0f * zoom, meter_y + meter_h - 1.0f * zoom), fill_color, 2.0f * zoom);</span></span>
+<span id="L865"><span class="lineNum">     865</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L866"><span class="lineNum">     866</span>              : </span>
-<span id="L867"><span class="lineNum">     867</span> <span class="tlaGNC">         540 :         if (norm_gr &gt; 0.0f) {</span></span>
-<span id="L868"><span class="lineNum">     868</span> <span class="tlaUNC tlaBgUNC">           0 :             float fill_x1 = meter_x + meter_w;</span></span>
-<span id="L869"><span class="lineNum">     869</span> <span class="tlaUNC">           0 :             float fill_x0 = meter_x + meter_w - norm_gr * meter_w;</span></span>
-<span id="L870"><span class="lineNum">     870</span> <span class="tlaUNC">           0 :             ImU32 fill_color = Theme::METER_GREEN;</span></span>
-<span id="L871"><span class="lineNum">     871</span> <span class="tlaUNC">           0 :             if (gr_db &gt; 12.0f) fill_color = Theme::METER_RED;</span></span>
-<span id="L872"><span class="lineNum">     872</span> <span class="tlaUNC">           0 :             else if (gr_db &gt; 6.0f) fill_color = Theme::METER_YELLOW;</span></span>
-<span id="L873"><span class="lineNum">     873</span>              : </span>
-<span id="L874"><span class="lineNum">     874</span> <span class="tlaUNC">           0 :             dl-&gt;AddRectFilled(ImVec2(fill_x0, meter_y + 1.0f * zoom), ImVec2(fill_x1 - 1.0f * zoom, meter_y + meter_h - 1.0f * zoom), fill_color, 2.0f * zoom);</span></span>
-<span id="L875"><span class="lineNum">     875</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L876"><span class="lineNum">     876</span>              : </span>
-<span id="L877"><span class="lineNum">     877</span>              :         // GR Meter Ticks</span>
-<span id="L878"><span class="lineNum">     878</span> <span class="tlaGNC tlaBgGNC">         540 :         float tick_dbs[] = { 0.0f, -3.0f, -6.0f, -12.0f, -20.0f };</span></span>
-<span id="L879"><span class="lineNum">     879</span> <span class="tlaGNC">        3240 :         for (float db : tick_dbs) {</span></span>
-<span id="L880"><span class="lineNum">     880</span> <span class="tlaGNC">        2700 :             float t_norm = -db / 20.0f;</span></span>
-<span id="L881"><span class="lineNum">     881</span> <span class="tlaGNC">        2700 :             float tx = meter_x + meter_w * (1.0f - t_norm);</span></span>
-<span id="L882"><span class="lineNum">     882</span> <span class="tlaGNC">        2700 :             dl-&gt;AddLine(ImVec2(tx, meter_y), ImVec2(tx, meter_y + meter_h + 2.0f * zoom), Theme::BORDER_MID, 1.0f * zoom);</span></span>
-<span id="L883"><span class="lineNum">     883</span>              :         }</span>
-<span id="L884"><span class="lineNum">     884</span>              : </span>
-<span id="L885"><span class="lineNum">     885</span>              :         // Render Knobs</span>
-<span id="L886"><span class="lineNum">     886</span> <span class="tlaGNC">         540 :         int p_offset = band_param_offsets[b];</span></span>
-<span id="L887"><span class="lineNum">     887</span> <span class="tlaGNC">         540 :         float k_radius = 12.0f;</span></span>
-<span id="L888"><span class="lineNum">     888</span>              : </span>
-<span id="L889"><span class="lineNum">     889</span> <span class="tlaGNC">         540 :         float kx_left = col_left + col_width * 0.28f;</span></span>
-<span id="L890"><span class="lineNum">     890</span> <span class="tlaGNC">         540 :         float kx_right = col_left + col_width * 0.72f;</span></span>
-<span id="L891"><span class="lineNum">     891</span>              : </span>
-<span id="L892"><span class="lineNum">     892</span>              :         // Row 1: Threshold &amp; Ratio</span>
-<span id="L893"><span class="lineNum">     893</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_left, p0.y + 120.0f * zoom), p_offset + 0, k_radius, &quot;thresh&quot;);</span></span>
-<span id="L894"><span class="lineNum">     894</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_right, p0.y + 120.0f * zoom), p_offset + 1, k_radius, &quot;ratio&quot;);</span></span>
-<span id="L895"><span class="lineNum">     895</span>              : </span>
-<span id="L896"><span class="lineNum">     896</span>              :         // Row 2: Attack &amp; Release</span>
-<span id="L897"><span class="lineNum">     897</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_left, p0.y + 185.0f * zoom), p_offset + 2, k_radius, &quot;attack&quot;);</span></span>
-<span id="L898"><span class="lineNum">     898</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_right, p0.y + 185.0f * zoom), p_offset + 3, k_radius, &quot;release&quot;);</span></span>
-<span id="L899"><span class="lineNum">     899</span>              : </span>
-<span id="L900"><span class="lineNum">     900</span>              :         // Row 3: Makeup (Centered)</span>
-<span id="L901"><span class="lineNum">     901</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(col_center, p0.y + 248.0f * zoom), p_offset + 4, k_radius, &quot;makeup&quot;);</span></span>
-<span id="L902"><span class="lineNum">     902</span> <span class="tlaGNC">         180 :     }</span></span>
-<span id="L903"><span class="lineNum">     903</span>              : </span>
-<span id="L904"><span class="lineNum">     904</span>              :     // --- RENDER 2 INTERACTIVE CROSSOVER SLIDERS ---</span>
-<span id="L905"><span class="lineNum">     905</span> <span class="tlaGNC">         180 :     float x1 = p0.x + 12.0f * zoom + col_width;</span></span>
-<span id="L906"><span class="lineNum">     906</span> <span class="tlaGNC">         180 :     float x2 = p0.x + 12.0f * zoom + 2.0f * col_width;</span></span>
-<span id="L907"><span class="lineNum">     907</span>              : </span>
-<span id="L908"><span class="lineNum">     908</span> <span class="tlaGNC">         180 :     render_xover_slider(dl, x1, 0, &quot;low&quot;, true);</span></span>
-<span id="L909"><span class="lineNum">     909</span> <span class="tlaGNC">         180 :     render_xover_slider(dl, x2, 1, &quot;high&quot;, false);</span></span>
-<span id="L910"><span class="lineNum">     910</span>              : </span>
-<span id="L911"><span class="lineNum">     911</span>              :     // --- RENDER GLOBAL OUT GAIN ---</span>
-<span id="L912"><span class="lineNum">     912</span> <span class="tlaGNC">         180 :     render_mb_knob(dl, ImVec2(p0.x + pedal_width - 40.0f * zoom, p0.y + Theme::PEDAL_HEIGHT * zoom - Theme::SWITCH_BOTTOM_OFFSET * zoom + 10.0f * zoom), 17, 13.0f, &quot;outgain&quot;);</span></span>
-<span id="L913"><span class="lineNum">     913</span> <span class="tlaGNC">          60 : }</span></span>
-<span id="L914"><span class="lineNum">     914</span>              : </span>
-<span id="L915"><span class="lineNum">     915</span>              : } // namespace Amplitron</span>
+<span id="L867"><span class="lineNum">     867</span>              :         // GR Meter Ticks</span>
+<span id="L868"><span class="lineNum">     868</span> <span class="tlaGNC tlaBgGNC">         540 :         float tick_dbs[] = { 0.0f, -3.0f, -6.0f, -12.0f, -20.0f };</span></span>
+<span id="L869"><span class="lineNum">     869</span> <span class="tlaGNC">        3240 :         for (float db : tick_dbs) {</span></span>
+<span id="L870"><span class="lineNum">     870</span> <span class="tlaGNC">        2700 :             float t_norm = -db / 20.0f;</span></span>
+<span id="L871"><span class="lineNum">     871</span> <span class="tlaGNC">        2700 :             float tx = meter_x + meter_w * (1.0f - t_norm);</span></span>
+<span id="L872"><span class="lineNum">     872</span> <span class="tlaGNC">        2700 :             dl-&gt;AddLine(ImVec2(tx, meter_y), ImVec2(tx, meter_y + meter_h + 2.0f * zoom), Theme::BORDER_MID, 1.0f * zoom);</span></span>
+<span id="L873"><span class="lineNum">     873</span>              :         }</span>
+<span id="L874"><span class="lineNum">     874</span>              : </span>
+<span id="L875"><span class="lineNum">     875</span>              :         // Render Knobs</span>
+<span id="L876"><span class="lineNum">     876</span> <span class="tlaGNC">         540 :         int p_offset = band_param_offsets[b];</span></span>
+<span id="L877"><span class="lineNum">     877</span> <span class="tlaGNC">         540 :         float k_radius = 12.0f;</span></span>
+<span id="L878"><span class="lineNum">     878</span>              : </span>
+<span id="L879"><span class="lineNum">     879</span> <span class="tlaGNC">         540 :         float kx_left = col_left + col_width * 0.28f;</span></span>
+<span id="L880"><span class="lineNum">     880</span> <span class="tlaGNC">         540 :         float kx_right = col_left + col_width * 0.72f;</span></span>
+<span id="L881"><span class="lineNum">     881</span>              : </span>
+<span id="L882"><span class="lineNum">     882</span>              :         // Row 1: Threshold &amp; Ratio</span>
+<span id="L883"><span class="lineNum">     883</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_left, p0.y + 120.0f * zoom), p_offset + 0, k_radius, &quot;thresh&quot;);</span></span>
+<span id="L884"><span class="lineNum">     884</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_right, p0.y + 120.0f * zoom), p_offset + 1, k_radius, &quot;ratio&quot;);</span></span>
+<span id="L885"><span class="lineNum">     885</span>              : </span>
+<span id="L886"><span class="lineNum">     886</span>              :         // Row 2: Attack &amp; Release</span>
+<span id="L887"><span class="lineNum">     887</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_left, p0.y + 185.0f * zoom), p_offset + 2, k_radius, &quot;attack&quot;);</span></span>
+<span id="L888"><span class="lineNum">     888</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(kx_right, p0.y + 185.0f * zoom), p_offset + 3, k_radius, &quot;release&quot;);</span></span>
+<span id="L889"><span class="lineNum">     889</span>              : </span>
+<span id="L890"><span class="lineNum">     890</span>              :         // Row 3: Makeup (Centered)</span>
+<span id="L891"><span class="lineNum">     891</span> <span class="tlaGNC">         540 :         render_mb_knob(dl, ImVec2(col_center, p0.y + 248.0f * zoom), p_offset + 4, k_radius, &quot;makeup&quot;);</span></span>
+<span id="L892"><span class="lineNum">     892</span> <span class="tlaGNC">         180 :     }</span></span>
+<span id="L893"><span class="lineNum">     893</span>              : </span>
+<span id="L894"><span class="lineNum">     894</span>              :     // --- RENDER 2 INTERACTIVE CROSSOVER SLIDERS ---</span>
+<span id="L895"><span class="lineNum">     895</span> <span class="tlaGNC">         180 :     float x1 = p0.x + 12.0f * zoom + col_width;</span></span>
+<span id="L896"><span class="lineNum">     896</span> <span class="tlaGNC">         180 :     float x2 = p0.x + 12.0f * zoom + 2.0f * col_width;</span></span>
+<span id="L897"><span class="lineNum">     897</span>              : </span>
+<span id="L898"><span class="lineNum">     898</span> <span class="tlaGNC">         180 :     render_xover_slider(dl, x1, 0, &quot;low&quot;, true);</span></span>
+<span id="L899"><span class="lineNum">     899</span> <span class="tlaGNC">         180 :     render_xover_slider(dl, x2, 1, &quot;high&quot;, false);</span></span>
+<span id="L900"><span class="lineNum">     900</span>              : </span>
+<span id="L901"><span class="lineNum">     901</span>              :     // --- RENDER GLOBAL OUT GAIN ---</span>
+<span id="L902"><span class="lineNum">     902</span> <span class="tlaGNC">         180 :     render_mb_knob(dl, ImVec2(p0.x + pedal_width - 40.0f * zoom, p0.y + Theme::PEDAL_HEIGHT * zoom - Theme::SWITCH_BOTTOM_OFFSET * zoom + 10.0f * zoom), 17, 13.0f, &quot;outgain&quot;);</span></span>
+<span id="L903"><span class="lineNum">     903</span> <span class="tlaGNC">          60 : }</span></span>
+<span id="L904"><span class="lineNum">     904</span>              : </span>
+<span id="L905"><span class="lineNum">     905</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
