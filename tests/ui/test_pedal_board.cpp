@@ -318,7 +318,6 @@ TEST(pedal_widget_body_and_knob_adjustments) {
     widget.render_knobs(dl, ImVec2(0, 0), 200.0f, false, false, false, 1.0f);
 
     // Simulate knob scroll wheel adjustments
-    io;
     io.MouseWheel = 1.0f;
     widget.render_knobs(dl, ImVec2(0, 0), 200.0f, false, false, false, 1.0f);
     io.MouseWheel = 0.0f;
