@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">82.0&nbsp;%</td>
-            <td class="headerCovTableEntry">194</td>
-            <td class="headerCovTableEntry">159</td>
+            <td class="headerCovTableEntryMed">81.8&nbsp;%</td>
+            <td class="headerCovTableEntry">192</td>
+            <td class="headerCovTableEntry">157</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 14:24:33</td>
+            <td class="headerValue">2026-06-01 14:34:59</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -299,48 +299,30 @@
 <span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">          96 :         std::string max_str = Theme::formatParameterValue(props.max_val, props.unit);</span></span>
 <span id="L238"><span class="lineNum">     238</span>              : </span>
 <span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          96 :         if (props.tooltip.empty()) {</span></span>
-<span id="L240"><span class="lineNum">     240</span>              :     #ifdef __EMSCRIPTEN__</span>
-<span id="L241"><span class="lineNum">     241</span>              :             ImGui::SetTooltip(</span>
-<span id="L242"><span class="lineNum">     242</span>              :                 &quot;%s: %s\nRange: [%s, %s]%s\n\nRotate or drag to adjust\nOpen menu for MIDI Learn&quot;,</span>
-<span id="L243"><span class="lineNum">     243</span>              :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(),</span>
-<span id="L244"><span class="lineNum">     244</span>              :                 props.midi_info.c_str());</span>
-<span id="L245"><span class="lineNum">     245</span>              :     #else</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          63 :             ImGui::SetTooltip(</span></span>
-<span id="L247"><span class="lineNum">     247</span>              :                 &quot;%s: %s\nRange: [%s, %s]%s\n\nRotate or drag to adjust\nScroll wheel also works\nShift=fine  Ctrl=coarse\nDbl-click=reset  Right-click=edit/MIDI&quot;,</span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          21 :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(),</span></span>
-<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">          21 :                 props.midi_info.c_str());</span></span>
-<span id="L250"><span class="lineNum">     250</span>              :     #endif</span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          21 :         } else {</span></span>
-<span id="L252"><span class="lineNum">     252</span>              :     #ifdef __EMSCRIPTEN__</span>
-<span id="L253"><span class="lineNum">     253</span>              :             ImGui::SetTooltip(</span>
-<span id="L254"><span class="lineNum">     254</span>              :                 &quot;%s: %s\nRange: [%s, %s]\n\n%s%s\n\nRotate or drag to adjust\nOpen menu for MIDI Learn&quot;,</span>
-<span id="L255"><span class="lineNum">     255</span>              :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(),</span>
-<span id="L256"><span class="lineNum">     256</span>              :                 props.tooltip.c_str(), props.midi_info.c_str());</span>
-<span id="L257"><span class="lineNum">     257</span>              :     #else</span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          33 :             ImGui::SetTooltip(</span></span>
-<span id="L259"><span class="lineNum">     259</span>              :                 &quot;%s: %s\nRange: [%s, %s]\n\n%s%s\n\nRotate or drag to adjust\nScroll wheel also works\nShift=fine  Ctrl=coarse\nDbl-click=reset  Right-click=edit/MIDI&quot;,</span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          11 :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(),</span></span>
-<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">          11 :                 props.tooltip.c_str(), props.midi_info.c_str());</span></span>
-<span id="L262"><span class="lineNum">     262</span>              :     #endif</span>
-<span id="L263"><span class="lineNum">     263</span>              :         }</span>
-<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">          96 :     }</span></span>
-<span id="L265"><span class="lineNum">     265</span>              : </span>
-<span id="L266"><span class="lineNum">     266</span>              :     // Parameter names and values text</span>
-<span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">         741 :     ImVec2 text_size = ImGui::CalcTextSize(props.name.c_str());</span></span>
-<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(center.x - text_size.x * 0.5f, center.y + knob_radius + 8 * zoom));</span></span>
-<span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">         741 :     ImGui::PushStyleColor(ImGuiCol_Text, Theme::TextSecondary());</span></span>
-<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">         741 :     ImGui::TextUnformatted(props.name.c_str());</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">         741 :     ImGui::PopStyleColor();</span></span>
-<span id="L272"><span class="lineNum">     272</span>              : </span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">         741 :     std::string val_display = Theme::formatParameterValue(props.value, props.unit);</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">         741 :     ImVec2 val_size = ImGui::CalcTextSize(val_display.c_str());</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(center.x - val_size.x * 0.5f, center.y - knob_radius - 20 * zoom));</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">         988 :     ImGui::PushStyleColor(ImGuiCol_Text, is_active ? Theme::GoldHot() : Theme::TextDim());</span></span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         741 :     ImGui::TextUnformatted(val_display.c_str());</span></span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">         741 :     ImGui::PopStyleColor();</span></span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">         741 : }</span></span>
-<span id="L280"><span class="lineNum">     280</span>              : </span>
-<span id="L281"><span class="lineNum">     281</span>              : } // namespace Amplitron</span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">          63 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]%s\n\nRotate or drag to adjust\nScroll wheel also works\nShift=fine  Ctrl=coarse\nDbl-click=reset  Right-click=edit/MIDI&quot;,</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          21 :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(), props.midi_info.c_str());</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          21 :         } else {</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">          33 :             ImGui::SetTooltip(&quot;%s: %s\nRange: [%s, %s]\n\n%s%s\n\nRotate or drag to adjust\nScroll wheel also works\nShift=fine  Ctrl=coarse\nDbl-click=reset  Right-click=edit/MIDI&quot;,</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">          11 :                 props.name.c_str(), val_str.c_str(), min_str.c_str(), max_str.c_str(), props.tooltip.c_str(), props.midi_info.c_str());</span></span>
+<span id="L245"><span class="lineNum">     245</span>              :         }</span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">          96 :     }</span></span>
+<span id="L247"><span class="lineNum">     247</span>              : </span>
+<span id="L248"><span class="lineNum">     248</span>              :     // Parameter names and values text</span>
+<span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">         741 :     ImVec2 text_size = ImGui::CalcTextSize(props.name.c_str());</span></span>
+<span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(center.x - text_size.x * 0.5f, center.y + knob_radius + 8 * zoom));</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">         741 :     ImGui::PushStyleColor(ImGuiCol_Text, Theme::TextSecondary());</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">         741 :     ImGui::TextUnformatted(props.name.c_str());</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">         741 :     ImGui::PopStyleColor();</span></span>
+<span id="L254"><span class="lineNum">     254</span>              : </span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">         741 :     std::string val_display = Theme::formatParameterValue(props.value, props.unit);</span></span>
+<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">         741 :     ImVec2 val_size = ImGui::CalcTextSize(val_display.c_str());</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">         741 :     ImGui::SetCursorScreenPos(ImVec2(center.x - val_size.x * 0.5f, center.y - knob_radius - 20 * zoom));</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">         988 :     ImGui::PushStyleColor(ImGuiCol_Text, is_active ? Theme::GoldHot() : Theme::TextDim());</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">         741 :     ImGui::TextUnformatted(val_display.c_str());</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">         741 :     ImGui::PopStyleColor();</span></span>
+<span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">         741 : }</span></span>
+<span id="L262"><span class="lineNum">     262</span>              : </span>
+<span id="L263"><span class="lineNum">     263</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
