@@ -1,23 +1,45 @@
 #pragma once
 
-#include <memory>
+#include <string>
+#include <vector>
 
 namespace Amplitron {
 
-/**
- * @brief Opaque, platform-specific audio backend state.
- *
- * Defined in exactly one of the backend compilation units
- * (audio_backend_portaudio.cpp or audio_backend_sdl.cpp).
- * The AudioEngine header only forward-declares it so that
- * no platform headers leak into the public API.
- */
+class AudioEngine;
+
+struct AudioDeviceInfo {
+    int index;
+    std::string name;
+    int max_input_channels;
+    int max_output_channels;
+    double default_sample_rate;
+    bool is_usb_device;
+};
+
+class IAudioBackend {
+public:
+    virtual ~IAudioBackend() = default;
+
+    virtual bool initialize(AudioEngine* engine) = 0;
+    virtual void shutdown() = 0;
+    virtual bool start() = 0;
+    virtual void stop() = 0;
+
+    virtual std::vector<AudioDeviceInfo> get_input_devices() const = 0;
+    virtual std::vector<AudioDeviceInfo> get_output_devices() const = 0;
+
+    virtual bool set_input_device(int device_index) = 0;
+    virtual bool set_output_device(int device_index) = 0;
+
+    virtual std::string get_input_device_name() const = 0;
+    virtual std::string get_output_device_name() const = 0;
+};
+
+// Forward declare the opaque backend state struct
 struct AudioBackendState;
 
-/** @brief Allocate and default-initialise the platform backend state. */
+// Standard factory functions
 AudioBackendState* create_audio_backend();
-
-/** @brief Destroy platform backend state created by create_audio_backend(). */
 void destroy_audio_backend(AudioBackendState* state);
 
 } // namespace Amplitron

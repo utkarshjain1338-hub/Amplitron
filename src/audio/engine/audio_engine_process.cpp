@@ -6,34 +6,7 @@
 
 namespace Amplitron {
 
-void AudioEngine::update_metronome_timing() {
-    const int bpm = std::max(40, std::min(metronome_bpm_, 240));
-    metronome_bpm_ = bpm;
-    if (sample_rate_ <= 0) {
-        metronome_samples_per_beat_ = 0.0;
-        metronome_click_phase_inc_ = 0.0f;
-        metronome_click_samples_total_ = 0;
-        metronome_click_decay_ = 0.0f;
-        return;
-    }
 
-    metronome_samples_per_beat_ = (static_cast<double>(sample_rate_) * 60.0)
-                                 / static_cast<double>(bpm);
-    if (metronome_samples_per_beat_ < 1.0) {
-        metronome_samples_per_beat_ = 1.0;
-    }
-
-    constexpr float kClickLengthSec = 0.01f;
-    const int click_samples = std::max(1, static_cast<int>(sample_rate_ * kClickLengthSec + 0.5f));
-    metronome_click_samples_total_ = click_samples;
-
-    constexpr float kTwoPi = 6.28318530718f;
-    constexpr float kClickFreq = 1000.0f;
-    metronome_click_phase_inc_ = (kTwoPi * kClickFreq) / static_cast<float>(sample_rate_);
-
-    const float target = 0.001f;
-    metronome_click_decay_ = std::exp(std::log(target) / static_cast<float>(click_samples));
-}
 
 void AudioEngine::process_audio(const float* input, float* output, int frame_count) {
     auto t_start = std::chrono::steady_clock::now();
@@ -77,42 +50,7 @@ void AudioEngine::process_audio(const float* input, float* output, int frame_cou
 
     drain_gain_commands();
 
-    const bool metronome_target = metronome_enabled_state_.load(std::memory_order_relaxed);
-    if (metronome_target != metronome_enabled_) {
-        metronome_enabled_ = metronome_target;
-        metronome_sample_counter_ = 0.0;
-        metronome_click_samples_remaining_ = 0;
-        metronome_click_env_ = 0.0f;
-        metronome_click_phase_ = 0.0f;
-    }
 
-    const int bpm_state = metronome_bpm_state_.load(std::memory_order_relaxed);
-    const bool bpm_changed = (bpm_state != metronome_bpm_);
-    if (bpm_changed) {
-        metronome_bpm_ = bpm_state;
-    }
-
-    const float volume_state = metronome_volume_state_.load(std::memory_order_relaxed);
-    if (volume_state != metronome_volume_) {
-        metronome_volume_ = clamp(volume_state, 0.0f, 1.0f);
-    }
-
-    const bool sample_rate_changed = (metronome_sample_rate_ != sample_rate_);
-    if (sample_rate_changed) {
-        metronome_sample_rate_ = sample_rate_;
-    }
-
-    const bool timing_dirty = sample_rate_changed || bpm_changed;
-
-    if (timing_dirty) {
-        update_metronome_timing();
-        if (metronome_enabled_) {
-            if (metronome_sample_counter_ <= 0.0 ||
-                metronome_sample_counter_ > metronome_samples_per_beat_) {
-                metronome_sample_counter_ = metronome_samples_per_beat_;
-            }
-        }
-    }
 
     if (effect_mutex_.try_lock()) {
         drain_commands();
@@ -131,7 +69,7 @@ void AudioEngine::process_audio(const float* input, float* output, int frame_cou
     // The executor handles all the looping, routing, and processing internally!
     if (audio_shadow_executor_) {
         // Broadcast tempo/bpm
-        audio_shadow_executor_->update_transport_state(static_cast<float>(metronome_bpm_));
+        audio_shadow_executor_->update_transport_state(static_cast<float>(metronome_.get_bpm()));
         
         // Pass your mono/stereo buffers to the executor we built
         audio_shadow_executor_->process(process_buffer_.data(), process_buffer_right_.data(), frame_count);
@@ -142,36 +80,7 @@ void AudioEngine::process_audio(const float* input, float* output, int frame_cou
     float out_gain = output_gain_.load(std::memory_order_relaxed);
     float peak_out = 0.0f;
     auto next_metronome_sample = [this]() -> float {
-        
-        metronome_bpm_smoothed_ += metronome_bpm_smooth_alpha_ * (metronome_bpm_ - metronome_bpm_smoothed_);
-        metronome_volume_smoothed_ += metronome_volume_smooth_alpha_ * (metronome_volume_ - metronome_volume_smoothed_);
-        
-        if (metronome_bpm_smoothed_ > 0.0f) {
-            metronome_samples_per_beat_ = (static_cast<double>(sample_rate_) * 60.0) / metronome_bpm_smoothed_;
-        }
-        
-        if (!metronome_enabled_ || metronome_samples_per_beat_ <= 0.0) {
-            return 0.0f;
-        }
-        metronome_sample_counter_ -= 1.0;
-        if (metronome_sample_counter_ <= 0.0) {
-            metronome_sample_counter_ += metronome_samples_per_beat_;
-            metronome_click_samples_remaining_ = metronome_click_samples_total_;
-            metronome_click_env_ = 1.0f;
-            metronome_click_phase_ = 0.0f;
-        }
-        if (metronome_click_samples_remaining_ <= 0) {
-            return 0.0f;
-        }
-        static constexpr float kTwoPi = 6.28318530718f;
-        float click = std::sin(metronome_click_phase_) * metronome_click_env_ * metronome_volume_smoothed_;
-        metronome_click_phase_ += metronome_click_phase_inc_;
-        if (metronome_click_phase_ >= kTwoPi) {
-            metronome_click_phase_ -= kTwoPi;
-        }
-        metronome_click_env_ *= metronome_click_decay_;
-        --metronome_click_samples_remaining_;
-        return click;
+        return metronome_.next_sample();
     };
     if (analyzer_on) {
         float sum_sq_out = 0.0f;

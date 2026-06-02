@@ -1,0 +1,59 @@
+#pragma once
+
+#include "common.h"
+#include <atomic>
+#include <cmath>
+#include <algorithm>
+
+namespace Amplitron {
+
+class Metronome {
+public:
+    Metronome();
+    ~Metronome() = default;
+
+    void set_enabled(bool enabled);
+    bool is_enabled() const;
+
+    void set_bpm(int bpm);
+    int get_bpm() const;
+
+    void set_volume(float volume);
+    float get_volume() const;
+
+    void set_sample_rate(int sample_rate);
+    void reset();
+
+    // Generate next click sample
+    float next_sample();
+
+private:
+    void update_timing();
+
+    std::atomic<bool> enabled_{false};
+    std::atomic<int> bpm_{120};
+    std::atomic<float> volume_{0.5f};
+    
+    int sample_rate_ = 48000;
+
+    // Audio thread states
+    bool metronome_enabled_ = false;
+    int metronome_bpm_ = 120;
+    float metronome_volume_ = 0.5f;
+
+    float metronome_volume_smoothed_ = 0.0f;
+    float metronome_volume_smooth_alpha_ = 0.05f;
+    float metronome_bpm_smoothed_ = 120.0f;
+    float metronome_bpm_smooth_alpha_ = 0.05f;
+
+    double metronome_samples_per_beat_ = 0.0;
+    double metronome_sample_counter_ = 0.0;
+    int metronome_click_samples_total_ = 0;
+    int metronome_click_samples_remaining_ = 0;
+    float metronome_click_phase_ = 0.0f;
+    float metronome_click_phase_inc_ = 0.0f;
+    float metronome_click_env_ = 0.0f;
+    float metronome_click_decay_ = 0.0f;
+};
+
+} // namespace Amplitron

@@ -13,19 +13,10 @@
 #include <memory>
 
 #include <nlohmann/json.hpp>
-// FORWARD DECLARATIONS
+#include "audio/backend/audio_backend.h"
+#include "audio/engine/metronome.h"
+
 namespace Amplitron {
-
-struct AudioDeviceInfo {
-    int index;
-    std::string name;
-    int max_input_channels;
-    int max_output_channels;
-    double default_sample_rate;
-    bool is_usb_device;
-};
-
-struct AudioBackendState;
 
 /**
  * @brief Core audio processing engine.
@@ -119,6 +110,7 @@ public:
 #ifdef AMPLITRON_TESTS
     /** @brief Replace the platform backend in tests. */
     void replace_backend_for_test(AudioBackendState* backend);
+    void replace_backend_for_test(IAudioBackend* backend);
 #endif
 
     // =========================================================================
@@ -242,13 +234,13 @@ public:
     void set_metronome_volume(float volume);
 
     /** @brief Return the current metronome enabled state (atomic relaxed read). */
-    bool get_metronome_enabled() const { return metronome_enabled_state_.load(std::memory_order_relaxed); }
+    bool get_metronome_enabled() const { return metronome_.is_enabled(); }
 
     /** @brief Return the current metronome BPM (atomic relaxed read). */
-    int get_metronome_bpm() const { return metronome_bpm_state_.load(std::memory_order_relaxed); }
+    int get_metronome_bpm() const { return metronome_.get_bpm(); }
 
     /** @brief Return the current metronome volume (atomic relaxed read). */
-    float get_metronome_volume() const { return metronome_volume_state_.load(std::memory_order_relaxed); }
+    float get_metronome_volume() const { return metronome_.get_volume(); }
 
     /**
      * @brief Enqueue a parameter value change from the GUI thread (lock-free).
@@ -323,6 +315,7 @@ public:
 private:
     // Platform backend state (defined in the backend .cpp that is compiled)
     AudioBackendState* backend_ = nullptr;
+    IAudioBackend* poly_backend_ = nullptr;
 
     bool initialized_ = false;
     bool running_ = false;
@@ -334,9 +327,7 @@ private:
     //global transport
     std::atomic<float> input_gain_{1.0f};
     std::atomic<float> output_gain_{0.8f};
-    std::atomic<bool> metronome_enabled_state_{false};
-    std::atomic<int> metronome_bpm_state_{120};
-    std::atomic<float> metronome_volume_state_{0.5f};
+    Metronome metronome_;
 
     std::atomic<float> input_level_{0.0f};
     std::atomic<float> output_level_{0.0f};
@@ -372,7 +363,6 @@ private:
     SPSCQueue<AudioCommand, 256> command_queue_;
     void drain_commands();        // Must be called while holding effect_mutex_
     void drain_gain_commands();   // Safe to call without effect_mutex_
-    void update_metronome_timing();
 
     // CPU load watchdog for buffer auto-tuning
     std::atomic<float> cpu_load_{0.0f};
@@ -399,25 +389,6 @@ private:
     std::array<float, ANALYZER_FFT_SIZE> analyzer_input_buf_{};
     std::array<float, ANALYZER_FFT_SIZE> analyzer_output_buf_{};
 
-    // Metronome state (audio thread only)
-    bool metronome_enabled_ = false;
-    int metronome_bpm_ = 120;
-    float metronome_volume_ = 0.5f;
-
-    float metronome_volume_smoothed_ = 0.0f;
-    float metronome_volume_smooth_alpha_ = 0.05f;
-    float metronome_bpm_smoothed_ = 120.0f;
-    float metronome_bpm_smooth_alpha_ = 0.05f;
-
-    int metronome_sample_rate_ = 0;
-    double metronome_samples_per_beat_ = 0.0;
-    double metronome_sample_counter_ = 0.0;
-    int metronome_click_samples_total_ = 0;
-    int metronome_click_samples_remaining_ = 0;
-    float metronome_click_phase_ = 0.0f;
-    float metronome_click_phase_inc_ = 0.0f;
-    float metronome_click_env_ = 0.0f;
-    float metronome_click_decay_ = 0.0f;
     // (MIDI instance removed - use MidiManager)
 };
 

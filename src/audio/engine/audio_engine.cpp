@@ -12,6 +12,7 @@ namespace Amplitron
         process_buffer_.resize(MAX_BUFFER_SIZE, 0.0f);
         process_buffer_right_.resize(MAX_BUFFER_SIZE, 0.0f);
         backend_ = create_audio_backend();
+        metronome_.set_sample_rate(sample_rate_);
 
         // Pre-allocate the graph memory pools immediately on startup
         main_executor_ = std::make_shared<AudioGraphExecutor>();
@@ -130,6 +131,8 @@ namespace Amplitron
                 tuner_tap_->set_sample_rate(rate);
                 tuner_tap_->reset();
             }
+            metronome_.set_sample_rate(rate);
+            metronome_.reset();
         }
 
         if (was_running)
@@ -155,6 +158,8 @@ namespace Amplitron
                     tuner_tap_->set_sample_rate(prev_rate);
                     tuner_tap_->reset();
                 }
+                metronome_.set_sample_rate(prev_rate);
+                metronome_.reset();
                 start();
             }
             else
@@ -189,6 +194,15 @@ namespace Amplitron
 
         destroy_audio_backend(backend_);
         backend_ = backend;
+    }
+
+    void AudioEngine::replace_backend_for_test(IAudioBackend* backend)
+    {
+        if (poly_backend_ == backend)
+        {
+            return;
+        }
+        poly_backend_ = backend;
     }
 #endif
 }

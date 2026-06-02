@@ -578,6 +578,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/engine/audio_engine_chain.cpp
         src/audio/engine/audio_engine_process.cpp
         src/audio/engine/audio_engine_api.cpp
+        src/audio/engine/metronome.cpp
         src/audio/engine/audio_graph.cpp
         src/audio/engine/audio_graph_executor.cpp
         # Recorder
@@ -715,6 +716,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     set(TEST_SOURCES
         tests/test_main.cpp
         tests/unit/test_common.cpp
+        tests/unit/test_mock_backend.cpp
         tests/unit/test_oboe_ring_buffer.cpp
         tests/unit/test_effects_dynamics.cpp
         tests/unit/test_effects_saturation.cpp

@@ -178,6 +178,10 @@ static void auto_detect_devices(int& input_device, int& output_device, int& samp
 }
 
 bool AudioEngine::initialize() {
+    if (poly_backend_) {
+        initialized_ = poly_backend_->initialize(this);
+        return initialized_;
+    }
     PaError err = Pa_Initialize();
     if (err != paNoError) {
         std::cerr << "PortAudio init failed: " << Pa_GetErrorText(err) << std::endl;
@@ -191,6 +195,11 @@ bool AudioEngine::initialize() {
 }
 
 void AudioEngine::shutdown() {
+    if (poly_backend_) {
+        poly_backend_->shutdown();
+        initialized_ = false;
+        return;
+    }
     stop();
     if (initialized_) {
         Pa_Terminate();
@@ -201,6 +210,10 @@ void AudioEngine::shutdown() {
 
 
 bool AudioEngine::start() {
+    if (poly_backend_) {
+        running_ = poly_backend_->start();
+        return running_;
+    }
     if (!initialized_ || running_) return false;
 
     const PaDeviceInfo* in_dev = Pa_GetDeviceInfo(input_device_);
@@ -283,7 +296,8 @@ bool AudioEngine::start() {
         const int actual_rate = static_cast<int>(si->sampleRate + 0.5);
         if (actual_rate != sample_rate_) {
             sample_rate_ = actual_rate;
-            update_metronome_timing();
+            metronome_.set_sample_rate(sample_rate_);
+            metronome_.reset();
             std::lock_guard<std::mutex> lock(effect_mutex_);
             for (const auto& node : main_graph_.get_nodes()) {
                 if (node.pedal) {
@@ -322,6 +336,11 @@ bool AudioEngine::start() {
 }
 
 void AudioEngine::stop() {
+    if (poly_backend_) {
+        poly_backend_->stop();
+        running_ = false;
+        return;
+    }
     if (backend_->stream) {
         if (running_) {
             Pa_StopStream(backend_->stream);

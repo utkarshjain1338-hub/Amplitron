@@ -13,6 +13,9 @@
 namespace Amplitron {
 
 std::string AudioEngine::get_input_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_device_name();
+    }
     if (input_device_ >= 0) {
         const PaDeviceInfo* info = Pa_GetDeviceInfo(input_device_);
         if (info) return info->name;
@@ -21,6 +24,9 @@ std::string AudioEngine::get_input_device_name() const {
 }
 
 std::string AudioEngine::get_output_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_device_name();
+    }
     if (output_device_ >= 0) {
         const PaDeviceInfo* info = Pa_GetDeviceInfo(output_device_);
         if (info) return info->name;
@@ -29,6 +35,9 @@ std::string AudioEngine::get_output_device_name() const {
 }
 
 std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_devices();
+    }
     std::vector<AudioDeviceInfo> devices;
     int count = Pa_GetDeviceCount();
     for (int i = 0; i < count; ++i) {
@@ -46,6 +55,9 @@ std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const {
 }
 
 std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_devices();
+    }
     std::vector<AudioDeviceInfo> devices;
     int count = Pa_GetDeviceCount();
     for (int i = 0; i < count; ++i) {
@@ -63,6 +75,9 @@ std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const {
 }
 
 bool AudioEngine::set_input_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_input_device(device_index);
+    }
     const PaDeviceInfo* info = Pa_GetDeviceInfo(device_index);
     if (!info || info->maxInputChannels < 1) {
         last_error_ = "Invalid input device.";
@@ -99,6 +114,9 @@ bool AudioEngine::set_input_device(int device_index) {
 }
 
 bool AudioEngine::set_output_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_output_device(device_index);
+    }
     const PaDeviceInfo* info = Pa_GetDeviceInfo(device_index);
     if (!info || info->maxOutputChannels < 1) {
         last_error_ = "Invalid output device.";

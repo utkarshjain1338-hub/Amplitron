@@ -21,37 +21,79 @@ struct EffectParam {
     std::string tooltip;
 };
 
+// Segregated interfaces for real-time safety, parameterization, serialization, and metadata
+class IProcessor {
+public:
+    virtual ~IProcessor() = default;
+    
+    // Process a mono buffer in place.
+    virtual void process(float* buffer, int num_samples) = 0;
+    
+    // Stereo processing.
+    virtual void process_stereo(float* left, float* right, int num_samples) = 0;
+    
+    // Update the processing sample rate.
+    virtual void set_sample_rate(int sample_rate) = 0;
+    
+    // Clear dynamic states.
+    virtual void reset() = 0;
+};
+
+class IParameterizable {
+public:
+    virtual ~IParameterizable() = default;
+    virtual std::vector<EffectParam>& params() = 0;
+    virtual std::vector<std::string> get_param_names() = 0;
+    virtual float get_param_value(const std::string& name) = 0;
+    virtual void set_param_by_name(const std::string& name, float value) = 0;
+};
+
+class ISerializable {
+public:
+    virtual ~ISerializable() = default;
+    virtual nlohmann::json get_params() const = 0;
+    virtual void set_params(const nlohmann::json& j) = 0;
+};
+
+class IMetadata {
+public:
+    virtual ~IMetadata() = default;
+    virtual const char* name() const = 0;
+    virtual const char* type_id() const = 0;
+    virtual const char* get_display_name() const = 0;
+};
+
 // Common interface for all mono/stereo audio effects in the pedal chain.
-class Effect {
+class Effect : public IProcessor, public IParameterizable, public ISerializable, public IMetadata {
 public:
     virtual ~Effect() = default;
 
     // Process a mono buffer in place.
-    virtual void process(float* buffer, int num_samples) = 0;
+    virtual void process(float* buffer, int num_samples) override = 0;
 
     // Stereo processing. Default fans mono left channel to both outputs.
     // Stereo-capable effects override this to produce true stereo.
-    virtual void process_stereo(float* left, float* right, int num_samples) {
+    virtual void process_stereo(float* left, float* right, int num_samples) override {
         process(left, num_samples);
         std::memcpy(right, left, static_cast<size_t>(num_samples) * sizeof(float));
     }
 
     // Update the processing sample rate before audio starts or after device changes.
-    virtual void set_sample_rate(int sample_rate) { sample_rate_ = sample_rate; }
+    virtual void set_sample_rate(int sample_rate) override { sample_rate_ = sample_rate; }
 
     // Clear delay lines, envelopes, filters, and other effect state.
-    virtual void reset() = 0;
+    virtual void reset() override = 0;
 
     // Tempo broadcast receiver.
     virtual void set_transport_state(float /*bpm*/) {}
 
     // Display name used by the pedal board and preset serialization.
-    virtual const char* name() const = 0;
+    virtual const char* name() const override = 0;
 
-    virtual const char* type_id() const { return name(); }
+    virtual const char* type_id() const override { return name(); }
 
     // Mutable parameter list used by controls and automation.
-    virtual std::vector<EffectParam>& params() = 0;
+    virtual std::vector<EffectParam>& params() override = 0;
 
     void set_enabled(bool enabled) { enabled_ = enabled; }
     bool is_enabled() const { return enabled_; }
@@ -61,7 +103,7 @@ public:
 
     virtual std::shared_ptr<Effect> clone() const;
 
-    std::vector<std::string> get_param_names() {
+    std::vector<std::string> get_param_names() override {
         std::vector<std::string> names;
         for (const auto& p : params()) {
             names.push_back(p.name);
@@ -69,7 +111,7 @@ public:
         return names;
     }
 
-    float get_param_value(const std::string& name) {
+    float get_param_value(const std::string& name) override {
         for (const auto& p : params()) {
             if (p.name == name) {
                 return p.value;
@@ -78,7 +120,7 @@ public:
         return 0.0f;
     }
 
-    void set_param_by_name(const std::string& name, float value) {
+    void set_param_by_name(const std::string& name, float value) override {
         for (auto& p : params()) {
             if (p.name == name) {
                 p.value = clamp(value, p.min_val, p.max_val);
@@ -87,7 +129,7 @@ public:
         }
     }
 
-    virtual const char* get_display_name() const {
+    virtual const char* get_display_name() const override {
         return name();
     }
 
@@ -95,7 +137,7 @@ public:
     // These methods automatically handle saving/loading for any effect 
     // that uses the EffectParam vector.
     
-    virtual nlohmann::json get_params() const {
+    virtual nlohmann::json get_params() const override {
         nlohmann::json j;
         // Accessing mutable params to read values
         auto& p_list = const_cast<Effect*>(this)->params();
@@ -107,7 +149,7 @@ public:
         return j;
     }
 
-    virtual void set_params(const nlohmann::json& j) {
+    virtual void set_params(const nlohmann::json& j) override {
         if (j.contains("enabled")) enabled_.store(j["enabled"].get<bool>());
         if (j.contains("mix")) mix_ = j["mix"];
         
@@ -134,3 +176,4 @@ protected:
 };
 
 } // namespace Amplitron
+

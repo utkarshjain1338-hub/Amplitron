@@ -21,18 +21,15 @@ void AudioEngine::set_output_gain(float gain) {
 }
 
 void AudioEngine::toggle_metronome() {
-    bool enabled = !metronome_enabled_state_.load(std::memory_order_relaxed);
-    metronome_enabled_state_.store(enabled, std::memory_order_relaxed);
+    metronome_.set_enabled(!metronome_.is_enabled());
 }
 
 void AudioEngine::set_metronome_bpm(int bpm) {
-    const int clamped = std::max(40, std::min(bpm, 240));
-    metronome_bpm_state_.store(clamped, std::memory_order_relaxed);
+    metronome_.set_bpm(bpm);
 }
 
 void AudioEngine::set_metronome_volume(float volume) {
-    const float clamped = std::max(0.0f, std::min(volume, 1.0f));
-    metronome_volume_state_.store(clamped, std::memory_order_relaxed);
+    metronome_.set_volume(volume);
 }
 
 void AudioEngine::push_param_change(int effect_index, int param_index, float value) {
