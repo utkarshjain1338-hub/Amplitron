@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 05:23:10</td>
+            <td class="headerValue">2026-06-02 05:28:28</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -103,36 +103,36 @@
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          24 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          72 : void Recorder::writer_thread_func() {</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         115 :     while (true) {</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         153 :         int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         153 :         int64_t wp = ring_write_pos_.load(std::memory_order_acquire);</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         153 :         int64_t available = wp - rp;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         114 :     while (true) {</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         150 :         int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         150 :         int64_t wp = ring_write_pos_.load(std::memory_order_acquire);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         150 :         int64_t available = wp - rp;</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         153 :         if (available &gt; 0) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         150 :         if (available &gt; 0) {</span></span>
 <span id="L50"><span class="lineNum">      50</span>              :             // Drain available samples: convert float -&gt; int16 PCM and write to disk</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         162 :             while (available &gt; 0) {</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         165 :                 int chunk = static_cast&lt;int&gt;(std::min(available,</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          99 :                             static_cast&lt;int64_t&gt;(pcm_buffer_.size())));</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">      180441 :                 for (int i = 0; i &lt; chunk; ++i) {</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         160 :             while (available &gt; 0) {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         164 :                 int chunk = static_cast&lt;int&gt;(std::min(available,</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          98 :                             static_cast&lt;int64_t&gt;(pcm_buffer_.size())));</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">      180440 :                 for (int i = 0; i &lt; chunk; ++i) {</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">      180342 :                     float s = ring_buffer_[static_cast&lt;int&gt;((rp + i) % RING_BUFFER_SIZE)];</span></span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">      180342 :                     if (s &gt; 1.0f) s = 1.0f;</span></span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">      180342 :                     if (s &lt; -1.0f) s = -1.0f;</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">      180342 :                     pcm_buffer_[i] = static_cast&lt;int16_t&gt;(s * 32767.0f);</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">       60114 :                 }</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         132 :                 file_.write(reinterpret_cast&lt;const char*&gt;(pcm_buffer_.data()),</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          99 :                             chunk * sizeof(int16_t));</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          99 :                 rp += chunk;</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          99 :                 available -= chunk;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         130 :                 file_.write(reinterpret_cast&lt;const char*&gt;(pcm_buffer_.data()),</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          98 :                             chunk * sizeof(int16_t));</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          98 :                 rp += chunk;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          98 :                 available -= chunk;</span></span>
 <span id="L64"><span class="lineNum">      64</span>              :             }</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          63 :             ring_read_pos_.store(rp, std::memory_order_release);</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          21 :         } else {</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          62 :             ring_read_pos_.store(rp, std::memory_order_release);</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">          20 :         } else {</span></span>
 <span id="L67"><span class="lineNum">      67</span>              :             // No data available — exit if stopped, otherwise poll briefly</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          90 :             if (!writer_running_.load(std::memory_order_acquire)) {</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          88 :             if (!writer_running_.load(std::memory_order_acquire)) {</span></span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          48 :                 break;</span></span>
 <span id="L70"><span class="lineNum">      70</span>              :             }</span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          18 :             std::this_thread::sleep_for(std::chrono::milliseconds(5));</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          16 :             std::this_thread::sleep_for(std::chrono::milliseconds(5));</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :         }</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          56 :     }</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          54 :     }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
 <span id="L75"><span class="lineNum">      75</span>              :     // Final drain: flush any samples written between the last read and stop()</span>
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          72 :     int64_t rp = ring_read_pos_.load(std::memory_order_relaxed);</span></span>
