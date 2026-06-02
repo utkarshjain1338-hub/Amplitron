@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">19</td>
-            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">20</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -108,7 +108,7 @@
 <span id="L46"><span class="lineNum">      46</span>              :  * Receives all pre-computed level and spectrum data via AnalyzerProps.</span>
 <span id="L47"><span class="lineNum">      47</span>              :  * Zero math or signal processing occurs here — only ImGui drawing calls.</span>
 <span id="L48"><span class="lineNum">      48</span>              :  */</span>
-<span id="L49"><span class="lineNum">      49</span>              : class GuiAnalyzer : public UIComponent&lt;AnalyzerProps&gt; {</span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           6 : class GuiAnalyzer : public UIComponent&lt;AnalyzerProps&gt; {</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : public:</span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          30 :     GuiAnalyzer() = default;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
@@ -116,10 +116,10 @@
 <span id="L54"><span class="lineNum">      54</span>              :     void render() override;</span>
 <span id="L55"><span class="lineNum">      55</span>              : </span>
 <span id="L56"><span class="lineNum">      56</span>              :     /** @brief Height to reserve for this panel in the parent layout. */</span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           3 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           2 :     float analyzer_reserved_height() const { return expanded_ ? 245.0f : 38.0f; }</span></span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     SpectrumDisplayMode current_mode() const { return mode_; }</span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           3 :     bool is_expanded() const { return expanded_; }</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           2 :     bool is_expanded() const { return expanded_; }</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span>              : private:</span>
 <span id="L63"><span class="lineNum">      63</span>              :     void render_vu_bar(const char* id,</span>

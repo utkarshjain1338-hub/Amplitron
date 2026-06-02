@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">77.3&nbsp;%</td>
-            <td class="headerCovTableEntry">75</td>
-            <td class="headerCovTableEntry">58</td>
+            <td class="headerCovTableEntryMed">77.6&nbsp;%</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntry">59</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">14.3&nbsp;%</td>
@@ -76,7 +76,7 @@
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         195 :     float knob_y_start = p0.y + Theme::KNOB_Y_START * zoom;</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         195 :     if (is_ir_cab) knob_y_start = p0.y + 180 * zoom;</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         195 :     auto&amp; params = effect_-&gt;params();</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         195 :     int num_params = is_tuner ? 0 : static_cast&lt;int&gt;(params.size());</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         258 :     int num_params = is_tuner ? 0 : static_cast&lt;int&gt;(params.size());</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         195 :     int param_offset = 0;</span></span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         195 :     if (is_amp) {</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          15 :         param_offset = 1;</span></span>
@@ -96,13 +96,13 @@
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         591 :         bool is_last_alone = (i == num_params - 1) &amp;&amp; (num_params % 2 == 1);</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         591 :         float kx = is_last_alone</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         455 :             ? p0.x + (pedal_width - knob_spacing_x) * 0.5f</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         319 :             ? p0.x + (pedal_width - knob_spacing_x) * 0.5f</span></span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         408 :             : knob_grid_left + col * knob_spacing_x;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         591 :         float ky = knob_y_start + row * knob_spacing_y;</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         591 :         ImVec2 knob_center = ImVec2(kx + knob_spacing_x * 0.5f, ky + knob_radius + 2 * zoom);</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span>              :         char label[64];</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         197 :         char label[64];</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         591 :         snprintf(label, sizeof(label), &quot;##knob_%s_%d_%d&quot;, effect_-&gt;name(), index_, pi);</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         591 :         KnobProps props;</span></span>
@@ -116,26 +116,26 @@
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span>              :         // MIDI learn integration</span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         591 :         if (gui_midi_) {</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">         543 :             props.is_learning = gui_midi_-&gt;midi().is_learning() &amp;&amp;</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         376 :                                 gui_midi_-&gt;midi().learn_effect_name() == effect_-&gt;name() &amp;&amp;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">         549 :             props.is_learning = gui_midi_-&gt;midi().is_learning() &amp;&amp;</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         370 :                                 gui_midi_-&gt;midi().learn_effect_name() == effect_-&gt;name() &amp;&amp;</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          18 :                                 gui_midi_-&gt;midi().learn_param_name() == params[pi].name;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1253 :             props.midi_info = gui_midi_-&gt;get_mapping_info(effect_-&gt;name(), params[pi].name);</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         895 :             props.midi_info = gui_midi_-&gt;get_mapping_info(effect_-&gt;name(), params[pi].name);</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span>              :             // Capture pointers for lambda closures</span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         537 :             std::string eff_name = effect_-&gt;name();</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">         537 :             std::string param_name = params[pi].name;</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">         537 :             GuiMidi* gm = gui_midi_;</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">         895 :             props.on_midi_learn_param = [gm, eff_name, param_name]() {</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">        1253 :             props.on_midi_learn_param = [gm, eff_name, param_name]() {</span></span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC tlaBgUNC">           0 :                 gm-&gt;manager().start_learn(MidiTargetType::EffectParam, eff_name, param_name);</span></span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC tlaBgGNC">         358 :             };</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         895 :             props.on_midi_clear_param = [gm, eff_name, param_name]() {</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">        1253 :             props.on_midi_clear_param = [gm, eff_name, param_name]() {</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaUNC tlaBgUNC">           0 :                 gm-&gt;manager().remove_mapping_for_param(eff_name, param_name);</span></span>
 <span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC tlaBgGNC">         358 :             };</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         895 :             props.on_midi_learn_bypass = [gm, eff_name]() {</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">        1253 :             props.on_midi_learn_bypass = [gm, eff_name]() {</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC tlaBgUNC">           0 :                 gm-&gt;manager().start_learn(MidiTargetType::EffectBypass, eff_name, &quot;&quot;);</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC tlaBgGNC">         358 :             };</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         895 :             props.on_midi_clear_bypass = [gm, eff_name]() {</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">        1253 :             props.on_midi_clear_bypass = [gm, eff_name]() {</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaUNC tlaBgUNC">           0 :                 int remove_idx = -1;</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaUNC">           0 :                 const auto&amp; mappings = gm-&gt;manager().mappings();</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaUNC">           0 :                 for (int i = 0; i &lt; static_cast&lt;int&gt;(mappings.size()); ++i) {</span></span>

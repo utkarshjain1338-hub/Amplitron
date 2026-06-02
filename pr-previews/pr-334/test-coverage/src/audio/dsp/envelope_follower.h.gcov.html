@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -71,7 +71,7 @@
 <span id="L9"><span class="lineNum">       9</span>              :  * Attack/release envelope follower.</span>
 <span id="L10"><span class="lineNum">      10</span>              :  * Used by Compressor, NoiseGate, WahPedal, and AmpSimulator.</span>
 <span id="L11"><span class="lineNum">      11</span>              :  */</span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC tlaBgGNC">         111 : struct EnvelopeFollower {</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC tlaBgGNC">         177 : struct EnvelopeFollower {</span></span>
 <span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         111 :     float envelope = 0.0f;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              :     /**</span>
@@ -80,8 +80,8 @@
 <span id="L18"><span class="lineNum">      18</span>              :      * @param sr       Sample rate.</span>
 <span id="L19"><span class="lineNum">      19</span>              :      * @return One-pole coefficient (pass to process()).</span>
 <span id="L20"><span class="lineNum">      20</span>              :      */</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         822 :     static float time_to_coeff(float ms, int sr) {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         822 :         return std::exp(-1.0f / (sr * ms * 0.001f));</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         685 :     static float time_to_coeff(float ms, int sr) {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         685 :         return std::exp(-1.0f / (sr * ms * 0.001f));</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :     }</span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span>              :     /**</span>
@@ -101,7 +101,7 @@
 <span id="L39"><span class="lineNum">      39</span>              :      */</span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">      238080 :     float process_additive(float input, float attack_coeff, float release_coeff) {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">      238080 :         float abs_in = std::fabs(input);</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">      238080 :         float coeff = (abs_in &gt; envelope) ? (1.0f - attack_coeff) : (1.0f - release_coeff);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">      193024 :         float coeff = (abs_in &gt; envelope) ? (1.0f - attack_coeff) : (1.0f - release_coeff);</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">      238080 :         envelope += coeff * (abs_in - envelope);</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">      238080 :         return envelope;</span></span>
 <span id="L45"><span class="lineNum">      45</span>              :     }</span>

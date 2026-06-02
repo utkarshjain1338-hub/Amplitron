@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">90.8&nbsp;%</td>
-            <td class="headerCovTableEntry">358</td>
-            <td class="headerCovTableEntry">325</td>
+            <td class="headerCovTableEntry">359</td>
+            <td class="headerCovTableEntry">326</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,15 +93,15 @@
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          60 :   std::ofstream file(filepath);</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          60 :   if (!file.is_open()) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           9 :     last_error_ = &quot;Could not open file for writing: &quot; + filepath;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           9 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           9 :     return false;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          12 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           6 :     return false;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :   }</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          51 :   file &lt;&lt; json;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          51 :   file.close();</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          51 :   std::cout &lt;&lt; &quot;Preset saved: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          51 :   return true;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          68 :   std::cout &lt;&lt; &quot;Preset saved: &quot; &lt;&lt; filepath &lt;&lt; std::endl;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          34 :   return true;</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          60 : }</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          45 : bool PresetManager::save_preset(const std::string &amp;filepath,</span></span>
@@ -119,7 +119,7 @@
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          45 :   const auto &amp;graph = engine.graph();</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         111 :   auto get_pin_name = [&amp;](int pin_id, bool is_input) -&gt; std::string {</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         126 :   auto get_pin_name = [&amp;](int pin_id, bool is_input) -&gt; std::string {</span></span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          96 :     int node_id = graph.get_node_from_pin(pin_id);</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          96 :     if (node_id &lt; 0)</span></span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC tlaBgUNC">           0 :       return &quot;&quot;;</span></span>
@@ -129,14 +129,14 @@
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC tlaBgGNC">          96 :     const auto &amp;pins = is_input ? node-&gt;input_pin_ids : node-&gt;output_pin_ids;</span></span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">         102 :     for (size_t i = 0; i &lt; pins.size(); ++i) {</span></span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         102 :       if (pins[i] == pin_id) {</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         192 :         return &quot;n&quot; + std::to_string(node_id) + &quot;.&quot; + (is_input ? &quot;in&quot; : &quot;out&quot;) +</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">         240 :         return &quot;n&quot; + std::to_string(node_id) + &quot;.&quot; + (is_input ? &quot;in&quot; : &quot;out&quot;) +</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         224 :                std::to_string(i);</span></span>
 <span id="L72"><span class="lineNum">      72</span>              :       }</span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           2 :     }</span></span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC tlaBgUNC">           0 :     return &quot;&quot;;</span></span>
 <span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC tlaBgGNC">          62 :   };</span></span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         156 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         141 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          96 :     PresetData::NodeData nd;</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          96 :     nd.id = &quot;n&quot; + std::to_string(node.id);</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
@@ -152,7 +152,7 @@
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          96 :     if (node.routing_type == NodeRoutingType::Splitter) {</span></span>
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           3 :       nd.type = &quot;splitter&quot;;</span></span>
 <span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">          94 :     } else if (node.routing_type == NodeRoutingType::Mixer ||</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          90 :                node.routing_type == NodeRoutingType::MergeSum) {</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          60 :                node.routing_type == NodeRoutingType::MergeSum) {</span></span>
 <span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           3 :       nd.type = &quot;mixer&quot;;</span></span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           3 :       nd.num_inputs = node.input_pin_ids.size();</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">          91 :     } else if (node.pedal) {</span></span>
@@ -168,13 +168,13 @@
 <span id="L106"><span class="lineNum">     106</span>              : </span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          63 :       nd.enabled = node.pedal-&gt;is_enabled();</span></span>
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">          63 :       nd.mix = node.pedal-&gt;get_mix();</span></span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         294 :       for (auto &amp;p : node.pedal-&gt;params()) {</span></span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         210 :         nd.params.push_back({p.name, p.value});</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         273 :       for (auto &amp;p : node.pedal-&gt;params()) {</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         280 :         nd.params.push_back({p.name, p.value});</span></span>
 <span id="L111"><span class="lineNum">     111</span>              :       }</span>
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">          63 :       if (std::strcmp(node.pedal-&gt;name(), &quot;Cabinet&quot;) == 0) {</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           6 :         auto *cab = dynamic_cast&lt;CabinetSim *&gt;(node.pedal.get());</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">           6 :         if (cab &amp;&amp; cab-&gt;has_ir()) {</span></span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          14 :           nd.metadata[&quot;ir_path&quot;] = cab-&gt;ir_path();</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          12 :           nd.metadata[&quot;ir_path&quot;] = cab-&gt;ir_path();</span></span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">           2 :         }</span></span>
 <span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">           2 :       }</span></span>
 <span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          21 :     } else {</span></span>
@@ -183,11 +183,11 @@
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          96 :     preset.nodes.push_back(nd);</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          96 :   }</span></span>
 <span id="L123"><span class="lineNum">     123</span>              : </span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">         108 :   for (const auto &amp;link : graph.get_links()) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          93 :   for (const auto &amp;link : graph.get_links()) {</span></span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          48 :     std::string src = get_pin_name(link.source_pin_id, false);</span></span>
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          48 :     std::string dst = get_pin_name(link.dest_pin_id, true);</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          48 :     if (!src.empty() &amp;&amp; !dst.empty()) {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          64 :       preset.links.push_back({src, dst});</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          80 :       preset.links.push_back({src, dst});</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          16 :     }</span></span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          48 :   }</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : </span>
@@ -200,8 +200,8 @@
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          66 :   std::ifstream file(filepath);</span></span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          66 :   if (!file.is_open()) {</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           6 :     last_error_ = &quot;Could not open file: &quot; + filepath;</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           6 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           6 :     return false;</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           8 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           4 :     return false;</span></span>
 <span id="L143"><span class="lineNum">     143</span>              :   }</span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          60 :   std::string json((std::istreambuf_iterator&lt;char&gt;(file)),</span></span>
@@ -211,8 +211,8 @@
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          60 :   PresetData preset;</span></span>
 <span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          60 :   if (!from_json_ext(json, preset)) {</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           3 :     last_error_ = &quot;Failed to parse preset file: &quot; + filepath;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           3 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           3 :     return false;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           5 :     std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           2 :     return false;</span></span>
 <span id="L154"><span class="lineNum">     154</span>              :   }</span>
 <span id="L155"><span class="lineNum">     155</span>              : </span>
 <span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          57 :   engine.clear_effects();</span></span>
@@ -224,15 +224,15 @@
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          21 :     std::string json_str = to_json_ext(preset);</span></span>
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          21 :     if (!graph_from_json(json_str, engine.graph())) {</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           3 :       last_error_ = &quot;Failed to load graph routing from preset: &quot; + filepath;</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           3 :       std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           4 :       std::cerr &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
 <span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           3 :       return false;</span></span>
 <span id="L167"><span class="lineNum">     167</span>              :     }</span>
 <span id="L168"><span class="lineNum">     168</span>              : </span>
 <span id="L169"><span class="lineNum">     169</span>              :     // Restore engine dummy_effects_ so GUI widgets and sync logic see the</span>
 <span id="L170"><span class="lineNum">     170</span>              :     // pedals</span>
 <span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          18 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          78 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          86 :       if (node.routing_type == NodeRoutingType::StandardEffect &amp;&amp;</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          72 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">          70 :       if (node.routing_type == NodeRoutingType::StandardEffect &amp;&amp;</span></span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          48 :           node.pedal != nullptr) {</span></span>
 <span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          30 :         loaded_effects.push_back(node.pedal);</span></span>
 <span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">          10 :       }</span></span>
@@ -244,14 +244,14 @@
 <span id="L182"><span class="lineNum">     182</span>              :     // Legacy 1D chain auto-conversion</span>
 <span id="L183"><span class="lineNum">     183</span>              :     // Graph is empty because of clear_effects(). We can reconstruct it.</span>
 <span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">          36 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; loaded_effects;</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         300 :     for (auto &amp;fd : preset.effects) {</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">         288 :     for (auto &amp;fd : preset.effects) {</span></span>
 <span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">         252 :       if (fd.type == &quot;IR Cabinet&quot;) {</span></span>
 <span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           9 :         fd.type = &quot;Cabinet&quot;;</span></span>
 <span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           3 :       }</span></span>
 <span id="L189"><span class="lineNum">     189</span>              : </span>
 <span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">         252 :       auto fx = EffectFactory::instance().create(fd.type);</span></span>
 <span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">         252 :       if (!fx) {</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           6 :         std::cerr &lt;&lt; &quot;Unknown effect type: &quot; &lt;&lt; fd.type &lt;&lt; std::endl;</span></span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">           8 :         std::cerr &lt;&lt; &quot;Unknown effect type: &quot; &lt;&lt; fd.type &lt;&lt; std::endl;</span></span>
 <span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">           6 :         continue;</span></span>
 <span id="L194"><span class="lineNum">     194</span>              :       }</span>
 <span id="L195"><span class="lineNum">     195</span>              : </span>
@@ -259,8 +259,8 @@
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">         246 :       fx-&gt;set_mix(fd.mix);</span></span>
 <span id="L198"><span class="lineNum">     198</span>              : </span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">         246 :       auto &amp;fxparams = fx-&gt;params();</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">        1270 :       for (auto &amp;saved_param : fd.params) {</span></span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">        2786 :         for (auto &amp;ep : fxparams) {</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">        1188 :       for (auto &amp;saved_param : fd.params) {</span></span>
+<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">        2472 :         for (auto &amp;ep : fxparams) {</span></span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">        2472 :           if (ep.name == saved_param.first) {</span></span>
 <span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">         942 :             ep.value = clamp(saved_param.second, ep.min_val, ep.max_val);</span></span>
 <span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         942 :             break;</span></span>
@@ -268,7 +268,7 @@
 <span id="L206"><span class="lineNum">     206</span>              :         }</span>
 <span id="L207"><span class="lineNum">     207</span>              :       }</span>
 <span id="L208"><span class="lineNum">     208</span>              : </span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">         410 :       auto it = fd.metadata.find(&quot;ir_path&quot;);</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">         328 :       auto it = fd.metadata.find(&quot;ir_path&quot;);</span></span>
 <span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">         246 :       if (it != fd.metadata.end() &amp;&amp; !it-&gt;second.empty()) {</span></span>
 <span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">           6 :         auto *cab = dynamic_cast&lt;CabinetSim *&gt;(fx.get());</span></span>
 <span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">           6 :         if (cab)</span></span>
@@ -283,7 +283,7 @@
 <span id="L221"><span class="lineNum">     221</span>              : </span>
 <span id="L222"><span class="lineNum">     222</span>              :     // Reposition linearly</span>
 <span id="L223"><span class="lineNum">     223</span> <span class="tlaGNC">          36 :     int x = 50;</span></span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         330 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC">         318 :     for (const auto &amp;node : engine.graph().get_nodes()) {</span></span>
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         282 :       engine.graph().set_node_position(node.id, x, 100);</span></span>
 <span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">         282 :       GuiGraphState::get_instance().node_positions[node.id] = {</span></span>
 <span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">         282 :           ImVec2((float)x, 100.0f), false};</span></span>
@@ -293,21 +293,21 @@
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          54 :   if (midi_manager) {</span></span>
 <span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">           3 :     midi_manager-&gt;clear_mappings();</span></span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          10 :     for (const auto &amp;mapping : preset.midi_mappings) {</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">           9 :     for (const auto &amp;mapping : preset.midi_mappings) {</span></span>
 <span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">           6 :       midi_manager-&gt;add_mapping(mapping);</span></span>
 <span id="L236"><span class="lineNum">     236</span>              :     }</span>
 <span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">           1 :   }</span></span>
 <span id="L238"><span class="lineNum">     238</span>              : </span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          54 :   std::cout &lt;&lt; &quot;Preset loaded: &quot; &lt;&lt; preset.name &lt;&lt; &quot; (&quot; &lt;&lt; filepath &lt;&lt; &quot;)&quot;</span></span>
-<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">          54 :             &lt;&lt; std::endl;</span></span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          54 :   return true;</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          90 :   std::cout &lt;&lt; &quot;Preset loaded: &quot; &lt;&lt; preset.name &lt;&lt; &quot; (&quot; &lt;&lt; filepath &lt;&lt; &quot;)&quot;</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">          56 :             &lt;&lt; std::endl;</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          36 :   return true;</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          66 : }</span></span>
 <span id="L243"><span class="lineNum">     243</span>              : </span>
 <span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">           3 : std::string PresetManager::graph_to_json(const AudioGraph &amp;graph) {</span></span>
 <span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           3 :   PresetData preset;</span></span>
 <span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">           3 :   preset.routing = &quot;graph&quot;;</span></span>
 <span id="L247"><span class="lineNum">     247</span>              : </span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          13 :   auto get_pin_name = [&amp;](int pin_id, bool is_input) -&gt; std::string {</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          14 :   auto get_pin_name = [&amp;](int pin_id, bool is_input) -&gt; std::string {</span></span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">          12 :     int node_id = graph.get_node_from_pin(pin_id);</span></span>
 <span id="L250"><span class="lineNum">     250</span> <span class="tlaGNC">          12 :     if (node_id &lt; 0)</span></span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaUNC tlaBgUNC">           0 :       return &quot;&quot;;</span></span>
@@ -317,14 +317,14 @@
 <span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC tlaBgGNC">          12 :     const auto &amp;pins = is_input ? node-&gt;input_pin_ids : node-&gt;output_pin_ids;</span></span>
 <span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">          12 :     for (size_t i = 0; i &lt; pins.size(); ++i) {</span></span>
 <span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          12 :       if (pins[i] == pin_id) {</span></span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          24 :         return &quot;n&quot; + std::to_string(node_id) + &quot;.&quot; + (is_input ? &quot;in&quot; : &quot;out&quot;) +</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          30 :         return &quot;n&quot; + std::to_string(node_id) + &quot;.&quot; + (is_input ? &quot;in&quot; : &quot;out&quot;) +</span></span>
 <span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          28 :                std::to_string(i);</span></span>
 <span id="L260"><span class="lineNum">     260</span>              :       }</span>
 <span id="L261"><span class="lineNum">     261</span> <span class="tlaUNC tlaBgUNC">           0 :     }</span></span>
 <span id="L262"><span class="lineNum">     262</span> <span class="tlaUNC">           0 :     return &quot;&quot;;</span></span>
 <span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC tlaBgGNC">           6 :   };</span></span>
 <span id="L264"><span class="lineNum">     264</span>              : </span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          13 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          12 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">           9 :     PresetData::NodeData nd;</span></span>
 <span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">           9 :     nd.id = &quot;n&quot; + std::to_string(node.id);</span></span>
 <span id="L268"><span class="lineNum">     268</span>              : </span>
@@ -340,7 +340,7 @@
 <span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">           9 :     if (node.routing_type == NodeRoutingType::Splitter) {</span></span>
 <span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">           3 :       nd.type = &quot;splitter&quot;;</span></span>
 <span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           7 :     } else if (node.routing_type == NodeRoutingType::Mixer ||</span></span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           3 :                node.routing_type == NodeRoutingType::MergeSum) {</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           2 :                node.routing_type == NodeRoutingType::MergeSum) {</span></span>
 <span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           3 :       nd.type = &quot;mixer&quot;;</span></span>
 <span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">           3 :       nd.num_inputs = node.input_pin_ids.size();</span></span>
 <span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           4 :     } else if (node.pedal) {</span></span>
@@ -367,8 +367,8 @@
 <span id="L305"><span class="lineNum">     305</span>              : </span>
 <span id="L306"><span class="lineNum">     306</span> <span class="tlaGNC tlaBgGNC">           3 :       nd.enabled = node.pedal-&gt;is_enabled();</span></span>
 <span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">           3 :       nd.mix = node.pedal-&gt;get_mix();</span></span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          13 :       for (auto &amp;p : node.pedal-&gt;params()) {</span></span>
-<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">           9 :         nd.params.push_back({p.name, p.value});</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC">          12 :       for (auto &amp;p : node.pedal-&gt;params()) {</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaGNC">          12 :         nd.params.push_back({p.name, p.value});</span></span>
 <span id="L310"><span class="lineNum">     310</span>              :       }</span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC">           3 :       if (std::strcmp(node.pedal-&gt;name(), &quot;Cabinet&quot;) == 0) {</span></span>
 <span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC tlaBgUNC">           0 :         auto *cab = dynamic_cast&lt;CabinetSim *&gt;(node.pedal.get());</span></span>
@@ -388,11 +388,11 @@
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC tlaBgGNC">           9 :     preset.nodes.push_back(nd);</span></span>
 <span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           9 :   }</span></span>
 <span id="L328"><span class="lineNum">     328</span>              : </span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">          10 :   for (const auto &amp;link : graph.get_links()) {</span></span>
+<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">           9 :   for (const auto &amp;link : graph.get_links()) {</span></span>
 <span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">           6 :     std::string src = get_pin_name(link.source_pin_id, false);</span></span>
 <span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">           6 :     std::string dst = get_pin_name(link.dest_pin_id, true);</span></span>
 <span id="L332"><span class="lineNum">     332</span> <span class="tlaGNC">           6 :     if (!src.empty() &amp;&amp; !dst.empty()) {</span></span>
-<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">           8 :       preset.links.push_back({src, dst});</span></span>
+<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">          10 :       preset.links.push_back({src, dst});</span></span>
 <span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">           2 :     }</span></span>
 <span id="L335"><span class="lineNum">     335</span> <span class="tlaGNC">           6 :   }</span></span>
 <span id="L336"><span class="lineNum">     336</span>              : </span>
@@ -403,32 +403,32 @@
 <span id="L341"><span class="lineNum">     341</span>              :                                     AudioGraph &amp;graph) {</span>
 <span id="L342"><span class="lineNum">     342</span> <span class="tlaGNC">          55 :   PresetData preset;</span></span>
 <span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">          55 :   if (!from_json_ext(json, preset))</span></span>
-<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           6 :     return false;</span></span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           4 :     return false;</span></span>
 <span id="L345"><span class="lineNum">     345</span>              : </span>
 <span id="L346"><span class="lineNum">     346</span> <span class="tlaGNC">          49 :   if (preset.routing != &quot;graph&quot;)</span></span>
 <span id="L347"><span class="lineNum">     347</span> <span class="tlaUNC tlaBgUNC">           0 :     return false;</span></span>
 <span id="L348"><span class="lineNum">     348</span>              : </span>
 <span id="L349"><span class="lineNum">     349</span>              :   // Clear existing graph nodes except inputs/outputs</span>
 <span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC tlaBgGNC">          49 :   std::vector&lt;int&gt; nodes_to_remove;</span></span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          85 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          70 :   for (const auto &amp;node : graph.get_nodes()) {</span></span>
 <span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">          21 :     if (!node.is_graph_input &amp;&amp; !node.is_graph_output) {</span></span>
 <span id="L353"><span class="lineNum">     353</span> <span class="tlaUNC tlaBgUNC">           0 :       nodes_to_remove.push_back(node.id);</span></span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L355"><span class="lineNum">     355</span>              :   }</span>
-<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC tlaBgGNC">          60 :   for (int id : nodes_to_remove)</span></span>
+<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC tlaBgGNC">          45 :   for (int id : nodes_to_remove)</span></span>
 <span id="L357"><span class="lineNum">     357</span> <span class="tlaGNC">           4 :     graph.remove_node(id);</span></span>
 <span id="L358"><span class="lineNum">     358</span>              : </span>
 <span id="L359"><span class="lineNum">     359</span>              : </span>
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">          41 :   std::map&lt;std::string, int&gt; node_id_map;</span></span>
-<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">         168 :   for (const auto &amp;node : preset.nodes) {</span></span>
+<span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">         153 :   for (const auto &amp;node : preset.nodes) {</span></span>
 <span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">         108 :     NodeRoutingType routing_type = NodeRoutingType::StandardEffect;</span></span>
 <span id="L363"><span class="lineNum">     363</span> <span class="tlaGNC">         108 :     std::shared_ptr&lt;Effect&gt; pedal = nullptr;</span></span>
 <span id="L364"><span class="lineNum">     364</span>              : </span>
 <span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">         108 :     std::string t = node.type;</span></span>
 <span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">         108 :     if (t == &quot;splitter&quot;)</span></span>
-<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           9 :       routing_type = NodeRoutingType::Splitter;</span></span>
+<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           6 :       routing_type = NodeRoutingType::Splitter;</span></span>
 <span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          99 :     else if (t == &quot;mixer&quot;)</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          12 :       routing_type = NodeRoutingType::Mixer;</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">           8 :       routing_type = NodeRoutingType::Mixer;</span></span>
 <span id="L370"><span class="lineNum">     370</span>              :     else {</span>
 <span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">          87 :       std::string factory_type = t;</span></span>
 <span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">          87 :       if (t == &quot;amp_simulator&quot;)</span></span>
@@ -440,15 +440,15 @@
 <span id="L378"><span class="lineNum">     378</span> <span class="tlaGNC">          63 :       else if (t == &quot;distortion&quot;)</span></span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaGNC">           6 :         factory_type = &quot;Distortion&quot;;</span></span>
 <span id="L380"><span class="lineNum">     380</span>              : </span>
-<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">          87 :       pedal = EffectFactory::instance().create(factory_type);</span></span>
+<span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">         116 :       pedal = EffectFactory::instance().create(factory_type);</span></span>
 <span id="L382"><span class="lineNum">     382</span> <span class="tlaGNC">          87 :       if (!pedal)</span></span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">          36 :         pedal = EffectFactory::instance().create(t); // fallback</span></span>
+<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">          48 :         pedal = EffectFactory::instance().create(t); // fallback</span></span>
 <span id="L384"><span class="lineNum">     384</span>              : </span>
 <span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">          87 :       if (pedal) {</span></span>
 <span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">          51 :         pedal-&gt;set_enabled(node.enabled);</span></span>
 <span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">          51 :         pedal-&gt;set_mix(node.mix);</span></span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">         176 :         for (const auto &amp;p : node.params) {</span></span>
-<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">         276 :           for (auto &amp;ep : pedal-&gt;params()) {</span></span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">         159 :         for (const auto &amp;p : node.params) {</span></span>
+<span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">         240 :           for (auto &amp;ep : pedal-&gt;params()) {</span></span>
 <span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">         240 :             if (ep.name == p.first || ep.name == p.first) {</span></span>
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">         108 :               ep.value = clamp(p.second, ep.min_val, ep.max_val);</span></span>
 <span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">         108 :               break;</span></span>
@@ -456,7 +456,7 @@
 <span id="L394"><span class="lineNum">     394</span>              :           }</span>
 <span id="L395"><span class="lineNum">     395</span>              :         }</span>
 <span id="L396"><span class="lineNum">     396</span>              : </span>
-<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">          85 :         auto it = node.metadata.find(&quot;ir_path&quot;);</span></span>
+<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">          68 :         auto it = node.metadata.find(&quot;ir_path&quot;);</span></span>
 <span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">          51 :         if (it != node.metadata.end() &amp;&amp; !it-&gt;second.empty()) {</span></span>
 <span id="L399"><span class="lineNum">     399</span> <span class="tlaGNC">           6 :           auto *cab = dynamic_cast&lt;CabinetSim *&gt;(pedal.get());</span></span>
 <span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC">           6 :           if (cab)</span></span>
@@ -467,7 +467,7 @@
 <span id="L405"><span class="lineNum">     405</span>              : </span>
 <span id="L406"><span class="lineNum">     406</span> <span class="tlaGNC">         108 :     if (t == &quot;Input&quot; || t == &quot;Output&quot;) {</span></span>
 <span id="L407"><span class="lineNum">     407</span> <span class="tlaGNC">          58 :       int existing_id = -1;</span></span>
-<span id="L408"><span class="lineNum">     408</span> <span class="tlaGNC">          81 :       for (const auto &amp;existing_node : graph.get_nodes()) {</span></span>
+<span id="L408"><span class="lineNum">     408</span> <span class="tlaGNC">          70 :       for (const auto &amp;existing_node : graph.get_nodes()) {</span></span>
 <span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC">          21 :         if (existing_node.name == t) {</span></span>
 <span id="L410"><span class="lineNum">     410</span> <span class="tlaGNC">           9 :           existing_id = existing_node.id;</span></span>
 <span id="L411"><span class="lineNum">     411</span> <span class="tlaGNC">           9 :           break;</span></span>
@@ -502,30 +502,30 @@
 <span id="L440"><span class="lineNum">     440</span> <span class="tlaGNC">          71 :         ImVec2(node.x, node.y), false};</span></span>
 <span id="L441"><span class="lineNum">     441</span>              : </span>
 <span id="L442"><span class="lineNum">     442</span> <span class="tlaGNC">          99 :     node_id_map[node.id] = new_id;</span></span>
-<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">         104 :   }</span></span>
+<span id="L443"><span class="lineNum">     443</span> <span class="tlaGNC">         118 :   }</span></span>
 <span id="L444"><span class="lineNum">     444</span>              : </span>
-<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          87 :   for (const auto &amp;link : preset.links) {</span></span>
-<span id="L446"><span class="lineNum">     446</span> <span class="tlaGNC">          98 :     auto parse_pin = [&amp;](const std::string &amp;pin_str, bool is_input) -&gt; int {</span></span>
+<span id="L445"><span class="lineNum">     445</span> <span class="tlaGNC">          72 :   for (const auto &amp;link : preset.links) {</span></span>
+<span id="L446"><span class="lineNum">     446</span> <span class="tlaGNC">         112 :     auto parse_pin = [&amp;](const std::string &amp;pin_str, bool is_input) -&gt; int {</span></span>
 <span id="L447"><span class="lineNum">     447</span> <span class="tlaGNC">          84 :       auto dot_pos = pin_str.find('.');</span></span>
 <span id="L448"><span class="lineNum">     448</span> <span class="tlaGNC">          84 :       if (dot_pos == std::string::npos)</span></span>
-<span id="L449"><span class="lineNum">     449</span> <span class="tlaGNC">           3 :         return -1;</span></span>
+<span id="L449"><span class="lineNum">     449</span> <span class="tlaGNC">           2 :         return -1;</span></span>
 <span id="L450"><span class="lineNum">     450</span> <span class="tlaGNC">          81 :       std::string n_id = pin_str.substr(0, dot_pos);</span></span>
 <span id="L451"><span class="lineNum">     451</span> <span class="tlaGNC">          81 :       std::string p_str = pin_str.substr(dot_pos + 1);</span></span>
 <span id="L452"><span class="lineNum">     452</span> <span class="tlaGNC">          81 :       if (node_id_map.find(n_id) == node_id_map.end())</span></span>
-<span id="L453"><span class="lineNum">     453</span> <span class="tlaGNC">           9 :         return -1;</span></span>
+<span id="L453"><span class="lineNum">     453</span> <span class="tlaGNC">           6 :         return -1;</span></span>
 <span id="L454"><span class="lineNum">     454</span>              : </span>
 <span id="L455"><span class="lineNum">     455</span> <span class="tlaGNC">          72 :       int actual_node_id = node_id_map[n_id];</span></span>
 <span id="L456"><span class="lineNum">     456</span> <span class="tlaGNC">          72 :       const auto *node = graph.find_node(actual_node_id);</span></span>
 <span id="L457"><span class="lineNum">     457</span> <span class="tlaGNC">          72 :       if (!node)</span></span>
 <span id="L458"><span class="lineNum">     458</span> <span class="tlaUNC tlaBgUNC">           0 :         return -1;</span></span>
 <span id="L459"><span class="lineNum">     459</span>              : </span>
-<span id="L460"><span class="lineNum">     460</span>              :       try {</span>
-<span id="L461"><span class="lineNum">     461</span> <span class="tlaGNC tlaBgGNC">          72 :         if (p_str.length() &gt; 3 &amp;&amp; p_str.substr(0, 3) == &quot;out&quot; &amp;&amp; !is_input) {</span></span>
-<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC">          36 :           int idx = std::stoi(p_str.substr(3));</span></span>
+<span id="L460"><span class="lineNum">     460</span> <span class="tlaGNC tlaBgGNC">          24 :       try {</span></span>
+<span id="L461"><span class="lineNum">     461</span> <span class="tlaGNC">          84 :         if (p_str.length() &gt; 3 &amp;&amp; p_str.substr(0, 3) == &quot;out&quot; &amp;&amp; !is_input) {</span></span>
+<span id="L462"><span class="lineNum">     462</span> <span class="tlaGNC">          48 :           int idx = std::stoi(p_str.substr(3));</span></span>
 <span id="L463"><span class="lineNum">     463</span> <span class="tlaGNC">          36 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;output_pin_ids.size())</span></span>
 <span id="L464"><span class="lineNum">     464</span> <span class="tlaGNC">          33 :             return node-&gt;output_pin_ids[idx];</span></span>
-<span id="L465"><span class="lineNum">     465</span> <span class="tlaGNC">          37 :         } else if (p_str.length() &gt; 2 &amp;&amp; p_str.substr(0, 2) == &quot;in&quot; &amp;&amp; is_input) {</span></span>
-<span id="L466"><span class="lineNum">     466</span> <span class="tlaGNC">          36 :           int idx = std::stoi(p_str.substr(2));</span></span>
+<span id="L465"><span class="lineNum">     465</span> <span class="tlaGNC">          49 :         } else if (p_str.length() &gt; 2 &amp;&amp; p_str.substr(0, 2) == &quot;in&quot; &amp;&amp; is_input) {</span></span>
+<span id="L466"><span class="lineNum">     466</span> <span class="tlaGNC">          48 :           int idx = std::stoi(p_str.substr(2));</span></span>
 <span id="L467"><span class="lineNum">     467</span> <span class="tlaGNC">          36 :           if (idx &gt;= 0 &amp;&amp; idx &lt; node-&gt;input_pin_ids.size())</span></span>
 <span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC">          36 :             return node-&gt;input_pin_ids[idx];</span></span>
 <span id="L469"><span class="lineNum">     469</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
@@ -534,26 +534,26 @@
 <span id="L472"><span class="lineNum">     472</span> <span class="tlaUNC">           0 :       } catch (const std::out_of_range&amp;) {</span></span>
 <span id="L473"><span class="lineNum">     473</span> <span class="tlaUNC">           0 :         return -1;</span></span>
 <span id="L474"><span class="lineNum">     474</span> <span class="tlaUNC">           0 :       }</span></span>
-<span id="L475"><span class="lineNum">     475</span> <span class="tlaGNC tlaBgGNC">           3 :       return -1;</span></span>
+<span id="L475"><span class="lineNum">     475</span> <span class="tlaGNC tlaBgGNC">           2 :       return -1;</span></span>
 <span id="L476"><span class="lineNum">     476</span> <span class="tlaGNC">          82 :     };</span></span>
 <span id="L477"><span class="lineNum">     477</span>              : </span>
 <span id="L478"><span class="lineNum">     478</span> <span class="tlaGNC">          42 :     int src_pin = parse_pin(link.src_pin, false);</span></span>
 <span id="L479"><span class="lineNum">     479</span> <span class="tlaGNC">          42 :     int dst_pin = parse_pin(link.dst_pin, true);</span></span>
 <span id="L480"><span class="lineNum">     480</span>              : </span>
 <span id="L481"><span class="lineNum">     481</span> <span class="tlaGNC">          42 :     if (src_pin == -1 || dst_pin == -1) {</span></span>
-<span id="L482"><span class="lineNum">     482</span> <span class="tlaGNC">           4 :       std::cerr &lt;&lt; &quot;[Preset] Invalid link configuration, missing pin: &quot;</span></span>
-<span id="L483"><span class="lineNum">     483</span> <span class="tlaGNC">          12 :                 &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot; &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
+<span id="L482"><span class="lineNum">     482</span> <span class="tlaGNC">           8 :       std::cerr &lt;&lt; &quot;[Preset] Invalid link configuration, missing pin: &quot;</span></span>
+<span id="L483"><span class="lineNum">     483</span> <span class="tlaGNC">          20 :                 &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot; &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
 <span id="L484"><span class="lineNum">     484</span> <span class="tlaGNC">          14 :       return false; // Fail loudly</span></span>
 <span id="L485"><span class="lineNum">     485</span>              :     }</span>
 <span id="L486"><span class="lineNum">     486</span>              : </span>
 <span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">          30 :     if (graph.add_link(src_pin, dst_pin) == -1) {</span></span>
 <span id="L488"><span class="lineNum">     488</span> <span class="tlaGNC">           3 :       std::cerr &lt;&lt; &quot;[Preset] Failed to connect link: &quot; &lt;&lt; link.src_pin &lt;&lt; &quot; -&gt; &quot;</span></span>
-<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">           3 :                 &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
-<span id="L490"><span class="lineNum">     490</span> <span class="tlaGNC">           3 :       return false; // Fail loudly</span></span>
+<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">           9 :                 &lt;&lt; link.dst_pin &lt;&lt; std::endl;</span></span>
+<span id="L490"><span class="lineNum">     490</span> <span class="tlaGNC">           2 :       return false; // Fail loudly</span></span>
 <span id="L491"><span class="lineNum">     491</span>              :     }</span>
 <span id="L492"><span class="lineNum">     492</span>              :   }</span>
 <span id="L493"><span class="lineNum">     493</span>              : </span>
-<span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">          30 :   return true;</span></span>
+<span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">          20 :   return true;</span></span>
 <span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">         221 : }</span></span>
 <span id="L496"><span class="lineNum">     496</span>              : </span>
 <span id="L497"><span class="lineNum">     497</span>              : } // namespace Amplitron</span>

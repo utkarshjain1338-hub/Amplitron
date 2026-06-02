@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -72,7 +72,7 @@
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         168 :     if (!undo_stack_.empty() &amp;&amp; undo_stack_.back()-&gt;merge_with(*cmd)) {</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :         // Merged into existing top — no new entry needed</span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC tlaBgUNC">           0 :     } else {</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         224 :         undo_stack_.push_back(std::move(cmd));</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         168 :         undo_stack_.push_back(std::move(cmd));</span></span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         168 :         trim();</span></span>
 <span id="L15"><span class="lineNum">      15</span>              :     }</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
@@ -85,7 +85,7 @@
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          45 :     if (!undo_stack_.empty() &amp;&amp; undo_stack_.back()-&gt;merge_with(*cmd)) {</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :         // Merged into existing top — no new entry needed</span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :     } else {</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          52 :         undo_stack_.push_back(std::move(cmd));</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          39 :         undo_stack_.push_back(std::move(cmd));</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          39 :         trim();</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :     }</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
@@ -97,11 +97,11 @@
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          87 : bool CommandHistory::undo() {</span></span>
 <span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          87 :     if (undo_stack_.empty()) return false;</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         112 :     auto cmd = std::move(undo_stack_.back());</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          84 :     auto cmd = std::move(undo_stack_.back());</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          84 :     undo_stack_.pop_back();</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          84 :     cmd-&gt;undo();</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         112 :     redo_stack_.push_back(std::move(cmd));</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          84 :     redo_stack_.push_back(std::move(cmd));</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          84 :     return true;</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          85 : }</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
@@ -109,11 +109,11 @@
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          48 : bool CommandHistory::redo() {</span></span>
 <span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          48 :     if (redo_stack_.empty()) return false;</span></span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          60 :     auto cmd = std::move(redo_stack_.back());</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          45 :     auto cmd = std::move(redo_stack_.back());</span></span>
 <span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          45 :     redo_stack_.pop_back();</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          45 :     cmd-&gt;execute();</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          60 :     undo_stack_.push_back(std::move(cmd));</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          45 :     undo_stack_.push_back(std::move(cmd));</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          45 :     return true;</span></span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          46 : }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
@@ -138,7 +138,7 @@
 <span id="L76"><span class="lineNum">      76</span>              : /** @brief Remove oldest undo entries until stack size &lt;= max_depth_. */</span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         207 : void CommandHistory::trim() {</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         222 :     while (static_cast&lt;int&gt;(undo_stack_.size()) &gt; max_depth_) {</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          20 :         undo_stack_.erase(undo_stack_.begin());</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          15 :         undo_stack_.erase(undo_stack_.begin());</span></span>
 <span id="L80"><span class="lineNum">      80</span>              :     }</span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         207 : }</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>

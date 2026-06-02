@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -81,19 +81,19 @@
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           8 : }</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         116 : TunerPedal::TunerPedal() {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         174 :     params_ = {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          29 :         {&quot;Mute&quot;,    1.0f, 0.0f, 1.0f, 1.0f, &quot;&quot;, &quot;When fully engaged (1.0), the tuner silences the audio output while you tune.&quot;},</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         203 :     params_ = {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          87 :         {&quot;Mute&quot;,    1.0f, 0.0f, 1.0f, 1.0f, &quot;&quot;, &quot;When fully engaged (1.0), the tuner silences the audio output while you tune.&quot;},</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          29 :         {&quot;A4 Ref&quot;, 440.0f, 430.0f, 450.0f, 440.0f, &quot;Hz&quot;, &quot;Calibration frequency for the note A4. Default is standard 440Hz.&quot;},</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         174 :     };</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         203 :     };</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          58 :     yin_buffer_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          87 :     yin_buf_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          87 :     yin_d_.resize(YIN_BUFFER_SIZE / 2, 0.0f);</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          87 :     recalc_update_interval();</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         261 : }</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         116 :     recalc_update_interval();</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         203 : }</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          48 : void TunerPedal::set_sample_rate(int sample_rate) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          48 :     sample_rate_ = sample_rate;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          48 :     recalc_update_interval();</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          64 :     recalc_update_interval();</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          48 : }</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         135 : void TunerPedal::recalc_update_interval() {</span></span>
@@ -101,7 +101,7 @@
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         135 :     update_interval_ = sample_rate_ / 15;</span></span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         135 :     if (update_interval_ &lt; YIN_BUFFER_SIZE)</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         132 :         update_interval_ = YIN_BUFFER_SIZE;</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         135 : }</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          90 : }</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          48 : void TunerPedal::reset() {</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          48 :     std::fill(yin_buffer_.begin(), yin_buffer_.end(), 0.0f);</span></span>
@@ -168,7 +168,7 @@
 <span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">      364544 :     }</span></span>
 <span id="L107"><span class="lineNum">     107</span>              : </span>
 <span id="L108"><span class="lineNum">     108</span>              :     // Check if there's enough signal energy (RMS gate)</span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         267 :     float energy = 0.0f;</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         178 :     float energy = 0.0f;</span></span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">     1093899 :     for (int i = 0; i &lt; YIN_BUFFER_SIZE; ++i)</span></span>
 <span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">     1093632 :         energy += yin_buf_[i] * yin_buf_[i];</span></span>
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         267 :     float rms_val = std::sqrt(energy / YIN_BUFFER_SIZE);</span></span>
@@ -177,7 +177,7 @@
 <span id="L115"><span class="lineNum">     115</span>              :     // Step 1 &amp; 2: Difference function d(tau) and cumulative mean normalized</span>
 <span id="L116"><span class="lineNum">     116</span>              :     // difference function d'(tau)</span>
 <span id="L117"><span class="lineNum">     117</span>              :     // Reuse preallocated member (no heap alloc)</span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         308 :     std::fill(yin_d_.begin(), yin_d_.begin() + W, 0.0f);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         231 :     std::fill(yin_d_.begin(), yin_d_.begin() + W, 0.0f);</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
 <span id="L120"><span class="lineNum">     120</span>              :     // d'(0) is defined as 1</span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         231 :     yin_d_[0] = 1.0f;</span></span>
@@ -185,7 +185,7 @@
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">         231 :     float running_sum = 0.0f;</span></span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
 <span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">      473088 :     for (int tau = 1; tau &lt; W; ++tau) {</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">      472857 :         float diff = 0.0f;</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">      315238 :         float diff = 0.0f;</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">   968883993 :         for (int j = 0; j &lt; W; ++j) {</span></span>
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">   968411136 :             float delta = yin_buf_[j] - yin_buf_[j + tau];</span></span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">   968411136 :             diff += delta * delta;</span></span>
@@ -215,14 +215,14 @@
 <span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">       54828 :     for (int tau = min_tau; tau &lt; max_tau; ++tau) {</span></span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">       54828 :         if (yin_d_[tau] &lt; YIN_THRESHOLD) {</span></span>
 <span id="L155"><span class="lineNum">     155</span>              :             // Walk to the local minimum of this valley</span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         231 :             int valley_min = tau;</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         154 :             int valley_min = tau;</span></span>
 <span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">        7377 :             while (tau + 1 &lt; max_tau &amp;&amp; yin_d_[tau + 1] &lt; yin_d_[tau]) {</span></span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">        7146 :                 ++tau;</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">        4764 :                 ++tau;</span></span>
 <span id="L159"><span class="lineNum">     159</span>              :             }</span>
 <span id="L160"><span class="lineNum">     160</span>              :             // tau now points at the local minimum (or end of descent)</span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">         231 :             valley_min = tau;</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         231 :             best_tau = valley_min;</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         231 :             break;</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">         154 :             valley_min = tau;</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         154 :             best_tau = valley_min;</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         154 :             break;</span></span>
 <span id="L164"><span class="lineNum">     164</span>              :         }</span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">       18199 :     }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
@@ -239,7 +239,7 @@
 <span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :         if (global_min &gt; 0.5f) return -1.0f;</span></span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC tlaBgGNC">         231 :     if (best_tau &lt; 1) return -1.0f;</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC tlaBgGNC">         154 :     if (best_tau &lt; 1) return -1.0f;</span></span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
 <span id="L182"><span class="lineNum">     182</span>              :     // Step 4: Parabolic interpolation for sub-sample accuracy</span>
 <span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">         231 :     float refined_tau = static_cast&lt;float&gt;(best_tau);</span></span>
@@ -263,7 +263,7 @@
 <span id="L201"><span class="lineNum">     201</span>              :     // Sanity check: guitar range ~60Hz to ~1400Hz (high frets on high E)</span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">         231 :     if (freq &lt; 60.0f || freq &gt; 1400.0f) return -1.0f;</span></span>
 <span id="L203"><span class="lineNum">     203</span>              : </span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         231 :     return freq;</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">         154 :     return freq;</span></span>
 <span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">          89 : }</span></span>
 <span id="L206"><span class="lineNum">     206</span>              : </span>
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">         231 : void TunerPedal::freq_to_note(float freq, float a4_ref) {</span></span>

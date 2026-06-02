@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">35</td>
-            <td class="headerCovTableEntry">35</td>
+            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">36</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-05-30 18:34:40</td>
+            <td class="headerValue">2026-06-02 17:19:45</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -78,7 +78,7 @@
 <span id="L16"><span class="lineNum">      16</span>              : // FORWARD DECLARATIONS</span>
 <span id="L17"><span class="lineNum">      17</span>              : namespace Amplitron {</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span>              : struct AudioDeviceInfo {</span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">           4 : struct AudioDeviceInfo {</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :     int index;</span>
 <span id="L21"><span class="lineNum">      21</span>              :     std::string name;</span>
 <span id="L22"><span class="lineNum">      22</span>              :     int max_input_channels;</span>
@@ -130,7 +130,7 @@
 <span id="L68"><span class="lineNum">      68</span>              :     bool restart();</span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
 <span id="L70"><span class="lineNum">      70</span>              :     /** @brief Return the last error message, or empty string. */</span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC tlaBgGNC">          11 :     std::string get_last_error() const { return last_error_; }</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          15 :     std::string get_last_error() const { return last_error_; }</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span>              :     /** @brief Clear the stored error message. */</span>
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           3 :     void clear_error() { last_error_.clear(); }</span></span>
@@ -175,7 +175,7 @@
 <span id="L113"><span class="lineNum">     113</span>              :     std::string get_output_device_name() const;</span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         780 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         735 :     AudioGraph&amp; graph() { return main_graph_; }</span></span>
 <span id="L117"><span class="lineNum">     117</span>              :     const AudioGraph&amp; graph() const { return main_graph_; }</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
 <span id="L119"><span class="lineNum">     119</span>              : #ifdef AMPLITRON_TESTS</span>
@@ -188,12 +188,12 @@
 <span id="L126"><span class="lineNum">     126</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L127"><span class="lineNum">     127</span>              :     // =========================================================================</span>
 <span id="L128"><span class="lineNum">     128</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        1803 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        1584 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() { return dummy_effects_; }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              : </span>
 <span id="L131"><span class="lineNum">     131</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx);</span>
 <span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          42 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) {</span></span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          42 :         dummy_effects_.clear();</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">         320 :         for (const auto&amp; fx : fxs)</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">         306 :         for (const auto&amp; fx : fxs)</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">         264 :             dummy_effects_.push_back(fx);</span></span>
 <span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          42 :         sync_graph_with_dummy_effects(true);</span></span>
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          42 :     }</span></span>
@@ -223,7 +223,7 @@
 <span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          50 :     int get_sample_rate() const { return sample_rate_; }</span></span>
 <span id="L162"><span class="lineNum">     162</span>              : </span>
 <span id="L163"><span class="lineNum">     163</span>              :     /** @brief Return true if the audio stream is actively running. */</span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">         177 :     bool is_running() const { return running_; }</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">         127 :     bool is_running() const { return running_; }</span></span>
 <span id="L165"><span class="lineNum">     165</span>              : </span>
 <span id="L166"><span class="lineNum">     166</span>              :     /** @brief Return the most recent input peak level (0.0–1.0, atomic). */</span>
 <span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           3 :     float get_input_level() const { return input_level_.load(); }</span></span>
@@ -255,7 +255,7 @@
 <span id="L193"><span class="lineNum">     193</span>              : </span>
 <span id="L194"><span class="lineNum">     194</span>              :     /** @brief Snapshot sequence counter; increments when new analyzer data is published. */</span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           3 :     uint64_t get_analyzer_sequence() const {</span></span>
-<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">           5 :         return analyzer_sequence_.load(std::memory_order_acquire);</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">           4 :         return analyzer_sequence_.load(std::memory_order_acquire);</span></span>
 <span id="L197"><span class="lineNum">     197</span>              :     }</span>
 <span id="L198"><span class="lineNum">     198</span>              : </span>
 <span id="L199"><span class="lineNum">     199</span>              :     /**</span>
@@ -273,7 +273,7 @@
 <span id="L211"><span class="lineNum">     211</span>              : </span>
 <span id="L212"><span class="lineNum">     212</span>              :     /** @brief Drive FFT spectrum analysis (GUI thread only). */</span>
 <span id="L213"><span class="lineNum">     213</span>              :     void update_spectrum_analyzer(float dt);</span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">           6 :     const SpectrumAnalyzer&amp; spectrum_analyzer() const { return spectrum_analyzer_; }</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">           5 :     const SpectrumAnalyzer&amp; spectrum_analyzer() const { return spectrum_analyzer_; }</span></span>
 <span id="L215"><span class="lineNum">     215</span>              : </span>
 <span id="L216"><span class="lineNum">     216</span>              :     /**</span>
 <span id="L217"><span class="lineNum">     217</span>              :      * @brief Set the master input gain (enqueued to audio thread via SPSC queue).</span>
@@ -289,10 +289,10 @@
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     </span>
 <span id="L229"><span class="lineNum">     229</span>              :     /** @brief Return the current input gain (atomic relaxed read). */</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         543 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         535 :     float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span>              :     /** @brief Return the current output gain (atomic relaxed read). */</span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         477 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">         485 :     float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              :     /** @brief Toggle the metronome on/off (atomic update). */</span>
 <span id="L236"><span class="lineNum">     236</span>              :     void toggle_metronome();</span>
@@ -307,7 +307,7 @@
 <span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">          18 :     bool get_metronome_enabled() const { return metronome_enabled_state_.load(std::memory_order_relaxed); }</span></span>
 <span id="L246"><span class="lineNum">     246</span>              : </span>
 <span id="L247"><span class="lineNum">     247</span>              :     /** @brief Return the current metronome BPM (atomic relaxed read). */</span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          35 :     int get_metronome_bpm() const { return metronome_bpm_state_.load(std::memory_order_relaxed); }</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">          28 :     int get_metronome_bpm() const { return metronome_bpm_state_.load(std::memory_order_relaxed); }</span></span>
 <span id="L249"><span class="lineNum">     249</span>              : </span>
 <span id="L250"><span class="lineNum">     250</span>              :     /** @brief Return the current metronome volume (atomic relaxed read). */</span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          15 :     float get_metronome_volume() const { return metronome_volume_state_.load(std::memory_order_relaxed); }</span></span>
@@ -355,7 +355,7 @@
 <span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           3 :     void set_auto_buffer_enabled(bool enabled) { auto_buffer_enabled_ = enabled; }</span></span>
 <span id="L294"><span class="lineNum">     294</span>              : </span>
 <span id="L295"><span class="lineNum">     295</span>              :     /** @brief Access the built-in audio recorder. */</span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">          27 :     Recorder&amp; recorder() { return recorder_; }</span></span>
+<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">          25 :     Recorder&amp; recorder() { return recorder_; }</span></span>
 <span id="L297"><span class="lineNum">     297</span>              : </span>
 <span id="L298"><span class="lineNum">     298</span>              :     /**</span>
 <span id="L299"><span class="lineNum">     299</span>              :      * @brief Set a tuner tap that receives pre-chain audio each callback.</span>
