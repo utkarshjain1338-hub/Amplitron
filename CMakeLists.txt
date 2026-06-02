@@ -304,8 +304,11 @@ set(APP_SOURCES
     src/gui/components/screen.cpp
     src/presets/preset_manager_dirs.cpp
     src/presets/preset_manager_io.cpp
+    src/presets/preset_components.cpp
     src/audio/engine/audio_graph.cpp
     src/audio/engine/audio_graph_executor.cpp
+    src/audio/engine/analyzer_capture.cpp
+    src/audio/engine/audio_command_dispatcher.cpp
 )
 
 # --- MIDI Support (desktop only) ---
