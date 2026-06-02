@@ -203,13 +203,7 @@ public:
      */
     bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const;
 
-    /** @brief Drive smoothed VU level metrics (GUI thread only). */
-    void update_level_analyzer(float dt);
-    const LevelAnalyzer& level_analyzer() const { return level_analyzer_; }
 
-    /** @brief Drive FFT spectrum analysis (GUI thread only). */
-    void update_spectrum_analyzer(float dt);
-    const SpectrumAnalyzer& spectrum_analyzer() const { return spectrum_analyzer_; }
 
     /**
      * @brief Set the master input gain (enqueued to audio thread via SPSC queue).
@@ -388,12 +382,7 @@ private:
     std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_output_{};
     std::atomic<uint64_t> analyzer_sequence_{0};
 
-    // DSP analyzer instances (GUI thread only — driven by update_*_analyzer())
-    LevelAnalyzer   level_analyzer_;
-    SpectrumAnalyzer spectrum_analyzer_;
-    uint64_t         analyzer_last_sequence_ = 0;
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_input_buf_{};
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_output_buf_{};
+
 
     // (MIDI instance removed - use MidiManager)
 };

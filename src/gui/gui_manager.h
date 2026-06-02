@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "audio/engine/audio_engine.h"
+#include "audio/engine/audio_metrics_service.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/snapshot_manager.h"
 #include "gui/views/gui_settings.h"
@@ -19,6 +20,8 @@
 
 struct SDL_Window;
 typedef void* SDL_GLContext;
+#include "gui/window_context.h"
+#include "gui/update_checker.h"
 
 namespace Amplitron {
 
@@ -80,17 +83,13 @@ private:
     AudioEngine&   engine_;
     CommandHistory command_history_;
 
-    SDL_Window*    window_     = nullptr;
-    SDL_GLContext  gl_context_ = nullptr;
-
+    WindowContext  window_context_;
     std::unique_ptr<PedalBoard> pedal_board_;
 
     // Tuner pedal instance shared between engine tap and TunerProps assembly
     std::shared_ptr<TunerPedal> tuner_pedal_;
 
     bool initialized_      = false;
-    int  window_width_     = 1280;
-    int  window_height_    = 720;
     bool audio_muted_      = false;
 
     // ── Smoothed master level meters (computed in GuiManager, not in children) ──
@@ -116,18 +115,14 @@ private:
     GuiSnapshots  gui_snapshots_;
     MidiManager   midi_manager_;
     GuiMidi       gui_midi_;
+    AudioMetricsService metrics_service_;
 
     // ── Toast notification ──
     std::string toast_message_;
     float       toast_timer_ = 0.0f;
 
     // ── Update checking ──
-    void check_for_updates();
-    std::thread update_check_thread_;
-    std::mutex  update_mutex_;
-    bool        has_new_release_     = false;
-    std::string new_release_version_;
-    std::string new_release_url_;
+    UpdateChecker update_checker_;
 
     // ── Waveform buffer (filled from recorder, passed to RecordingProps) ──
     float rec_waveform_buf_[512] = {};

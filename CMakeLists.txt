@@ -279,9 +279,10 @@ set(APP_SOURCES
     src/audio/effects/pitch_shifter.cpp
     src/gui/crash_recovery_ui.h
     src/gui/gui_manager.cpp
+    src/gui/window_context.cpp
     src/gui/gui_manager_frame.cpp
     src/gui/gui_manager_menu.cpp
-    src/gui/gui_manager_update.cpp
+    src/gui/update_checker.cpp
     src/gui/views/gui_settings.cpp
     src/gui/views/gui_presets.cpp
     src/gui/views/gui_recording.cpp
@@ -579,6 +580,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/engine/audio_engine_chain.cpp
         src/audio/engine/audio_engine_process.cpp
         src/audio/engine/audio_engine_api.cpp
+        src/audio/engine/audio_metrics_service.cpp
         src/audio/engine/metronome.cpp
         src/audio/engine/audio_graph.cpp
         src/audio/engine/audio_graph_executor.cpp
@@ -794,9 +796,10 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
     # GUI + ImGui + platform-specific sources for testing
     set(TEST_GUI_SOURCES
         src/gui/gui_manager.cpp
+        src/gui/window_context.cpp
         src/gui/gui_manager_frame.cpp
         src/gui/gui_manager_menu.cpp
-        src/gui/gui_manager_update.cpp
+        src/gui/update_checker.cpp
         src/gui/views/gui_settings.cpp
         src/gui/views/gui_presets.cpp
         src/gui/views/gui_recording.cpp

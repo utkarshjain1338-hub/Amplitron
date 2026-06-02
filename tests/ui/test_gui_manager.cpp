@@ -80,17 +80,8 @@ TEST(gui_manager_private_rendering_methods) {
     // 3. Render menu bar (without update)
     gui.render_menu_bar();
 
-    // 4. Render menu bar with a simulated update
-    {
-        std::lock_guard<std::mutex> lock(gui.update_mutex_);
-        gui.has_new_release_ = true;
-        gui.new_release_version_ = "v9.9.9";
-        gui.new_release_url_ = "https://github.com/example/Amplitron";
-    }
+    // 4. UpdateChecker tests are handled elsewhere, render menu normally
     gui.render_menu_bar();
-
-    // 5. Test check_for_updates (runs popen, handles failure/success gracefully)
-    gui.check_for_updates();
 
     gui.shutdown();
     engine.shutdown();
@@ -157,7 +148,7 @@ TEST(gui_manager_logical_builders) {
     // 4. build_analyzer_props
     {
         auto p = gui.build_analyzer_props();
-        ASSERT_TRUE(p.spectrum.smoothed_input_db == engine.spectrum_analyzer().smoothed_input_db());
+        ASSERT_TRUE(p.spectrum.smoothed_input_db == gui.metrics_service_.spectrum_analyzer().smoothed_input_db());
         p.on_set_analyzer_enabled(true);
     }
 

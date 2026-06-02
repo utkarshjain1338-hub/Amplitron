@@ -102,33 +102,5 @@ bool AudioEngine::copy_analyzer_snapshot(float* input_dest,
     return true;
 }
 
-void AudioEngine::update_level_analyzer(float dt) {
-    const float input_rms       = get_input_rms();
-    const float output_rms      = get_output_rms();
-    const bool  input_clipped   = consume_input_clipped();
-    const bool  output_clipped  = consume_output_clipped();
-    level_analyzer_.update(input_rms, output_rms, input_clipped, output_clipped, dt);
-}
-
-void AudioEngine::update_spectrum_analyzer(float dt) {
-    const uint64_t seq = get_analyzer_sequence();
-    if (seq == analyzer_last_sequence_) {
-        spectrum_analyzer_.update(analyzer_input_buf_.data(),
-                                  analyzer_output_buf_.data(),
-                                  get_sample_rate(),
-                                  dt);
-        return;
-    }
-
-    if (copy_analyzer_snapshot(analyzer_input_buf_.data(),
-                               analyzer_output_buf_.data(),
-                               ANALYZER_FFT_SIZE)) {
-        spectrum_analyzer_.update(analyzer_input_buf_.data(),
-                                  analyzer_output_buf_.data(),
-                                  get_sample_rate(),
-                                  dt);
-        analyzer_last_sequence_ = seq;
-    }
-}
 
 } // namespace Amplitron
