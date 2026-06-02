@@ -27,6 +27,7 @@ namespace Amplitron {
 
 class PedalBoard;
 class TunerPedal;
+class AmplitronSession;
 
 /**
  * @brief Top-level GUI controller — acts as the reactive root component.
@@ -47,7 +48,7 @@ class TunerPedal;
  */
 class GuiManager {
 public:
-    GuiManager(AudioEngine& engine);
+    GuiManager(AmplitronSession& session);
     ~GuiManager();
 
     bool initialize(int width = 1280, int height = 720);
@@ -80,9 +81,11 @@ private:
     // ─────────────────────────────────────────────────────────────────────
     // Core objects
     // ─────────────────────────────────────────────────────────────────────
+    AmplitronSession& session_;
     AudioEngine&   engine_;
-    CommandHistory command_history_;
-
+    CommandHistory& command_history_;
+    MidiManager&   midi_manager_;
+    SnapshotManager& snapshot_manager_;
     WindowContext  window_context_;
     std::unique_ptr<PedalBoard> pedal_board_;
 
@@ -103,8 +106,7 @@ private:
     bool show_tuner_         = false;
     bool show_midi_          = false;
 
-    // ── Snapshot manager (state lives in GuiManager; GuiSnapshots is a pure view) ──
-    SnapshotManager snapshot_manager_;
+    // ── Snapshot manager is now referenced from session_ ──
 
     // ── Reactive child components ──
     GuiSettings   gui_settings_;
@@ -113,7 +115,7 @@ private:
     GuiTuner      gui_tuner_;
     GuiAnalyzer   gui_analyzer_;
     GuiSnapshots  gui_snapshots_;
-    MidiManager   midi_manager_;
+    // ── MidiManager is now referenced from session_ ──
     GuiMidi       gui_midi_;
     AudioMetricsService metrics_service_;
 

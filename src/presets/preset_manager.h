@@ -3,6 +3,7 @@
 #include "common.h"
 #include "audio/engine/audio_engine.h"
 #include "midi/midi_manager.h"
+#include "presets/i_preset_manager.h"
 #include <nlohmann/json_fwd.hpp>
 #include <fstream>
 #include <map>
@@ -108,6 +109,31 @@ private:
     static void save_factory_presets(const std::string& dir);
     static std::string get_config_path();
     static std::string get_system_presets_dir();
+};
+
+class PresetManagerService : public IPresetManager {
+public:
+    PresetManagerService() = default;
+    ~PresetManagerService() override = default;
+
+    bool save_preset_data(const std::string& filepath, const PresetData& preset) override {
+        return PresetManager::save_preset_data(filepath, preset);
+    }
+
+    bool save_preset(const std::string& filepath, const std::string& preset_name,
+                     const std::string& description, AudioEngine& engine,
+                     const std::vector<MidiMapping>& midi_mappings = {}) override {
+        return PresetManager::save_preset(filepath, preset_name, description, engine, midi_mappings);
+    }
+
+    bool load_preset(const std::string& filepath, AudioEngine& engine,
+                     MidiManager* midi_manager = nullptr) override {
+        return PresetManager::load_preset(filepath, engine, midi_manager);
+    }
+
+    std::vector<std::string> list_presets() override {
+        return PresetManager::list_presets();
+    }
 };
 
 } // namespace Amplitron

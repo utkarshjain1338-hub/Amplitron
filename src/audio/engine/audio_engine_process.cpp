@@ -176,17 +176,29 @@ void AudioEngine::drain_commands() {
     AudioCommand cmd;
     while (command_queue_.try_pop(cmd)) {
         
-        // Helper to find the effect pointer safely inside the new Graph architecture by chain index
-        auto get_effect = [&](int effect_index) -> std::shared_ptr<Effect> {
-            if (effect_index >= 0 && effect_index < static_cast<int>(dummy_effects_.size())) {
-                return dummy_effects_[effect_index];
+        // Helper to find the effect pointer safely in the compiled executor by node_id, with fallback
+        auto get_effect_by_id = [&](int node_id) -> std::shared_ptr<Effect> {
+            if (audio_shadow_executor_) {
+                for (const auto& step : audio_shadow_executor_->execution_plan_) {
+                    if (step.node_id == node_id) {
+                        return step.pedal;
+                    }
+                }
+            }
+            for (const auto& node : main_graph_.get_nodes()) {
+                if (node.id == node_id) {
+                    return node.pedal;
+                }
+            }
+            if (node_id >= 0 && node_id < static_cast<int>(dummy_effects_.size())) {
+                return dummy_effects_[node_id];
             }
             return nullptr;
         };
 
         switch (cmd.type) {
             case AudioCommand::SetEffectParam: {
-                if (auto fx = get_effect(cmd.effect_index)) {
+                if (auto fx = get_effect_by_id(cmd.effect_index)) {
                     auto& params = fx->params();
                     if (cmd.param_index >= 0 &&
                         cmd.param_index < static_cast<int>(params.size())) {
@@ -196,13 +208,13 @@ void AudioEngine::drain_commands() {
                 break;
             }
             case AudioCommand::SetEffectEnabled: {
-                if (auto fx = get_effect(cmd.effect_index)) {
+                if (auto fx = get_effect_by_id(cmd.effect_index)) {
                     fx->set_enabled(cmd.value > 0.5f);
                 }
                 break;
             }
             case AudioCommand::SetEffectMix: {
-                if (auto fx = get_effect(cmd.effect_index)) {
+                if (auto fx = get_effect_by_id(cmd.effect_index)) {
                     fx->set_mix(cmd.value);
                 }
                 break;

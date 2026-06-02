@@ -7,6 +7,7 @@
  */
 #include "test_framework.h"
 #include "test_fixtures.h"
+#include "amplitron_session.h"
 #define private public
 #include "gui/gui_manager.h"
 #undef private
@@ -14,11 +15,12 @@
 using namespace Amplitron;
 
 TEST(gui_manager_basic_lifecycle) {
-    AudioEngine engine;
+    AmplitronSession session;
+    auto& engine = session.concrete_engine();
     engine.initialize();
 
     // Construct GuiManager — safe without SDL/GL (constructor defers window setup)
-    GuiManager gui(engine);
+    GuiManager gui(session);
 
     // Audio engine reference is correctly stored
     ASSERT_EQ(&gui.audio_engine(), &engine);
@@ -33,10 +35,11 @@ TEST(gui_manager_basic_lifecycle) {
 }
 
 TEST(gui_manager_double_shutdown_is_safe) {
-    AudioEngine engine;
+    AmplitronSession session;
+    auto& engine = session.concrete_engine();
     engine.initialize();
 
-    GuiManager gui(engine);
+    GuiManager gui(session);
 
     // shutdown() must guard against being called twice (initialized_ flag)
     gui.shutdown();
@@ -46,10 +49,11 @@ TEST(gui_manager_double_shutdown_is_safe) {
 }
 
 TEST(gui_manager_midi_manager_association) {
-    AudioEngine engine;
+    AmplitronSession session;
+    auto& engine = session.concrete_engine();
     engine.initialize();
 
-    GuiManager gui(engine);
+    GuiManager gui(session);
 
     // midi_manager() must return a stable reference (same address each call)
     ASSERT_EQ(&gui.midi_manager(), &gui.midi_manager());
@@ -60,10 +64,11 @@ TEST(gui_manager_midi_manager_association) {
 
 TEST(gui_manager_private_rendering_methods) {
     ScopedImGuiContext imgui;
-    AudioEngine engine;
+    AmplitronSession session;
+    auto& engine = session.concrete_engine();
     engine.initialize();
 
-    GuiManager gui(engine);
+    GuiManager gui(session);
 
     // 1. Mute/unmute
     engine.running_ = true; // Headless-safe: bypass physical soundcard start requirement
@@ -89,10 +94,11 @@ TEST(gui_manager_private_rendering_methods) {
 
 TEST(gui_manager_logical_builders) {
     ScopedImGuiContext imgui;
-    AudioEngine engine;
+    AmplitronSession session;
+    auto& engine = session.concrete_engine();
     engine.initialize();
 
-    GuiManager gui(engine);
+    GuiManager gui(session);
 
     // 1. build_recording_props under various Recorder states
     {

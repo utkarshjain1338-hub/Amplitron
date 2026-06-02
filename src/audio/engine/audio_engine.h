@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "audio/engine/i_audio_engine.h"
 #include "audio/effects/core/effect.h"
 #include "audio/recorder/recorder.h"
 #include "audio/utils/spsc_queue.h"
@@ -34,7 +35,7 @@ namespace Amplitron {
  *   However, AudioEngine does NOT take ownership of the polymorphic poly_backend_ pointer;
  *   the caller or test fixture is responsible for managing its lifetime.
  */
-class AudioEngine {
+class AudioEngine : public IDeviceManager, public IAudioMetricsService {
 public:
     friend class PortAudioTestSaboteur;
     
@@ -80,34 +81,34 @@ public:
 #endif
 
     /** @brief Enumerate available audio input devices. */
-    std::vector<AudioDeviceInfo> get_input_devices() const;
+    std::vector<AudioDeviceInfo> get_input_devices() const override;
 
     /** @brief Enumerate available audio output devices. */
-    std::vector<AudioDeviceInfo> get_output_devices() const;
+    std::vector<AudioDeviceInfo> get_output_devices() const override;
 
     /**
      * @brief Select the input device by index.
      * @return true if the device was set successfully.
      */
-    bool set_input_device(int device_index);
+    bool set_input_device(int device_index) override;
 
     /**
      * @brief Select the output device by index.
      * @return true if the device was set successfully.
      */
-    bool set_output_device(int device_index);
+    bool set_output_device(int device_index) override;
 
     /** @brief Return the current input device index. */
-    int get_input_device() const { return input_device_; }
+    int get_input_device() const override { return input_device_; }
 
     /** @brief Return the current output device index. */
-    int get_output_device() const { return output_device_; }
+    int get_output_device() const override { return output_device_; }
 
     /** @brief Return the human-readable input device name. */
-    std::string get_input_device_name() const;
+    std::string get_input_device_name() const override;
 
     /** @brief Return the human-readable output device name. */
-    std::string get_output_device_name() const;
+    std::string get_output_device_name() const override;
 
     /** @brief Direct access to the effect chain vector (GUI thread only). */
     AudioGraph& graph() { return main_graph_; }
@@ -144,40 +145,40 @@ public:
      * @brief Set the audio buffer size (takes effect on next stream restart).
      * @param size Buffer size in samples.
      */
-    void set_buffer_size(int size);
+    void set_buffer_size(int size) override;
 
     /**
      * @brief Set the audio sample rate (takes effect on next stream restart).
      * @param rate Sample rate in Hz.
      */
-    void set_sample_rate(int rate);
+    void set_sample_rate(int rate) override;
 
     /** @brief Return the current buffer size in samples. */
-    int get_buffer_size() const { return buffer_size_; }
+    int get_buffer_size() const override { return buffer_size_; }
 
     /** @brief Return the current sample rate in Hz. */
-    int get_sample_rate() const { return sample_rate_; }
+    int get_sample_rate() const override { return sample_rate_; }
 
     /** @brief Return true if the audio stream is actively running. */
-    bool is_running() const { return running_; }
+    bool is_running() const override { return running_; }
 
     /** @brief Return the most recent input peak level (0.0–1.0, atomic). */
-    float get_input_level() const { return input_level_.load(); }
+    float get_input_level() const override { return input_level_.load(); }
 
     /** @brief Return the most recent output peak level (0.0–1.0, atomic). */
-    float get_output_level() const { return output_level_.load(); }
+    float get_output_level() const override { return output_level_.load(); }
 
     /** @brief Return the most recent input RMS level (0.0–1.0, atomic). */
-    float get_input_rms() const { return input_rms_.load(std::memory_order_relaxed); }
+    float get_input_rms() const override { return input_rms_.load(std::memory_order_relaxed); }
 
     /** @brief Return the most recent output RMS level (0.0–1.0, atomic). */
-    float get_output_rms() const { return output_rms_.load(std::memory_order_relaxed); }
+    float get_output_rms() const override { return output_rms_.load(std::memory_order_relaxed); }
 
     /** @brief Consume one-shot input clipping flag set by audio thread. */
-    bool consume_input_clipped() { return input_clipped_.exchange(false, std::memory_order_acq_rel); }
+    bool consume_input_clipped() override { return input_clipped_.exchange(false, std::memory_order_acq_rel); }
 
     /** @brief Consume one-shot output clipping flag set by audio thread. */
-    bool consume_output_clipped() { return output_clipped_.exchange(false, std::memory_order_acq_rel); }
+    bool consume_output_clipped() override { return output_clipped_.exchange(false, std::memory_order_acq_rel); }
 
     /** @brief FFT size used for GUI analyzer snapshots. */
     static constexpr int ANALYZER_FFT_SIZE = 2048;
@@ -273,7 +274,7 @@ public:
     void push_effect_mix(int effect_index, float mix);
 
     /** @brief Return the current CPU load fraction (0.0–1.0, atomic). */
-    float get_cpu_load() const { return cpu_load_.load(std::memory_order_relaxed); }
+    float get_cpu_load() const override { return cpu_load_.load(std::memory_order_relaxed); }
 
     /** @brief Suggest a new buffer size based on current CPU load. */
     int get_suggested_buffer_size() const;

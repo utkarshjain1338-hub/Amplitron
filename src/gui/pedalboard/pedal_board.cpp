@@ -38,7 +38,16 @@ void PedalBoard::rebuild_widgets() {
     int amp_idx = find_amp_index();
 
     for (int i = 0; i < static_cast<int>(effects.size()); ++i) {
-        auto w = std::make_unique<PedalWidget>(engine_, effects[i], i);
+        int node_id = -1;
+        for (const auto& node : engine_.graph().get_nodes()) {
+            if (node.pedal == effects[i]) {
+                node_id = node.id;
+                break;
+            }
+        }
+        if (node_id == -1) node_id = i; // Fallback to index if not found in graph
+
+        auto w = std::make_unique<PedalWidget>(engine_, effects[i], node_id);
         w->set_history(&history_);
         w->set_gui_midi(gui_midi_);
         widgets_.push_back(std::move(w));

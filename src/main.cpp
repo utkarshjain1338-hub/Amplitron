@@ -1,4 +1,5 @@
 #include "common.h"
+#include "amplitron_session.h"
 #include "audio/engine/audio_engine.h"
 #ifndef AMPLITRON_HEADLESS
 #include "gui/gui_manager.h"
@@ -267,8 +268,9 @@ int main(int argc, char* argv[]) {
     std::cout << "=== Amplitron v1.0 - Guitar Amp Simulator ===" << std::endl;
     std::cout << "Starting up..." << std::endl;
 
-    // Initialize audio engine
-    Amplitron::AudioEngine engine;
+    // Initialize session and reference its audio engine
+    Amplitron::AmplitronSession session;
+    auto& engine = session.concrete_engine();
     if (!engine.initialize()) {
         std::cerr << "Failed to initialize audio engine!" << std::endl;
         return 1;
@@ -344,7 +346,7 @@ int main(int argc, char* argv[]) {
     #ifndef AMPLITRON_HEADLESS
     else {
     // GUI bootup
-        gui = std::make_unique<Amplitron::GuiManager>(engine);
+        gui = std::make_unique<Amplitron::GuiManager>(session);
     // Create a small, automatically wired, and highly playable circuit
         auto cabinet = std::make_shared<Amplitron::CabinetSim>();
         cabinet->set_enabled(true);

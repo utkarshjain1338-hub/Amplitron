@@ -8,8 +8,36 @@
 
 namespace Amplitron {
 
+class INodeProcessor {
+public:
+    virtual ~INodeProcessor() = default;
+    virtual void process(const float* input, float* output, int num_samples) = 0;
+};
+
+class StandardEffectProcessor : public INodeProcessor {
+public:
+    explicit StandardEffectProcessor(std::shared_ptr<Effect> pedal) : pedal_(std::move(pedal)) {}
+    void process(const float* input, float* output, int num_samples) override {
+        std::memcpy(output, input, static_cast<size_t>(num_samples) * sizeof(float));
+        if (pedal_) {
+            pedal_->process(output, num_samples);
+        }
+    }
+private:
+    std::shared_ptr<Effect> pedal_;
+};
+
+class PassthroughProcessor : public INodeProcessor {
+public:
+    void process(const float* input, float* output, int num_samples) override {
+        std::memcpy(output, input, static_cast<size_t>(num_samples) * sizeof(float));
+    }
+};
+
 class AudioGraphExecutor {
 public:
+    friend class AudioEngine;
+
     AudioGraphExecutor();
     ~AudioGraphExecutor() = default;
 
@@ -45,6 +73,7 @@ private:
         NodeRoutingType type;
         std::shared_ptr<Effect> pedal;
         std::vector<InputSource> input_sources; // Which buffers to sum together for the input
+        std::unique_ptr<INodeProcessor> processor; // Polymorphic node executor
         bool is_graph_input = false;
         bool is_graph_output = false;
         bool is_sink = false;

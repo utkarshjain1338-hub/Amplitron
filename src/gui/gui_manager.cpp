@@ -1,3 +1,4 @@
+#include "amplitron_session.h"
 #include "gui/gui_manager.h"
 #include "gui/pedalboard/pedal_board.h"
 #include "gui/theme/theme.h"
@@ -34,11 +35,14 @@
 
 namespace Amplitron {
 
-GuiManager::GuiManager(AudioEngine& engine)
-    : engine_(engine),
-      command_history_(),
+GuiManager::GuiManager(AmplitronSession& session)
+    : session_(session),
+      engine_(session.concrete_engine()),
+      command_history_(session.command_history()),
+      midi_manager_(session.concrete_midi()),
+      snapshot_manager_(session.snapshot_manager()),
       tuner_pedal_(std::make_shared<TunerPedal>()),
-      gui_presets_(engine, command_history_),
+      gui_presets_(engine_, command_history_),
       gui_midi_(midi_manager_)
 {
     pedal_board_ = std::make_unique<PedalBoard>(engine_, command_history_, &gui_midi_);
