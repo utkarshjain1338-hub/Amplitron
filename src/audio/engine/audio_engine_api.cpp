@@ -21,7 +21,7 @@ void AudioEngine::set_output_gain(float gain) {
 }
 
 void AudioEngine::toggle_metronome() {
-    metronome_.set_enabled(!metronome_.is_enabled());
+    metronome_.toggle();
 }
 
 void AudioEngine::set_metronome_bpm(int bpm) {

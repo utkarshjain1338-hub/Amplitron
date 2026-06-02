@@ -161,6 +161,8 @@ void CabinetSim::set_sample_rate(int sample_rate) {
 void CabinetSim::process(float* buffer, int num_samples) {
     if (!enabled_) return;
 
+    const float mix = mix_.load(std::memory_order_relaxed);
+
     // If an IR is loaded, convolve for cabinet response.
     check_pending_kernel();
     if (conv_engine_.has_kernel()) {
@@ -180,7 +182,7 @@ void CabinetSim::process(float* buffer, int num_samples) {
 
         conv_engine_.process(buffer, num_samples);
 
-        if (mix_ < 1.0f) {
+        if (mix < 1.0f) {
             apply_mix(dry_buffer_.data(), buffer, num_samples);
         }
         return;
@@ -201,7 +203,7 @@ void CabinetSim::process(float* buffer, int num_samples) {
         float peaked = peak_.process(x);
         x = x * (1.0f - bright * 0.3f) + peaked * bright * 0.3f;
 
-        buffer[i] = dry * (1.0f - mix_) + x * mix_;
+        buffer[i] = dry * (1.0f - mix) + x * mix;
     }
 }
 

@@ -94,6 +94,7 @@ public:
     const char* name() const override { return "MultiBand Compressor"; }
     const char* type_id() const override { return "MultiBand Compressor"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
     void set_sample_rate(int sample_rate) override;
 
     // Thread-safe gain reduction query for the GUI meters

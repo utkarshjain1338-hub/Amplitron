@@ -70,6 +70,7 @@ public:
     const char* name() const override { return "Amp Sim"; }
     const char* type_id() const override { return "Amp Sim"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
 private:
     std::vector<EffectParam> params_;

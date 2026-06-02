@@ -19,6 +19,7 @@ public:
     const char* name() const override { return "Chorus"; }
     const char* type_id() const override { return "Chorus"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
 private:
     std::vector<EffectParam> params_;

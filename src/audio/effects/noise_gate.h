@@ -18,6 +18,7 @@ public:
     const char* name() const override { return "Noise Gate"; }
     const char* type_id() const override { return "Noise Gate"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
 private:
     std::vector<EffectParam> params_;

@@ -43,6 +43,7 @@ class IParameterizable {
 public:
     virtual ~IParameterizable() = default;
     virtual std::vector<EffectParam>& params() = 0;
+    virtual const std::vector<EffectParam>& params() const = 0;
     virtual std::vector<std::string> get_param_names() = 0;
     virtual float get_param_value(const std::string& name) = 0;
     virtual void set_param_by_name(const std::string& name, float value) = 0;
@@ -94,12 +95,13 @@ public:
 
     // Mutable parameter list used by controls and automation.
     virtual std::vector<EffectParam>& params() override = 0;
+    virtual const std::vector<EffectParam>& params() const override = 0;
 
     void set_enabled(bool enabled) { enabled_ = enabled; }
     bool is_enabled() const { return enabled_; }
 
-    void set_mix(float mix) { mix_ = clamp(mix, 0.0f, 1.0f); }
-    float get_mix() const { return mix_; }
+    void set_mix(float mix) { mix_.store(clamp(mix, 0.0f, 1.0f), std::memory_order_relaxed); }
+    float get_mix() const { return mix_.load(std::memory_order_relaxed); }
 
     virtual std::shared_ptr<Effect> clone() const;
 
@@ -139,19 +141,18 @@ public:
     
     virtual nlohmann::json get_params() const override {
         nlohmann::json j;
-        // Accessing mutable params to read values
-        auto& p_list = const_cast<Effect*>(this)->params();
+        const auto& p_list = params();
         for (const auto& p : p_list) {
             j[p.name] = p.value;
         }
         j["enabled"] = enabled_.load();
-        j["mix"] = mix_;
+        j["mix"] = mix_.load(std::memory_order_relaxed);
         return j;
     }
 
     virtual void set_params(const nlohmann::json& j) override {
         if (j.contains("enabled")) enabled_.store(j["enabled"].get<bool>());
-        if (j.contains("mix")) mix_ = j["mix"];
+        if (j.contains("mix")) mix_.store(j["mix"].get<float>(), std::memory_order_relaxed);
         
         auto& p_list = params();
         for (auto& p : p_list) {
@@ -164,13 +165,14 @@ public:
 protected:
     int sample_rate_ = DEFAULT_SAMPLE_RATE;
     std::atomic<bool> enabled_{true};
-    float mix_ = 1.0f;
+    std::atomic<float> mix_{1.0f};
 
     // Wet/dry mix helper
     void apply_mix(const float* dry, float* wet, int num_samples) {
-        if (mix_ >= 1.0f) return;
+        float current_mix = mix_.load(std::memory_order_relaxed);
+        if (current_mix >= 1.0f) return;
         for (int i = 0; i < num_samples; ++i) {
-            wet[i] = dry[i] * (1.0f - mix_) + wet[i] * mix_;
+            wet[i] = dry[i] * (1.0f - current_mix) + wet[i] * current_mix;
         }
     }
 };

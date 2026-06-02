@@ -2,8 +2,6 @@
 
 #include "common.h"
 #include <atomic>
-#include <cmath>
-#include <algorithm>
 
 namespace Amplitron {
 
@@ -14,6 +12,7 @@ public:
 
     void set_enabled(bool enabled);
     bool is_enabled() const;
+    void toggle();
 
     void set_bpm(int bpm);
     int get_bpm() const;
@@ -33,8 +32,7 @@ private:
     std::atomic<bool> enabled_{false};
     std::atomic<int> bpm_{120};
     std::atomic<float> volume_{0.5f};
-    
-    int sample_rate_ = 48000;
+    std::atomic<int> sample_rate_{48000};
 
     // Audio thread states
     bool metronome_enabled_ = false;

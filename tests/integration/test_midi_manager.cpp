@@ -28,6 +28,7 @@ public:
     }
     const char* name() const override { return "TestEffect"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
     void process(float* /*buffer*/, int /*num_samples*/) override {}
     void reset() override {}
 private:

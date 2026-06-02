@@ -25,6 +25,7 @@ public:
     const char* name() const override { return "Cabinet"; }
     const char* type_id() const override { return "Cabinet"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
     // --- IR management (called from GUI thread) ---
     bool load_ir(const std::string& filepath);

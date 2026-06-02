@@ -210,8 +210,7 @@ bool AudioEngine::initialize() {
 void AudioEngine::shutdown() {
     if (poly_backend_) {
         poly_backend_->shutdown();
-        initialized_ = false;
-        return;
+        poly_backend_ = nullptr;
     }
     stop();
     initialized_ = false;

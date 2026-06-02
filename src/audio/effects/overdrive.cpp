@@ -16,6 +16,8 @@ Overdrive::Overdrive() {
 void Overdrive::process(float* buffer, int num_samples) {
     if (!enabled_) return;
 
+    const float mix = mix_.load(std::memory_order_relaxed);
+
     const float alpha = 1.0f - std::exp(-1.0f / (sample_rate_ * 0.010f)); // 10 ms
     smoothed_drive_ += alpha * (params_[0].value - smoothed_drive_);
     smoothed_tone_  += alpha * (params_[1].value - smoothed_tone_);
@@ -46,7 +48,7 @@ void Overdrive::process(float* buffer, int num_samples) {
         x = dc_block_.hp(x, 0.001f);
 
         x *= level;
-        buffer[i] = dry * (1.0f - mix_) + x * mix_;
+        buffer[i] = dry * (1.0f - mix) + x * mix;
     }
 }
 

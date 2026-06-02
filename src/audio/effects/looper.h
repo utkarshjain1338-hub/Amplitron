@@ -37,6 +37,7 @@ public:
     const char* name() const override { return "Looper"; }
     const char* type_id() const override { return "Looper"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
     // --- UI control (thread-safe) ---
     void request_record_toggle();

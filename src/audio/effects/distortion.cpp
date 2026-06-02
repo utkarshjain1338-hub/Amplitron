@@ -19,6 +19,8 @@ Distortion::Distortion() {
 void Distortion::process(float* buffer, int num_samples) {
     if (!enabled_) return;
 
+    const float mix = mix_.load(std::memory_order_relaxed);
+
     // One-pole smoothing: advance states toward raw param targets each block
     const float alpha = 1.0f - std::exp(-1.0f / (sample_rate_ * 0.010f)); // 10 ms
     drive_smoothed_ += alpha * (params_[0].value - drive_smoothed_);
@@ -55,7 +57,7 @@ void Distortion::process(float* buffer, int num_samples) {
         x *= level;
 
         // Wet/dry mix
-        buffer[i] = dry * (1.0f - mix_) + x * mix_;
+        buffer[i] = dry * (1.0f - mix) + x * mix;
     }
 }
 

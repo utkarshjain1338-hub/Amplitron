@@ -196,6 +196,9 @@ namespace Amplitron
         backend_ = backend;
     }
 
+    // Replaces the operational backend for testing.
+    // NOTE: AudioEngine does NOT take ownership of this polymorphic backend pointer.
+    // The caller/test remains responsible for its lifetime and deallocation.
     void AudioEngine::replace_backend_for_test(IAudioBackend* backend)
     {
         if (poly_backend_ == backend)

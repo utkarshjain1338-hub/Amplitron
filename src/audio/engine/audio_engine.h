@@ -27,6 +27,12 @@ namespace Amplitron {
  *
  * All platform-specific code (PortAudio / SDL) lives in separate
  * compilation units; the engine itself is platform-agnostic.
+ *
+ * @note Backend Precedence and Ownership:
+ * - Precedence: poly_backend_ (if non-null) takes operational precedence over the native backend_.
+ * - Ownership: AudioEngine owns the opaque backend_ pointer (manages its creation/destruction).
+ *   However, AudioEngine does NOT take ownership of the polymorphic poly_backend_ pointer;
+ *   the caller or test fixture is responsible for managing its lifetime.
  */
 class AudioEngine {
 public:

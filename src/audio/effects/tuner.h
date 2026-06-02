@@ -19,6 +19,7 @@ public:
     const char* name() const override { return "Tuner"; }
     const char* type_id() const override { return "Tuner"; }
     std::vector<EffectParam>& params() override { return params_; }
+    const std::vector<EffectParam>& params() const override { return params_; }
 
     // Tuner detection results (audio thread writes, UI thread reads)
     std::atomic<float> detected_freq{0.0f};

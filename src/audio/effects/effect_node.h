@@ -19,7 +19,11 @@ namespace Amplitron {
 class EffectNode : public IProcessor {
 public:
     explicit EffectNode(std::shared_ptr<IProcessor> processor)
-        : processor_(std::move(processor)), enabled_(true), mix_(1.0f) {}
+        : processor_(std::move(processor)), enabled_(true), mix_(1.0f) {
+        dry_buffer_.resize(4096, 0.0f);
+        dry_l_buffer_.resize(4096, 0.0f);
+        dry_r_buffer_.resize(4096, 0.0f);
+    }
 
     void process(float* buffer, int num_samples) override {
         if (!enabled_.load(std::memory_order_relaxed)) {
@@ -31,14 +35,16 @@ public:
             return;
         }
 
-        std::vector<float> dry(num_samples);
-        std::memcpy(dry.data(), buffer, static_cast<size_t>(num_samples) * sizeof(float));
+        if (static_cast<size_t>(num_samples) > dry_buffer_.size()) {
+            dry_buffer_.resize(static_cast<size_t>(num_samples));
+        }
+        std::memcpy(dry_buffer_.data(), buffer, static_cast<size_t>(num_samples) * sizeof(float));
 
         processor_->process(buffer, num_samples);
 
         float current_mix = mix_.load(std::memory_order_relaxed);
         for (int i = 0; i < num_samples; ++i) {
-            buffer[i] = dry[i] * (1.0f - current_mix) + buffer[i] * current_mix;
+            buffer[i] = dry_buffer_[i] * (1.0f - current_mix) + buffer[i] * current_mix;
         }
     }
 
@@ -52,22 +58,35 @@ public:
             return;
         }
 
-        std::vector<float> dry_l(num_samples);
-        std::vector<float> dry_r(num_samples);
-        std::memcpy(dry_l.data(), left, static_cast<size_t>(num_samples) * sizeof(float));
-        std::memcpy(dry_r.data(), right, static_cast<size_t>(num_samples) * sizeof(float));
+        if (static_cast<size_t>(num_samples) > dry_l_buffer_.size()) {
+            dry_l_buffer_.resize(static_cast<size_t>(num_samples));
+        }
+        if (static_cast<size_t>(num_samples) > dry_r_buffer_.size()) {
+            dry_r_buffer_.resize(static_cast<size_t>(num_samples));
+        }
+        std::memcpy(dry_l_buffer_.data(), left, static_cast<size_t>(num_samples) * sizeof(float));
+        std::memcpy(dry_r_buffer_.data(), right, static_cast<size_t>(num_samples) * sizeof(float));
 
         processor_->process_stereo(left, right, num_samples);
 
         float current_mix = mix_.load(std::memory_order_relaxed);
         for (int i = 0; i < num_samples; ++i) {
-            left[i] = dry_l[i] * (1.0f - current_mix) + left[i] * current_mix;
-            right[i] = dry_r[i] * (1.0f - current_mix) + right[i] * current_mix;
+            left[i] = dry_l_buffer_[i] * (1.0f - current_mix) + left[i] * current_mix;
+            right[i] = dry_r_buffer_[i] * (1.0f - current_mix) + right[i] * current_mix;
         }
     }
 
     void set_sample_rate(int sample_rate) override {
         processor_->set_sample_rate(sample_rate);
+        if (dry_buffer_.size() < 4096) {
+            dry_buffer_.resize(4096, 0.0f);
+        }
+        if (dry_l_buffer_.size() < 4096) {
+            dry_l_buffer_.resize(4096, 0.0f);
+        }
+        if (dry_r_buffer_.size() < 4096) {
+            dry_r_buffer_.resize(4096, 0.0f);
+        }
     }
 
     void reset() override {
@@ -98,6 +117,9 @@ private:
     std::shared_ptr<IProcessor> processor_;
     std::atomic<bool> enabled_;
     std::atomic<float> mix_;
+    std::vector<float> dry_buffer_;
+    std::vector<float> dry_l_buffer_;
+    std::vector<float> dry_r_buffer_;
 };
 
 } // namespace Amplitron

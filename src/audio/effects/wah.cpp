@@ -19,6 +19,8 @@ WahPedal::WahPedal() {
 void WahPedal::process(float* buffer, int num_samples) {
     if (!enabled_) return;
 
+    const float mix = mix_.load(std::memory_order_relaxed);
+
     bool is_auto   = (params_[0].value > 0.5f);
     float sweep    = params_[1].value;
     float q        = params_[2].value;
@@ -69,7 +71,7 @@ void WahPedal::process(float* buffer, int num_samples) {
         // Bandpass output boosted by Q for the classic resonant wah peak
         float wet = svf_bp_ * q_smooth_ * 0.5f;
 
-        buffer[i] = dry * (1.0f - mix_) + wet * mix_;
+        buffer[i] = dry * (1.0f - mix) + wet * mix;
     }
 }
 

@@ -63,11 +63,11 @@ public:
 TEST(AudioBackend_PolymorphicMockBackendInjection) {
     AudioEngine engine;
     
-    // Create our mock backend
-    auto* mock = new MockAudioBackend();
+    // Create our mock backend using unique_ptr to prevent leakage
+    auto mock = std::make_unique<MockAudioBackend>();
     
     // Inject it!
-    engine.replace_backend_for_test(mock);
+    engine.replace_backend_for_test(mock.get());
     
     // Verify engine delegates to the mock!
     ASSERT_TRUE(engine.initialize());
