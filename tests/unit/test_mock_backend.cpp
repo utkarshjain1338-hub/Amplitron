@@ -12,10 +12,13 @@ public:
     bool input_device_set = false;
     bool output_device_set = false;
 
-    bool initialize(AudioEngine*) override {
+    bool initialize(IAudioEngine*) override {
         initialized = true;
         return true;
     }
+
+    int get_sample_rate() const override { return 48000; }
+    int get_buffer_size() const override { return 512; }
 
     void shutdown() override {
         initialized = false;
@@ -58,13 +61,15 @@ public:
     std::string get_output_device_name() const override {
         return "Mock Output";
     }
+
+    int get_input_device() const override { return 0; }
+    int get_output_device() const override { return 1; }
 };
 
 TEST(AudioBackend_PolymorphicMockBackendInjection) {
-    AudioEngine engine;
-    
     // Create our mock backend using unique_ptr to prevent leakage
     auto mock = std::make_unique<MockAudioBackend>();
+    AudioEngine engine;
     
     // Inject it!
     engine.replace_backend_for_test(mock.get());

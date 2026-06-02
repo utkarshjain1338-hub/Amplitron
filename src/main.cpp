@@ -285,7 +285,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Loading preset: " << cli_opts.preset_path << std::endl;
         
         //Safe preset injection
-        if (!Amplitron::PresetManager::load_preset(cli_opts.preset_path, engine, nullptr)){
+        if (!session.presets().load_preset(cli_opts.preset_path, engine, nullptr)){
             std::cerr << "Fatal Error: Could not load preset for headless mode." << std::endl;
             engine.shutdown();
             return 1;

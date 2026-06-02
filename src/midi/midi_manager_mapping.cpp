@@ -166,7 +166,7 @@ void MidiManager::inject_event(const MidiEvent& event) {
     midi_queue_.try_push(event);
 }
 
-void MidiManager::poll(AudioEngine& engine) {
+void MidiManager::poll(IAudioEngine& engine) {
     MidiEvent event{};
     while (midi_queue_.try_pop(event)) {
         uint8_t cc_number = event.data1;
@@ -199,7 +199,7 @@ void MidiManager::poll(AudioEngine& engine) {
 }
 
 void MidiManager::apply_mapping(const MidiMapping& mapping, int cc_value,
-                                AudioEngine& engine) {
+                                IAudioEngine& engine) {
     float normalized = static_cast<float>(cc_value) / 127.0f;
 
     switch (mapping.target_type) {

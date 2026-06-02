@@ -5,6 +5,7 @@
 #include "gui/pedalboard/pedal_board.h"
 #include "gui/pedalboard/pedal_widget.h"
 #include "gui/views/gui_midi.h"
+#include "midi/midi_manager.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/gui_graph_state.h"
 #include "audio/effects/distortion/overdrive.h"

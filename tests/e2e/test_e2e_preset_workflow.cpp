@@ -42,7 +42,7 @@ TEST_F(PresetTest, e2e_preset_workflow_roundtrip_and_processing) {
     engine.set_output_gain(0.85f);
 
     // 3. Save the preset
-    bool saved = PresetManager::save_preset(path, "E2E Preset", "E2E Complete Signal Chain Test", engine);
+    bool saved = manager.save_preset(path, "E2E Preset", "E2E Complete Signal Chain Test", engine);
     ASSERT_TRUE(saved);
     ASSERT_TRUE(std::filesystem::exists(path));
 
@@ -53,7 +53,7 @@ TEST_F(PresetTest, e2e_preset_workflow_roundtrip_and_processing) {
     engine.commit_graph_changes();
 
     // 5. Reload the preset
-    bool loaded = PresetManager::load_preset(path, engine);
+    bool loaded = manager.load_preset(path, engine);
     ASSERT_TRUE(loaded);
 
     // Propagate the active sample rate to all newly deserialized nodes in the graph

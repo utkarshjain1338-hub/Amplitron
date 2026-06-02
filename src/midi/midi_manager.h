@@ -41,7 +41,7 @@ public:
     const std::string& learn_effect_name() const override { static std::string empty; return empty; }
     const std::string& learn_param_name() const override { static std::string empty; return empty; }
 
-    void poll(AudioEngine&) override {}
+    void poll(IAudioEngine&) override {}
     void save_config() const override {}
     void load_config() override {}
 
@@ -128,7 +128,7 @@ public:
      * - If learn mode is active, captures the CC and creates a mapping.
      * - Otherwise, resolves the mapping target and pushes the value to the engine.
      */
-    void poll(AudioEngine& engine) override;
+    void poll(IAudioEngine& engine) override;
 
     // --- Persistence ---
 
@@ -164,7 +164,7 @@ private:
     std::string learn_param_name_;
 
     // Helpers
-    void apply_mapping(const MidiMapping& mapping, int cc_value, AudioEngine& engine);
+    void apply_mapping(const MidiMapping& mapping, int cc_value, IAudioEngine& engine);
     std::string mappings_to_json() const;
     bool mappings_from_json(const std::string& json);
 };

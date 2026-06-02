@@ -104,9 +104,9 @@ TEST_F(PresetTest, test_pedal_widget_knobs_callbacks_and_midi) {
     ImDrawList* dl = ImGui::GetWindowDrawList();
 
     // Configure MIDI manager to trigger learning match
-    TestAccessor::learn_active(gui_midi.manager()) = true;
-    TestAccessor::learn_effect_name(gui_midi.manager()) = od->name();
-    TestAccessor::learn_param_name(gui_midi.manager()) = od->params()[0].name;
+    TestAccessor::learn_active(midi_manager) = true;
+    TestAccessor::learn_effect_name(midi_manager) = od->name();
+    TestAccessor::learn_param_name(midi_manager) = od->params()[0].name;
 
     // Render with learning state
     TestAccessor::render_knobs(w_od, dl, ImVec2(10, 10), 190.0f, false, false, false, 1.0f);

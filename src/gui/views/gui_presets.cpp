@@ -29,7 +29,7 @@ namespace Amplitron {
  * @param engine The audio engine whose current setting should be captured.
  * @return PresetData representing the live engine configuration.
  */
-static PresetData capture_current_state(AudioEngine& engine) {
+static PresetData capture_current_state(IAudioEngine& engine) {
     PresetData preset;
     preset.input_gain = engine.get_input_gain();
     preset.output_gain = engine.get_output_gain();
@@ -88,8 +88,8 @@ static bool equal_preset_data(const PresetData& a, const PresetData& b) {
     return true;
 }
 
-GuiPresets::GuiPresets(AudioEngine& engine, CommandHistory& history)
-    : engine_(engine), history_(history) {
+GuiPresets::GuiPresets(IAudioEngine& engine, CommandHistory& history, IPresetManager& presets)
+    : engine_(engine), history_(history), presets_(presets) {
     mark_clean();
 }
 
@@ -139,7 +139,7 @@ void GuiPresets::refresh_presets(bool preserve_selection) {
         selected_path = preset_files_[selected_preset_index_];
     }
 
-    preset_files_ = PresetManager::list_presets();
+    preset_files_ = presets_.list_presets();
     std::sort(preset_files_.begin(), preset_files_.end());
 
     selected_preset_index_ = -1;
@@ -174,7 +174,7 @@ bool GuiPresets::save_named_preset(const std::string& preset_name,
         return false;
     }
 
-    if (PresetManager::save_preset(path, preset_name, description, engine_,
+    if (presets_.save_preset(path, preset_name, description, engine_,
                                    midi_manager_ ? midi_manager_->mappings() : std::vector<MidiMapping>())) {
         preset_status_msg_ = "Saved: " + preset_name;
         refresh_presets(true);
@@ -230,7 +230,7 @@ bool GuiPresets::load_preset_by_index(int index) {
     float before_in = engine_.get_input_gain();
     float before_out = engine_.get_output_gain();
 
-    if (PresetManager::load_preset(path, engine_, midi_manager_)) {
+    if (presets_.load_preset(path, engine_, midi_manager_)) {
         std::vector<LoadPresetCommand::EffectSnapshot> after_state;
         for (auto& fx : engine_.effects()) {
             LoadPresetCommand::EffectSnapshot snap;
@@ -300,7 +300,7 @@ void GuiPresets::ensure_factory_presets() {
     if (factory_presets_initialized_) return;
     factory_presets_initialized_ = true;
 
-    if (!PresetManager::list_presets().empty()) return;
+    if (!presets_.list_presets().empty()) return;
 
     std::vector<PresetData> factory_presets;
 
@@ -349,7 +349,7 @@ void GuiPresets::ensure_factory_presets() {
     factory_presets.push_back(jazz);
 
     for (const auto& preset : factory_presets) {
-        PresetManager::save_preset_data(preset_path_from_name(preset.name), preset);
+        presets_.save_preset_data(preset_path_from_name(preset.name), preset);
     }
 }
 

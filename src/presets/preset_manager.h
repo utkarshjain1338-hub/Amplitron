@@ -1,15 +1,20 @@
 #pragma once
 
 #include "common.h"
-#include "audio/engine/audio_engine.h"
-#include "midi/midi_manager.h"
+#include "audio/engine/i_audio_engine.h"
+#include "midi/i_midi_manager.h"
 #include "presets/i_preset_manager.h"
 #include <nlohmann/json_fwd.hpp>
 #include <fstream>
 #include <map>
 #include <sstream>
+#include <memory>
 
 namespace Amplitron {
+
+class IPresetSerializer;
+class IPresetStorage;
+class IPresetMigrator;
 
 constexpr int CURRENT_PRESET_VERSION = 2;
 
@@ -51,9 +56,7 @@ struct PresetData {
     std::vector<LinkData> links;
 };
 
-// Serialization helpers are declared here so translation units that include
-// preset_manager.h (including tests) can use preset JSON APIs without relying
-// on direct inclusion order of preset_json.h.
+// Serialization helpers
 std::string to_json_ext(const PresetData& preset);
 bool from_json_ext(const std::string& json_str, PresetData& preset);
 
@@ -66,23 +69,33 @@ void from_json(const nlohmann::json& j, PresetData& preset);
 // Directory helper exposed for tests and diagnostics.
 std::string get_user_presets_dir();
 
-class PresetManager {
+class PresetManager : public IPresetManager {
 public:
+    friend class PresetSerializer;
+    friend class PresetStorage;
+    friend class PresetMigrator;
+
+    PresetManager();
+    PresetManager(std::unique_ptr<IPresetSerializer> serializer,
+                  std::unique_ptr<IPresetStorage> storage,
+                  std::unique_ptr<IPresetMigrator> migrator);
+    ~PresetManager() override;
+
     // Save provided preset data to JSON file
-    static bool save_preset_data(const std::string& filepath,
-                                 const PresetData& preset);
+    bool save_preset_data(const std::string& filepath,
+                          const PresetData& preset) override;
 
     // Save current engine state to JSON file
-    static bool save_preset(const std::string& filepath,
-                            const std::string& preset_name,
-                            const std::string& description,
-                            AudioEngine& engine,
-                            const std::vector<MidiMapping>& midi_mappings = {});
+    bool save_preset(const std::string& filepath,
+                     const std::string& preset_name,
+                     const std::string& description,
+                     IAudioEngine& engine,
+                     const std::vector<MidiMapping>& midi_mappings = {}) override;
 
     // Load preset from JSON file and apply to engine
-    static bool load_preset(const std::string& filepath,
-                            AudioEngine& engine,
-                            MidiManager* midi_manager = nullptr);
+    bool load_preset(const std::string& filepath,
+                     IAudioEngine& engine,
+                     IMidiManager* midi_manager = nullptr) override;
 
     // Serialize current graph to JSON
     static std::string graph_to_json(const AudioGraph& graph);
@@ -90,19 +103,25 @@ public:
     // Load graph from JSON
     static bool graph_from_json(const std::string& json, AudioGraph& graph);
 
+    std::vector<std::string> list_presets() override;
+
+    // Directory helpers / global config
     static std::string get_presets_dir();
     static void set_presets_dir(const std::string& dir);
     static const std::string& custom_presets_dir() { return custom_presets_dir_; }
 
     static void save_config();
     static void load_config();
-    static std::vector<std::string> list_presets();
     static const std::string& last_error() { return last_error_; }
 
     // Public migration hooks so test targets can validate behavior
     static std::string apply_migrations(const std::string& raw_json_string);
 
 private:
+    std::unique_ptr<IPresetSerializer> serializer_;
+    std::unique_ptr<IPresetStorage> storage_;
+    std::unique_ptr<IPresetMigrator> migrator_;
+
     static std::string last_error_;
     static std::string custom_presets_dir_;
 
@@ -111,29 +130,7 @@ private:
     static std::string get_system_presets_dir();
 };
 
-class PresetManagerService : public IPresetManager {
-public:
-    PresetManagerService() = default;
-    ~PresetManagerService() override = default;
-
-    bool save_preset_data(const std::string& filepath, const PresetData& preset) override {
-        return PresetManager::save_preset_data(filepath, preset);
-    }
-
-    bool save_preset(const std::string& filepath, const std::string& preset_name,
-                     const std::string& description, AudioEngine& engine,
-                     const std::vector<MidiMapping>& midi_mappings = {}) override {
-        return PresetManager::save_preset(filepath, preset_name, description, engine, midi_mappings);
-    }
-
-    bool load_preset(const std::string& filepath, AudioEngine& engine,
-                     MidiManager* midi_manager = nullptr) override {
-        return PresetManager::load_preset(filepath, engine, midi_manager);
-    }
-
-    std::vector<std::string> list_presets() override {
-        return PresetManager::list_presets();
-    }
-};
+// Compatibility alias to avoid breaking code referencing PresetManagerService
+using PresetManagerService = PresetManager;
 
 } // namespace Amplitron

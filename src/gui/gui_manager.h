@@ -55,8 +55,8 @@ public:
     void shutdown();
     bool run_frame();
 
-    MidiManager& midi_manager() { return midi_manager_; }
-    AudioEngine& audio_engine() { return engine_; }
+    IMidiManager& midi_manager() { return midi_manager_; }
+    IAudioEngine& audio_engine() { return engine_; }
     CommandHistory& command_history() { return command_history_; }
 
 private:
@@ -82,9 +82,9 @@ private:
     // Core objects
     // ─────────────────────────────────────────────────────────────────────
     AmplitronSession& session_;
-    AudioEngine&   engine_;
+    IAudioEngine&   engine_;
     CommandHistory& command_history_;
-    MidiManager&   midi_manager_;
+    IMidiManager&   midi_manager_;
     SnapshotManager& snapshot_manager_;
     WindowContext  window_context_;
     std::unique_ptr<PedalBoard> pedal_board_;

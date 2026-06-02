@@ -37,12 +37,12 @@ namespace Amplitron {
 
 GuiManager::GuiManager(AmplitronSession& session)
     : session_(session),
-      engine_(session.concrete_engine()),
+      engine_(session.engine()),
       command_history_(session.command_history()),
-      midi_manager_(session.concrete_midi()),
+      midi_manager_(session.midi()),
       snapshot_manager_(session.snapshot_manager()),
       tuner_pedal_(std::make_shared<TunerPedal>()),
-      gui_presets_(engine_, command_history_),
+      gui_presets_(engine_, command_history_, session.presets()),
       gui_midi_(midi_manager_)
 {
     pedal_board_ = std::make_unique<PedalBoard>(engine_, command_history_, &gui_midi_);

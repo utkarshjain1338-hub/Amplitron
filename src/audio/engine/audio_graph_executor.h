@@ -56,6 +56,15 @@ public:
     void process(const float* input, float* output, int num_samples);
     void update_mixer_gain(int node_id, int pin_index, float gain);
 
+    std::shared_ptr<Effect> get_effect_by_node_id(int node_id) const {
+        for (const auto& step : execution_plan_) {
+            if (step.node_id == node_id) {
+                return step.pedal;
+            }
+        }
+        return nullptr;
+    }
+
 private:
     int sample_rate_ = 48000;
     int max_block_size_ = 512;

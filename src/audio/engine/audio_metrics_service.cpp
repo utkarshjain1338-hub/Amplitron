@@ -2,7 +2,7 @@
 
 namespace Amplitron {
 
-void AudioMetricsService::update(AudioEngine& engine, float dt) {
+void AudioMetricsService::update(IAudioEngine& engine, float dt) {
     // 1. Update Level Analyzer
     const float input_rms       = engine.get_input_rms();
     const float output_rms      = engine.get_output_rms();
@@ -22,7 +22,7 @@ void AudioMetricsService::update(AudioEngine& engine, float dt) {
 
     if (engine.copy_analyzer_snapshot(analyzer_input_buf_.data(),
                                       analyzer_output_buf_.data(),
-                                      AudioEngine::ANALYZER_FFT_SIZE)) {
+                                      IAudioEngine::ANALYZER_FFT_SIZE)) {
         spectrum_analyzer_.update(analyzer_input_buf_.data(),
                                   analyzer_output_buf_.data(),
                                   engine.get_sample_rate(),

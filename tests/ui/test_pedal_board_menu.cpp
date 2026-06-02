@@ -165,15 +165,15 @@ TEST_F(PresetTest, test_pedal_board_menu_midi_popup) {
   advance_frame();
 
   // 2. Open popup and render connected state
-  TestAccessor::learn_active(gui_midi.manager()) = false;
-  TestAccessor::current_port(gui_midi.manager()) = 0;
-  TestAccessor::current_port_name(gui_midi.manager()) = "Test MIDI Port";
+  TestAccessor::learn_active(midi_manager) = false;
+  TestAccessor::current_port(midi_manager) = 0;
+  TestAccessor::current_port_name(midi_manager) = "Test MIDI Port";
   ImGui::OpenPopup("MidiMenuPopup");
   TestAccessor::render_midi_menu(board);
   advance_frame();
-
+ 
   // 3. Render learning state in MIDI popup
-  TestAccessor::learn_active(gui_midi.manager()) = true;
+  TestAccessor::learn_active(midi_manager) = true;
   TestAccessor::render_midi_menu(board);
   advance_frame();
 

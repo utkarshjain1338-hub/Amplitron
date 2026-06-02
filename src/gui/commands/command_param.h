@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui/commands/command_base.h"
-#include "audio/engine/audio_engine.h"
+#include "audio/engine/i_audio_engine.h"
 #include "audio/effects/core/effect.h"
 #include <chrono>
 
@@ -24,7 +24,7 @@ public:
      * @param old_value   Value before the change (used by undo).
      * @param new_value   Value after the change (used by execute).
      */
-    ParameterChangeCommand(AudioEngine& engine, std::shared_ptr<Effect> effect,
+    ParameterChangeCommand(IAudioEngine& engine, std::shared_ptr<Effect> effect,
                            int param_index, float old_value, float new_value)
         : engine_(engine), effect_(std::move(effect)),
           param_index_(param_index), old_value_(old_value), new_value_(new_value) {}
@@ -98,7 +98,7 @@ public:
     float new_value() const { return new_value_; }
 
 private:
-    AudioEngine& engine_;
+    IAudioEngine& engine_;
     std::shared_ptr<Effect> effect_;
     int param_index_;
     float old_value_;

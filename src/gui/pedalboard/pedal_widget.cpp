@@ -16,7 +16,7 @@
 namespace Amplitron {
 
 /** @brief Construct PedalWidget and look up color scheme for the effect type. */
-PedalWidget::PedalWidget(AudioEngine& engine, std::shared_ptr<Effect> effect, int index)
+PedalWidget::PedalWidget(IAudioEngine& engine, std::shared_ptr<Effect> effect, int index)
     : engine_(engine), effect_(std::move(effect)), index_(index) {
     assign_colors();
 }

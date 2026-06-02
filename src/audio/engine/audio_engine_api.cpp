@@ -1,69 +1,46 @@
 #include "audio/engine/audio_engine.h"
+#include "audio/engine/analyzer_capture.h"
 #include <cstring>
 #include <algorithm>
 
 namespace Amplitron {
 
 void AudioEngine::set_input_gain(float gain) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetInputGain;
-    cmd.value = gain;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_input_gain(gain);
     input_gain_.store(gain, std::memory_order_relaxed);
 }
 
 void AudioEngine::set_output_gain(float gain) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetOutputGain;
-    cmd.value = gain;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_output_gain(gain);
     output_gain_.store(gain, std::memory_order_relaxed);
 }
 
 void AudioEngine::toggle_metronome() {
-    metronome_.toggle();
+    metronome_->toggle();
 }
 
 void AudioEngine::set_metronome_bpm(int bpm) {
-    metronome_.set_bpm(bpm);
+    metronome_->set_bpm(bpm);
 }
 
 void AudioEngine::set_metronome_volume(float volume) {
-    metronome_.set_volume(volume);
+    metronome_->set_volume(volume);
 }
 
 void AudioEngine::push_param_change(int effect_index, int param_index, float value) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetEffectParam;
-    cmd.effect_index = effect_index;
-    cmd.param_index = param_index;
-    cmd.value = value;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_param_change(effect_index, param_index, value);
 }
 
 void AudioEngine::push_effect_enabled(int effect_index, float enabled) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetEffectEnabled;
-    cmd.effect_index = effect_index;
-    cmd.value = enabled;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_effect_enabled(effect_index, enabled);
 }
 
 void AudioEngine::push_effect_mix(int effect_index, float mix) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetEffectMix;
-    cmd.effect_index = effect_index;
-    cmd.value = mix;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_effect_mix(effect_index, mix);
 }
 
 void AudioEngine::push_mixer_gain_change(int node_id, int pin_index, float gain) {
-    AudioCommand cmd{};
-    cmd.type = AudioCommand::SetMixerGain;
-    cmd.effect_index = node_id; // Overload effect_index to mean node_id
-    cmd.param_index = pin_index; // Overload param_index to mean pin_index
-    cmd.value = gain;
-    command_queue_.try_push(cmd);
+    command_dispatcher_.push_mixer_gain_change(node_id, pin_index, gain);
 }
 
 int AudioEngine::get_suggested_buffer_size() const {
@@ -83,23 +60,22 @@ int AudioEngine::get_suggested_buffer_size() const {
     return current;
 }
 
+void AudioEngine::set_analyzer_enabled(bool enabled) {
+    analyzer_capture_->set_analyzer_enabled(enabled);
+}
+
+bool AudioEngine::is_analyzer_enabled() const {
+    return analyzer_capture_->is_analyzer_enabled();
+}
+
+uint64_t AudioEngine::get_analyzer_sequence() const {
+    return analyzer_capture_->get_analyzer_sequence();
+}
+
 bool AudioEngine::copy_analyzer_snapshot(float* input_dest,
                                          float* output_dest,
                                          int sample_count) const {
-    if (!input_dest || !output_dest || sample_count <= 0) {
-        return false;
-    }
-
-    const int count = std::min(sample_count, ANALYZER_FFT_SIZE);
-    std::lock_guard<std::mutex> lock(analyzer_mutex_);
-    const uint64_t seq = analyzer_sequence_.load(std::memory_order_relaxed);
-    if (seq == 0) {
-        return false;
-    }
-
-    std::memcpy(input_dest, analyzer_snapshot_input_.data(), static_cast<size_t>(count) * sizeof(float));
-    std::memcpy(output_dest, analyzer_snapshot_output_.data(), static_cast<size_t>(count) * sizeof(float));
-    return true;
+    return analyzer_capture_->copy_analyzer_snapshot(input_dest, output_dest, sample_count);
 }
 
 

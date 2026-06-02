@@ -2,29 +2,30 @@
 
 #include "common.h"
 #include <atomic>
+#include "audio/engine/i_metronome.h"
 
 namespace Amplitron {
 
-class Metronome {
+class Metronome : public IMetronome {
 public:
     Metronome();
-    ~Metronome() = default;
+    ~Metronome() override = default;
 
-    void set_enabled(bool enabled);
-    bool is_enabled() const;
-    void toggle();
+    void set_enabled(bool enabled) override;
+    bool is_enabled() const override;
+    void toggle() override;
 
-    void set_bpm(int bpm);
-    int get_bpm() const;
+    void set_bpm(int bpm) override;
+    int get_bpm() const override;
 
-    void set_volume(float volume);
-    float get_volume() const;
+    void set_volume(float volume) override;
+    float get_volume() const override;
 
-    void set_sample_rate(int sample_rate);
-    void reset();
+    void set_sample_rate(int sample_rate) override;
+    void reset() override;
 
     // Generate next click sample
-    float next_sample();
+    float next_sample() override;
 
 private:
     void update_timing();

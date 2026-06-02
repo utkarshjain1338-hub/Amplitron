@@ -1,5 +1,8 @@
 #pragma once
 
+#include "audio/engine/i_audio_engine.h"
+#include "midi/i_midi_manager.h"
+#include "presets/i_preset_manager.h"
 #include "audio/engine/audio_engine.h"
 #include "midi/midi_manager.h"
 #include "presets/preset_manager.h"
@@ -15,25 +18,27 @@ namespace Amplitron {
  */
 class AmplitronSession {
 public:
-    AmplitronSession() 
-        : engine_(std::make_unique<AudioEngine>()),
-          midi_(std::make_unique<MidiManager>()),
-          presets_(std::make_unique<PresetManagerService>()) {}
+    AmplitronSession(std::unique_ptr<IAudioEngine> engine = std::make_unique<AudioEngine>(),
+                     std::unique_ptr<IMidiManager> midi = std::make_unique<MidiManager>(),
+                     std::unique_ptr<IPresetManager> presets = std::make_unique<PresetManagerService>())
+        : engine_(std::move(engine)),
+          midi_(std::move(midi)),
+          presets_(std::move(presets)) {}
 
-    AudioEngine& engine() { return *engine_; }
+    IAudioEngine& engine() { return *engine_; }
     IMidiManager& midi() { return *midi_; }
     IPresetManager& presets() { return *presets_; }
 
-    AudioEngine& concrete_engine() { return *engine_; }
-    MidiManager& concrete_midi() { return *midi_; }
+    AudioEngine& concrete_engine() { return static_cast<AudioEngine&>(*engine_); }
+    MidiManager& concrete_midi() { return static_cast<MidiManager&>(*midi_); }
 
     CommandHistory& command_history() { return command_history_; }
     SnapshotManager& snapshot_manager() { return snapshot_manager_; }
 
 private:
-    std::unique_ptr<AudioEngine> engine_;
-    std::unique_ptr<MidiManager> midi_;
-    std::unique_ptr<PresetManagerService> presets_;
+    std::unique_ptr<IAudioEngine> engine_;
+    std::unique_ptr<IMidiManager> midi_;
+    std::unique_ptr<IPresetManager> presets_;
     CommandHistory command_history_;
     SnapshotManager snapshot_manager_;
 };

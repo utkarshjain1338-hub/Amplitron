@@ -13,6 +13,7 @@
 #include "gui/pedalboard/pedal_widget.h"
 #undef private
 #include "gui/views/gui_midi.h"
+#include "midi/midi_manager.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/gui_graph_state.h"
 #include "gui/components/screen.h"

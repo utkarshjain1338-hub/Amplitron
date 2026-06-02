@@ -256,6 +256,7 @@ set(APP_SOURCES
     src/audio/recorder/recorder_session.cpp
     src/audio/recorder/recorder_io.cpp
     src/audio/recorder/recorder_wav.cpp
+    src/audio/effects/core/effect.cpp
     src/audio/effects/distortion/distortion.cpp
     src/audio/effects/distortion/overdrive.cpp
     src/audio/effects/delay_reverb/delay.cpp
@@ -322,21 +323,26 @@ endif()
 # Mobile (Android/iOS) and Web use SDL audio backend + stub file dialog
 # Android 8+ uses Oboe (AAudio exclusive mode) for low-latency audio.
 if(EMSCRIPTEN OR IOS)
-    set(BACKEND_SOURCES src/audio/backend/audio_backend_sdl.cpp)
+    set(BACKEND_SOURCES
+        src/audio/backend/audio_backend_factory.cpp
+        src/audio/backend/sdl_backend.cpp
+    )
     set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 elseif(ANDROID)
-    set(BACKEND_SOURCES src/audio/backend/audio_backend_oboe.cpp)
+    set(BACKEND_SOURCES
+        src/audio/backend/audio_backend_factory.cpp
+        src/audio/backend/oboe_backend.cpp
+    )
     set(DIALOG_SOURCES  src/gui/dialogs/file_dialog_web.cpp)
 else()
+    set(BACKEND_SOURCES
+        src/audio/backend/audio_backend_factory.cpp
+        src/audio/backend/portaudio_backend.cpp
+        src/audio/backend/sdl_backend.cpp
+    )
     if(WITH_JACK AND UNIX AND NOT APPLE)
-        set(BACKEND_SOURCES
-            src/audio/backend/audio_backend_jack.cpp
-        )
-    else()
-        set(BACKEND_SOURCES
-            src/audio/backend/audio_backend_portaudio.cpp
-            src/audio/backend/audio_backend_portaudio_lifecycle.cpp
-            src/audio/backend/audio_backend_portaudio_devices.cpp
+        list(APPEND BACKEND_SOURCES
+            src/audio/backend/jack_backend.cpp
         )
     endif()
     set(DIALOG_SOURCES
@@ -575,6 +581,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         # Presets
         src/presets/preset_manager.cpp
         src/presets/preset_json.cpp
+        src/presets/preset_components.cpp
         src/presets/preset_manager_dirs.cpp
         src/presets/preset_manager_io.cpp
         # Audio engine (partial — see exclusion note above)
@@ -585,6 +592,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/engine/metronome.cpp
         src/audio/engine/audio_graph.cpp
         src/audio/engine/audio_graph_executor.cpp
+        src/audio/engine/analyzer_capture.cpp
+        src/audio/engine/audio_command_dispatcher.cpp
         # Recorder
         src/audio/recorder/recorder.cpp
         src/audio/recorder/recorder_session.cpp
@@ -593,6 +602,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         # GUI utility (no headless guards)
         src/gui/commands/command_history.cpp
         # Effects
+        src/audio/effects/core/effect.cpp
         src/audio/effects/distortion/distortion.cpp
         src/audio/effects/distortion/overdrive.cpp
         src/audio/effects/delay_reverb/delay.cpp
@@ -775,22 +785,16 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/integration/test_audio_backend_jack.cpp
     )
 
-    # CORE_SOURCES for amplitron-tests: only the files NOT in amplitron_core.
-    # - audio_engine.cpp    is excluded from the OBJECT lib (uses #ifdef AMPLITRON_TESTS)
-    # - audio_backend_*     are excluded because tests mock Pa_*/jack_* symbols via -D
     set(CORE_SOURCES
         src/audio/engine/audio_engine.cpp
+        src/audio/backend/audio_backend_factory.cpp
+        src/audio/backend/portaudio_backend.cpp
+        src/audio/backend/sdl_backend.cpp
     )
 
     if(WITH_JACK AND UNIX AND NOT APPLE)
         list(APPEND CORE_SOURCES
-            src/audio/backend/audio_backend_jack.cpp
-        )
-    else()
-        list(APPEND CORE_SOURCES
-            src/audio/backend/audio_backend_portaudio.cpp
-            src/audio/backend/audio_backend_portaudio_lifecycle.cpp
-            src/audio/backend/audio_backend_portaudio_devices.cpp
+            src/audio/backend/jack_backend.cpp
         )
     endif()
 

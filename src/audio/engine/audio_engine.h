@@ -4,7 +4,8 @@
 #include "audio/engine/i_audio_engine.h"
 #include "audio/effects/core/effect.h"
 #include "audio/recorder/recorder.h"
-#include "audio/utils/spsc_queue.h"
+#include "audio/recorder/i_recorder.h"
+#include "audio/engine/audio_command_dispatcher.h"
 #include "audio/dsp/level_analyzer.h"
 #include "audio/dsp/spectrum_analyzer.h"
 #include <chrono>
@@ -16,8 +17,11 @@
 #include <nlohmann/json.hpp>
 #include "audio/backend/audio_backend.h"
 #include "audio/engine/metronome.h"
+#include "audio/engine/i_metronome.h"
 
 namespace Amplitron {
+
+class AnalyzerCapture;
 
 /**
  * @brief Core audio processing engine.
@@ -35,41 +39,42 @@ namespace Amplitron {
  *   However, AudioEngine does NOT take ownership of the polymorphic poly_backend_ pointer;
  *   the caller or test fixture is responsible for managing its lifetime.
  */
-class AudioEngine : public IDeviceManager, public IAudioMetricsService {
+class AudioEngine : public IAudioEngine {
 public:
     friend class PortAudioTestSaboteur;
     
     /** @brief Construct the engine with default settings. */
-    AudioEngine();
+    AudioEngine(std::unique_ptr<IRecorder> recorder = nullptr,
+                std::unique_ptr<IMetronome> metronome = nullptr);
 
     /** @brief Destructor — shuts down the audio stream if still running. */
-    ~AudioEngine();
+    ~AudioEngine() override;
 
-    void commit_graph_changes();
+    void commit_graph_changes() override;
 
-    nlohmann::json serialize();
-    void deserialize(const nlohmann::json& j);
+    nlohmann::json serialize() override;
+    void deserialize(const nlohmann::json& j) override;
 
     /** @brief Initialize the audio back-end. @return true on success. */
-    bool initialize();
+    bool initialize() override;
 
     /** @brief Release audio back-end resources. */
-    void shutdown();
+    void shutdown() override;
 
     /** @brief Open and start the audio stream. @return true on success. */
-    bool start();
+    bool start() override;
 
     /** @brief Stop the audio stream. */
-    void stop();
+    void stop() override;
 
     /** @brief Stop and restart the stream (manual recovery). @return true on success. */
-    bool restart();
+    bool restart() override;
 
     /** @brief Return the last error message, or empty string. */
-    std::string get_last_error() const { return last_error_; }
+    std::string get_last_error() const override { return last_error_; }
 
     /** @brief Clear the stored error message. */
-    void clear_error() { last_error_.clear(); }
+    void clear_error() override { last_error_.clear(); }
 
 #ifdef AMPLITRON_ANDROID_OBOE
     /**
@@ -77,7 +82,7 @@ public:
      * "AAudio exclusive mode" when AAudio exclusive path is active; "OpenSL ES (shared)" otherwise.
      * Used by the Android settings UI to display the actual backend, not a hardcoded string.
      */
-    const char* get_oboe_sharing_mode_label() const;
+    const char* get_oboe_sharing_mode_label() const override;
 #endif
 
     /** @brief Enumerate available audio input devices. */
@@ -98,11 +103,11 @@ public:
      */
     bool set_output_device(int device_index) override;
 
-    /** @brief Return the current input device index. */
-    int get_input_device() const override { return input_device_; }
+    /** @brief Return the current input device index (delegates to backend so auto-detection is reflected). */
+    int get_input_device() const override { return backend_ ? backend_->get_input_device() : -1; }
 
-    /** @brief Return the current output device index. */
-    int get_output_device() const override { return output_device_; }
+    /** @brief Return the current output device index (delegates to backend so auto-detection is reflected). */
+    int get_output_device() const override { return backend_ ? backend_->get_output_device() : -1; }
 
     /** @brief Return the human-readable input device name. */
     std::string get_input_device_name() const override;
@@ -111,12 +116,12 @@ public:
     std::string get_output_device_name() const override;
 
     /** @brief Direct access to the effect chain vector (GUI thread only). */
-    AudioGraph& graph() { return main_graph_; }
-    const AudioGraph& graph() const { return main_graph_; }
+    AudioGraph& graph() override { return main_graph_; }
+    const AudioGraph& graph() const override { return main_graph_; }
 
 #ifdef AMPLITRON_TESTS
     /** @brief Replace the platform backend in tests. */
-    void replace_backend_for_test(AudioBackendState* backend);
+    void replace_backend_for_test(std::unique_ptr<IAudioBackend> backend);
     void replace_backend_for_test(IAudioBackend* backend);
 #endif
 
@@ -125,20 +130,20 @@ public:
     // while the DAG-based AudioGraph is being migrated.
     // =========================================================================
     std::vector<std::shared_ptr<Effect>> dummy_effects_;
-    std::vector<std::shared_ptr<Effect>>& effects() { return dummy_effects_; }
+    std::vector<std::shared_ptr<Effect>>& effects() override { return dummy_effects_; }
 
-    void add_effect(std::shared_ptr<Effect> fx);
-    void add_initial_effects(const std::vector<std::shared_ptr<Effect>>& fxs) {
+    void add_effect(std::shared_ptr<Effect> fx) override;
+    void add_initial_effects(const std::vector<std::shared_ptr<Effect>>& fxs) override {
         dummy_effects_.clear();
         for (const auto& fx : fxs)
             dummy_effects_.push_back(fx);
         sync_graph_with_dummy_effects(true);
     }
-    void insert_effect(int index, std::shared_ptr<Effect> fx);
-    void remove_effect(int index);
-    void clear_effects();
-    void move_effect(int from, int to);
-    void restore_effects_state(std::vector<std::shared_ptr<Effect>> state);
+    void insert_effect(int index, std::shared_ptr<Effect> fx) override;
+    void remove_effect(int index) override;
+    void clear_effects() override;
+    void move_effect(int from, int to) override;
+    void restore_effects_state(std::vector<std::shared_ptr<Effect>> state) override;
 
 
     /**
@@ -162,6 +167,9 @@ public:
     /** @brief Return true if the audio stream is actively running. */
     bool is_running() const override { return running_; }
 
+    /** @brief Test-only helper to bypass hardware startup constraints */
+    void set_running_for_testing(bool running) { running_ = running; }
+
     /** @brief Return the most recent input peak level (0.0–1.0, atomic). */
     float get_input_level() const override { return input_level_.load(); }
 
@@ -180,20 +188,14 @@ public:
     /** @brief Consume one-shot output clipping flag set by audio thread. */
     bool consume_output_clipped() override { return output_clipped_.exchange(false, std::memory_order_acq_rel); }
 
-    /** @brief FFT size used for GUI analyzer snapshots. */
-    static constexpr int ANALYZER_FFT_SIZE = 2048;
-    static constexpr int ANALYZER_FFT_MASK = ANALYZER_FFT_SIZE - 1;
-
     /** @brief Enable/disable analyzer capture in the audio callback (GUI thread). */
-    void set_analyzer_enabled(bool enabled) { analyzer_enabled_.store(enabled, std::memory_order_release); }
+    void set_analyzer_enabled(bool enabled) override;
 
     /** @brief Return true if analyzer capture is active. */
-    bool is_analyzer_enabled() const { return analyzer_enabled_.load(std::memory_order_acquire); }
+    bool is_analyzer_enabled() const override;
 
     /** @brief Snapshot sequence counter; increments when new analyzer data is published. */
-    uint64_t get_analyzer_sequence() const {
-        return analyzer_sequence_.load(std::memory_order_acquire);
-    }
+    uint64_t get_analyzer_sequence() const override;
 
     /**
      * @brief Copy latest pre/post-chain analyzer snapshots (GUI thread).
@@ -202,7 +204,7 @@ public:
      * @param sample_count Number of samples to copy (clamped to ANALYZER_FFT_SIZE).
      * @return true if at least one snapshot has been published.
      */
-    bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const;
+    bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const override;
 
 
 
@@ -210,38 +212,38 @@ public:
      * @brief Set the master input gain (enqueued to audio thread via SPSC queue).
      * @param gain Linear gain multiplier.
      */
-    void set_input_gain(float gain);
+    void set_input_gain(float gain) override;
 
     /**
      * @brief Set the master output gain (enqueued to audio thread via SPSC queue).
      * @param gain Linear gain multiplier.
      */
-    void set_output_gain(float gain);
+    void set_output_gain(float gain) override;
 
     
     /** @brief Return the current input gain (atomic relaxed read). */
-    float get_input_gain() const { return input_gain_.load(std::memory_order_relaxed); }
+    float get_input_gain() const override { return input_gain_.load(std::memory_order_relaxed); }
 
     /** @brief Return the current output gain (atomic relaxed read). */
-    float get_output_gain() const { return output_gain_.load(std::memory_order_relaxed); }
+    float get_output_gain() const override { return output_gain_.load(std::memory_order_relaxed); }
 
     /** @brief Toggle the metronome on/off (atomic update). */
-    void toggle_metronome();
+    void toggle_metronome() override;
 
     /** @brief Set the metronome BPM (atomic update). */
-    void set_metronome_bpm(int bpm);
+    void set_metronome_bpm(int bpm) override;
 
     /** @brief Set the metronome click volume (atomic update). */
-    void set_metronome_volume(float volume);
+    void set_metronome_volume(float volume) override;
 
     /** @brief Return the current metronome enabled state (atomic relaxed read). */
-    bool get_metronome_enabled() const { return metronome_.is_enabled(); }
+    bool get_metronome_enabled() const override { return metronome_->is_enabled(); }
 
     /** @brief Return the current metronome BPM (atomic relaxed read). */
-    int get_metronome_bpm() const { return metronome_.get_bpm(); }
+    int get_metronome_bpm() const override { return metronome_->get_bpm(); }
 
     /** @brief Return the current metronome volume (atomic relaxed read). */
-    float get_metronome_volume() const { return metronome_.get_volume(); }
+    float get_metronome_volume() const override { return metronome_->get_volume(); }
 
     /**
      * @brief Enqueue a parameter value change from the GUI thread (lock-free).
@@ -249,7 +251,7 @@ public:
      * @param param_index  Index of the parameter within the effect.
      * @param value        New parameter value.
      */
-    void push_param_change(int effect_index, int param_index, float value);
+    void push_param_change(int effect_index, int param_index, float value) override;
 
     /**
      * @brief Enqueue a mixer input gain change from the GUI thread.
@@ -257,36 +259,36 @@ public:
      * @param pin_index    Index of the input pin on the mixer.
      * @param gain         New gain multiplier (0.0–2.0).
      */
-    void push_mixer_gain_change(int node_id, int pin_index, float gain);
+    void push_mixer_gain_change(int node_id, int pin_index, float gain) override;
 
     /**
      * @brief Enqueue an effect enabled/disabled change from the GUI thread.
      * @param effect_index Index of the effect in the chain.
      * @param enabled      >0.5 means enabled.
      */
-    void push_effect_enabled(int effect_index, float enabled);
+    void push_effect_enabled(int effect_index, float enabled) override;
 
     /**
      * @brief Enqueue a dry/wet mix change from the GUI thread.
      * @param effect_index Index of the effect in the chain.
      * @param mix          New mix value (0.0–1.0).
      */
-    void push_effect_mix(int effect_index, float mix);
+    void push_effect_mix(int effect_index, float mix) override;
 
     /** @brief Return the current CPU load fraction (0.0–1.0, atomic). */
     float get_cpu_load() const override { return cpu_load_.load(std::memory_order_relaxed); }
 
     /** @brief Suggest a new buffer size based on current CPU load. */
-    int get_suggested_buffer_size() const;
+    int get_suggested_buffer_size() const override;
 
     /** @brief Return true if automatic buffer-size tuning is enabled. */
-    bool is_auto_buffer_enabled() const { return auto_buffer_enabled_; }
+    bool is_auto_buffer_enabled() const override { return auto_buffer_enabled_; }
 
     /** @brief Enable or disable automatic buffer-size tuning. */
-    void set_auto_buffer_enabled(bool enabled) { auto_buffer_enabled_ = enabled; }
+    void set_auto_buffer_enabled(bool enabled) override { auto_buffer_enabled_ = enabled; }
 
     /** @brief Access the built-in audio recorder. */
-    Recorder& recorder() { return recorder_; }
+    IRecorder& recorder() override { return *recorder_; }
 
     /**
      * @brief Set a tuner tap that receives pre-chain audio each callback.
@@ -295,13 +297,13 @@ public:
      * active it will zero the buffer, silencing the downstream chain.
      * Protected by effect_mutex_.
      */
-    void set_tuner_tap(std::shared_ptr<Effect> tap);
+    void set_tuner_tap(std::shared_ptr<Effect> tap) override;
 
     /** @brief Remove the tuner tap. */
-    void clear_tuner_tap();
+    void clear_tuner_tap() override;
 
     /** @brief Return true if a tuner tap is currently installed. */
-    bool has_tuner_tap() const;
+    bool has_tuner_tap() const override;
 
     /**
      * @brief Run the DSP pipeline on a block of audio samples.
@@ -309,14 +311,13 @@ public:
      * Called by the platform backend's audio callback. Public so that
      * backend compilation units (which are not class members) can invoke it.
      */
-    void process_audio(const float* input, float* output, int frame_count);
+    void process_audio(const float* input, float* output, int frame_count) override;
 
     // MIDI instance is managed by the GUI thread's MidiManager.
 
 private:
-    // Platform backend state (defined in the backend .cpp that is compiled)
-    AudioBackendState* backend_ = nullptr;
-    IAudioBackend* poly_backend_ = nullptr;
+    // Platform backend state
+    std::unique_ptr<IAudioBackend> backend_;
 
     bool initialized_ = false;
     bool running_ = false;
@@ -328,7 +329,7 @@ private:
     //global transport
     std::atomic<float> input_gain_{1.0f};
     std::atomic<float> output_gain_{0.8f};
-    Metronome metronome_;
+    std::unique_ptr<IMetronome> metronome_;
 
     std::atomic<float> input_level_{0.0f};
     std::atomic<float> output_level_{0.0f};
@@ -336,13 +337,13 @@ private:
     std::atomic<float> output_rms_{0.0f};
     std::atomic<bool> input_clipped_{false};
     std::atomic<bool> output_clipped_{false};
-    std::atomic<bool> analyzer_enabled_{false};
+
 
     // std::vector<std::shared_ptr<Effect>> effects_;
     std::vector<float>     process_buffer_;
     std::vector<float> process_buffer_right_;
     std::mutex effect_mutex_;
-    Recorder recorder_;
+    std::unique_ptr<IRecorder> recorder_;
     std::shared_ptr<Effect> tuner_tap_;
     std::string last_error_;
 
@@ -360,28 +361,14 @@ private:
 
     void sync_graph_with_dummy_effects(bool reset_graph = false);
 
-    // Lock-free GUI -> Audio command queue (256 slots)
-    SPSCQueue<AudioCommand, 256> command_queue_;
-    void drain_commands();        // Must be called while holding effect_mutex_
-    void drain_gain_commands();   // Safe to call without effect_mutex_
+    AudioCommandDispatcher command_dispatcher_;
 
     // CPU load watchdog for buffer auto-tuning
     std::atomic<float> cpu_load_{0.0f};
     std::atomic<float> callback_duration_us_{0.0f};
     bool auto_buffer_enabled_ = false;
 
-    // Audio-thread capture for GUI analyzer snapshots.
-    static constexpr int ANALYZER_HOP_SIZE = 1024;
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_capture_input_{};
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_capture_output_{};
-    int analyzer_capture_index_ = 0;
-    int analyzer_samples_since_publish_ = 0;
-
-    // Shared snapshot buffers (audio thread writes with try_lock, GUI reads with lock).
-    mutable std::mutex analyzer_mutex_;
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_input_{};
-    std::array<float, ANALYZER_FFT_SIZE> analyzer_snapshot_output_{};
-    std::atomic<uint64_t> analyzer_sequence_{0};
+    std::unique_ptr<AnalyzerCapture> analyzer_capture_;
 
 
 

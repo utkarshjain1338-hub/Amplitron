@@ -71,11 +71,11 @@ TEST(gui_manager_private_rendering_methods) {
     GuiManager gui(session);
 
     // 1. Mute/unmute
-    engine.running_ = true; // Headless-safe: bypass physical soundcard start requirement
+    engine.set_running_for_testing(true); // Headless-safe: bypass physical soundcard start requirement
     gui.toggle_audio_mute_state();
     ASSERT_TRUE(gui.audio_muted_);
     
-    engine.running_ = false; // Headless-safe: manually update engine state since Pa_Stream is nullptr
+    engine.set_running_for_testing(false); // Headless-safe: manually update engine state since Pa_Stream is nullptr
     gui.toggle_audio_mute_state();
     ASSERT_FALSE(gui.audio_muted_);
 
