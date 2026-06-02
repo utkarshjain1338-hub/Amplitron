@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 12:58:35</td>
+            <td class="headerValue">2026-06-02 15:03:54</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -65,7 +65,7 @@
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;gui/commands/command.h&quot;</span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;gui/theme/theme.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &quot;preset_json.h&quot;</span>
-<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/cabinet_sim.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/amp_cab/cabinet_sim.h&quot;</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;cstring&gt;</span>
 <span id="L8"><span class="lineNum">       8</span>              : #include &lt;imgui.h&gt;</span>
 <span id="L9"><span class="lineNum">       9</span>              : #include &lt;cstdio&gt;</span>
@@ -290,7 +290,7 @@
 <span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         201 :         before_state.push_back(std::move(snap));</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         201 :     }</span></span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          24 :     float before_in = engine_.get_input_gain();</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          32 :     float before_out = engine_.get_output_gain();</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          24 :     float before_out = engine_.get_output_gain();</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
 <span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          24 :     if (PresetManager::load_preset(path, engine_, midi_manager_)) {</span></span>
 <span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          24 :         std::vector&lt;LoadPresetCommand::EffectSnapshot&gt; after_state;</span></span>
