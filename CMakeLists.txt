@@ -512,7 +512,9 @@ elseif(IOS)
         ${IMGUI_DIR}
         ${IMGUI_DIR}/backends
     )
-    if(SDL2_SOURCE_DIR)
+    if(SDL2_INCLUDE_DIRS)
+        target_include_directories(Amplitron PRIVATE ${SDL2_INCLUDE_DIRS})
+    elseif(SDL2_SOURCE_DIR)
         target_include_directories(Amplitron PRIVATE ${SDL2_SOURCE_DIR}/include)
     endif()
 
@@ -523,10 +525,15 @@ elseif(IOS)
         AMPLITRON_NO_MIDI
     )
 
+    if(SDL2_LIBRARIES)
+        set(IOS_SDL2_LIBS ${SDL2_LIBRARIES})
+    else()
+        set(IOS_SDL2_LIBS SDL2::SDL2main SDL2::SDL2-static)
+    endif()
+
     target_link_libraries(Amplitron PRIVATE
         nlohmann_json::nlohmann_json
-        SDL2::SDL2main
-        SDL2::SDL2-static
+        ${IOS_SDL2_LIBS}
         "-framework UIKit"
         "-framework OpenGLES"
         "-framework AudioToolbox"
