@@ -250,6 +250,7 @@ set(APP_SOURCES
     src/audio/engine/audio_engine_chain.cpp
     src/audio/engine/audio_engine_process.cpp
     src/audio/engine/audio_engine_api.cpp
+    src/audio/engine/metronome.cpp
     src/audio/recorder/recorder.cpp
     src/audio/recorder/recorder_session.cpp
     src/audio/recorder/recorder_io.cpp

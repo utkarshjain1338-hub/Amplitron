@@ -80,6 +80,10 @@ static void sdl_audio_callback(void* userdata, Uint8* stream, int len) {
 // =============================================================================
 
 bool AudioEngine::initialize() {
+    if (poly_backend_) {
+        initialized_ = poly_backend_->initialize(this);
+        return initialized_;
+    }
     if (SDL_InitSubSystem(SDL_INIT_AUDIO) != 0) {
         std::cerr << "SDL audio init failed: " << SDL_GetError() << std::endl;
         return false;
@@ -90,6 +94,11 @@ bool AudioEngine::initialize() {
 }
 
 void AudioEngine::shutdown() {
+    if (poly_backend_) {
+        poly_backend_->shutdown();
+        initialized_ = false;
+        return;
+    }
     stop();
     if (initialized_) {
         SDL_QuitSubSystem(SDL_INIT_AUDIO);
@@ -98,6 +107,10 @@ void AudioEngine::shutdown() {
 }
 
 bool AudioEngine::start() {
+    if (poly_backend_) {
+        running_ = poly_backend_->start();
+        return running_;
+    }
     if (!initialized_ || running_) return false;
 
     // Web Audio needs buffer 256–16384; use 1024 for glitch-free playback
@@ -195,6 +208,11 @@ bool AudioEngine::start() {
 }
 
 void AudioEngine::stop() {
+    if (poly_backend_) {
+        poly_backend_->stop();
+        running_ = false;
+        return;
+    }
     if (running_) {
         if (backend_->audio_device != 0)
             SDL_PauseAudioDevice(backend_->audio_device, 1);
@@ -227,18 +245,46 @@ bool AudioEngine::restart() {
 // Device management stubs — browser handles devices
 // =============================================================================
 
-std::string AudioEngine::get_input_device_name() const { return "Browser Microphone"; }
-std::string AudioEngine::get_output_device_name() const { return "Browser Audio Output"; }
+std::string AudioEngine::get_input_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_device_name();
+    }
+    return "Browser Microphone";
+}
+
+std::string AudioEngine::get_output_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_device_name();
+    }
+    return "Browser Audio Output";
+}
 
 std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_devices();
+    }
     return {{0, "Browser Microphone", 1, 0, 48000.0, false}};
 }
 
 std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_devices();
+    }
     return {{0, "Browser Audio Output", 0, 2, 48000.0, false}};
 }
 
-bool AudioEngine::set_input_device(int) { return true; }
-bool AudioEngine::set_output_device(int) { return true; }
+bool AudioEngine::set_input_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_input_device(device_index);
+    }
+    return true;
+}
+
+bool AudioEngine::set_output_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_output_device(device_index);
+    }
+    return true;
+}
 
 } // namespace Amplitron

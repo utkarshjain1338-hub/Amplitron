@@ -108,6 +108,12 @@ namespace Amplitron
 
     bool AudioEngine::initialize()
     {
+        if (poly_backend_)
+        {
+            initialized_ = poly_backend_->initialize(this);
+            return initialized_;
+        }
+
         if (initialized_)
             return true;
 
@@ -123,6 +129,13 @@ namespace Amplitron
 
     void AudioEngine::shutdown()
     {
+        if (poly_backend_)
+        {
+            poly_backend_->shutdown();
+            initialized_ = false;
+            return;
+        }
+
         stop();
 
         auto *state = static_cast<AudioBackendState *>(backend_);
@@ -140,6 +153,12 @@ namespace Amplitron
 
     bool AudioEngine::start()
     {
+        if (poly_backend_)
+        {
+            running_ = poly_backend_->start();
+            return running_;
+        }
+
         if (!initialized_ || running_)
             return false;
 
@@ -168,6 +187,13 @@ namespace Amplitron
 
     void AudioEngine::stop()
     {
+        if (poly_backend_)
+        {
+            poly_backend_->stop();
+            running_ = false;
+            return;
+        }
+
         auto *state = static_cast<AudioBackendState *>(backend_);
         if (state && state->client && running_)
         {
@@ -188,21 +214,48 @@ namespace Amplitron
         return ok;
     }
 
-    std::string AudioEngine::get_input_device_name() const { return "JACK in_1"; }
-    std::string AudioEngine::get_output_device_name() const { return "JACK out_1"; }
+    std::string AudioEngine::get_input_device_name() const
+    {
+        if (poly_backend_)
+        {
+            return poly_backend_->get_input_device_name();
+        }
+        return "JACK in_1";
+    }
+
+    std::string AudioEngine::get_output_device_name() const
+    {
+        if (poly_backend_)
+        {
+            return poly_backend_->get_output_device_name();
+        }
+        return "JACK out_1";
+    }
 
     std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const
     {
+        if (poly_backend_)
+        {
+            return poly_backend_->get_input_devices();
+        }
         return {{0, "JACK in_1", 1, 0, static_cast<double>(sample_rate_), false}};
     }
 
     std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const
     {
+        if (poly_backend_)
+        {
+            return poly_backend_->get_output_devices();
+        }
         return {{0, "JACK out_1", 0, 1, static_cast<double>(sample_rate_), false}};
     }
 
     bool AudioEngine::set_input_device(int device_index)
     {
+        if (poly_backend_)
+        {
+            return poly_backend_->set_input_device(device_index);
+        }
         if (device_index != 0)
         {
             last_error_ = "Invalid JACK input device.";
@@ -214,6 +267,10 @@ namespace Amplitron
 
     bool AudioEngine::set_output_device(int device_index)
     {
+        if (poly_backend_)
+        {
+            return poly_backend_->set_output_device(device_index);
+        }
         if (device_index != 0)
         {
             last_error_ = "Invalid JACK output device.";

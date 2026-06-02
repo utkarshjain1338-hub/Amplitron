@@ -198,17 +198,30 @@ static void close_stream(std::shared_ptr<oboe::AudioStream>& stream) {
 // -----------------------------------------------------------------------------
 
 bool AudioEngine::initialize() {
+    if (poly_backend_) {
+        initialized_ = poly_backend_->initialize(this);
+        return initialized_;
+    }
     initialized_ = true;
     LOGI("Oboe audio backend initialised (AAudio exclusive mode preferred on Android 8+).");
     return true;
 }
 
 void AudioEngine::shutdown() {
+    if (poly_backend_) {
+        poly_backend_->shutdown();
+        initialized_ = false;
+        return;
+    }
     stop();
     initialized_ = false;
 }
 
 bool AudioEngine::start() {
+    if (poly_backend_) {
+        running_ = poly_backend_->start();
+        return running_;
+    }
     if (!initialized_ || running_) return false;
 
     backend_->playbackCallback = std::make_unique<OboeCallback>(this);
@@ -322,6 +335,11 @@ bool AudioEngine::start() {
 }
 
 void AudioEngine::stop() {
+    if (poly_backend_) {
+        poly_backend_->stop();
+        running_ = false;
+        return;
+    }
     if (!running_) return;
     running_ = false;
     close_stream(backend_->captureStream);
@@ -344,14 +362,23 @@ bool AudioEngine::restart() {
 // -----------------------------------------------------------------------------
 
 std::string AudioEngine::get_input_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_device_name();
+    }
     return backend_->input_device_name;
 }
 
 std::string AudioEngine::get_output_device_name() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_device_name();
+    }
     return backend_->output_device_name;
 }
 
 std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_input_devices();
+    }
     std::vector<AudioDeviceInfo> devices;
     devices.push_back({0, "Default (Auto-select)", 1, 0, static_cast<double>(sample_rate_), false});
     if (backend_->usb_input_device_id >= 0) {
@@ -365,6 +392,9 @@ std::vector<AudioDeviceInfo> AudioEngine::get_input_devices() const {
 }
 
 std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const {
+    if (poly_backend_) {
+        return poly_backend_->get_output_devices();
+    }
     std::vector<AudioDeviceInfo> devices;
     devices.push_back({0, "Default (Auto-select)", 0, 2, static_cast<double>(sample_rate_), false});
     // Fix: coderabbit — output devices use their own ID
@@ -379,6 +409,9 @@ std::vector<AudioDeviceInfo> AudioEngine::get_output_devices() const {
 }
 
 bool AudioEngine::set_input_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_input_device(device_index);
+    }
     input_device_ = device_index;
     backend_->usb_input_device_id = (device_index > 0) ? device_index : -1;
     backend_->input_device_name   = (device_index > 0) ? "USB Guitar Cable" : "Android Microphone";
@@ -387,6 +420,9 @@ bool AudioEngine::set_input_device(int device_index) {
 }
 
 bool AudioEngine::set_output_device(int device_index) {
+    if (poly_backend_) {
+        return poly_backend_->set_output_device(device_index);
+    }
     output_device_ = device_index;
     // Fix: coderabbit — wire output device ID into playback routing
     backend_->usb_output_device_id = (device_index > 0) ? device_index : -1;
