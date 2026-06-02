@@ -7,8 +7,8 @@
 #include "gui/views/gui_midi.h"
 #include "gui/commands/command_history.h"
 #include "gui/state/gui_graph_state.h"
-#include "audio/effects/overdrive.h"
-#include "audio/effects/amp_simulator.h"
+#include "audio/effects/distortion/overdrive.h"
+#include "audio/effects/amp_cab/amp_simulator.h"
 
 using namespace Amplitron;
 using namespace TestFramework;

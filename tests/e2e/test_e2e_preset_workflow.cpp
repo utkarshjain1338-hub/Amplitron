@@ -2,9 +2,9 @@
 #include "test_fixtures.h"
 #include "audio/engine/audio_engine.h"
 #include "preset_manager.h"
-#include "audio/effects/noise_gate.h"
-#include "audio/effects/distortion.h"
-#include "audio/effects/delay.h"
+#include "audio/effects/dynamics/noise_gate.h"
+#include "audio/effects/distortion/distortion.h"
+#include "audio/effects/delay_reverb/delay.h"
 #include <vector>
 #include <string>
 #include <filesystem>

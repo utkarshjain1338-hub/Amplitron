@@ -2,7 +2,7 @@
 
 #include "common.h"
 #include "audio/engine/audio_engine.h"
-#include "audio/effects/effect.h"
+#include "audio/effects/core/effect.h"
 #include "gui/commands/command.h"
 #include <array>
 #include <optional>

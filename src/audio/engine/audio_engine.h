@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include "audio/effects/effect.h"
+#include "audio/effects/core/effect.h"
 #include "audio/recorder/recorder.h"
 #include "audio/utils/spsc_queue.h"
 #include "audio/dsp/level_analyzer.h"

@@ -4,7 +4,7 @@
 #define VIRTUAL_TEST_HOOK public
 #include "midi/midi_manager.h"
 #include "audio/engine/audio_engine.h"
-#include "audio/effects/effect.h"
+#include "audio/effects/core/effect.h"
 #undef VIRTUAL_TEST_HOOK
 
 #include <cmath>

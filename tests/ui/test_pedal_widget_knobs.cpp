@@ -6,10 +6,10 @@
 #include "gui/pedalboard/pedal_widget.h"
 #include "gui/views/gui_midi.h"
 #include "gui/commands/command_history.h"
-#include "audio/effects/overdrive.h"
-#include "audio/effects/amp_simulator.h"
-#include "audio/effects/cabinet_sim.h"
-#include "audio/effects/tuner.h"
+#include "audio/effects/distortion/overdrive.h"
+#include "audio/effects/amp_cab/amp_simulator.h"
+#include "audio/effects/amp_cab/cabinet_sim.h"
+#include "audio/effects/utility/tuner.h"
 
 using namespace Amplitron;
 using namespace TestFramework;

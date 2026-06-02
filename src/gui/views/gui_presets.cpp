@@ -3,7 +3,7 @@
 #include "gui/commands/command.h"
 #include "gui/theme/theme.h"
 #include "preset_json.h"
-#include "audio/effects/cabinet_sim.h"
+#include "audio/effects/amp_cab/cabinet_sim.h"
 #include <cstring>
 #include <imgui.h>
 #include <cstdio>

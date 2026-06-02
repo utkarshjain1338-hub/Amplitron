@@ -3,7 +3,7 @@
 #include "gui/dialogs/file_dialog.h"
 #include "gui/theme/theme.h"
 #include "preset_manager.h"
-#include "audio/effects/tuner.h"
+#include "audio/effects/utility/tuner.h"
 #include <imgui.h>
 #include <SDL2/SDL.h>
 #include <cstdio>

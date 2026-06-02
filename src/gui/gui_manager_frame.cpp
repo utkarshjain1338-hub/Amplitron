@@ -4,7 +4,7 @@
 #include "gui/gl_setup.h"
 #include "gui/commands/command.h"
 #include "gui/state/gui_graph_state.h"
-#include "audio/effects/tuner.h"
+#include "audio/effects/utility/tuner.h"
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl2.h>

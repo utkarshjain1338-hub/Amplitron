@@ -2,8 +2,8 @@
 #include "test_framework.h"
 #include <memory>
 
-#include "audio/effects/amp_simulator.h"
-#include "audio/effects/overdrive.h"
+#include "audio/effects/amp_cab/amp_simulator.h"
+#include "audio/effects/distortion/overdrive.h"
 #include "gui/commands/command_history.h"
 #include "gui/pedalboard/pedal_board.h"
 #include "gui/pedalboard/pedal_widget.h"

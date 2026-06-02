@@ -2,7 +2,7 @@
 #include "gui/pedalboard/pedal_widget.h"
 #include "gui/theme/theme.h"
 #include "gui/commands/command.h"
-#include "audio/effects/amp_simulator.h"
+#include "audio/effects/amp_cab/amp_simulator.h"
 #include "gui/views/gui_midi.h"
 #include "midi/midi_manager.h"
 

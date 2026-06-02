@@ -1,5 +1,5 @@
 #pragma once
-#include "audio/effects/effect.h"
+#include "audio/effects/core/effect.h"
 #include <vector>
 #include <string>
 
