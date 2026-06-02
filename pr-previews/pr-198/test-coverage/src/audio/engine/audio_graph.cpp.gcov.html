@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 15:56:21</td>
+            <td class="headerValue">2026-06-02 17:02:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">84.6&nbsp;%</td>
@@ -375,13 +375,13 @@
 <span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">           6 :   return false;</span></span>
 <span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           9 : }</span></span>
 <span id="L315"><span class="lineNum">     315</span>              : </span>
-<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">        3829 : const DSPNode *AudioGraph::find_node(int node_id) const {</span></span>
-<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">        7375 :   for (const auto &amp;node : nodes_) {</span></span>
-<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">        7330 :     if (node.id == node_id)</span></span>
-<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">        2758 :       return &amp;node;</span></span>
+<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">        3492 : const DSPNode *AudioGraph::find_node(int node_id) const {</span></span>
+<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">        6798 :   for (const auto &amp;node : nodes_) {</span></span>
+<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">        6789 :     if (node.id == node_id)</span></span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaGNC">        2447 :       return &amp;node;</span></span>
 <span id="L320"><span class="lineNum">     320</span>              :   }</span>
-<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">          32 :   return nullptr;</span></span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">        1278 : }</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC">           6 :   return nullptr;</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">        1164 : }</span></span>
 <span id="L323"><span class="lineNum">     323</span>              : </span>
 <span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">           6 : void AudioGraph::restore_node(const DSPNode&amp; node) {</span></span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">           6 :   nodes_.push_back(node);</span></span>
