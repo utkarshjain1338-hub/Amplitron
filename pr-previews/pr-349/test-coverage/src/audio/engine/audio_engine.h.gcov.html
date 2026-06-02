@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">36</td>
-            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntry">37</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 16:35:35</td>
+            <td class="headerValue">2026-06-02 16:57:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">29</td>
-            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntry">30</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -251,7 +251,7 @@
 <span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">          12 :     void set_analyzer_enabled(bool enabled) { analyzer_enabled_.store(enabled, std::memory_order_release); }</span></span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
 <span id="L191"><span class="lineNum">     191</span>              :     /** @brief Return true if analyzer capture is active. */</span>
-<span id="L192"><span class="lineNum">     192</span>              :     bool is_analyzer_enabled() const { return analyzer_enabled_.load(std::memory_order_acquire); }</span>
+<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">          15 :     bool is_analyzer_enabled() const { return analyzer_enabled_.load(std::memory_order_acquire); }</span></span>
 <span id="L193"><span class="lineNum">     193</span>              : </span>
 <span id="L194"><span class="lineNum">     194</span>              :     /** @brief Snapshot sequence counter; increments when new analyzer data is published. */</span>
 <span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">           3 :     uint64_t get_analyzer_sequence() const {</span></span>
