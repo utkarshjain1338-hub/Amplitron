@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">85.2&nbsp;%</td>
-            <td class="headerCovTableEntry">142</td>
-            <td class="headerCovTableEntry">121</td>
+            <td class="headerCovTableEntryMed">85.3&nbsp;%</td>
+            <td class="headerCovTableEntry">143</td>
+            <td class="headerCovTableEntry">122</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 12:50:10</td>
+            <td class="headerValue">2026-06-02 12:58:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -223,62 +223,64 @@
 <span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">        6042 : void CabinetSim::process(float* buffer, int num_samples) {</span></span>
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">        6042 :     if (!enabled_) return;</span></span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
-<span id="L164"><span class="lineNum">     164</span>              :     // If an IR is loaded, convolve for cabinet response.</span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        6039 :     check_pending_kernel();</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">        6039 :     if (conv_engine_.has_kernel()) {</span></span>
-<span id="L167"><span class="lineNum">     167</span>              :         // Audio thread: single acquire load of the atomic block size.</span>
-<span id="L168"><span class="lineNum">     168</span>              :         // raw_ir_samples_ is NOT read here (GUI-thread owned) — the</span>
-<span id="L169"><span class="lineNum">     169</span>              :         // expected_block_size_ &gt; 0 check is sufficient because clear_ir()</span>
-<span id="L170"><span class="lineNum">     170</span>              :         // stores 0 before clearing the kernel, and no IR means size is 0.</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">        3009 :         int ebs = expected_block_size_.load(std::memory_order_acquire);</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">        3009 :         if (num_samples != ebs &amp;&amp; num_samples &gt; 0 &amp;&amp; ebs &gt; 0) {</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC tlaBgUNC">           0 :             pending_block_size_.store(num_samples, std::memory_order_release);</span></span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC tlaBgGNC">        3009 :         if (dry_buffer_.size() &lt; static_cast&lt;size_t&gt;(num_samples)) {</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          12 :             dry_buffer_.resize(num_samples);</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           4 :         }</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">        3009 :         std::copy(buffer, buffer + num_samples, dry_buffer_.begin());</span></span>
-<span id="L180"><span class="lineNum">     180</span>              : </span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">        3009 :         conv_engine_.process(buffer, num_samples);</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">        6039 :     const float mix = mix_.load(std::memory_order_relaxed);</span></span>
+<span id="L165"><span class="lineNum">     165</span>              : </span>
+<span id="L166"><span class="lineNum">     166</span>              :     // If an IR is loaded, convolve for cabinet response.</span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">        6039 :     check_pending_kernel();</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">        6039 :     if (conv_engine_.has_kernel()) {</span></span>
+<span id="L169"><span class="lineNum">     169</span>              :         // Audio thread: single acquire load of the atomic block size.</span>
+<span id="L170"><span class="lineNum">     170</span>              :         // raw_ir_samples_ is NOT read here (GUI-thread owned) — the</span>
+<span id="L171"><span class="lineNum">     171</span>              :         // expected_block_size_ &gt; 0 check is sufficient because clear_ir()</span>
+<span id="L172"><span class="lineNum">     172</span>              :         // stores 0 before clearing the kernel, and no IR means size is 0.</span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">        3009 :         int ebs = expected_block_size_.load(std::memory_order_acquire);</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">        3009 :         if (num_samples != ebs &amp;&amp; num_samples &gt; 0 &amp;&amp; ebs &gt; 0) {</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaUNC tlaBgUNC">           0 :             pending_block_size_.store(num_samples, std::memory_order_release);</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L177"><span class="lineNum">     177</span>              : </span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC tlaBgGNC">        3009 :         if (dry_buffer_.size() &lt; static_cast&lt;size_t&gt;(num_samples)) {</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          12 :             dry_buffer_.resize(num_samples);</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           4 :         }</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">        3009 :         std::copy(buffer, buffer + num_samples, dry_buffer_.begin());</span></span>
 <span id="L182"><span class="lineNum">     182</span>              : </span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">        3009 :         if (mix_ &lt; 1.0f) {</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC tlaBgUNC">           0 :             apply_mix(dry_buffer_.data(), buffer, num_samples);</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC tlaBgGNC">        3009 :         return;</span></span>
-<span id="L187"><span class="lineNum">     187</span>              :     }</span>
-<span id="L188"><span class="lineNum">     188</span>              : </span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">        3030 :     const float bright_target = params_[1].value;</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">        3009 :         conv_engine_.process(buffer, num_samples);</span></span>
+<span id="L184"><span class="lineNum">     184</span>              : </span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">        3009 :         if (mix &lt; 1.0f) {</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC tlaBgUNC">           0 :             apply_mix(dry_buffer_.data(), buffer, num_samples);</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC tlaBgGNC">        3009 :         return;</span></span>
+<span id="L189"><span class="lineNum">     189</span>              :     }</span>
 <span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">     1546734 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">     1543704 :         bright_smooth_ += bright_alpha_ * (bright_target - bright_smooth_);</span></span>
-<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">     1543704 :         float bright = bright_smooth_;</span></span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">     1543704 :         float dry = buffer[i];</span></span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">     1543704 :         float x = buffer[i];</span></span>
-<span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">     1543704 :         x = hp_.process(x);</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">     1543704 :         x = lp_.process(x);</span></span>
-<span id="L199"><span class="lineNum">     199</span>              : </span>
-<span id="L200"><span class="lineNum">     200</span>              :         // Blend in resonance based on brightness</span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">     1543704 :         float peaked = peak_.process(x);</span></span>
-<span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">     1543704 :         x = x * (1.0f - bright * 0.3f) + peaked * bright * 0.3f;</span></span>
-<span id="L203"><span class="lineNum">     203</span>              : </span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">     1543704 :         buffer[i] = dry * (1.0f - mix_) + x * mix_;</span></span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">      514568 :     }</span></span>
-<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">        2014 : }</span></span>
-<span id="L207"><span class="lineNum">     207</span>              : </span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">          39 : void CabinetSim::reset() {</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">          39 :     lp_.reset();</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          39 :     hp_.reset();</span></span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          39 :     peak_.reset();</span></span>
-<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          39 :     conv_engine_.reset();</span></span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          39 :     bright_smooth_ = params_[1].value;</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">          39 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
-<span id="L215"><span class="lineNum">     215</span> <span class="tlaUNC tlaBgUNC">           0 :         dry_buffer_.reserve(1024);</span></span>
-<span id="L216"><span class="lineNum">     216</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L217"><span class="lineNum">     217</span> <span class="tlaGNC tlaBgGNC">          39 : }</span></span>
-<span id="L218"><span class="lineNum">     218</span>              : </span>
-<span id="L219"><span class="lineNum">     219</span>              : } // namespace Amplitron</span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">        3030 :     const float bright_target = params_[1].value;</span></span>
+<span id="L192"><span class="lineNum">     192</span>              : </span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">     1546734 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">     1543704 :         bright_smooth_ += bright_alpha_ * (bright_target - bright_smooth_);</span></span>
+<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">     1543704 :         float bright = bright_smooth_;</span></span>
+<span id="L196"><span class="lineNum">     196</span> <span class="tlaGNC">     1543704 :         float dry = buffer[i];</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">     1543704 :         float x = buffer[i];</span></span>
+<span id="L198"><span class="lineNum">     198</span>              : </span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">     1543704 :         x = hp_.process(x);</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">     1543704 :         x = lp_.process(x);</span></span>
+<span id="L201"><span class="lineNum">     201</span>              : </span>
+<span id="L202"><span class="lineNum">     202</span>              :         // Blend in resonance based on brightness</span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">     1543704 :         float peaked = peak_.process(x);</span></span>
+<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">     1543704 :         x = x * (1.0f - bright * 0.3f) + peaked * bright * 0.3f;</span></span>
+<span id="L205"><span class="lineNum">     205</span>              : </span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">     1543704 :         buffer[i] = dry * (1.0f - mix) + x * mix;</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">      514568 :     }</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">        2014 : }</span></span>
+<span id="L209"><span class="lineNum">     209</span>              : </span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          39 : void CabinetSim::reset() {</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          39 :     lp_.reset();</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          39 :     hp_.reset();</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          39 :     peak_.reset();</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">          39 :     conv_engine_.reset();</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">          39 :     bright_smooth_ = params_[1].value;</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">          39 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
+<span id="L217"><span class="lineNum">     217</span> <span class="tlaUNC tlaBgUNC">           0 :         dry_buffer_.reserve(1024);</span></span>
+<span id="L218"><span class="lineNum">     218</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L219"><span class="lineNum">     219</span> <span class="tlaGNC tlaBgGNC">          39 : }</span></span>
+<span id="L220"><span class="lineNum">     220</span>              : </span>
+<span id="L221"><span class="lineNum">     221</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

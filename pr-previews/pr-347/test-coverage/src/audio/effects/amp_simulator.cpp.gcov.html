@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">99.1&nbsp;%</td>
+            <td class="headerCovTableEntry">107</td>
             <td class="headerCovTableEntry">106</td>
-            <td class="headerCovTableEntry">105</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 12:50:10</td>
+            <td class="headerValue">2026-06-02 12:58:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -188,94 +188,96 @@
 <span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          39 : void AmpSimulator::process(float* buffer, int num_samples) {</span></span>
 <span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          39 :     if (!enabled_) return;</span></span>
 <span id="L128"><span class="lineNum">     128</span>              : </span>
-<span id="L129"><span class="lineNum">     129</span>              :     // One-pole smoothing: advance trim states toward raw param targets each block</span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          39 :     const float alpha = 1.0f - std::exp(-1.0f / (sample_rate_ * 0.010f)); // 10 ms</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          39 :     bass_trim_state_   += alpha * (params_[2].value - bass_trim_state_);</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          39 :     mid_trim_state_    += alpha * (params_[3].value - mid_trim_state_);</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          39 :     treble_trim_state_ += alpha * (params_[4].value - treble_trim_state_);</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          39 :     gain_smoothed_     += alpha * (params_[1].value - gain_smoothed_);</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          39 :     level_smoothed_    += alpha * (params_[5].value - level_smoothed_);</span></span>
-<span id="L136"><span class="lineNum">     136</span>              : </span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          39 :     recompute_coefficients_if_dirty();</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          39 :     const float mix = mix_.load(std::memory_order_relaxed);</span></span>
+<span id="L130"><span class="lineNum">     130</span>              : </span>
+<span id="L131"><span class="lineNum">     131</span>              :     // One-pole smoothing: advance trim states toward raw param targets each block</span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          39 :     const float alpha = 1.0f - std::exp(-1.0f / (sample_rate_ * 0.010f)); // 10 ms</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          39 :     bass_trim_state_   += alpha * (params_[2].value - bass_trim_state_);</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          39 :     mid_trim_state_    += alpha * (params_[3].value - mid_trim_state_);</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          39 :     treble_trim_state_ += alpha * (params_[4].value - treble_trim_state_);</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">          39 :     gain_smoothed_     += alpha * (params_[1].value - gain_smoothed_);</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          39 :     level_smoothed_    += alpha * (params_[5].value - level_smoothed_);</span></span>
 <span id="L138"><span class="lineNum">     138</span>              : </span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          65 :     int model_idx = clamp(static_cast&lt;int&gt;(params_[0].value + 0.5f),</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">          39 :                           0, static_cast&lt;int&gt;(get_amp_models().size()) - 1);</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          39 :     const AmpModel&amp; model = get_amp_models()[model_idx];</span></span>
-<span id="L142"><span class="lineNum">     142</span>              : </span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          39 :     float gain_knob = gain_smoothed_;</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          39 :     float level = level_smoothed_;</span></span>
-<span id="L145"><span class="lineNum">     145</span>              : </span>
-<span id="L146"><span class="lineNum">     146</span>              :     // Effective preamp gain: model base * user gain control (0-2x range)</span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          39 :     float effective_gain = model.preamp_gain * (0.2f + gain_knob * 1.8f);</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          39 :     float sat_mix = model.saturation_mix;</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          39 :     float asym = model.asymmetry;</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          39 :     float model_output = model.output_level;</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          39 :     float attack = model.attack_coeff;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          39 :     float release = model.release_coeff;</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">          39 :     float sag = model.sag_amount;</span></span>
-<span id="L154"><span class="lineNum">     154</span>              : </span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">       20007 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">       19968 :         float dry = buffer[i];</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">       19968 :         float x = buffer[i];</span></span>
-<span id="L158"><span class="lineNum">     158</span>              : </span>
-<span id="L159"><span class="lineNum">     159</span>              :         // --- Envelope follower for dynamic response ---</span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">       19968 :         float abs_x = std::fabs(x);</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">       19968 :         if (abs_x &gt; envelope_) {</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">        9642 :             envelope_ += attack * (abs_x - envelope_);</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">        3214 :         } else {</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">       10326 :             envelope_ += release * (abs_x - envelope_);</span></span>
-<span id="L165"><span class="lineNum">     165</span>              :         }</span>
-<span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span>              :         // Power sag: reduce gain when envelope is high (tube amp compression)</span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">       19968 :         float sag_factor = 1.0f - sag * clamp(envelope_, 0.0f, 1.0f);</span></span>
-<span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span>              :         // --- Input gain with sag ---</span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">       19968 :         x *= effective_gain * sag_factor;</span></span>
-<span id="L172"><span class="lineNum">     172</span>              : </span>
-<span id="L173"><span class="lineNum">     173</span>              :         // --- Tone stack (pre-saturation EQ) ---</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">       19968 :         x = low_shelf_.process(x);</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">       19968 :         x = mid_peak_.process(x);</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">       19968 :         x = high_shelf_.process(x);</span></span>
-<span id="L177"><span class="lineNum">     177</span>              : </span>
-<span id="L178"><span class="lineNum">     178</span>              :         // --- Waveshaping saturation ---</span>
-<span id="L179"><span class="lineNum">     179</span>              :         // Soft clipping path (tube-like)</span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">        6656 :         float soft;</span></span>
-<span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">       19968 :         if (x &gt; 0.0f) {</span></span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">       10245 :             soft = 1.0f - std::exp(-x);</span></span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">        3415 :         } else {</span></span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">        9723 :             soft = -1.0f + std::exp(x);</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">        9723 :             soft *= asym;</span></span>
-<span id="L186"><span class="lineNum">     186</span>              :         }</span>
-<span id="L187"><span class="lineNum">     187</span>              : </span>
-<span id="L188"><span class="lineNum">     188</span>              :         // Hard clipping path</span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">       19968 :         float hard = hard_clip(x, 1.0f);</span></span>
-<span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span>              :         // Blend soft and hard clipping</span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaGNC">       19968 :         x = soft * (1.0f - sat_mix) + hard * sat_mix;</span></span>
-<span id="L193"><span class="lineNum">     193</span>              : </span>
-<span id="L194"><span class="lineNum">     194</span>              :         // --- DC blocking high-pass filter ---</span>
-<span id="L195"><span class="lineNum">     195</span> <span class="tlaGNC">       19968 :         x = dc_block_.hp(x, 0.005f);</span></span>
-<span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span>              :         // --- Output level ---</span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">       19968 :         x *= model_output * level;</span></span>
-<span id="L199"><span class="lineNum">     199</span>              : </span>
-<span id="L200"><span class="lineNum">     200</span>              :         // Safety clamp</span>
-<span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">       19968 :         x = clamp(x, -1.0f, 1.0f);</span></span>
-<span id="L202"><span class="lineNum">     202</span>              : </span>
-<span id="L203"><span class="lineNum">     203</span>              :         // Wet/dry mix</span>
-<span id="L204"><span class="lineNum">     204</span> <span class="tlaGNC">       19968 :         buffer[i] = dry * (1.0f - mix_) + x * mix_;</span></span>
-<span id="L205"><span class="lineNum">     205</span> <span class="tlaGNC">        6656 :     }</span></span>
-<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">          13 : }</span></span>
-<span id="L207"><span class="lineNum">     207</span>              : </span>
-<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">          69 : void AmpSimulator::reset() {</span></span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">          69 :     low_shelf_.reset();</span></span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          69 :     mid_peak_.reset();</span></span>
-<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          69 :     high_shelf_.reset();</span></span>
-<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          69 :     envelope_ = 0.0f;</span></span>
-<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          69 :     dc_block_.reset();</span></span>
-<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">          69 : }</span></span>
-<span id="L215"><span class="lineNum">     215</span>              : </span>
-<span id="L216"><span class="lineNum">     216</span>              : } // namespace Amplitron</span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          39 :     recompute_coefficients_if_dirty();</span></span>
+<span id="L140"><span class="lineNum">     140</span>              : </span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          65 :     int model_idx = clamp(static_cast&lt;int&gt;(params_[0].value + 0.5f),</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          39 :                           0, static_cast&lt;int&gt;(get_amp_models().size()) - 1);</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          39 :     const AmpModel&amp; model = get_amp_models()[model_idx];</span></span>
+<span id="L144"><span class="lineNum">     144</span>              : </span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          39 :     float gain_knob = gain_smoothed_;</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          39 :     float level = level_smoothed_;</span></span>
+<span id="L147"><span class="lineNum">     147</span>              : </span>
+<span id="L148"><span class="lineNum">     148</span>              :     // Effective preamp gain: model base * user gain control (0-2x range)</span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">          39 :     float effective_gain = model.preamp_gain * (0.2f + gain_knob * 1.8f);</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">          39 :     float sat_mix = model.saturation_mix;</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">          39 :     float asym = model.asymmetry;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">          39 :     float model_output = model.output_level;</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">          39 :     float attack = model.attack_coeff;</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          39 :     float release = model.release_coeff;</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          39 :     float sag = model.sag_amount;</span></span>
+<span id="L156"><span class="lineNum">     156</span>              : </span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">       20007 :     for (int i = 0; i &lt; num_samples; ++i) {</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">       19968 :         float dry = buffer[i];</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">       19968 :         float x = buffer[i];</span></span>
+<span id="L160"><span class="lineNum">     160</span>              : </span>
+<span id="L161"><span class="lineNum">     161</span>              :         // --- Envelope follower for dynamic response ---</span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">       19968 :         float abs_x = std::fabs(x);</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">       19968 :         if (abs_x &gt; envelope_) {</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">        9642 :             envelope_ += attack * (abs_x - envelope_);</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        3214 :         } else {</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">       10326 :             envelope_ += release * (abs_x - envelope_);</span></span>
+<span id="L167"><span class="lineNum">     167</span>              :         }</span>
+<span id="L168"><span class="lineNum">     168</span>              : </span>
+<span id="L169"><span class="lineNum">     169</span>              :         // Power sag: reduce gain when envelope is high (tube amp compression)</span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">       19968 :         float sag_factor = 1.0f - sag * clamp(envelope_, 0.0f, 1.0f);</span></span>
+<span id="L171"><span class="lineNum">     171</span>              : </span>
+<span id="L172"><span class="lineNum">     172</span>              :         // --- Input gain with sag ---</span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">       19968 :         x *= effective_gain * sag_factor;</span></span>
+<span id="L174"><span class="lineNum">     174</span>              : </span>
+<span id="L175"><span class="lineNum">     175</span>              :         // --- Tone stack (pre-saturation EQ) ---</span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">       19968 :         x = low_shelf_.process(x);</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">       19968 :         x = mid_peak_.process(x);</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">       19968 :         x = high_shelf_.process(x);</span></span>
+<span id="L179"><span class="lineNum">     179</span>              : </span>
+<span id="L180"><span class="lineNum">     180</span>              :         // --- Waveshaping saturation ---</span>
+<span id="L181"><span class="lineNum">     181</span>              :         // Soft clipping path (tube-like)</span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">        6656 :         float soft;</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">       19968 :         if (x &gt; 0.0f) {</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">       10245 :             soft = 1.0f - std::exp(-x);</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">        3415 :         } else {</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">        9723 :             soft = -1.0f + std::exp(x);</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">        9723 :             soft *= asym;</span></span>
+<span id="L188"><span class="lineNum">     188</span>              :         }</span>
+<span id="L189"><span class="lineNum">     189</span>              : </span>
+<span id="L190"><span class="lineNum">     190</span>              :         // Hard clipping path</span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">       19968 :         float hard = hard_clip(x, 1.0f);</span></span>
+<span id="L192"><span class="lineNum">     192</span>              : </span>
+<span id="L193"><span class="lineNum">     193</span>              :         // Blend soft and hard clipping</span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">       19968 :         x = soft * (1.0f - sat_mix) + hard * sat_mix;</span></span>
+<span id="L195"><span class="lineNum">     195</span>              : </span>
+<span id="L196"><span class="lineNum">     196</span>              :         // --- DC blocking high-pass filter ---</span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">       19968 :         x = dc_block_.hp(x, 0.005f);</span></span>
+<span id="L198"><span class="lineNum">     198</span>              : </span>
+<span id="L199"><span class="lineNum">     199</span>              :         // --- Output level ---</span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">       19968 :         x *= model_output * level;</span></span>
+<span id="L201"><span class="lineNum">     201</span>              : </span>
+<span id="L202"><span class="lineNum">     202</span>              :         // Safety clamp</span>
+<span id="L203"><span class="lineNum">     203</span> <span class="tlaGNC">       19968 :         x = clamp(x, -1.0f, 1.0f);</span></span>
+<span id="L204"><span class="lineNum">     204</span>              : </span>
+<span id="L205"><span class="lineNum">     205</span>              :         // Wet/dry mix</span>
+<span id="L206"><span class="lineNum">     206</span> <span class="tlaGNC">       19968 :         buffer[i] = dry * (1.0f - mix) + x * mix;</span></span>
+<span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">        6656 :     }</span></span>
+<span id="L208"><span class="lineNum">     208</span> <span class="tlaGNC">          13 : }</span></span>
+<span id="L209"><span class="lineNum">     209</span>              : </span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">          69 : void AmpSimulator::reset() {</span></span>
+<span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">          69 :     low_shelf_.reset();</span></span>
+<span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">          69 :     mid_peak_.reset();</span></span>
+<span id="L213"><span class="lineNum">     213</span> <span class="tlaGNC">          69 :     high_shelf_.reset();</span></span>
+<span id="L214"><span class="lineNum">     214</span> <span class="tlaGNC">          69 :     envelope_ = 0.0f;</span></span>
+<span id="L215"><span class="lineNum">     215</span> <span class="tlaGNC">          69 :     dc_block_.reset();</span></span>
+<span id="L216"><span class="lineNum">     216</span> <span class="tlaGNC">          69 : }</span></span>
+<span id="L217"><span class="lineNum">     217</span>              : </span>
+<span id="L218"><span class="lineNum">     218</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

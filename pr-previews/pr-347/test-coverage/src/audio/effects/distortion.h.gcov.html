@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">5</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 12:50:10</td>
+            <td class="headerValue">2026-06-02 12:58:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -84,19 +84,20 @@
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         116 :     const char* name() const override { return &quot;Distortion&quot;; }</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :     const char* type_id() const override { return &quot;Distortion&quot;; }</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :     // Return editable parameters exposed by this effect.</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         117 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
-<span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span>              : private:</span>
-<span id="L28"><span class="lineNum">      28</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
-<span id="L29"><span class="lineNum">      29</span>              :     OnePole tone_lp_;</span>
-<span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span>              :     // One-pole smoothing states (avoids zipper noise on parameter changes)</span>
-<span id="L32"><span class="lineNum">      32</span>              :     float drive_smoothed_ = 2.0f;</span>
-<span id="L33"><span class="lineNum">      33</span>              :     float tone_smoothed_  = 0.6f;</span>
-<span id="L34"><span class="lineNum">      34</span>              :     float level_smoothed_ = 0.5f;</span>
-<span id="L35"><span class="lineNum">      35</span>              : };</span>
-<span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span>              : } // namespace Amplitron</span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         114 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :     const std::vector&lt;EffectParam&gt;&amp; params() const override { return params_; }</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span>              : private:</span>
+<span id="L29"><span class="lineNum">      29</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
+<span id="L30"><span class="lineNum">      30</span>              :     OnePole tone_lp_;</span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
+<span id="L32"><span class="lineNum">      32</span>              :     // One-pole smoothing states (avoids zipper noise on parameter changes)</span>
+<span id="L33"><span class="lineNum">      33</span>              :     float drive_smoothed_ = 2.0f;</span>
+<span id="L34"><span class="lineNum">      34</span>              :     float tone_smoothed_  = 0.6f;</span>
+<span id="L35"><span class="lineNum">      35</span>              :     float level_smoothed_ = 0.5f;</span>
+<span id="L36"><span class="lineNum">      36</span>              : };</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
