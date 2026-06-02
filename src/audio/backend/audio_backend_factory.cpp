@@ -1,6 +1,8 @@
 #include "audio/backend/audio_backend.h"
 #include "audio/backend/audio_backend_registry.h"
+#ifdef __APPLE__
 #include <TargetConditionals.h>
+#endif
 
 #if defined(AMPLITRON_ANDROID_OBOE)
 #include "audio/backend/oboe_backend.h"
