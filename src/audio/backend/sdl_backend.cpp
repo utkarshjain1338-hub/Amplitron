@@ -74,6 +74,17 @@ bool SdlBackend::start() {
     if (!initialized_ || running_) return false;
 
     int target_buffer = engine_->get_buffer_size();
+#ifdef __EMSCRIPTEN__
+    if (target_buffer < 256) {
+        target_buffer = 256;
+    } else {
+        int p = 256;
+        while (p < target_buffer && p < 16384) {
+            p *= 2;
+        }
+        target_buffer = p;
+    }
+#endif
     int target_rate = engine_->get_sample_rate();
 
     SDL_AudioSpec want_out, have_out;

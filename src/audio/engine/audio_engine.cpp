@@ -278,6 +278,9 @@ namespace Amplitron
                     tuner_tap_->set_sample_rate(sample_rate_);
                     tuner_tap_->reset();
                 }
+                last_error_.clear();
+            } else {
+                last_error_ = "Failed to start audio backend.";
             }
             return running_;
         }
