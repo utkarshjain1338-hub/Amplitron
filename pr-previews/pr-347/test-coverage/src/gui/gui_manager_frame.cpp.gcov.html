@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">62.9&nbsp;%</td>
-            <td class="headerCovTableEntry">283</td>
-            <td class="headerCovTableEntry">178</td>
+            <td class="headerCovTableEntryLo">63.2&nbsp;%</td>
+            <td class="headerCovTableEntry">285</td>
+            <td class="headerCovTableEntry">180</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 09:32:58</td>
+            <td class="headerValue">2026-06-03 10:13:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">86.2&nbsp;%</td>
@@ -384,7 +384,7 @@
 <span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">           3 :     smoothed_input_level_  += (engine_.get_input_level()  - smoothed_input_level_)  * 0.3f;</span></span>
 <span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">           3 :     smoothed_output_level_ += (engine_.get_output_level() - smoothed_output_level_) * 0.3f;</span></span>
 <span id="L324"><span class="lineNum">     324</span>              : </span>
-<span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">           3 :     ImGui::BeginChild(&quot;MasterControls&quot;, ImVec2(0, 150), true, ImGuiWindowFlags_NoScrollbar);</span></span>
+<span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">           3 :     ImGui::BeginChild(&quot;MasterControls&quot;, ImVec2(0, 110), true, ImGuiWindowFlags_NoScrollbar);</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">           3 :     ImGui::Columns(4, &quot;master_cols&quot;, false);</span></span>
 <span id="L327"><span class="lineNum">     327</span>              : </span>
 <span id="L328"><span class="lineNum">     328</span>              :     // Input gain</span>
@@ -442,28 +442,30 @@
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaGNC">           3 :     ImGui::Separator();</span></span>
 <span id="L381"><span class="lineNum">     381</span> <span class="tlaGNC">           3 :     ImGui::Columns(3, &quot;metronome_cols&quot;, false);</span></span>
 <span id="L382"><span class="lineNum">     382</span>              : </span>
-<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">           3 :     ImGui::Text(&quot;METRONOME&quot;);</span></span>
-<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">           3 :     bool metronome_on = engine_.get_metronome_enabled();</span></span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           4 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;))</span></span>
-<span id="L386"><span class="lineNum">     386</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.toggle_metronome();</span></span>
-<span id="L387"><span class="lineNum">     387</span>              : </span>
-<span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::NextColumn();</span></span>
+<span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">           3 :     ImGui::AlignTextToFramePadding();</span></span>
+<span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">           3 :     ImGui::Text(&quot;METRONOME&quot;);</span></span>
+<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           3 :     ImGui::SameLine();</span></span>
+<span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">           3 :     bool metronome_on = engine_.get_metronome_enabled();</span></span>
+<span id="L387"><span class="lineNum">     387</span> <span class="tlaGNC">           4 :     if (ImGui::Button(metronome_on ? &quot;Stop&quot; : &quot;Play&quot;))</span></span>
+<span id="L388"><span class="lineNum">     388</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.toggle_metronome();</span></span>
 <span id="L389"><span class="lineNum">     389</span>              : </span>
-<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">           3 :     int bpm = engine_.get_metronome_bpm();</span></span>
-<span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">           3 :     if (ImGui::SliderInt(&quot;BPM&quot;, &amp;bpm, 40, 240))</span></span>
-<span id="L392"><span class="lineNum">     392</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_bpm(bpm);</span></span>
-<span id="L393"><span class="lineNum">     393</span>              : </span>
-<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::NextColumn();</span></span>
+<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::NextColumn();</span></span>
+<span id="L391"><span class="lineNum">     391</span>              : </span>
+<span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">           3 :     int bpm = engine_.get_metronome_bpm();</span></span>
+<span id="L393"><span class="lineNum">     393</span> <span class="tlaGNC">           3 :     if (ImGui::SliderInt(&quot;BPM&quot;, &amp;bpm, 40, 240))</span></span>
+<span id="L394"><span class="lineNum">     394</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_bpm(bpm);</span></span>
 <span id="L395"><span class="lineNum">     395</span>              : </span>
-<span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC">           3 :     float click = engine_.get_metronome_volume();</span></span>
-<span id="L397"><span class="lineNum">     397</span> <span class="tlaGNC">           3 :     if (ImGui::SliderFloat(&quot;Click&quot;, &amp;click, 0.0f, 1.0f, &quot;%.2f&quot;))</span></span>
-<span id="L398"><span class="lineNum">     398</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_volume(click);</span></span>
-<span id="L399"><span class="lineNum">     399</span>              : </span>
-<span id="L400"><span class="lineNum">     400</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::Columns(1);</span></span>
-<span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">           3 :     ImGui::EndChild();</span></span>
-<span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">           3 : }</span></span>
-<span id="L403"><span class="lineNum">     403</span>              : </span>
-<span id="L404"><span class="lineNum">     404</span>              : } // namespace Amplitron</span>
+<span id="L396"><span class="lineNum">     396</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::NextColumn();</span></span>
+<span id="L397"><span class="lineNum">     397</span>              : </span>
+<span id="L398"><span class="lineNum">     398</span> <span class="tlaGNC">           3 :     float click = engine_.get_metronome_volume();</span></span>
+<span id="L399"><span class="lineNum">     399</span> <span class="tlaGNC">           3 :     if (ImGui::SliderFloat(&quot;Click&quot;, &amp;click, 0.0f, 1.0f, &quot;%.2f&quot;))</span></span>
+<span id="L400"><span class="lineNum">     400</span> <span class="tlaUNC tlaBgUNC">           0 :         engine_.set_metronome_volume(click);</span></span>
+<span id="L401"><span class="lineNum">     401</span>              : </span>
+<span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC tlaBgGNC">           3 :     ImGui::Columns(1);</span></span>
+<span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">           3 :     ImGui::EndChild();</span></span>
+<span id="L404"><span class="lineNum">     404</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L405"><span class="lineNum">     405</span>              : </span>
+<span id="L406"><span class="lineNum">     406</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
