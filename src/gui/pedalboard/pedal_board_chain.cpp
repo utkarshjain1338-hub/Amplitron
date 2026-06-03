@@ -126,6 +126,22 @@ void PedalBoard::render_signal_chain() {
     else ++it;
   }
   draw_list->PushClipRect(canvas_pos, canvas_end, true);
+
+  if (ui_state.show_grid) {
+    float GRID_SZ = 32.0f * ui_state.zoom;
+    ImU32 GRID_COLOR = IM_COL32(36, 34, 30, 255);
+    for (float x = std::fmod(ui_state.scrolling.x, GRID_SZ); x < canvas_size.x;
+         x += GRID_SZ) {
+      draw_list->AddLine(ImVec2(canvas_pos.x + x, canvas_pos.y),
+                         ImVec2(canvas_pos.x + x, canvas_end.y), GRID_COLOR);
+    }
+    for (float y = std::fmod(ui_state.scrolling.y, GRID_SZ); y < canvas_size.y;
+         y += GRID_SZ) {
+      draw_list->AddLine(ImVec2(canvas_pos.x, canvas_pos.y + y),
+                         ImVec2(canvas_end.x, canvas_pos.y + y), GRID_COLOR);
+    }
+  }
+
   ImVec2 offset(canvas_pos.x + ui_state.scrolling.x, canvas_pos.y + ui_state.scrolling.y);
   for (int id : stale_ids) {
     ui_state.node_positions.erase(id);
