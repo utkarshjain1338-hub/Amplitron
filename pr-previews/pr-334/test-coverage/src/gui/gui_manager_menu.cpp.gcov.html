@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">30.4&nbsp;%</td>
-            <td class="headerCovTableEntry">260</td>
-            <td class="headerCovTableEntry">79</td>
+            <td class="headerCovTableEntryLo">25.3&nbsp;%</td>
+            <td class="headerCovTableEntry">257</td>
+            <td class="headerCovTableEntry">65</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 17:20:25</td>
+            <td class="headerValue">2026-06-03 17:29:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -65,7 +65,7 @@
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;gui/dialogs/file_dialog.h&quot;</span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;gui/theme/theme.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &quot;preset_manager.h&quot;</span>
-<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/tuner.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/utility/tuner.h&quot;</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;imgui.h&gt;</span>
 <span id="L8"><span class="lineNum">       8</span>              : #include &lt;SDL2/SDL.h&gt;</span>
 <span id="L9"><span class="lineNum">       9</span>              : #include &lt;cstdio&gt;</span>
@@ -295,7 +295,7 @@
 <span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">           6 :         float padding = 8.0f;</span></span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              :         // Build a vector of status items from right to left (for right-alignment)</span>
-<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">          28 :         struct StatusItem {</span></span>
+<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">          22 :         struct StatusItem {</span></span>
 <span id="L237"><span class="lineNum">     237</span>              :             std::string label;</span>
 <span id="L238"><span class="lineNum">     238</span>              :             bool is_clickable = false;</span>
 <span id="L239"><span class="lineNum">     239</span>              :         };</span>
@@ -331,96 +331,93 @@
 <span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           6 :         bool show_update = false;</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">           6 :         std::string update_version;</span></span>
 <span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           6 :         std::string update_url;</span></span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           2 :         {</span></span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           6 :             std::lock_guard&lt;std::mutex&gt; lock(update_mutex_);</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">           6 :             if (has_new_release_) {</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           3 :                 show_update = true;</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">           3 :                 update_version = new_release_version_;</span></span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">           5 :                 update_url = new_release_url_;</span></span>
-<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">           1 :             }</span></span>
-<span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">           3 :         }</span></span>
-<span id="L280"><span class="lineNum">     280</span>              : </span>
-<span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC">           5 :         if (show_update) {</span></span>
-<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">           3 :             std::string release_text = &quot;New Release Available: &quot; + update_version;</span></span>
-<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">           3 :             items.push_back({release_text, true});  // Clickable</span></span>
-<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">           3 :         }</span></span>
-<span id="L285"><span class="lineNum">     285</span>              : </span>
-<span id="L286"><span class="lineNum">     286</span>              :         // Measure widths and compute right-aligned positions</span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           6 :         float x_pos = bar_w - padding;</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">          33 :         for (auto it = items.rbegin(); it != items.rend(); ++it) {</span></span>
-<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">          27 :             ImVec2 text_size = ImGui::CalcTextSize(it-&gt;label.c_str());</span></span>
-<span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">          27 :             x_pos -= text_size.x + padding;</span></span>
-<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           9 :         }</span></span>
-<span id="L292"><span class="lineNum">     292</span>              : </span>
-<span id="L293"><span class="lineNum">     293</span>              :         // Render items from left to right</span>
-<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">           4 :         x_pos = bar_w - padding;</span></span>
-<span id="L295"><span class="lineNum">     295</span> <span class="tlaGNC">          33 :         for (auto it = items.rbegin(); it != items.rend(); ++it) {</span></span>
-<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">          27 :             ImVec2 text_size = ImGui::CalcTextSize(it-&gt;label.c_str());</span></span>
-<span id="L297"><span class="lineNum">     297</span> <span class="tlaGNC">          27 :             x_pos -= text_size.x + padding;</span></span>
-<span id="L298"><span class="lineNum">     298</span>              : </span>
-<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">          27 :             ImGui::SameLine(x_pos);</span></span>
-<span id="L300"><span class="lineNum">     300</span>              : </span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">          27 :             if (it-&gt;label.find(&quot;MIDI&quot;) == 0) {</span></span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">           6 :                 if (midi_manager_.is_port_open()) {</span></span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaUNC tlaBgUNC">           0 :                     ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L304"><span class="lineNum">     304</span> <span class="tlaUNC">           0 :                 } else {</span></span>
-<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC tlaBgGNC">           6 :                     ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L306"><span class="lineNum">     306</span>              :                 }</span>
-<span id="L307"><span class="lineNum">     307</span> <span class="tlaGNC">           6 :                 if (ImGui::IsItemHovered()) {</span></span>
-<span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC tlaBgUNC">           0 :                     ImGui::SetTooltip(midi_manager_.is_port_open() ? &quot;MIDI Connected. Click for settings.&quot; : &quot;MIDI Disconnected. Click for settings.&quot;);</span></span>
-<span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC">           0 :                     ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           6 :         if (update_checker_.has_new_release()) {</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaUNC tlaBgUNC">           0 :             show_update = true;</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaUNC">           0 :             update_version = update_checker_.new_release_version();</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaUNC">           0 :             update_url = update_checker_.new_release_url();</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L277"><span class="lineNum">     277</span>              : </span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC tlaBgGNC">           2 :         if (show_update) {</span></span>
+<span id="L279"><span class="lineNum">     279</span> <span class="tlaUNC tlaBgUNC">           0 :             std::string release_text = &quot;New Release Available: &quot; + update_version;</span></span>
+<span id="L280"><span class="lineNum">     280</span> <span class="tlaUNC">           0 :             items.push_back({release_text, true});  // Clickable</span></span>
+<span id="L281"><span class="lineNum">     281</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L282"><span class="lineNum">     282</span>              : </span>
+<span id="L283"><span class="lineNum">     283</span>              :         // Measure widths and compute right-aligned positions</span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC tlaBgGNC">           6 :         float x_pos = bar_w - padding;</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">          30 :         for (auto it = items.rbegin(); it != items.rend(); ++it) {</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          24 :             ImVec2 text_size = ImGui::CalcTextSize(it-&gt;label.c_str());</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">          24 :             x_pos -= text_size.x + padding;</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           8 :         }</span></span>
+<span id="L289"><span class="lineNum">     289</span>              : </span>
+<span id="L290"><span class="lineNum">     290</span>              :         // Render items from left to right</span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           4 :         x_pos = bar_w - padding;</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">          30 :         for (auto it = items.rbegin(); it != items.rend(); ++it) {</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">          24 :             ImVec2 text_size = ImGui::CalcTextSize(it-&gt;label.c_str());</span></span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaGNC">          24 :             x_pos -= text_size.x + padding;</span></span>
+<span id="L295"><span class="lineNum">     295</span>              : </span>
+<span id="L296"><span class="lineNum">     296</span> <span class="tlaGNC">          24 :             ImGui::SameLine(x_pos);</span></span>
+<span id="L297"><span class="lineNum">     297</span>              : </span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">          24 :             if (it-&gt;label.find(&quot;MIDI&quot;) == 0) {</span></span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">           6 :                 if (midi_manager_.is_port_open()) {</span></span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaUNC tlaBgUNC">           0 :                     ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC">           0 :                 } else {</span></span>
+<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC tlaBgGNC">           6 :                     ImGui::TextColored(ImVec4(0.4f, 0.4f, 0.4f, 1.0f), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L303"><span class="lineNum">     303</span>              :                 }</span>
+<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">           6 :                 if (ImGui::IsItemHovered()) {</span></span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaUNC tlaBgUNC">           0 :                     ImGui::SetTooltip(midi_manager_.is_port_open() ? &quot;MIDI Connected. Click for settings.&quot; : &quot;MIDI Disconnected. Click for settings.&quot;);</span></span>
+<span id="L306"><span class="lineNum">     306</span> <span class="tlaUNC">           0 :                     ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);</span></span>
+<span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC">           0 :                 }</span></span>
+<span id="L308"><span class="lineNum">     308</span> <span class="tlaGNC tlaBgGNC">           6 :                 if (ImGui::IsItemClicked()) {</span></span>
+<span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC tlaBgUNC">           0 :                     show_midi_ = !show_midi_;</span></span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC tlaBgGNC">           6 :                 if (ImGui::IsItemClicked()) {</span></span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC tlaBgUNC">           0 :                     show_midi_ = !show_midi_;</span></span>
-<span id="L313"><span class="lineNum">     313</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC tlaBgGNC">          23 :             } else if (it-&gt;label == &quot;LIVE&quot;) {</span></span>
-<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC">           4 :                 ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L316"><span class="lineNum">     316</span> <span class="tlaGNC">          19 :             } else if (it-&gt;label == &quot;STOPPED&quot;) {</span></span>
-<span id="L317"><span class="lineNum">     317</span> <span class="tlaGNC">           2 :                 ImGui::TextColored(Theme::Stopped(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC">          15 :             } else if (it-&gt;label == &quot;REC&quot;) {</span></span>
-<span id="L319"><span class="lineNum">     319</span> <span class="tlaUNC tlaBgUNC">           0 :                 float t = static_cast&lt;float&gt;(ImGui::GetTime());</span></span>
-<span id="L320"><span class="lineNum">     320</span> <span class="tlaUNC">           0 :                 ImGui::TextColored(Theme::RecBlink(t), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L321"><span class="lineNum">     321</span> <span class="tlaGNC tlaBgGNC">          15 :             } else if (it-&gt;label.find(&quot;New Release&quot;) == 0) {</span></span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">           3 :                 ImGui::TextColored(Theme::GoldHot(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L323"><span class="lineNum">     323</span> <span class="tlaGNC">           3 :                 if (ImGui::IsItemHovered()) {</span></span>
-<span id="L324"><span class="lineNum">     324</span> <span class="tlaUNC tlaBgUNC">           0 :                     ImGui::SetTooltip(&quot;Click to open release in browser&quot;);</span></span>
-<span id="L325"><span class="lineNum">     325</span> <span class="tlaUNC">           0 :                     ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);</span></span>
+<span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC tlaBgGNC">          20 :             } else if (it-&gt;label == &quot;LIVE&quot;) {</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           2 :                 ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">          18 :             } else if (it-&gt;label == &quot;STOPPED&quot;) {</span></span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           4 :                 ImGui::TextColored(Theme::Stopped(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC">          12 :             } else if (it-&gt;label == &quot;REC&quot;) {</span></span>
+<span id="L316"><span class="lineNum">     316</span> <span class="tlaUNC tlaBgUNC">           0 :                 float t = static_cast&lt;float&gt;(ImGui::GetTime());</span></span>
+<span id="L317"><span class="lineNum">     317</span> <span class="tlaUNC">           0 :                 ImGui::TextColored(Theme::RecBlink(t), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L318"><span class="lineNum">     318</span> <span class="tlaGNC tlaBgGNC">          12 :             } else if (it-&gt;label.find(&quot;New Release&quot;) == 0) {</span></span>
+<span id="L319"><span class="lineNum">     319</span> <span class="tlaUNC tlaBgUNC">           0 :                 ImGui::TextColored(Theme::GoldHot(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L320"><span class="lineNum">     320</span> <span class="tlaUNC">           0 :                 if (ImGui::IsItemHovered()) {</span></span>
+<span id="L321"><span class="lineNum">     321</span> <span class="tlaUNC">           0 :                     ImGui::SetTooltip(&quot;Click to open release in browser&quot;);</span></span>
+<span id="L322"><span class="lineNum">     322</span> <span class="tlaUNC">           0 :                     ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);</span></span>
+<span id="L323"><span class="lineNum">     323</span> <span class="tlaUNC">           0 :                 }</span></span>
+<span id="L324"><span class="lineNum">     324</span> <span class="tlaUNC">           0 :                 if (ImGui::IsItemClicked()) {</span></span>
+<span id="L325"><span class="lineNum">     325</span> <span class="tlaUNC">           0 :                     open_url_safe(update_url);</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC tlaBgGNC">           3 :                 if (ImGui::IsItemClicked()) {</span></span>
-<span id="L328"><span class="lineNum">     328</span> <span class="tlaUNC tlaBgUNC">           0 :                     open_url_safe(update_url);</span></span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC tlaBgGNC">           1 :             } else {</span></span>
-<span id="L331"><span class="lineNum">     331</span> <span class="tlaGNC">          12 :                 ImGui::Text(&quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L332"><span class="lineNum">     332</span>              :             }</span>
-<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">           9 :         }</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC">           0 :             } else {</span></span>
+<span id="L328"><span class="lineNum">     328</span> <span class="tlaGNC tlaBgGNC">          12 :                 ImGui::Text(&quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L329"><span class="lineNum">     329</span>              :             }</span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">           8 :         }</span></span>
+<span id="L331"><span class="lineNum">     331</span>              : </span>
+<span id="L332"><span class="lineNum">     332</span> <span class="tlaGNC">           6 :         ImGui::EndMainMenuBar();</span></span>
+<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">           6 :     }</span></span>
 <span id="L334"><span class="lineNum">     334</span>              : </span>
-<span id="L335"><span class="lineNum">     335</span> <span class="tlaGNC">           6 :         ImGui::EndMainMenuBar();</span></span>
-<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           6 :     }</span></span>
-<span id="L337"><span class="lineNum">     337</span>              : </span>
-<span id="L338"><span class="lineNum">     338</span>              :     // Error banner when audio is stopped</span>
-<span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">           8 :     if (!engine_.is_running()) {</span></span>
-<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           2 :         ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.35f, 0.08f, 0.08f, 0.95f));</span></span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           2 :         ImGui::BeginChild(&quot;AudioErrorBanner&quot;, ImVec2(0, 36), true);</span></span>
-<span id="L342"><span class="lineNum">     342</span> <span class="tlaGNC">           2 :         ImGui::TextColored(Theme::Stopped(), &quot;Audio stream is STOPPED.&quot;);</span></span>
-<span id="L343"><span class="lineNum">     343</span> <span class="tlaGNC">           2 :         ImGui::SameLine();</span></span>
-<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC">           2 :         if (ImGui::SmallButton(&quot;Restart Audio&quot;)) {</span></span>
-<span id="L345"><span class="lineNum">     345</span> <span class="tlaUNC tlaBgUNC">           0 :             engine_.restart();</span></span>
-<span id="L346"><span class="lineNum">     346</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L347"><span class="lineNum">     347</span> <span class="tlaGNC tlaBgGNC">           2 :         ImGui::SameLine();</span></span>
-<span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC">           2 :         if (ImGui::SmallButton(&quot;Settings&quot;)) {</span></span>
-<span id="L349"><span class="lineNum">     349</span> <span class="tlaUNC tlaBgUNC">           0 :             show_settings_ = true;</span></span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC tlaBgGNC">           2 :         std::string err = engine_.get_last_error();</span></span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaGNC">           2 :         if (!err.empty()) {</span></span>
-<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC">           2 :             ImGui::SameLine();</span></span>
-<span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           2 :             ImGui::TextColored(Theme::GoldHot(), &quot;  %s&quot;, err.c_str());</span></span>
-<span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
-<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC tlaBgGNC">           2 :         ImGui::EndChild();</span></span>
-<span id="L357"><span class="lineNum">     357</span> <span class="tlaGNC">           2 :         ImGui::PopStyleColor();</span></span>
-<span id="L358"><span class="lineNum">     358</span> <span class="tlaGNC">           2 :     }</span></span>
-<span id="L359"><span class="lineNum">     359</span> <span class="tlaGNC">          39 : }</span></span>
-<span id="L360"><span class="lineNum">     360</span>              : </span>
-<span id="L361"><span class="lineNum">     361</span>              : } // namespace Amplitron</span>
+<span id="L335"><span class="lineNum">     335</span>              :     // Error banner when audio is stopped</span>
+<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           8 :     if (!engine_.is_running()) {</span></span>
+<span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           4 :         ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.35f, 0.08f, 0.08f, 0.95f));</span></span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           4 :         ImGui::BeginChild(&quot;AudioErrorBanner&quot;, ImVec2(0, 36), true);</span></span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">           4 :         ImGui::TextColored(Theme::Stopped(), &quot;Audio stream is STOPPED.&quot;);</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           4 :         ImGui::SameLine();</span></span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           4 :         if (ImGui::SmallButton(&quot;Restart Audio&quot;)) {</span></span>
+<span id="L342"><span class="lineNum">     342</span> <span class="tlaUNC tlaBgUNC">           0 :             engine_.restart();</span></span>
+<span id="L343"><span class="lineNum">     343</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC tlaBgGNC">           4 :         ImGui::SameLine();</span></span>
+<span id="L345"><span class="lineNum">     345</span> <span class="tlaGNC">           4 :         if (ImGui::SmallButton(&quot;Settings&quot;)) {</span></span>
+<span id="L346"><span class="lineNum">     346</span> <span class="tlaUNC tlaBgUNC">           0 :             show_settings_ = true;</span></span>
+<span id="L347"><span class="lineNum">     347</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC tlaBgGNC">           4 :         std::string err = engine_.get_last_error();</span></span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           4 :         if (!err.empty()) {</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           4 :             ImGui::SameLine();</span></span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">           4 :             ImGui::TextColored(Theme::GoldHot(), &quot;  %s&quot;, err.c_str());</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
+<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC tlaBgGNC">           4 :         ImGui::EndChild();</span></span>
+<span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           4 :         ImGui::PopStyleColor();</span></span>
+<span id="L355"><span class="lineNum">     355</span> <span class="tlaGNC">           4 :     }</span></span>
+<span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC">          36 : }</span></span>
+<span id="L357"><span class="lineNum">     357</span>              : </span>
+<span id="L358"><span class="lineNum">     358</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

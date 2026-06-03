@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 17:20:25</td>
+            <td class="headerValue">2026-06-03 17:29:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -63,8 +63,8 @@
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;gui/commands/command_base.h&quot;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
-<span id="L5"><span class="lineNum">       5</span>              : #include &quot;audio/effects/effect.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/engine/i_audio_engine.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &quot;audio/effects/core/effect.h&quot;</span>
 <span id="L6"><span class="lineNum">       6</span>              : #include &lt;vector&gt;</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : namespace Amplitron {</span>
@@ -76,7 +76,7 @@
 <span id="L14"><span class="lineNum">      14</span>              :  */</span>
 <span id="L15"><span class="lineNum">      15</span>              : class ClearAllCommand : public Command {</span>
 <span id="L16"><span class="lineNum">      16</span>              : public:</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          30 :     explicit ClearAllCommand(AudioEngine&amp; engine)</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          30 :     explicit ClearAllCommand(IAudioEngine&amp; engine)</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          24 :         : engine_(engine) {</span></span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          42 :         for (auto&amp; fx : engine_.effects()) {</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          24 :             saved_.push_back(fx);</span></span>
@@ -99,7 +99,7 @@
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Clear All&quot;; }</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span>              : private:</span>
-<span id="L40"><span class="lineNum">      40</span>              :     AudioEngine&amp; engine_;</span>
+<span id="L40"><span class="lineNum">      40</span>              :     IAudioEngine&amp; engine_;</span>
 <span id="L41"><span class="lineNum">      41</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; saved_;</span>
 <span id="L42"><span class="lineNum">      42</span>              : };</span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>

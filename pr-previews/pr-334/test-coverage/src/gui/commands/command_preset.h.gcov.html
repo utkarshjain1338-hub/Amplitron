@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 17:20:25</td>
+            <td class="headerValue">2026-06-03 17:29:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -62,8 +62,8 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
-<span id="L3"><span class="lineNum">       3</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/effects/effect.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>              : #include &quot;audio/engine/i_audio_engine.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/effects/core/effect.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &quot;gui/commands/command_base.h&quot;</span>
 <span id="L6"><span class="lineNum">       6</span>              : #include &lt;vector&gt;</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;utility&gt;</span>
@@ -99,7 +99,7 @@
 <span id="L37"><span class="lineNum">      37</span>              :    * @param after_input_gain   Input gain after the load.</span>
 <span id="L38"><span class="lineNum">      38</span>              :    * @param after_output_gain  Output gain after the load.</span>
 <span id="L39"><span class="lineNum">      39</span>              :    */</span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          36 :   LoadPresetCommand(AudioEngine &amp;engine,</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          36 :   LoadPresetCommand(IAudioEngine &amp;engine,</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :                     std::vector&lt;EffectSnapshot&gt; before_state,</span>
 <span id="L42"><span class="lineNum">      42</span>              :                     float before_input_gain, float before_output_gain,</span>
 <span id="L43"><span class="lineNum">      43</span>              :                     std::vector&lt;EffectSnapshot&gt; after_state,</span>
@@ -157,7 +157,7 @@
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           6 :     engine_.set_output_gain(output_gain);</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">           6 :   }</span></span>
 <span id="L97"><span class="lineNum">      97</span>              : </span>
-<span id="L98"><span class="lineNum">      98</span>              :   AudioEngine &amp;engine_;</span>
+<span id="L98"><span class="lineNum">      98</span>              :   IAudioEngine &amp;engine_;</span>
 <span id="L99"><span class="lineNum">      99</span>              :   std::vector&lt;EffectSnapshot&gt; before_state_;</span>
 <span id="L100"><span class="lineNum">     100</span>              :   float before_input_gain_;</span>
 <span id="L101"><span class="lineNum">     101</span>              :   float before_output_gain_;</span>
@@ -178,7 +178,7 @@
 <span id="L116"><span class="lineNum">     116</span>              : public:</span>
 <span id="L117"><span class="lineNum">     117</span>              :   using EffectSnapshot = LoadPresetCommand::EffectSnapshot;</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          36 :   RecallSnapshotCommand(AudioEngine &amp;engine,</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          36 :   RecallSnapshotCommand(IAudioEngine &amp;engine,</span></span>
 <span id="L120"><span class="lineNum">     120</span>              :                         std::vector&lt;EffectSnapshot&gt; before_effects,</span>
 <span id="L121"><span class="lineNum">     121</span>              :                         float before_input_gain, float before_output_gain,</span>
 <span id="L122"><span class="lineNum">     122</span>              :                         std::vector&lt;EffectSnapshot&gt; after_effects,</span>
@@ -225,7 +225,7 @@
 <span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          33 :     engine_.set_output_gain(output_gain);</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          33 :   }</span></span>
 <span id="L165"><span class="lineNum">     165</span>              : </span>
-<span id="L166"><span class="lineNum">     166</span>              :   AudioEngine &amp;engine_;</span>
+<span id="L166"><span class="lineNum">     166</span>              :   IAudioEngine &amp;engine_;</span>
 <span id="L167"><span class="lineNum">     167</span>              :   std::vector&lt;EffectSnapshot&gt; before_effects_;</span>
 <span id="L168"><span class="lineNum">     168</span>              :   float before_input_gain_;</span>
 <span id="L169"><span class="lineNum">     169</span>              :   float before_output_gain_;</span>
