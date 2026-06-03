@@ -27,8 +27,19 @@ public:
     int get_sample_rate() const override;
     int get_buffer_size() const override;
 
-    int get_input_device() const override { return 0; }
-    int get_output_device() const override { return 0; }
+    /**
+     * @brief Return the selected input device index.
+     * Note: Unlike PortAudioBackend, SDL does not support setting custom input hardware
+     * devices dynamically by index under all platforms, but the index is tracked here.
+     */
+    int get_input_device() const override { return selected_input_device_; }
+
+    /**
+     * @brief Return the selected output device index.
+     * Note: Unlike PortAudioBackend, SDL does not support setting custom output hardware
+     * devices dynamically by index under all platforms, but the index is tracked here.
+     */
+    int get_output_device() const override { return selected_output_device_; }
 
     // Callback helpers
     IAudioEngine* get_engine() const { return engine_; }
@@ -44,6 +55,8 @@ private:
     bool running_ = false;
     int sample_rate_ = 48000;
     int buffer_size_ = 512;
+    int selected_input_device_ = 0;
+    int selected_output_device_ = 0;
 };
 
 } // namespace Amplitron

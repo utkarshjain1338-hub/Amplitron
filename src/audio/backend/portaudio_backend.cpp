@@ -191,6 +191,25 @@ bool PortAudioBackend::start() {
 
     if (err != paNoError) {
         std::cerr << "Failed to open PortAudio stream: " << Pa_GetErrorText(err) << std::endl;
+        
+        // Adjust parameters before retrying: disable WASAPI exclusive and reset latency suggestions
+        input_params.hostApiSpecificStreamInfo = nullptr;
+        output_params.hostApiSpecificStreamInfo = nullptr;
+        
+        const PaDeviceInfo* in_info = Pa_GetDeviceInfo(input_device_);
+        if (in_info) {
+            input_params.suggestedLatency = in_info->defaultLowInputLatency;
+        } else {
+            input_params.suggestedLatency = 0.0;
+        }
+        
+        const PaDeviceInfo* out_info = Pa_GetDeviceInfo(output_device_);
+        if (out_info) {
+            output_params.suggestedLatency = out_info->defaultLowOutputLatency;
+        } else {
+            output_params.suggestedLatency = 0.0;
+        }
+
         // Retry
         err = Pa_OpenStream(
             &stream_,
@@ -312,13 +331,6 @@ int PortAudioBackend::get_sample_rate() const {
 }
 
 int PortAudioBackend::get_buffer_size() const {
-    if (stream_) {
-        const PaStreamInfo* si = Pa_GetStreamInfo(stream_);
-        if (si) {
-            // PortAudio doesn't explicitly expose the negotiated buffer size
-            // in PaStreamInfo, so we return the engine's target buffer size.
-        }
-    }
     return engine_ ? engine_->get_buffer_size() : 512;
 }
 

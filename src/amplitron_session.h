@@ -9,6 +9,7 @@
 #include "gui/commands/command_history.h"
 #include "gui/state/snapshot_manager.h"
 #include <memory>
+#include <stdexcept>
 
 namespace Amplitron {
 
@@ -29,8 +30,20 @@ public:
     IMidiManager& midi() { return *midi_; }
     IPresetManager& presets() { return *presets_; }
 
-    AudioEngine& concrete_engine() { return static_cast<AudioEngine&>(*engine_); }
-    MidiManager& concrete_midi() { return static_cast<MidiManager&>(*midi_); }
+    AudioEngine& concrete_engine() {
+        auto* p = dynamic_cast<AudioEngine*>(engine_.get());
+        if (!p) {
+            throw std::runtime_error("Engine is not a concrete AudioEngine");
+        }
+        return *p;
+    }
+    MidiManager& concrete_midi() {
+        auto* p = dynamic_cast<MidiManager*>(midi_.get());
+        if (!p) {
+            throw std::runtime_error("MIDI is not a concrete MidiManager");
+        }
+        return *p;
+    }
 
     CommandHistory& command_history() { return command_history_; }
     SnapshotManager& snapshot_manager() { return snapshot_manager_; }

@@ -20,8 +20,8 @@ namespace Amplitron
         if (!recorder_) recorder_ = std::make_unique<Recorder>();
         if (!metronome_) metronome_ = std::make_unique<Metronome>();
 
-        process_buffer_.resize(MAX_BUFFER_SIZE, 0.0f);
-        process_buffer_right_.resize(MAX_BUFFER_SIZE, 0.0f);
+        process_buffer_.resize(16384, 0.0f);
+        process_buffer_right_.resize(16384, 0.0f);
 #if defined(AMPLITRON_ANDROID_OBOE)
         backend_ = AudioBackendFactory::create_backend("oboe");
 #elif defined(__EMSCRIPTEN__) || (defined(__APPLE__) && TARGET_OS_IPHONE)
@@ -105,6 +105,13 @@ namespace Amplitron
         if (was_running)
             stop();
         buffer_size_ = size;
+
+        // Pre-allocate buffers for the new size
+        if (static_cast<size_t>(size) > process_buffer_.size()) {
+            process_buffer_.resize(size, 0.0f);
+            process_buffer_right_.resize(size, 0.0f);
+        }
+
         if (was_running)
         {
             if (!start())
@@ -270,6 +277,13 @@ namespace Amplitron
             if (running_) {
                 sample_rate_ = backend_->get_sample_rate();
                 buffer_size_ = backend_->get_buffer_size();
+
+                // Pre-allocate the audio thread buffers to avoid allocations in the realtime callback
+                if (static_cast<size_t>(buffer_size_) > process_buffer_.size()) {
+                    process_buffer_.resize(buffer_size_, 0.0f);
+                    process_buffer_right_.resize(buffer_size_, 0.0f);
+                }
+
                 metronome_->set_sample_rate(sample_rate_);
                 metronome_->reset();
                 std::lock_guard<std::mutex> lock(effect_mutex_);

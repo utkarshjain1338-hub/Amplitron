@@ -36,6 +36,7 @@ public:
 
     std::vector<std::string> available() const {
         std::vector<std::string> keys;
+        keys.reserve(creators_.size());
         for (const auto& pair : creators_) {
             keys.push_back(pair.first);
         }

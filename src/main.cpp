@@ -348,13 +348,13 @@ int main(int argc, char* argv[]) {
     // GUI bootup
         gui = std::make_unique<Amplitron::GuiManager>(session);
     // Create a small, automatically wired, and highly playable circuit
-        auto cabinet = std::make_shared<Amplitron::CabinetSim>();
-        cabinet->set_enabled(true);
+        auto reverb = std::make_shared<Amplitron::Reverb>();
+        reverb->set_enabled(true);
 
         auto amp = std::make_shared<Amplitron::AmpSimulator>();
         amp->set_enabled(true);
 
-        engine.add_initial_effects({cabinet, amp});
+        engine.add_initial_effects({reverb, amp});
 
         engine.set_input_gain(0.7f);
 

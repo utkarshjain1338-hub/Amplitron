@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstring>
 #include <cctype>
+#include <cassert>
 
 namespace Amplitron {
 
@@ -17,8 +18,10 @@ static void sdl_audio_callback(void* userdata, Uint8* stream, int len) {
     int frame_count = len / static_cast<int>(2 * sizeof(float));
 
     auto& cap = be->get_capture_buffer();
-    if (static_cast<int>(cap.size()) < frame_count)
-        cap.resize(static_cast<size_t>(frame_count), 0.0f);
+    assert(frame_count <= static_cast<int>(cap.size()));
+    if (frame_count > static_cast<int>(cap.size())) {
+        return;
+    }
 
     SDL_AudioDeviceID cap_dev = be->get_capture_device();
     if (cap_dev != 0) {
@@ -140,7 +143,7 @@ bool SdlBackend::start() {
     capture_device_ = SDL_OpenAudioDevice(preferred_device, 1, &want_cap, &have_cap,
                                           SDL_AUDIO_ALLOW_FREQUENCY_CHANGE);
 
-    capture_buffer_.resize(static_cast<size_t>(buffer_size_), 0.0f);
+    capture_buffer_.resize(static_cast<size_t>(buffer_size_ * 2), 0.0f);
 
     SDL_PauseAudioDevice(audio_device_, 0);
     if (capture_device_ != 0)
@@ -176,11 +179,13 @@ std::vector<AudioDeviceInfo> SdlBackend::get_output_devices() const {
     return {{0, "Browser Audio Output", 0, 2, 48000.0, false}};
 }
 
-bool SdlBackend::set_input_device(int) {
+bool SdlBackend::set_input_device(int device_index) {
+    selected_input_device_ = device_index;
     return true;
 }
 
-bool SdlBackend::set_output_device(int) {
+bool SdlBackend::set_output_device(int device_index) {
+    selected_output_device_ = device_index;
     return true;
 }
 

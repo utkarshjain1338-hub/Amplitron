@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cmath>
 
+#include <cassert>
+
 namespace Amplitron {
 
 
@@ -12,9 +14,9 @@ namespace Amplitron {
 void AudioEngine::process_audio(const float* input, float* output, int frame_count) {
     auto t_start = std::chrono::steady_clock::now();
 
+    assert(frame_count <= static_cast<int>(process_buffer_.size()));
     if (frame_count > static_cast<int>(process_buffer_.size())) {
-        process_buffer_.resize(frame_count, 0.0f);
-        process_buffer_right_.resize(frame_count, 0.0f);
+        return;
     }
 
     const bool analyzer_on = analyzer_capture_->is_analyzer_enabled();

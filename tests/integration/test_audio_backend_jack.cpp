@@ -133,11 +133,6 @@ TEST(AudioBackend_Jack_ClientOpenFailure)
     ASSERT_TRUE(engine.initialize());
     ASSERT_FALSE(engine.start());
 }
-
-TEST(AudioBackend_Jack_NullStateDestroy)
-{
-    ASSERT_TRUE(true);
-}
 #else
 TEST(AudioBackend_Jack_NotAvailable)
 {

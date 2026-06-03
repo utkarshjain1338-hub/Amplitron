@@ -104,6 +104,9 @@ public:
     static bool graph_from_json(const std::string& json, AudioGraph& graph);
 
     std::vector<std::string> list_presets() override;
+    bool delete_preset(const std::string& filepath) override;
+    std::string get_last_error() const override;
+    std::string get_presets_directory() const override;
 
     // Directory helpers / global config
     static std::string get_presets_dir();

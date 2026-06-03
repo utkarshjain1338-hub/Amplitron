@@ -3,6 +3,17 @@
 
 namespace Amplitron {
 
+namespace {
+int find_node_id_for_effect(IAudioEngine& engine, const std::shared_ptr<Effect>& effect, int fallback_id) {
+    for (const auto& node : engine.graph().get_nodes()) {
+        if (node.pedal == effect) {
+            return node.id;
+        }
+    }
+    return fallback_id;
+}
+}
+
 // ---------------------------------------------------------------------------
 // Mapping management
 // ---------------------------------------------------------------------------
@@ -223,14 +234,8 @@ void MidiManager::apply_mapping(const MidiMapping& mapping, int cc_value,
                     // Toggle on either edge: press (false→true) or release (true→false)
                     if (is_pressed != mapping.last_state) {
                         effects[i]->set_enabled(!effects[i]->is_enabled());
-                        int node_id = -1;
-                        for (const auto& node : engine.graph().get_nodes()) {
-                            if (node.pedal == effects[i]) { node_id = node.id; break; }
-                        }
-                        if (node_id == -1) node_id = i;
+                        int node_id = find_node_id_for_effect(engine, effects[i], i);
                         engine.push_effect_enabled(node_id, effects[i]->is_enabled() ? 1.0f : 0.0f);
-
-                        printf("[DEBUG] AmpSimulator BYPASS TOGGLED\n");
                     }
 
                     // Update state for next event
@@ -271,11 +276,7 @@ void MidiManager::apply_mapping(const MidiMapping& mapping, int cc_value,
                     float value = params[p].min_val +
                                   normalized * (params[p].max_val - params[p].min_val);
                     params[p].value = value;  // GUI sync
-                    int node_id = -1;
-                    for (const auto& node : engine.graph().get_nodes()) {
-                        if (node.pedal == effects[i]) { node_id = node.id; break; }
-                    }
-                    if (node_id == -1) node_id = i;
+                    int node_id = find_node_id_for_effect(engine, effects[i], i);
                     engine.push_param_change(node_id, p, value);  // Audio sync
                     break;
                 }

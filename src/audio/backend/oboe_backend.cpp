@@ -38,9 +38,10 @@ public:
 
         int available = capture_filled_.load(std::memory_order_acquire);
         if (available >= numFrames) {
-            int firstChunk = std::min(numFrames, kRingSize - capture_read_pos_);
+            int read_pos = capture_read_pos_.load(std::memory_order_acquire);
+            int firstChunk = std::min(numFrames, kRingSize - read_pos);
             std::memcpy(capture_buffer_.data(),
-                        capture_ring_.data() + capture_read_pos_,
+                        capture_ring_.data() + read_pos,
                         static_cast<size_t>(firstChunk) * sizeof(float));
             if (firstChunk < numFrames) {
                 int secondChunk = numFrames - firstChunk;
@@ -48,7 +49,7 @@ public:
                             capture_ring_.data(),
                             static_cast<size_t>(secondChunk) * sizeof(float));
             }
-            capture_read_pos_ = (capture_read_pos_ + numFrames) % kRingSize;
+            capture_read_pos_.store((read_pos + numFrames) % kRingSize, std::memory_order_release);
             capture_filled_.fetch_sub(numFrames, std::memory_order_release);
         } else {
             std::memset(capture_buffer_.data(), 0,
@@ -64,8 +65,9 @@ public:
         int toCopy = std::min(numFrames, space);
         if (toCopy <= 0) return;
 
-        int firstChunk = std::min(toCopy, kRingSize - capture_write_pos_);
-        std::memcpy(capture_ring_.data() + capture_write_pos_,
+        int write_pos = capture_write_pos_.load(std::memory_order_acquire);
+        int firstChunk = std::min(toCopy, kRingSize - write_pos);
+        std::memcpy(capture_ring_.data() + write_pos,
                     data,
                     static_cast<size_t>(firstChunk) * sizeof(float));
         if (firstChunk < toCopy) {
@@ -74,7 +76,7 @@ public:
                         data + firstChunk,
                         static_cast<size_t>(secondChunk) * sizeof(float));
         }
-        capture_write_pos_ = (capture_write_pos_ + toCopy) % kRingSize;
+        capture_write_pos_.store((write_pos + toCopy) % kRingSize, std::memory_order_release);
         capture_filled_.fetch_add(toCopy, std::memory_order_release);
     }
 
@@ -87,8 +89,8 @@ private:
 
     static constexpr int kRingSize = 16384;
     std::array<float, kRingSize> capture_ring_{};
-    int capture_read_pos_  = 0;
-    int capture_write_pos_ = 0;
+    std::atomic<int> capture_read_pos_{0};
+    std::atomic<int> capture_write_pos_{0};
     std::atomic<int> capture_filled_{0};
 
     oboe::SharingMode negotiated_sharing_mode_ = oboe::SharingMode::Shared;

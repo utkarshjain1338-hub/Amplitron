@@ -492,4 +492,20 @@ bool PresetManager::graph_from_json(const std::string &json,
   return true;
 }
 
+bool PresetManager::delete_preset(const std::string& filepath) {
+  if (std::remove(filepath.c_str()) == 0) {
+    return true;
+  }
+  last_error_ = "Could not delete preset file: " + filepath;
+  return false;
+}
+
+std::string PresetManager::get_last_error() const {
+  return last_error_;
+}
+
+std::string PresetManager::get_presets_directory() const {
+  return get_presets_dir();
+}
+
 } // namespace Amplitron

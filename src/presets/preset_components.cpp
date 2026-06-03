@@ -2,6 +2,7 @@
 #include "preset_json.h"
 #include "preset_manager.h"
 #include <fstream>
+#include <filesystem>
 
 namespace Amplitron {
 
