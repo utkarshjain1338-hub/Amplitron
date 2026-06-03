@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 10:25:59</td>
+            <td class="headerValue">2026-06-03 09:13:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -67,55 +67,55 @@
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;MultiBandCompressor&gt; reg(&quot;MultiBand Compressor&quot;);</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">         105 : MultiBandCompressor::MultiBandCompressor() {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         585 :     params_ = {</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">         154 : MultiBandCompressor::MultiBandCompressor() {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">         858 :     params_ = {</span></span>
 <span id="L10"><span class="lineNum">      10</span>              :         // Crossovers</span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          30 :         {&quot;Low XOver&quot;,   200.0f,   50.0f,  1000.0f,   200.0f, &quot;Hz&quot;, &quot;Crossover frequency separating the Low and Mid frequency bands.&quot;},</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          15 :         {&quot;High XOver&quot;, 4000.0f, 1000.0f, 15000.0f,  4000.0f, &quot;Hz&quot;, &quot;Crossover frequency separating the Mid and High frequency bands.&quot;},</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">          44 :         {&quot;Low XOver&quot;,   200.0f,   50.0f,  1000.0f,   200.0f, &quot;Hz&quot;, &quot;Crossover frequency separating the Low and Mid frequency bands.&quot;},</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          22 :         {&quot;High XOver&quot;, 4000.0f, 1000.0f, 15000.0f,  4000.0f, &quot;Hz&quot;, &quot;Crossover frequency separating the Mid and High frequency bands.&quot;},</span></span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
 <span id="L14"><span class="lineNum">      14</span>              :         // Low band compressor</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          15 :         {&quot;Low Thresh&quot;,  -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;Low band threshold: volume level above which compression occurs.&quot;},</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          15 :         {&quot;Low Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;Low band ratio: compression strength for the Low band.&quot;},</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          15 :         {&quot;Low Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;Low band attack: how quickly the compressor acts on Low transients.&quot;},</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          15 :         {&quot;Low Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;Low band release: recovery speed of the Low band compressor.&quot;},</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          15 :         {&quot;Low Makeup&quot;,    0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;Low band makeup gain: volume boost applied to the compressed Low band.&quot;},</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          22 :         {&quot;Low Thresh&quot;,  -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;Low band threshold: volume level above which compression occurs.&quot;},</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          22 :         {&quot;Low Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;Low band ratio: compression strength for the Low band.&quot;},</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          22 :         {&quot;Low Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;Low band attack: how quickly the compressor acts on Low transients.&quot;},</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          22 :         {&quot;Low Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;Low band release: recovery speed of the Low band compressor.&quot;},</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          22 :         {&quot;Low Makeup&quot;,    0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;Low band makeup gain: volume boost applied to the compressed Low band.&quot;},</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              :         // Mid band compressor</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          15 :         {&quot;Mid Thresh&quot;,  -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;Mid band threshold: volume level above which compression occurs.&quot;},</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          15 :         {&quot;Mid Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;Mid band ratio: compression strength for the Mid band.&quot;},</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          15 :         {&quot;Mid Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;Mid band attack: how quickly the compressor acts on Mid transients.&quot;},</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          15 :         {&quot;Mid Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;Mid band release: recovery speed of the Mid band compressor.&quot;},</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          15 :         {&quot;Mid Makeup&quot;,    0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;Mid band makeup gain: volume boost applied to the compressed Mid band.&quot;},</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          22 :         {&quot;Mid Thresh&quot;,  -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;Mid band threshold: volume level above which compression occurs.&quot;},</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          22 :         {&quot;Mid Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;Mid band ratio: compression strength for the Mid band.&quot;},</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          22 :         {&quot;Mid Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;Mid band attack: how quickly the compressor acts on Mid transients.&quot;},</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          22 :         {&quot;Mid Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;Mid band release: recovery speed of the Mid band compressor.&quot;},</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          22 :         {&quot;Mid Makeup&quot;,    0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;Mid band makeup gain: volume boost applied to the compressed Mid band.&quot;},</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :         // High band compressor</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          15 :         {&quot;High Thresh&quot;, -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;High band threshold: volume level above which compression occurs.&quot;},</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          15 :         {&quot;High Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;High band ratio: compression strength for the High band.&quot;},</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          15 :         {&quot;High Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;High band attack: how quickly the compressor acts on High transients.&quot;},</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          15 :         {&quot;High Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;High band release: recovery speed of the High band compressor.&quot;},</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          15 :         {&quot;High Makeup&quot;,   0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;High band makeup gain: volume boost applied to the compressed High band.&quot;},</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          22 :         {&quot;High Thresh&quot;, -20.0f,  -60.0f,     0.0f,   -20.0f, &quot;dB&quot;, &quot;High band threshold: volume level above which compression occurs.&quot;},</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          22 :         {&quot;High Ratio&quot;,     4.0f,    1.0f,    20.0f,     4.0f, &quot;:1&quot;, &quot;High band ratio: compression strength for the High band.&quot;},</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          22 :         {&quot;High Attack&quot;,    5.0f,    0.1f,    50.0f,     5.0f, &quot;ms&quot;, &quot;High band attack: how quickly the compressor acts on High transients.&quot;},</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          22 :         {&quot;High Release&quot;, 100.0f,   10.0f,   500.0f,   100.0f, &quot;ms&quot;, &quot;High band release: recovery speed of the High band compressor.&quot;},</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          22 :         {&quot;High Makeup&quot;,   0.0f,    0.0f,    30.0f,     0.0f, &quot;dB&quot;, &quot;High band makeup gain: volume boost applied to the compressed High band.&quot;},</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :         // Global Output</span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          15 :         {&quot;Out Gain&quot;,      0.0f,  -20.0f,    20.0f,     0.0f, &quot;dB&quot;, &quot;Global output gain applied to the final summed signal.&quot;}</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         585 :     };</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          22 :         {&quot;Out Gain&quot;,      0.0f,  -20.0f,    20.0f,     0.0f, &quot;dB&quot;, &quot;Global output gain applied to the final summed signal.&quot;}</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         858 :     };</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          45 :     gain_reduction_db_[0].store(0.0f);</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          45 :     gain_reduction_db_[1].store(0.0f);</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          45 :     gain_reduction_db_[2].store(0.0f);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">          66 :     gain_reduction_db_[0].store(0.0f);</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          66 :     gain_reduction_db_[1].store(0.0f);</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          66 :     gain_reduction_db_[2].store(0.0f);</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          60 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         105 : }</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          88 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         154 : }</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          69 : void MultiBandCompressor::set_sample_rate(int sample_rate) {</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          69 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          69 :     recompute_coefficients();</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          54 : }</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          90 : void MultiBandCompressor::set_sample_rate(int sample_rate) {</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">          90 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">          90 :     recompute_coefficients();</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">          68 : }</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">          93 : void MultiBandCompressor::recompute_coefficients() {</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          93 :     float f_low = params_[0].value;</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          93 :     float f_high = params_[1].value;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         114 : void MultiBandCompressor::recompute_coefficients() {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         114 :     float f_low = params_[0].value;</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         114 :     float f_high = params_[1].value;</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span>              :     // Enforce that f_low &lt; f_high logically</span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          93 :     if (f_low &gt;= f_high) {</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">         114 :     if (f_low &gt;= f_high) {</span></span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaUNC tlaBgUNC">           0 :         f_low = f_high - 10.0f;</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC">           0 :         if (f_low &lt; params_[0].min_val) {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaUNC">           0 :             f_low = params_[0].min_val;</span></span>
@@ -123,12 +123,12 @@
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC tlaBgGNC">          93 :     low_pass_filter_.calculate_coefficients(f_low, sample_rate_);</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          93 :     low_high_pass_filter_.calculate_coefficients(f_low, sample_rate_);</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC tlaBgGNC">         114 :     low_pass_filter_.calculate_coefficients(f_low, sample_rate_);</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">         114 :     low_high_pass_filter_.calculate_coefficients(f_low, sample_rate_);</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          93 :     mid_pass_filter_.calculate_coefficients(f_high, sample_rate_);</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          93 :     mid_high_pass_filter_.calculate_coefficients(f_high, sample_rate_);</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          93 : }</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">         114 :     mid_pass_filter_.calculate_coefficients(f_high, sample_rate_);</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">         114 :     mid_high_pass_filter_.calculate_coefficients(f_high, sample_rate_);</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         114 : }</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : </span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          84 : void MultiBandCompressor::process(float* buffer, int num_samples) {</span></span>
 <span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          84 :     if (!enabled_) return;</span></span>

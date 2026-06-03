@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 10:25:59</td>
+            <td class="headerValue">2026-06-03 09:13:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -68,8 +68,8 @@
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">         165 : GuiMidi::GuiMidi(MidiManager&amp; midi)</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         165 :     : midi_(midi) {}</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">         170 : GuiMidi::GuiMidi(MidiManager&amp; midi)</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         170 :     : midi_(midi) {}</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L13"><span class="lineNum">      13</span>              : // MIDI Settings window</span>
@@ -253,12 +253,12 @@
 <span id="L191"><span class="lineNum">     191</span>              : // MIDI Learn menu items (for knob right-click popups)</span>
 <span id="L192"><span class="lineNum">     192</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L193"><span class="lineNum">     193</span>              : </span>
-<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           6 : bool GuiMidi::render_learn_menu_item(const std::string&amp; effect_name,</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">          21 : bool GuiMidi::render_learn_menu_item(const std::string&amp; effect_name,</span></span>
 <span id="L195"><span class="lineNum">     195</span>              :                                      const std::string&amp; param_name) {</span>
 <span id="L196"><span class="lineNum">     196</span>              :     // Check if this param already has a mapping</span>
-<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           6 :     bool has_mapping = false;</span></span>
-<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">           6 :     int mapping_cc = -1;</span></span>
-<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           6 :     for (const auto&amp; m : midi_.mappings()) {</span></span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">          21 :     bool has_mapping = false;</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaGNC">          21 :     int mapping_cc = -1;</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">          21 :     for (const auto&amp; m : midi_.mappings()) {</span></span>
 <span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           5 :         if (m.target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
 <span id="L201"><span class="lineNum">     201</span> <span class="tlaGNC">           4 :             m.effect_name == effect_name &amp;&amp;</span></span>
 <span id="L202"><span class="lineNum">     202</span> <span class="tlaGNC">           3 :             m.param_name == param_name) {</span></span>
@@ -268,7 +268,7 @@
 <span id="L206"><span class="lineNum">     206</span>              :         }</span>
 <span id="L207"><span class="lineNum">     207</span>              :     }</span>
 <span id="L208"><span class="lineNum">     208</span>              : </span>
-<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">           5 :     if (has_mapping) {</span></span>
+<span id="L209"><span class="lineNum">     209</span> <span class="tlaGNC">          15 :     if (has_mapping) {</span></span>
 <span id="L210"><span class="lineNum">     210</span> <span class="tlaGNC">           1 :         char label[64];</span></span>
 <span id="L211"><span class="lineNum">     211</span> <span class="tlaGNC">           3 :         snprintf(label, sizeof(label), &quot;MIDI: CC %d&quot;, mapping_cc);</span></span>
 <span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC">           3 :         ImGui::TextColored(ImVec4(0.5f, 0.8f, 0.5f, 1.0f), &quot;%s&quot;, label);</span></span>
@@ -279,26 +279,26 @@
 <span id="L217"><span class="lineNum">     217</span>              :         }</span>
 <span id="L218"><span class="lineNum">     218</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
 <span id="L219"><span class="lineNum">     219</span>              : </span>
-<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">           6 :     if (ImGui::MenuItem(&quot;MIDI Learn&quot;)) {</span></span>
+<span id="L220"><span class="lineNum">     220</span> <span class="tlaGNC">          21 :     if (ImGui::MenuItem(&quot;MIDI Learn&quot;)) {</span></span>
 <span id="L221"><span class="lineNum">     221</span> <span class="tlaUNC tlaBgUNC">           0 :         midi_.start_learn(MidiTargetType::EffectParam, effect_name, param_name);</span></span>
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC">           0 :         return true;</span></span>
 <span id="L223"><span class="lineNum">     223</span>              :     }</span>
-<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC tlaBgGNC">           4 :     return false;</span></span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           2 : }</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaGNC tlaBgGNC">          14 :     return false;</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">           7 : }</span></span>
 <span id="L226"><span class="lineNum">     226</span>              : </span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">           3 : bool GuiMidi::render_learn_bypass_item(const std::string&amp; effect_name) {</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">           3 :     if (ImGui::MenuItem(&quot;MIDI Learn (Bypass)&quot;)) {</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">          18 : bool GuiMidi::render_learn_bypass_item(const std::string&amp; effect_name) {</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          18 :     if (ImGui::MenuItem(&quot;MIDI Learn (Bypass)&quot;)) {</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC tlaBgUNC">           0 :         midi_.start_learn(MidiTargetType::EffectBypass, effect_name, &quot;&quot;);</span></span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :         return true;</span></span>
 <span id="L231"><span class="lineNum">     231</span>              :     }</span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC tlaBgGNC">           2 :     return false;</span></span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC tlaBgGNC">          12 :     return false;</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L234"><span class="lineNum">     234</span>              : </span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">           3 : bool GuiMidi::render_remove_mapping_item(const std::string&amp; effect_name,</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">          18 : bool GuiMidi::render_remove_mapping_item(const std::string&amp; effect_name,</span></span>
 <span id="L236"><span class="lineNum">     236</span>              :                                          const std::string&amp; param_name) {</span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">           3 :     int remove_idx = -1;</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           3 :     const auto&amp; mappings = midi_.mappings();</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           3 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(mappings.size()); ++i) {</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">          18 :     int remove_idx = -1;</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">          18 :     const auto&amp; mappings = midi_.mappings();</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">          18 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(mappings.size()); ++i) {</span></span>
 <span id="L240"><span class="lineNum">     240</span> <span class="tlaGNC">           5 :         if (mappings[i].target_type == MidiTargetType::EffectParam &amp;&amp;</span></span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           4 :             mappings[i].effect_name == effect_name &amp;&amp;</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           3 :             mappings[i].param_name == param_name) {</span></span>
@@ -307,19 +307,19 @@
 <span id="L245"><span class="lineNum">     245</span>              :         }</span>
 <span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC tlaBgUNC">           0 :     }</span></span>
 <span id="L247"><span class="lineNum">     247</span>              : </span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC tlaBgGNC">           3 :     if (remove_idx &gt;= 0) {</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC tlaBgGNC">          18 :     if (remove_idx &gt;= 0) {</span></span>
 <span id="L249"><span class="lineNum">     249</span> <span class="tlaGNC">           3 :         if (ImGui::MenuItem(&quot;Remove MIDI Mapping&quot;)) {</span></span>
 <span id="L250"><span class="lineNum">     250</span> <span class="tlaUNC tlaBgUNC">           0 :             midi_.remove_mapping(remove_idx);</span></span>
 <span id="L251"><span class="lineNum">     251</span> <span class="tlaUNC">           0 :             return true;</span></span>
 <span id="L252"><span class="lineNum">     252</span>              :         }</span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">           2 :     return false;</span></span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">          12 :     return false;</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L256"><span class="lineNum">     256</span>              : </span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">           3 : bool GuiMidi::render_remove_bypass_item(const std::string&amp; effect_name) {</span></span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">           3 :     int remove_idx = -1;</span></span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">           3 :     const auto&amp; mappings = midi_.mappings();</span></span>
-<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">           6 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(mappings.size()); ++i) {</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          18 : bool GuiMidi::render_remove_bypass_item(const std::string&amp; effect_name) {</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          18 :     int remove_idx = -1;</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          18 :     const auto&amp; mappings = midi_.mappings();</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          21 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(mappings.size()); ++i) {</span></span>
 <span id="L261"><span class="lineNum">     261</span> <span class="tlaGNC">           7 :         if (mappings[i].target_type == MidiTargetType::EffectBypass &amp;&amp;</span></span>
 <span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">           3 :             mappings[i].effect_name == effect_name) {</span></span>
 <span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">           2 :             remove_idx = i;</span></span>
@@ -327,14 +327,14 @@
 <span id="L265"><span class="lineNum">     265</span>              :         }</span>
 <span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L267"><span class="lineNum">     267</span>              : </span>
-<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">           3 :     if (remove_idx &gt;= 0) {</span></span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          18 :     if (remove_idx &gt;= 0) {</span></span>
 <span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">           3 :         if (ImGui::MenuItem(&quot;Remove MIDI Bypass Mapping&quot;)) {</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaUNC tlaBgUNC">           0 :             midi_.remove_mapping(remove_idx);</span></span>
 <span id="L271"><span class="lineNum">     271</span> <span class="tlaUNC">           0 :             return true;</span></span>
 <span id="L272"><span class="lineNum">     272</span>              :         }</span>
 <span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">           2 :     return false;</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">          12 :     return false;</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           6 : }</span></span>
 <span id="L276"><span class="lineNum">     276</span>              : </span>
 <span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">         597 : std::string GuiMidi::get_mapping_info(const std::string&amp; effect_name,</span></span>
 <span id="L278"><span class="lineNum">     278</span>              :                                       const std::string&amp; param_name) const {</span>
