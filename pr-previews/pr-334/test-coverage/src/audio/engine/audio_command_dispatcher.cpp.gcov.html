@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 17:29:36</td>
+            <td class="headerValue">2026-06-03 17:41:02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">88.9&nbsp;%</td>
@@ -116,11 +116,11 @@
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         237 :     command_queue_.try_push(cmd);</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         237 : }</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        4752 : void AudioCommandDispatcher::drain_gain_commands(std::atomic&lt;float&gt;&amp; input_gain,</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        4663 : void AudioCommandDispatcher::drain_gain_commands(std::atomic&lt;float&gt;&amp; input_gain,</span></span>
 <span id="L58"><span class="lineNum">      58</span>              :                                                  std::atomic&lt;float&gt;&amp; output_gain,</span>
 <span id="L59"><span class="lineNum">      59</span>              :                                                  std::shared_ptr&lt;AudioGraphExecutor&gt;&amp; executor) {</span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        1147 :     AudioCommand cmd;</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        4803 :     while (command_queue_.try_peek(cmd)) {</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">        4714 :     while (command_queue_.try_peek(cmd)) {</span></span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          60 :         if (cmd.type == AudioCommand::SetInputGain) {</span></span>
 <span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          27 :             command_queue_.try_pop(cmd);</span></span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          27 :             input_gain.store(cmd.value, std::memory_order_relaxed);</span></span>
@@ -136,15 +136,15 @@
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC tlaBgGNC">           6 :             break;</span></span>
 <span id="L75"><span class="lineNum">      75</span>              :         }</span>
 <span id="L76"><span class="lineNum">      76</span>              :     }</span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">        4752 : }</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">        4663 : }</span></span>
 <span id="L78"><span class="lineNum">      78</span>              : </span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        4752 : void AudioCommandDispatcher::drain_commands(std::atomic&lt;float&gt;&amp; input_gain,</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">        4663 : void AudioCommandDispatcher::drain_commands(std::atomic&lt;float&gt;&amp; input_gain,</span></span>
 <span id="L80"><span class="lineNum">      80</span>              :                                             std::atomic&lt;float&gt;&amp; output_gain,</span>
 <span id="L81"><span class="lineNum">      81</span>              :                                             std::shared_ptr&lt;AudioGraphExecutor&gt;&amp; executor,</span>
 <span id="L82"><span class="lineNum">      82</span>              :                                             AudioGraph&amp; main_graph,</span>
 <span id="L83"><span class="lineNum">      83</span>              :                                             std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; dummy_effects) {</span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">        1147 :     AudioCommand cmd;</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">        4776 :     while (command_queue_.try_pop(cmd)) {</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">        4687 :     while (command_queue_.try_pop(cmd)) {</span></span>
 <span id="L86"><span class="lineNum">      86</span>              :         // Helper to find the effect pointer safely in the compiled executor by node_id, with fallback</span>
 <span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">          37 :         auto get_effect_by_id = [&amp;](int node_id) -&gt; std::shared_ptr&lt;Effect&gt; {</span></span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          21 :             if (executor) {</span></span>
@@ -203,7 +203,7 @@
 <span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 :                 break;</span></span>
 <span id="L142"><span class="lineNum">     142</span>              :         }</span>
 <span id="L143"><span class="lineNum">     143</span>              :     }</span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC tlaBgGNC">        4752 : }</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC tlaBgGNC">        4663 : }</span></span>
 <span id="L145"><span class="lineNum">     145</span>              : </span>
 <span id="L146"><span class="lineNum">     146</span>              : } // namespace Amplitron</span>
         </pre>
