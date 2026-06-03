@@ -322,7 +322,7 @@ void GuiManager::render_master_controls() {
     smoothed_input_level_  += (engine_.get_input_level()  - smoothed_input_level_)  * 0.3f;
     smoothed_output_level_ += (engine_.get_output_level() - smoothed_output_level_) * 0.3f;
 
-    ImGui::BeginChild("MasterControls", ImVec2(0, 150), true, ImGuiWindowFlags_NoScrollbar);
+    ImGui::BeginChild("MasterControls", ImVec2(0, 110), true, ImGuiWindowFlags_NoScrollbar);
     ImGui::Columns(4, "master_cols", false);
 
     // Input gain
@@ -380,7 +380,9 @@ void GuiManager::render_master_controls() {
     ImGui::Separator();
     ImGui::Columns(3, "metronome_cols", false);
 
+    ImGui::AlignTextToFramePadding();
     ImGui::Text("METRONOME");
+    ImGui::SameLine();
     bool metronome_on = engine_.get_metronome_enabled();
     if (ImGui::Button(metronome_on ? "Stop" : "Play"))
         engine_.toggle_metronome();

@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%" style="background-color: #121214; border-radius: 8px;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+    <linearGradient id="gradient-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="gradient-interface" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="gradient-abstract" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#92400e" />
+    </linearGradient>
+    
+    <!-- UML Markers -->
+    <marker id="inheritance" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#121214" stroke="#a1a1aa" stroke-width="1.5"/>
+    </marker>
+    <marker id="realization" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#121214" stroke="#a1a1aa" stroke-width="1.5"/>
+    </marker>
+    <marker id="association" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#a1a1aa" stroke-width="1.5"/>
+    </marker>
+    <marker id="composition" viewBox="0 0 12 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 5 L 6 0 L 12 5 L 6 10 z" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/>
+    </marker>
+    <marker id="aggregation" viewBox="0 0 12 10" refX="0" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 5 L 6 0 L 12 5 L 6 10 z" fill="#121214" stroke="#a1a1aa" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <g transform="translate(20, 35)">
+    <text font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#f4f4f5">Amplitron GUI Component & View Architecture</text>
+    <text font-family="system-ui, sans-serif" font-size="11" fill="#71717a" y="18">The Atomic Visual Component Paradigm: separating domain orchestrators from stateless, event-driven rendering components</text>
+  </g>
+
+  <!-- Content -->
+  
+    <!-- Class: GuiManager -->
+    <g transform="translate(380, 70)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="240" height="135" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 239 1 Q 239 6 239 30 L 1 30 Z" fill="url(#gradient-accent)" opacity="0.85"/>
+      <line x1="1" y1="30" x2="239" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="120.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">GuiManager</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- session_ : AmplitronSession&</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- window_context_ : WindowContext</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- pedal_board_ : unique_ptr<PedalBoard></text>
+      <text x="10" y="83" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- smoothed_input_level_ : float</text>
+      <text x="10" y="96" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- show_settings_ : bool</text>
+      <text x="10" y="109" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- show_tuner_ : bool</text>
+      <line x1="1" y1="125" x2="239" y2="125" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="139" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ initialize(w, h) : bool</text>
+      <text x="10" y="152" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ run_frame() : bool</text>
+      <text x="10" y="165" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ shutdown()</text>
+      <text x="10" y="178" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- render_menu_bar()</text>
+      <text x="10" y="191" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- render_master_controls()</text>
+      <text x="10" y="204" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- build_tuner_props() : TunerProps</text>
+    </g>
+
+    <!-- Class: WindowContext -->
+    <g transform="translate(70, 70)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="220" height="100" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 219 1 Q 219 6 219 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="219" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="110.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">WindowContext</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- sdl_window_ : SDL_Window*</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- gl_context_ : SDL_GLContext</text>
+      <line x1="1" y1="73" x2="219" y2="73" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="87" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ init_window(title, w, h) : bool</text>
+      <text x="10" y="100" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ swap_buffers()</text>
+      <text x="10" y="113" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ destroy_context()</text>
+    </g>
+
+    <!-- Class: GUI Views (Static Modules) -->
+    <g transform="translate(70, 210)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="220" height="150" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 219 1 Q 219 6 219 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="219" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="110.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">GUI Views (Static Modules)</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiSettings : Audio device configuration</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiPresets : Preset loading dialogs</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiRecording : Waveform drawing</text>
+      <text x="10" y="83" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiTuner : Pitch feedback dashboard</text>
+      <text x="10" y="96" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiAnalyzer : Spectrum & VU meters</text>
+      <text x="10" y="109" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiSnapshots : A/B/C/D memory recall</text>
+      <text x="10" y="122" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- GuiMidi : MIDI learn controller mapper</text>
+      <line x1="1" y1="138" x2="219" y2="138" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="152" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(props : Props&, show : bool*)</text>
+    </g>
+
+    <!-- Class: PedalBoard -->
+    <g transform="translate(690, 70)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="240" height="110" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 239 1 Q 239 6 239 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="239" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="120.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">PedalBoard</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- active_pedals_ : vector<PedalWidget></text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- scroll_x_ : float</text>
+      <line x1="1" y1="73" x2="239" y2="73" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="87" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(engine : IAudioEngine&)</text>
+      <text x="10" y="100" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ add_pedal(type)</text>
+      <text x="10" y="113" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ remove_pedal(idx)</text>
+      <text x="10" y="126" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ reorder_pedals(from, to)</text>
+    </g>
+
+    <!-- Class: PedalWidget -->
+    <g transform="translate(690, 220)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="240" height="120" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 239 1 Q 239 6 239 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="239" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="120.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">PedalWidget</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- effect_ : shared_ptr<Effect></text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- width_ : float</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- color_ : ImVec4</text>
+      <line x1="1" y1="86" x2="239" y2="86" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="100" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(props : PedalProps&)</text>
+      <text x="10" y="113" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- draw_pedal_body()</text>
+      <text x="10" y="126" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- draw_parameters()</text>
+      <text x="10" y="139" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">- handle_footswitch_toggle()</text>
+    </g>
+
+    <!-- Class: KnobComponent -->
+    <g transform="translate(390, 440)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="220" height="95" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 219 1 Q 219 6 219 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="219" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="110.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">KnobComponent</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">struct KnobProps {</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">  label, value, min, max, default,</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">  on_value_changed : lambda</text>
+      <text x="10" y="83" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">}</text>
+      <line x1="1" y1="99" x2="219" y2="99" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="113" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(id, props : KnobProps&, center)</text>
+    </g>
+
+    <!-- Class: FootswitchComponent -->
+    <g transform="translate(130, 440)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="220" height="95" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 219 1 Q 219 6 219 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="219" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="110.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">FootswitchComponent</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">struct FootswitchProps {</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">  is_on, label,</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">  on_toggle : lambda</text>
+      <text x="10" y="83" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">}</text>
+      <line x1="1" y1="99" x2="219" y2="99" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="113" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(id, props : FootswitchProps&, center)</text>
+    </g>
+
+    <!-- Class: LedComponent -->
+    <g transform="translate(650, 440)" filter="url(#shadow)">
+      <!-- Main Background -->
+      <rect width="220" height="95" rx="6" ry="6" fill="#1c1c1f" stroke="#2c2c30" stroke-width="1.2" />
+      
+      <!-- Top Accent Bar -->
+      <path d="M 1 6 Q 1 1 219 1 Q 219 6 219 30 L 1 30 Z" fill="#27272a" opacity="0.85"/>
+      <line x1="1" y1="30" x2="219" y2="30" stroke="#2c2c30" stroke-width="1"/>
+          <text x="110.0" y="19" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" font-style="normal" fill="#ffffff" text-anchor="middle">LedComponent</text>
+      <text x="10" y="44" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">struct LedProps {</text>
+      <text x="10" y="57" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">  is_glowing, color_hex, pulse_rate</text>
+      <text x="10" y="70" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#a1a1aa">}</text>
+      <line x1="1" y1="86" x2="219" y2="86" stroke="#2c2c30" stroke-width="0.8" opacity="0.6"/>
+      <text x="10" y="100" font-family="SFMono-Regular, Consolas, Monaco, monospace" font-size="9" fill="#e4e4e7">+ render(id, props : LedProps&, center)</text>
+    </g>
+    <line x1="380" y1="120" x2="290" y2="120" stroke="#71717a" stroke-width="1.2"  marker-start="url(#composition)" />
+    <text x="335.0" y="115.0" font-family="system-ui, sans-serif" font-size="9" fill="#a1a1aa" text-anchor="middle">owns</text>
+    <path d="M 380 140 L 330 140 L 330 285 L 290 285" fill="none" stroke="#71717a" stroke-width="1.2"  marker-start="url(#composition)" />
+    <line x1="620" y1="120" x2="690" y2="120" stroke="#71717a" stroke-width="1.2"  marker-start="url(#composition)" />
+    <text x="655.0" y="115.0" font-family="system-ui, sans-serif" font-size="9" fill="#a1a1aa" text-anchor="middle">owns</text>
+    <line x1="810" y1="180" x2="810" y2="220" stroke="#71717a" stroke-width="1.2"  marker-start="url(#composition)" />
+    <text x="810.0" y="195.0" font-family="system-ui, sans-serif" font-size="9" fill="#a1a1aa" text-anchor="middle">draws</text>
+    <path d="M 720 340 L 720 400 L 240 400 L 240 440" fill="none" stroke="#71717a" stroke-width="1.2" stroke-dasharray='4,4'  marker-end="url(#association)"/>
+    <path d="M 810 340 L 810 400 L 500 400 L 500 440" fill="none" stroke="#71717a" stroke-width="1.2" stroke-dasharray='4,4'  marker-end="url(#association)"/>
+    <path d="M 900 340 L 900 400 L 760 400 L 760 440" fill="none" stroke="#71717a" stroke-width="1.2" stroke-dasharray='4,4'  marker-end="url(#association)"/>
+
+</svg>
