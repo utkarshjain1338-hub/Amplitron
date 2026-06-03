@@ -4,7 +4,7 @@
 #include "audio/backend/jack_backend.h"
 
 #if defined(AMPLITRON_TESTS) && defined(WITH_JACK) && defined(__unix__) && !defined(__APPLE__)
-#include "../fixtures/jack_mock.cpp"
+#include "../fixtures/jack_mock.h"
 #endif
 
 #if defined(AMPLITRON_TESTS) && defined(WITH_JACK) && defined(__unix__) && !defined(__APPLE__)

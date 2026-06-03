@@ -793,6 +793,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/unit/test_cli.cpp
         tests/integration/test_main.cpp
         tests/integration/test_audio_backend_jack.cpp
+        tests/fixtures/portaudio_mock.cpp
+        tests/fixtures/jack_mock.cpp
     )
 
     set(CORE_SOURCES

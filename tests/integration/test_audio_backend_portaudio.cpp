@@ -1,5 +1,5 @@
 #if !defined(WITH_JACK)
-#include "../fixtures/portaudio_mock.cpp"
+#include "../fixtures/portaudio_mock.h"
 #include "audio/backend/audio_backend_portaudio_helpers.h"
 #include "audio/engine/audio_engine.h"
 #include "test_framework.h"
