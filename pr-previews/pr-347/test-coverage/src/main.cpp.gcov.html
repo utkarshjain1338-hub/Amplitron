@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 08:56:09</td>
+            <td class="headerValue">2026-06-03 09:32:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">57.1&nbsp;%</td>
@@ -410,13 +410,13 @@
 <span id="L348"><span class="lineNum">     348</span>              :     // GUI bootup</span>
 <span id="L349"><span class="lineNum">     349</span> <span class="tlaUNC">           0 :         gui = std::make_unique&lt;Amplitron::GuiManager&gt;(session);</span></span>
 <span id="L350"><span class="lineNum">     350</span>              :     // Create a small, automatically wired, and highly playable circuit</span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaUNC">           0 :         auto cabinet = std::make_shared&lt;Amplitron::CabinetSim&gt;();</span></span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         cabinet-&gt;set_enabled(true);</span></span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaUNC">           0 :         auto reverb = std::make_shared&lt;Amplitron::Reverb&gt;();</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         reverb-&gt;set_enabled(true);</span></span>
 <span id="L353"><span class="lineNum">     353</span>              : </span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaUNC">           0 :         auto amp = std::make_shared&lt;Amplitron::AmpSimulator&gt;();</span></span>
 <span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC">           0 :         amp-&gt;set_enabled(true);</span></span>
 <span id="L356"><span class="lineNum">     356</span>              : </span>
-<span id="L357"><span class="lineNum">     357</span> <span class="tlaUNC">           0 :         engine.add_initial_effects({cabinet, amp});</span></span>
+<span id="L357"><span class="lineNum">     357</span> <span class="tlaUNC">           0 :         engine.add_initial_effects({reverb, amp});</span></span>
 <span id="L358"><span class="lineNum">     358</span>              : </span>
 <span id="L359"><span class="lineNum">     359</span> <span class="tlaUNC">           0 :         engine.set_input_gain(0.7f);</span></span>
 <span id="L360"><span class="lineNum">     360</span>              : </span>

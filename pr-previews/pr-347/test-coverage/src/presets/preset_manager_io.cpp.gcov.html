@@ -31,18 +31,18 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">90.7&nbsp;%</td>
-            <td class="headerCovTableEntry">354</td>
-            <td class="headerCovTableEntry">321</td>
+            <td class="headerCovTableEntryMed">89.8&nbsp;%</td>
+            <td class="headerCovTableEntry">364</td>
+            <td class="headerCovTableEntry">327</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 08:56:09</td>
+            <td class="headerValue">2026-06-03 09:32:58</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">9</td>
-            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">11</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -554,7 +554,23 @@
 <span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">          20 :   return true;</span></span>
 <span id="L493"><span class="lineNum">     493</span> <span class="tlaGNC">         221 : }</span></span>
 <span id="L494"><span class="lineNum">     494</span>              : </span>
-<span id="L495"><span class="lineNum">     495</span>              : } // namespace Amplitron</span>
+<span id="L495"><span class="lineNum">     495</span> <span class="tlaGNC">           3 : bool PresetManager::delete_preset(const std::string&amp; filepath) {</span></span>
+<span id="L496"><span class="lineNum">     496</span> <span class="tlaGNC">           3 :   if (std::remove(filepath.c_str()) == 0) {</span></span>
+<span id="L497"><span class="lineNum">     497</span> <span class="tlaGNC">           2 :     return true;</span></span>
+<span id="L498"><span class="lineNum">     498</span>              :   }</span>
+<span id="L499"><span class="lineNum">     499</span> <span class="tlaUNC tlaBgUNC">           0 :   last_error_ = &quot;Could not delete preset file: &quot; + filepath;</span></span>
+<span id="L500"><span class="lineNum">     500</span> <span class="tlaUNC">           0 :   return false;</span></span>
+<span id="L501"><span class="lineNum">     501</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
+<span id="L502"><span class="lineNum">     502</span>              : </span>
+<span id="L503"><span class="lineNum">     503</span> <span class="tlaUNC tlaBgUNC">           0 : std::string PresetManager::get_last_error() const {</span></span>
+<span id="L504"><span class="lineNum">     504</span> <span class="tlaUNC">           0 :   return last_error_;</span></span>
+<span id="L505"><span class="lineNum">     505</span>              : }</span>
+<span id="L506"><span class="lineNum">     506</span>              : </span>
+<span id="L507"><span class="lineNum">     507</span> <span class="tlaGNC tlaBgGNC">          15 : std::string PresetManager::get_presets_directory() const {</span></span>
+<span id="L508"><span class="lineNum">     508</span> <span class="tlaGNC">          15 :   return get_presets_dir();</span></span>
+<span id="L509"><span class="lineNum">     509</span>              : }</span>
+<span id="L510"><span class="lineNum">     510</span>              : </span>
+<span id="L511"><span class="lineNum">     511</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
