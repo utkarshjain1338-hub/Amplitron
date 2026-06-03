@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 16:43:40</td>
+            <td class="headerValue">2026-06-03 08:30:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              :  * @param engine The audio engine whose current setting should be captured.</span>
 <span id="L30"><span class="lineNum">      30</span>              :  * @return PresetData representing the live engine configuration.</span>
 <span id="L31"><span class="lineNum">      31</span>              :  */</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">         156 : static PresetData capture_current_state(AudioEngine&amp; engine) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">         156 : static PresetData capture_current_state(IAudioEngine&amp; engine) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         156 :     PresetData preset;</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         156 :     preset.input_gain = engine.get_input_gain();</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         156 :     preset.output_gain = engine.get_output_gain();</span></span>
@@ -150,8 +150,8 @@
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          10 :     return true;</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           8 : }</span></span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         140 : GuiPresets::GuiPresets(AudioEngine&amp; engine, CommandHistory&amp; history)</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         112 :     : engine_(engine), history_(history) {</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         140 : GuiPresets::GuiPresets(IAudioEngine&amp; engine, CommandHistory&amp; history, IPresetManager&amp; presets)</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         112 :     : engine_(engine), history_(history), presets_(presets) {</span></span>
 <span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          84 :     mark_clean();</span></span>
 <span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          84 : }</span></span>
 <span id="L95"><span class="lineNum">      95</span>              : </span>
@@ -201,7 +201,7 @@
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           3 :         selected_path = preset_files_[selected_preset_index_];</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L141"><span class="lineNum">     141</span>              : </span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          33 :     preset_files_ = PresetManager::list_presets();</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          33 :     preset_files_ = presets_.list_presets();</span></span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          33 :     std::sort(preset_files_.begin(), preset_files_.end());</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          33 :     selected_preset_index_ = -1;</span></span>
@@ -236,7 +236,7 @@
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         return false;</span></span>
 <span id="L175"><span class="lineNum">     175</span>              :     }</span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          16 :     if (PresetManager::save_preset(path, preset_name, description, engine_,</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          16 :     if (presets_.save_preset(path, preset_name, description, engine_,</span></span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          20 :                                    midi_manager_ ? midi_manager_-&gt;mappings() : std::vector&lt;MidiMapping&gt;())) {</span></span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          12 :         preset_status_msg_ = &quot;Saved: &quot; + preset_name;</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          12 :         refresh_presets(true);</span></span>
@@ -292,7 +292,7 @@
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          24 :     float before_in = engine_.get_input_gain();</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          24 :     float before_out = engine_.get_output_gain();</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          24 :     if (PresetManager::load_preset(path, engine_, midi_manager_)) {</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          24 :     if (presets_.load_preset(path, engine_, midi_manager_)) {</span></span>
 <span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          24 :         std::vector&lt;LoadPresetCommand::EffectSnapshot&gt; after_state;</span></span>
 <span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">         255 :         for (auto&amp; fx : engine_.effects()) {</span></span>
 <span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">         231 :             LoadPresetCommand::EffectSnapshot snap;</span></span>
@@ -362,7 +362,7 @@
 <span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           8 :     if (factory_presets_initialized_) return;</span></span>
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">           3 :     factory_presets_initialized_ = true;</span></span>
 <span id="L302"><span class="lineNum">     302</span>              : </span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           3 :     if (!PresetManager::list_presets().empty()) return;</span></span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           3 :     if (!presets_.list_presets().empty()) return;</span></span>
 <span id="L304"><span class="lineNum">     304</span>              : </span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaUNC tlaBgUNC">           0 :     std::vector&lt;PresetData&gt; factory_presets;</span></span>
 <span id="L306"><span class="lineNum">     306</span>              : </span>
@@ -411,7 +411,7 @@
 <span id="L349"><span class="lineNum">     349</span> <span class="tlaUNC">           0 :     factory_presets.push_back(jazz);</span></span>
 <span id="L350"><span class="lineNum">     350</span>              : </span>
 <span id="L351"><span class="lineNum">     351</span> <span class="tlaUNC">           0 :     for (const auto&amp; preset : factory_presets) {</span></span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         PresetManager::save_preset_data(preset_path_from_name(preset.name), preset);</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         presets_.save_preset_data(preset_path_from_name(preset.name), preset);</span></span>
 <span id="L353"><span class="lineNum">     353</span>              :     }</span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC tlaBgGNC">           2 : }</span></span>
 <span id="L355"><span class="lineNum">     355</span>              : </span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 16:43:40</td>
+            <td class="headerValue">2026-06-03 08:30:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -371,9 +371,9 @@
 <span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC tlaBgUNC">           0 :                     show_midi_ = !show_midi_;</span></span>
 <span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 :                 }</span></span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaGNC tlaBgGNC">          20 :             } else if (it-&gt;label == &quot;LIVE&quot;) {</span></span>
-<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           4 :                 ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
-<span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">          16 :             } else if (it-&gt;label == &quot;STOPPED&quot;) {</span></span>
-<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           2 :                 ImGui::TextColored(Theme::Stopped(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaGNC">           2 :                 ImGui::TextColored(Theme::Live(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
+<span id="L313"><span class="lineNum">     313</span> <span class="tlaGNC">          18 :             } else if (it-&gt;label == &quot;STOPPED&quot;) {</span></span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaGNC">           4 :                 ImGui::TextColored(Theme::Stopped(), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
 <span id="L315"><span class="lineNum">     315</span> <span class="tlaGNC">          12 :             } else if (it-&gt;label == &quot;REC&quot;) {</span></span>
 <span id="L316"><span class="lineNum">     316</span> <span class="tlaUNC tlaBgUNC">           0 :                 float t = static_cast&lt;float&gt;(ImGui::GetTime());</span></span>
 <span id="L317"><span class="lineNum">     317</span> <span class="tlaUNC">           0 :                 ImGui::TextColored(Theme::RecBlink(t), &quot;%s&quot;, it-&gt;label.c_str());</span></span>
@@ -396,25 +396,25 @@
 <span id="L334"><span class="lineNum">     334</span>              : </span>
 <span id="L335"><span class="lineNum">     335</span>              :     // Error banner when audio is stopped</span>
 <span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           8 :     if (!engine_.is_running()) {</span></span>
-<span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           2 :         ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.35f, 0.08f, 0.08f, 0.95f));</span></span>
-<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           2 :         ImGui::BeginChild(&quot;AudioErrorBanner&quot;, ImVec2(0, 36), true);</span></span>
-<span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">           2 :         ImGui::TextColored(Theme::Stopped(), &quot;Audio stream is STOPPED.&quot;);</span></span>
-<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           2 :         ImGui::SameLine();</span></span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           2 :         if (ImGui::SmallButton(&quot;Restart Audio&quot;)) {</span></span>
+<span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           4 :         ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.35f, 0.08f, 0.08f, 0.95f));</span></span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaGNC">           4 :         ImGui::BeginChild(&quot;AudioErrorBanner&quot;, ImVec2(0, 36), true);</span></span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaGNC">           4 :         ImGui::TextColored(Theme::Stopped(), &quot;Audio stream is STOPPED.&quot;);</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">           4 :         ImGui::SameLine();</span></span>
+<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">           4 :         if (ImGui::SmallButton(&quot;Restart Audio&quot;)) {</span></span>
 <span id="L342"><span class="lineNum">     342</span> <span class="tlaUNC tlaBgUNC">           0 :             engine_.restart();</span></span>
 <span id="L343"><span class="lineNum">     343</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC tlaBgGNC">           2 :         ImGui::SameLine();</span></span>
-<span id="L345"><span class="lineNum">     345</span> <span class="tlaGNC">           2 :         if (ImGui::SmallButton(&quot;Settings&quot;)) {</span></span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaGNC tlaBgGNC">           4 :         ImGui::SameLine();</span></span>
+<span id="L345"><span class="lineNum">     345</span> <span class="tlaGNC">           4 :         if (ImGui::SmallButton(&quot;Settings&quot;)) {</span></span>
 <span id="L346"><span class="lineNum">     346</span> <span class="tlaUNC tlaBgUNC">           0 :             show_settings_ = true;</span></span>
 <span id="L347"><span class="lineNum">     347</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC tlaBgGNC">           2 :         std::string err = engine_.get_last_error();</span></span>
-<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           2 :         if (!err.empty()) {</span></span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           2 :             ImGui::SameLine();</span></span>
-<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">           2 :             ImGui::TextColored(Theme::GoldHot(), &quot;  %s&quot;, err.c_str());</span></span>
+<span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC tlaBgGNC">           4 :         std::string err = engine_.get_last_error();</span></span>
+<span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           4 :         if (!err.empty()) {</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           4 :             ImGui::SameLine();</span></span>
+<span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">           4 :             ImGui::TextColored(Theme::GoldHot(), &quot;  %s&quot;, err.c_str());</span></span>
 <span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
-<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC tlaBgGNC">           2 :         ImGui::EndChild();</span></span>
-<span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           2 :         ImGui::PopStyleColor();</span></span>
-<span id="L355"><span class="lineNum">     355</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC tlaBgGNC">           4 :         ImGui::EndChild();</span></span>
+<span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC">           4 :         ImGui::PopStyleColor();</span></span>
+<span id="L355"><span class="lineNum">     355</span> <span class="tlaGNC">           4 :     }</span></span>
 <span id="L356"><span class="lineNum">     356</span> <span class="tlaGNC">          36 : }</span></span>
 <span id="L357"><span class="lineNum">     357</span>              : </span>
 <span id="L358"><span class="lineNum">     358</span>              : } // namespace Amplitron</span>

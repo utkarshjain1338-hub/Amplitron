@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 16:43:40</td>
+            <td class="headerValue">2026-06-03 08:30:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -61,7 +61,7 @@
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
-<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &quot;audio/engine/i_audio_engine.h&quot;</span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;audio/dsp/level_analyzer.h&quot;</span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/dsp/spectrum_analyzer.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &lt;array&gt;</span>
@@ -71,7 +71,7 @@
 <span id="L9"><span class="lineNum">       9</span>              : </span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           5 : class AudioMetricsService {</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : public:</span>
-<span id="L12"><span class="lineNum">      12</span>              :     void update(AudioEngine&amp; engine, float dt);</span>
+<span id="L12"><span class="lineNum">      12</span>              :     void update(IAudioEngine&amp; engine, float dt);</span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           3 :     const LevelAnalyzer&amp; level_analyzer() const { return level_analyzer_; }</span></span>
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           5 :     const SpectrumAnalyzer&amp; spectrum_analyzer() const { return spectrum_analyzer_; }</span></span>
@@ -80,8 +80,8 @@
 <span id="L18"><span class="lineNum">      18</span>              :     LevelAnalyzer level_analyzer_;</span>
 <span id="L19"><span class="lineNum">      19</span>              :     SpectrumAnalyzer spectrum_analyzer_;</span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           5 :     uint64_t analyzer_last_sequence_ = 0;</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           5 :     std::array&lt;float, AudioEngine::ANALYZER_FFT_SIZE&gt; analyzer_input_buf_{};</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           5 :     std::array&lt;float, AudioEngine::ANALYZER_FFT_SIZE&gt; analyzer_output_buf_{};</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           5 :     std::array&lt;float, IAudioEngine::ANALYZER_FFT_SIZE&gt; analyzer_input_buf_{};</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           5 :     std::array&lt;float, IAudioEngine::ANALYZER_FFT_SIZE&gt; analyzer_output_buf_{};</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : };</span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
 <span id="L25"><span class="lineNum">      25</span>              : } // namespace Amplitron</span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 16:43:40</td>
+            <td class="headerValue">2026-06-03 08:30:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -67,8 +67,8 @@
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : namespace Amplitron {</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span>              : class AudioEngine;</span>
-<span id="L9"><span class="lineNum">       9</span>              : class MidiManager;</span>
+<span id="L8"><span class="lineNum">       8</span>              : class IAudioEngine;</span>
+<span id="L9"><span class="lineNum">       9</span>              : class IMidiManager;</span>
 <span id="L10"><span class="lineNum">      10</span>              : struct PresetData;</span>
 <span id="L11"><span class="lineNum">      11</span>              : struct MidiMapping;</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
@@ -76,20 +76,21 @@
 <span id="L14"><span class="lineNum">      14</span>              :  * @brief Abstract interface for the Preset Manager.</span>
 <span id="L15"><span class="lineNum">      15</span>              :  * Satisfies the Dependency Inversion Principle (DIP).</span>
 <span id="L16"><span class="lineNum">      16</span>              :  */</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">           5 : class IPresetManager {</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">         124 : class IPresetManager {</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : public:</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          15 :     virtual ~IPresetManager() = default;</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         372 :     virtual ~IPresetManager() = default;</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              :     virtual bool save_preset_data(const std::string&amp; filepath, const PresetData&amp; preset) = 0;</span>
 <span id="L22"><span class="lineNum">      22</span>              :     virtual bool save_preset(const std::string&amp; filepath, const std::string&amp; preset_name,</span>
-<span id="L23"><span class="lineNum">      23</span>              :                              const std::string&amp; description, AudioEngine&amp; engine,</span>
+<span id="L23"><span class="lineNum">      23</span>              :                              const std::string&amp; description, IAudioEngine&amp; engine,</span>
 <span id="L24"><span class="lineNum">      24</span>              :                              const std::vector&lt;MidiMapping&gt;&amp; midi_mappings = {}) = 0;</span>
-<span id="L25"><span class="lineNum">      25</span>              :     virtual bool load_preset(const std::string&amp; filepath, AudioEngine&amp; engine,</span>
-<span id="L26"><span class="lineNum">      26</span>              :                              MidiManager* midi_manager = nullptr) = 0;</span>
+<span id="L25"><span class="lineNum">      25</span>              :     virtual bool load_preset(const std::string&amp; filepath, IAudioEngine&amp; engine,</span>
+<span id="L26"><span class="lineNum">      26</span>              :                              IMidiManager* midi_manager = nullptr) = 0;</span>
 <span id="L27"><span class="lineNum">      27</span>              :     virtual std::vector&lt;std::string&gt; list_presets() = 0;</span>
 <span id="L28"><span class="lineNum">      28</span>              : };</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              : } // namespace Amplitron</span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
         </pre>
               </td>
             </tr>
