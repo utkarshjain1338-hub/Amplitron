@@ -905,6 +905,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
     target_link_libraries(amplitron-tests PRIVATE
         nlohmann_json::nlohmann_json
+        ${PORTAUDIO_LIBRARIES}
         ${SDL2_LIBRARIES}
         ${OPENGL_LIBRARIES}
         ${RTMIDI_LIBRARIES}
@@ -912,8 +913,6 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
 
     if(WITH_JACK AND UNIX AND NOT APPLE)
         target_link_libraries(amplitron-tests PRIVATE ${JACK_LIBRARIES})
-    else()
-        target_link_libraries(amplitron-tests PRIVATE ${PORTAUDIO_LIBRARIES})
     endif()
 
     if(WIN32)
