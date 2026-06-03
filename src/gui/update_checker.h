@@ -2,6 +2,8 @@
 #include <string>
 #include <thread>
 #include <mutex>
+#include <atomic>
+
 
 namespace Amplitron {
 
@@ -26,7 +28,7 @@ private:
     bool has_new_release_ = false;
     std::string new_release_version_;
     std::string new_release_url_;
-    bool shutdown_requested_ = false;
+    std::atomic<bool> shutdown_requested_{false};
 };
 
 } // namespace Amplitron

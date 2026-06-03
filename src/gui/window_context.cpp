@@ -57,12 +57,16 @@ bool WindowContext::initialize(int width, int height, const std::string& title) 
 
     if (!window_) {
         std::cerr << "SDL_CreateWindow failed: " << SDL_GetError() << std::endl;
+        SDL_Quit();
         return false;
     }
 
     gl_context_ = SDL_GL_CreateContext(window_);
     if (!gl_context_) {
         std::cerr << "SDL_GL_CreateContext failed: " << SDL_GetError() << std::endl;
+        SDL_DestroyWindow(window_);
+        window_ = nullptr;
+        SDL_Quit();
         return false;
     }
     SDL_GL_MakeCurrent(window_, gl_context_);

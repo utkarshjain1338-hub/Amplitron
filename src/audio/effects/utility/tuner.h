@@ -7,6 +7,7 @@
 
 #include "audio/effects/core/effect.h"
 #include <atomic>
+#include <vector>
 
 namespace Amplitron {
 

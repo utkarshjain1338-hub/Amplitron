@@ -25,6 +25,12 @@ public:
         dry_r_buffer_.resize(4096, 0.0f);
     }
 
+    void prepare(int max_block_samples) {
+        dry_buffer_.resize(static_cast<size_t>(max_block_samples), 0.0f);
+        dry_l_buffer_.resize(static_cast<size_t>(max_block_samples), 0.0f);
+        dry_r_buffer_.resize(static_cast<size_t>(max_block_samples), 0.0f);
+    }
+
     void process(float* buffer, int num_samples) override {
         if (!enabled_.load(std::memory_order_relaxed)) {
             return; // bypassed
@@ -35,9 +41,6 @@ public:
             return;
         }
 
-        if (static_cast<size_t>(num_samples) > dry_buffer_.size()) {
-            dry_buffer_.resize(static_cast<size_t>(num_samples));
-        }
         std::memcpy(dry_buffer_.data(), buffer, static_cast<size_t>(num_samples) * sizeof(float));
 
         processor_->process(buffer, num_samples);
@@ -58,12 +61,6 @@ public:
             return;
         }
 
-        if (static_cast<size_t>(num_samples) > dry_l_buffer_.size()) {
-            dry_l_buffer_.resize(static_cast<size_t>(num_samples));
-        }
-        if (static_cast<size_t>(num_samples) > dry_r_buffer_.size()) {
-            dry_r_buffer_.resize(static_cast<size_t>(num_samples));
-        }
         std::memcpy(dry_l_buffer_.data(), left, static_cast<size_t>(num_samples) * sizeof(float));
         std::memcpy(dry_r_buffer_.data(), right, static_cast<size_t>(num_samples) * sizeof(float));
 
@@ -78,15 +75,6 @@ public:
 
     void set_sample_rate(int sample_rate) override {
         processor_->set_sample_rate(sample_rate);
-        if (dry_buffer_.size() < 4096) {
-            dry_buffer_.resize(4096, 0.0f);
-        }
-        if (dry_l_buffer_.size() < 4096) {
-            dry_l_buffer_.resize(4096, 0.0f);
-        }
-        if (dry_r_buffer_.size() < 4096) {
-            dry_r_buffer_.resize(4096, 0.0f);
-        }
     }
 
     void reset() override {

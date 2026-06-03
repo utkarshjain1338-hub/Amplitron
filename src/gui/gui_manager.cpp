@@ -59,11 +59,6 @@ bool GuiManager::initialize(int width, int height) {
     if (!window_context_.initialize(width, height, Theme::WINDOW_TITLE)) {
         return false;
     }
-
-    pedal_board_ = std::make_unique<PedalBoard>(engine_, command_history_, &gui_midi_);
-    gui_presets_.set_pedal_board(pedal_board_.get());
-    gui_presets_.set_midi_manager(&midi_manager_);
-
     PresetManager::load_config();
 
     // MIDI: load config first; if no saved mappings, install defaults

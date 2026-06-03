@@ -227,7 +227,7 @@ namespace Amplitron
         IAudioBackend* delegate_;
     };
 
-    void AudioEngine::replace_backend_for_test(std::unique_ptr<IAudioBackend> backend)
+    void AudioEngine::replace_backend_state_for_test(std::unique_ptr<IAudioBackend> backend)
     {
         backend_ = std::move(backend);
     }
@@ -235,6 +235,11 @@ namespace Amplitron
     void AudioEngine::replace_backend_for_test(IAudioBackend* backend)
     {
         backend_ = std::make_unique<NonOwningBackendWrapper>(backend);
+    }
+
+    void AudioEngine::clear_backend_for_test()
+    {
+        backend_ = nullptr;
     }
 #endif
 

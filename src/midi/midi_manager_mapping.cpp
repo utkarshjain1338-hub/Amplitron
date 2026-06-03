@@ -223,7 +223,12 @@ void MidiManager::apply_mapping(const MidiMapping& mapping, int cc_value,
                     // Toggle on either edge: press (false→true) or release (true→false)
                     if (is_pressed != mapping.last_state) {
                         effects[i]->set_enabled(!effects[i]->is_enabled());
-                        engine.push_effect_enabled(i, effects[i]->is_enabled() ? 1.0f : 0.0f);
+                        int node_id = -1;
+                        for (const auto& node : engine.graph().get_nodes()) {
+                            if (node.pedal == effects[i]) { node_id = node.id; break; }
+                        }
+                        if (node_id == -1) node_id = i;
+                        engine.push_effect_enabled(node_id, effects[i]->is_enabled() ? 1.0f : 0.0f);
 
                         printf("[DEBUG] AmpSimulator BYPASS TOGGLED\n");
                     }
@@ -266,7 +271,12 @@ void MidiManager::apply_mapping(const MidiMapping& mapping, int cc_value,
                     float value = params[p].min_val +
                                   normalized * (params[p].max_val - params[p].min_val);
                     params[p].value = value;  // GUI sync
-                    engine.push_param_change(i, p, value);  // Audio sync
+                    int node_id = -1;
+                    for (const auto& node : engine.graph().get_nodes()) {
+                        if (node.pedal == effects[i]) { node_id = node.id; break; }
+                    }
+                    if (node_id == -1) node_id = i;
+                    engine.push_param_change(node_id, p, value);  // Audio sync
                     break;
                 }
                 break;  // Only map to the first matching effect

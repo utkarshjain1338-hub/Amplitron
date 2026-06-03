@@ -34,12 +34,17 @@ public:
         auto& params = effect_->params();
         if (param_index_ >= 0 && param_index_ < static_cast<int>(params.size())) {
             params[param_index_].value = new_value_;
-            int idx = -1;
-            auto& fx = engine_.effects();
-            for (int i = 0; i < static_cast<int>(fx.size()); ++i) {
-                if (fx[i] == effect_) { idx = i; break; }
+            int node_id = -1;
+            for (const auto& node : engine_.graph().get_nodes()) {
+                if (node.pedal == effect_) { node_id = node.id; break; }
             }
-            if (idx >= 0) engine_.push_param_change(idx, param_index_, new_value_);
+            if (node_id == -1) {
+                auto& fx = engine_.effects();
+                for (int i = 0; i < static_cast<int>(fx.size()); ++i) {
+                    if (fx[i] == effect_) { node_id = i; break; }
+                }
+            }
+            if (node_id >= 0) engine_.push_param_change(node_id, param_index_, new_value_);
         }
         return true;
     }
@@ -49,12 +54,17 @@ public:
         auto& params = effect_->params();
         if (param_index_ >= 0 && param_index_ < static_cast<int>(params.size())) {
             params[param_index_].value = old_value_;
-            int idx = -1;
-            auto& fx = engine_.effects();
-            for (int i = 0; i < static_cast<int>(fx.size()); ++i) {
-                if (fx[i] == effect_) { idx = i; break; }
+            int node_id = -1;
+            for (const auto& node : engine_.graph().get_nodes()) {
+                if (node.pedal == effect_) { node_id = node.id; break; }
             }
-            if (idx >= 0) engine_.push_param_change(idx, param_index_, old_value_);
+            if (node_id == -1) {
+                auto& fx = engine_.effects();
+                for (int i = 0; i < static_cast<int>(fx.size()); ++i) {
+                    if (fx[i] == effect_) { node_id = i; break; }
+                }
+            }
+            if (node_id >= 0) engine_.push_param_change(node_id, param_index_, old_value_);
         }
     }
 

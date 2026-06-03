@@ -12,7 +12,7 @@ void AudioMetricsService::update(IAudioEngine& engine, float dt) {
 
     // 2. Update Spectrum Analyzer
     const uint64_t seq = engine.get_analyzer_sequence();
-    if (seq == analyzer_last_sequence_) {
+    if (seq == analyzer_last_sequence_ && seq != 0) {
         spectrum_analyzer_.update(analyzer_input_buf_.data(),
                                   analyzer_output_buf_.data(),
                                   engine.get_sample_rate(),

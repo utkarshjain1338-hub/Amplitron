@@ -3,9 +3,9 @@
 namespace Amplitron {
 
 struct GraphLink {
-  int id;
-  int source_pin_id; // Mapping from Output Pin
-  int dest_pin_id;   // Mapping to Input Pin
+  int id = 0;
+  int source_pin_id = 0; // Mapping from Output Pin
+  int dest_pin_id = 0;   // Mapping to Input Pin
 };
 
 } // namespace Amplitron

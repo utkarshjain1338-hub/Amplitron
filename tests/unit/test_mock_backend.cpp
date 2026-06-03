@@ -93,4 +93,5 @@ TEST(AudioBackend_PolymorphicMockBackendInjection) {
     
     engine.shutdown();
     ASSERT_FALSE(mock->initialized);
+    engine.clear_backend_for_test();
 }

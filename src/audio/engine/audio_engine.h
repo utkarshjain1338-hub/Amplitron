@@ -121,8 +121,9 @@ public:
 
 #ifdef AMPLITRON_TESTS
     /** @brief Replace the platform backend in tests. */
-    void replace_backend_for_test(std::unique_ptr<IAudioBackend> backend);
+    void replace_backend_state_for_test(std::unique_ptr<IAudioBackend> backend);
     void replace_backend_for_test(IAudioBackend* backend);
+    void clear_backend_for_test();
 #endif
 
     // =========================================================================

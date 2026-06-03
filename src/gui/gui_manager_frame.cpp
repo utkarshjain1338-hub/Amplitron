@@ -226,11 +226,11 @@ bool GuiManager::run_frame() {
     render_menu_bar();
 
     // ── Full-window layout ──
-    int window_width_ = window_context_.get_width();
-    int window_height_ = window_context_.get_height();
+    int window_width = window_context_.get_width();
+    int window_height = window_context_.get_height();
     ImGui::SetNextWindowPos(ImVec2(0, 20));
-    ImGui::SetNextWindowSize(ImVec2(static_cast<float>(window_width_),
-                                    static_cast<float>(window_height_) - 20));
+    ImGui::SetNextWindowSize(ImVec2(static_cast<float>(window_width),
+                                    static_cast<float>(window_height) - 20));
     ImGui::Begin("##MainArea", nullptr,
         ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
         ImGuiWindowFlags_NoMove     | ImGuiWindowFlags_NoCollapse |
