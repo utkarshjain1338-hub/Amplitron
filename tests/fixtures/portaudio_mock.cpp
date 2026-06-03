@@ -37,39 +37,67 @@ extern "C" {
 int MOCK_Pa_GetDeviceCount() {
   if (Amplitron::g_mock_pa_get_device_count)
     return Amplitron::g_mock_pa_get_device_count();
+#ifndef WITH_JACK
   return Pa_GetDeviceCount();
+#else
+  return 0;
+#endif
 }
 const PaDeviceInfo *MOCK_Pa_GetDeviceInfo(PaDeviceIndex device) {
   if (Amplitron::g_mock_pa_get_device_info)
     return Amplitron::g_mock_pa_get_device_info(device);
+#ifndef WITH_JACK
   return Pa_GetDeviceInfo(device);
+#else
+  return nullptr;
+#endif
 }
 const PaHostApiInfo *MOCK_Pa_GetHostApiInfo(PaHostApiIndex hostApi) {
   if (Amplitron::g_mock_pa_get_host_api_info)
     return Amplitron::g_mock_pa_get_host_api_info(hostApi);
+#ifndef WITH_JACK
   return Pa_GetHostApiInfo(hostApi);
+#else
+  return nullptr;
+#endif
 }
 PaHostApiIndex MOCK_Pa_GetHostApiCount() {
   if (Amplitron::g_mock_pa_get_host_api_count)
     return Amplitron::g_mock_pa_get_host_api_count();
+#ifndef WITH_JACK
   return Pa_GetHostApiCount();
+#else
+  return 0;
+#endif
 }
 PaDeviceIndex MOCK_Pa_HostApiDeviceIndexToDeviceIndex(PaHostApiIndex hostApi,
                                                       int hostApiDeviceIndex) {
   if (Amplitron::g_mock_pa_host_api_device_index_to_device_index)
     return Amplitron::g_mock_pa_host_api_device_index_to_device_index(
         hostApi, hostApiDeviceIndex);
+#ifndef WITH_JACK
   return Pa_HostApiDeviceIndexToDeviceIndex(hostApi, hostApiDeviceIndex);
+#else
+  return -1;
+#endif
 }
 PaDeviceIndex MOCK_Pa_GetDefaultInputDevice() {
   if (Amplitron::g_mock_pa_get_default_input_device)
     return Amplitron::g_mock_pa_get_default_input_device();
+#ifndef WITH_JACK
   return Pa_GetDefaultInputDevice();
+#else
+  return -1;
+#endif
 }
 PaDeviceIndex MOCK_Pa_GetDefaultOutputDevice() {
   if (Amplitron::g_mock_pa_get_default_output_device)
     return Amplitron::g_mock_pa_get_default_output_device();
+#ifndef WITH_JACK
   return Pa_GetDefaultOutputDevice();
+#else
+  return -1;
+#endif
 }
 PaError MOCK_Pa_OpenStream(PaStream **stream,
                            const PaStreamParameters *inputParameters,
@@ -81,32 +109,56 @@ PaError MOCK_Pa_OpenStream(PaStream **stream,
     return Amplitron::g_mock_pa_open_stream(
         stream, inputParameters, outputParameters, sampleRate, framesPerBuffer,
         streamFlags, streamCallback, userData);
+#ifndef WITH_JACK
   return Pa_OpenStream(stream, inputParameters, outputParameters, sampleRate,
                        framesPerBuffer, streamFlags, streamCallback, userData);
+#else
+  return paInternalError;
+#endif
 }
 PaError MOCK_Pa_StartStream(PaStream *stream) {
   if (Amplitron::g_mock_pa_start_stream)
     return Amplitron::g_mock_pa_start_stream(stream);
+#ifndef WITH_JACK
   return Pa_StartStream(stream);
+#else
+  return paInternalError;
+#endif
 }
 PaError MOCK_Pa_StopStream(PaStream *stream) {
   if (Amplitron::g_mock_pa_stop_stream)
     return Amplitron::g_mock_pa_stop_stream(stream);
+#ifndef WITH_JACK
   return Pa_StopStream(stream);
+#else
+  return paInternalError;
+#endif
 }
 PaError MOCK_Pa_CloseStream(PaStream *stream) {
   if (Amplitron::g_mock_pa_close_stream)
     return Amplitron::g_mock_pa_close_stream(stream);
+#ifndef WITH_JACK
   return Pa_CloseStream(stream);
+#else
+  return paInternalError;
+#endif
 }
 const PaStreamInfo *MOCK_Pa_GetStreamInfo(PaStream *stream) {
   if (Amplitron::g_mock_pa_get_stream_info)
     return Amplitron::g_mock_pa_get_stream_info(stream);
+#ifndef WITH_JACK
   return Pa_GetStreamInfo(stream);
+#else
+  return nullptr;
+#endif
 }
 PaError MOCK_Pa_Initialize() {
   if (Amplitron::g_mock_pa_initialize)
     return Amplitron::g_mock_pa_initialize();
+#ifndef WITH_JACK
   return Pa_Initialize();
+#else
+  return paNoError;
+#endif
 }
 } // extern "C"
