@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 10:13:55</td>
+            <td class="headerValue">2026-06-03 10:33:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -81,7 +81,7 @@
 <span id="L19"><span class="lineNum">      19</span>              :  * and all parameter values — using the LoadPresetCommand::EffectSnapshot pattern</span>
 <span id="L20"><span class="lineNum">      20</span>              :  * so that recall integrates cleanly with the undo/redo system.</span>
 <span id="L21"><span class="lineNum">      21</span>              :  */</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">          64 : class SnapshotManager {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">          73 : class SnapshotManager {</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : public:</span>
 <span id="L24"><span class="lineNum">      24</span>              :     static constexpr int NUM_SLOTS = 4;</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
@@ -204,7 +204,7 @@
 <span id="L142"><span class="lineNum">     142</span>              : </span>
 <span id="L143"><span class="lineNum">     143</span>              : private:</span>
 <span id="L144"><span class="lineNum">     144</span>              :     std::array&lt;std::optional&lt;BoardSnapshot&gt;, NUM_SLOTS&gt; slots_;</span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          32 :     int active_slot_ = -1;</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          35 :     int active_slot_ = -1;</span></span>
 <span id="L146"><span class="lineNum">     146</span>              : };</span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
 <span id="L148"><span class="lineNum">     148</span>              : } // namespace Amplitron</span>

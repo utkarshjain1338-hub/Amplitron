@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 10:13:55</td>
+            <td class="headerValue">2026-06-03 10:33:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -190,17 +190,17 @@
 <span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">         150 :   draw_list-&gt;PushClipRect(canvas_pos, canvas_end, true);</span></span>
 <span id="L129"><span class="lineNum">     129</span>              : </span>
 <span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">         150 :   if (ui_state.show_grid) {</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">         150 :     float GRID_SZ = 32.0f * ui_state.zoom;</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">         150 :     ImU32 GRID_COLOR = IM_COL32(36, 34, 30, 255);</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">        4393 :     for (float x = std::fmod(ui_state.scrolling.x, GRID_SZ); x &lt; canvas_size.x;</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">        4243 :          x += GRID_SZ) {</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">         150 :     float grid_sz = 32.0f * ui_state.zoom;</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">         150 :     ImU32 grid_color = IM_COL32(36, 34, 30, 255);</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">        4393 :     for (float x = std::fmod(ui_state.scrolling.x, grid_sz); x &lt; canvas_size.x;</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">        4243 :          x += grid_sz) {</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">        7075 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x + x, canvas_pos.y),</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">        5654 :                          ImVec2(canvas_pos.x + x, canvas_end.y), GRID_COLOR);</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">        5654 :                          ImVec2(canvas_pos.x + x, canvas_end.y), grid_color);</span></span>
 <span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">        1411 :     }</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">        3192 :     for (float y = std::fmod(ui_state.scrolling.y, GRID_SZ); y &lt; canvas_size.y;</span></span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">        3042 :          y += GRID_SZ) {</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">        3192 :     for (float y = std::fmod(ui_state.scrolling.y, grid_sz); y &lt; canvas_size.y;</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">        3042 :          y += grid_sz) {</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">        5071 :       draw_list-&gt;AddLine(ImVec2(canvas_pos.x, canvas_pos.y + y),</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">        4055 :                          ImVec2(canvas_end.x, canvas_pos.y + y), GRID_COLOR);</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">        4055 :                          ImVec2(canvas_end.x, canvas_pos.y + y), grid_color);</span></span>
 <span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">        1013 :     }</span></span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          50 :   }</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>

@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">15</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 10:13:55</td>
+            <td class="headerValue">2026-06-03 10:33:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -177,28 +177,27 @@
 <span id="L115"><span class="lineNum">     115</span>              : </span>
 <span id="L116"><span class="lineNum">     116</span>              :     static void save_config();</span>
 <span id="L117"><span class="lineNum">     117</span>              :     static void load_config();</span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">           3 :     static const std::string&amp; last_error() { return last_error_; }</span></span>
-<span id="L119"><span class="lineNum">     119</span>              : </span>
-<span id="L120"><span class="lineNum">     120</span>              :     // Public migration hooks so test targets can validate behavior</span>
-<span id="L121"><span class="lineNum">     121</span>              :     static std::string apply_migrations(const std::string&amp; raw_json_string);</span>
-<span id="L122"><span class="lineNum">     122</span>              : </span>
-<span id="L123"><span class="lineNum">     123</span>              : private:</span>
-<span id="L124"><span class="lineNum">     124</span>              :     std::unique_ptr&lt;IPresetSerializer&gt; serializer_;</span>
-<span id="L125"><span class="lineNum">     125</span>              :     std::unique_ptr&lt;IPresetStorage&gt; storage_;</span>
-<span id="L126"><span class="lineNum">     126</span>              :     std::unique_ptr&lt;IPresetMigrator&gt; migrator_;</span>
-<span id="L127"><span class="lineNum">     127</span>              : </span>
-<span id="L128"><span class="lineNum">     128</span>              :     static std::string last_error_;</span>
-<span id="L129"><span class="lineNum">     129</span>              :     static std::string custom_presets_dir_;</span>
-<span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span>              :     static void save_factory_presets(const std::string&amp; dir);</span>
-<span id="L132"><span class="lineNum">     132</span>              :     static std::string get_config_path();</span>
-<span id="L133"><span class="lineNum">     133</span>              :     static std::string get_system_presets_dir();</span>
-<span id="L134"><span class="lineNum">     134</span>              : };</span>
-<span id="L135"><span class="lineNum">     135</span>              : </span>
-<span id="L136"><span class="lineNum">     136</span>              : // Compatibility alias to avoid breaking code referencing PresetManagerService</span>
-<span id="L137"><span class="lineNum">     137</span>              : using PresetManagerService = PresetManager;</span>
-<span id="L138"><span class="lineNum">     138</span>              : </span>
-<span id="L139"><span class="lineNum">     139</span>              : } // namespace Amplitron</span>
+<span id="L118"><span class="lineNum">     118</span>              : </span>
+<span id="L119"><span class="lineNum">     119</span>              :     // Public migration hooks so test targets can validate behavior</span>
+<span id="L120"><span class="lineNum">     120</span>              :     static std::string apply_migrations(const std::string&amp; raw_json_string);</span>
+<span id="L121"><span class="lineNum">     121</span>              : </span>
+<span id="L122"><span class="lineNum">     122</span>              : private:</span>
+<span id="L123"><span class="lineNum">     123</span>              :     std::unique_ptr&lt;IPresetSerializer&gt; serializer_;</span>
+<span id="L124"><span class="lineNum">     124</span>              :     std::unique_ptr&lt;IPresetStorage&gt; storage_;</span>
+<span id="L125"><span class="lineNum">     125</span>              :     std::unique_ptr&lt;IPresetMigrator&gt; migrator_;</span>
+<span id="L126"><span class="lineNum">     126</span>              : </span>
+<span id="L127"><span class="lineNum">     127</span>              :     std::string last_error_;</span>
+<span id="L128"><span class="lineNum">     128</span>              :     static std::string custom_presets_dir_;</span>
+<span id="L129"><span class="lineNum">     129</span>              : </span>
+<span id="L130"><span class="lineNum">     130</span>              :     static void save_factory_presets(const std::string&amp; dir);</span>
+<span id="L131"><span class="lineNum">     131</span>              :     static std::string get_config_path();</span>
+<span id="L132"><span class="lineNum">     132</span>              :     static std::string get_system_presets_dir();</span>
+<span id="L133"><span class="lineNum">     133</span>              : };</span>
+<span id="L134"><span class="lineNum">     134</span>              : </span>
+<span id="L135"><span class="lineNum">     135</span>              : // Compatibility alias to avoid breaking code referencing PresetManagerService</span>
+<span id="L136"><span class="lineNum">     136</span>              : using PresetManagerService = PresetManager;</span>
+<span id="L137"><span class="lineNum">     137</span>              : </span>
+<span id="L138"><span class="lineNum">     138</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
