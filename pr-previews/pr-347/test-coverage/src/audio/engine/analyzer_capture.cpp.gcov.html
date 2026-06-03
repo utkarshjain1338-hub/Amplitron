@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 08:30:33</td>
+            <td class="headerValue">2026-06-03 08:56:09</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -77,30 +77,30 @@
 <span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          12 :     enabled_.store(enabled, std::memory_order_release);</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">        5127 : bool AnalyzerCapture::is_analyzer_enabled() const {</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">        5127 :     return enabled_.load(std::memory_order_acquire);</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">        4542 : bool AnalyzerCapture::is_analyzer_enabled() const {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">        4542 :     return enabled_.load(std::memory_order_acquire);</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : }</span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 : uint64_t AnalyzerCapture::get_analyzer_sequence() const {</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           4 :     return sequence_.load(std::memory_order_acquire);</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : }</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          15 : bool AnalyzerCapture::copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          15 :     if (!input_dest || !output_dest || sample_count &lt;= 0) {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          18 : bool AnalyzerCapture::copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          18 :     if (!input_dest || !output_dest || sample_count &lt;= 0) {</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           6 :         return false;</span></span>
 <span id="L29"><span class="lineNum">      29</span>              :     }</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           6 :     const int count = std::min(sample_count, ANALYZER_FFT_SIZE);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           6 :     const uint64_t seq = sequence_.load(std::memory_order_relaxed);</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           6 :     if (seq == 0) {</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           2 :         return false;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           9 :     const int count = std::min(sample_count, ANALYZER_FFT_SIZE);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           9 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           9 :     const uint64_t seq = sequence_.load(std::memory_order_relaxed);</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           9 :     if (seq == 0) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           4 :         return false;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :     }</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           3 :     std::memcpy(input_dest, snapshot_input_.data(), static_cast&lt;size_t&gt;(count) * sizeof(float));</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           3 :     std::memcpy(output_dest, snapshot_output_.data(), static_cast&lt;size_t&gt;(count) * sizeof(float));</span></span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           3 :     return true;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           9 : }</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          24 : void AnalyzerCapture::capture_input(const float* input, int count) {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          24 :     if (!enabled_.load(std::memory_order_relaxed)) return;</span></span>

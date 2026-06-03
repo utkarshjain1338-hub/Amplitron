@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 08:30:33</td>
+            <td class="headerValue">2026-06-03 08:56:09</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">86.2&nbsp;%</td>
@@ -288,11 +288,11 @@
 <span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :     render_menu_bar();</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
 <span id="L228"><span class="lineNum">     228</span>              :     // ── Full-window layout ──</span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :     int window_width_ = window_context_.get_width();</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :     int window_height_ = window_context_.get_height();</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaUNC">           0 :     int window_width = window_context_.get_width();</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC">           0 :     int window_height = window_context_.get_height();</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaUNC">           0 :     ImGui::SetNextWindowPos(ImVec2(0, 20));</span></span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaUNC">           0 :     ImGui::SetNextWindowSize(ImVec2(static_cast&lt;float&gt;(window_width_),</span></span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaUNC">           0 :                                     static_cast&lt;float&gt;(window_height_) - 20));</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaUNC">           0 :     ImGui::SetNextWindowSize(ImVec2(static_cast&lt;float&gt;(window_width),</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaUNC">           0 :                                     static_cast&lt;float&gt;(window_height) - 20));</span></span>
 <span id="L234"><span class="lineNum">     234</span> <span class="tlaUNC">           0 :     ImGui::Begin(&quot;##MainArea&quot;, nullptr,</span></span>
 <span id="L235"><span class="lineNum">     235</span>              :         ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |</span>
 <span id="L236"><span class="lineNum">     236</span>              :         ImGuiWindowFlags_NoMove     | ImGuiWindowFlags_NoCollapse |</span>
