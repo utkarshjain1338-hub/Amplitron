@@ -21,6 +21,7 @@ public:
     bool save(const std::string& filepath, const std::string& data) override;
     std::string load(const std::string& filepath) override;
     std::vector<std::string> list() override;
+    bool remove(const std::string& filepath) override;
 };
 
 class PresetMigrator : public IPresetMigrator {

@@ -384,16 +384,11 @@ Effects use `try_lock` on the mutex to avoid blocking the audio thread if the GU
 
 ### Class Diagram & Subsystems
 
-Amplitron is structured into modular components separating audio processing, GUI layout, preset management, and MIDI handling. Below are the class diagrams representing the primary subsystems, their class relationships, and design patterns.
+Amplitron is structured into modular components separating audio processing, GUI layout, preset management, and MIDI handling. Below are the class diagrams representing the primary subsystems, their class relationships, and design patterns, rendered natively using Mermaid:
 
 #### 1. Core Coordination (Facade & Subsystems)
 
 This diagram shows the system managers and their lifecycles coordinate via the unified `AmplitronSession` facade, which isolates the GUI layer from the implementation details of each subsystem.
-
-![Amplitron Core Coordination](assets/uml_core_coordination.svg)
-
-<details>
-<summary>Show Mermaid Code</summary>
 
 ```mermaid
 classDiagram
@@ -492,16 +487,10 @@ classDiagram
     SessionManager ..> AmplitronSession : manages
     GuiManager --> AmplitronSession : controls
 ```
-</details>
 
 #### 2. Audio Subsystem & DSP Pipeline
 
 This diagram shows how the `AudioEngine` interfaces with backends (`IAudioBackend`), delegates execution order via `AudioGraph` / `AudioGraphExecutor`, and processes pedal modules which implement the `Effect` base class.
-
-![Amplitron Audio & DSP Pipeline](assets/uml_audio_dsp.svg)
-
-<details>
-<summary>Show Mermaid Code</summary>
 
 ```mermaid
 classDiagram
@@ -638,16 +627,10 @@ classDiagram
     
     AudioGraph o-- Effect : aggregates
 ```
-</details>
 
 #### 3. GUI Subsystem (Atomic Component Pattern)
 
 This diagram shows the relationship between `GuiManager`, window context handlers, view overlays, and the `PedalBoard` which renders `PedalWidget` components built on top of stateless atomic GUI primitives like `KnobComponent`, `FootswitchComponent`, and `LedComponent`.
-
-![Amplitron GUI Components](assets/uml_gui_components.svg)
-
-<details>
-<summary>Show Mermaid Code</summary>
 
 ```mermaid
 classDiagram
@@ -735,7 +718,6 @@ classDiagram
     PedalWidget ..> FootswitchComponent : uses
     PedalWidget ..> LedComponent : uses
 ```
-</details>
 
 ---
 

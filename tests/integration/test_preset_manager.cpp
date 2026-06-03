@@ -1429,7 +1429,7 @@ TEST(PresetManagerIO, SavePresetDataToDirectoryFails) {
     // Attempt to write to a directory path (should fail)
     bool ok = manager.save_preset_data(dir, p);
     ASSERT_FALSE(ok);
-    ASSERT_TRUE(PresetManager::last_error().find("Could not open file for writing") != std::string::npos);
+    ASSERT_TRUE(manager.get_last_error().find("Could not open file for writing") != std::string::npos);
 }
 
 TEST(PresetManagerIO, LoadPresetWithUnknownEffectTypeSkipsEffect) {

@@ -59,6 +59,17 @@ std::vector<std::string> PresetStorage::list() {
     return result;
 }
 
+bool PresetStorage::remove(const std::string& filepath) {
+    try {
+        if (std::filesystem::exists(filepath)) {
+            return std::filesystem::remove(filepath);
+        }
+    } catch (...) {
+        // Ignore errors
+    }
+    return false;
+}
+
 std::string PresetMigrator::migrate(const std::string& raw_json) {
     return PresetManager::apply_migrations(raw_json);
 }

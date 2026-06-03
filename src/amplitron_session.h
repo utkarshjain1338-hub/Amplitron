@@ -21,10 +21,20 @@ class AmplitronSession {
 public:
     AmplitronSession(std::unique_ptr<IAudioEngine> engine = std::make_unique<AudioEngine>(),
                      std::unique_ptr<IMidiManager> midi = std::make_unique<MidiManager>(),
-                     std::unique_ptr<IPresetManager> presets = std::make_unique<PresetManagerService>())
-        : engine_(std::move(engine)),
-          midi_(std::move(midi)),
-          presets_(std::move(presets)) {}
+                     std::unique_ptr<IPresetManager> presets = std::make_unique<PresetManagerService>()) {
+        if (!engine) {
+            throw std::invalid_argument("engine cannot be null");
+        }
+        if (!midi) {
+            throw std::invalid_argument("midi cannot be null");
+        }
+        if (!presets) {
+            throw std::invalid_argument("presets cannot be null");
+        }
+        engine_ = std::move(engine);
+        midi_ = std::move(midi);
+        presets_ = std::move(presets);
+    }
 
     IAudioEngine& engine() { return *engine_; }
     IMidiManager& midi() { return *midi_; }

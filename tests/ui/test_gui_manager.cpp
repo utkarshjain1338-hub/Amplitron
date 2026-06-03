@@ -14,6 +14,12 @@
 
 using namespace Amplitron;
 
+TEST(amplitron_session_throws_on_null_arguments) {
+    ASSERT_THROW(AmplitronSession(nullptr, std::make_unique<MidiManager>(), std::make_unique<PresetManagerService>()), std::invalid_argument);
+    ASSERT_THROW(AmplitronSession(std::make_unique<AudioEngine>(), nullptr, std::make_unique<PresetManagerService>()), std::invalid_argument);
+    ASSERT_THROW(AmplitronSession(std::make_unique<AudioEngine>(), std::make_unique<MidiManager>(), nullptr), std::invalid_argument);
+}
+
 TEST(gui_manager_basic_lifecycle) {
     AmplitronSession session;
     auto& engine = session.concrete_engine();

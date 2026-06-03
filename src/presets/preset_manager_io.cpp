@@ -493,7 +493,7 @@ bool PresetManager::graph_from_json(const std::string &json,
 }
 
 bool PresetManager::delete_preset(const std::string& filepath) {
-  if (std::remove(filepath.c_str()) == 0) {
+  if (storage_->remove(filepath)) {
     return true;
   }
   last_error_ = "Could not delete preset file: " + filepath;

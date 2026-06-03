@@ -115,7 +115,6 @@ public:
 
     static void save_config();
     static void load_config();
-    static const std::string& last_error() { return last_error_; }
 
     // Public migration hooks so test targets can validate behavior
     static std::string apply_migrations(const std::string& raw_json_string);
@@ -125,7 +124,7 @@ private:
     std::unique_ptr<IPresetStorage> storage_;
     std::unique_ptr<IPresetMigrator> migrator_;
 
-    static std::string last_error_;
+    std::string last_error_;
     static std::string custom_presets_dir_;
 
     static void save_factory_presets(const std::string& dir);

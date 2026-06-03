@@ -46,7 +46,6 @@ PresetManager::PresetManager(std::unique_ptr<IPresetSerializer> serializer,
 
 PresetManager::~PresetManager() = default;
 
-std::string PresetManager::last_error_;
 std::string PresetManager::custom_presets_dir_;
 
 bool dir_exists(const std::string& path) {
