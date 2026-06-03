@@ -81,6 +81,10 @@ bool WindowContext::initialize(int width, int height, const std::string& title) 
     ImGui::StyleColorsDark();
     Theme::ApplyStyle();
 
+    if (window_) {
+        SDL_GetWindowSize(window_, &width_, &height_);
+    }
+
     load_fonts();
     load_icon();
 
@@ -203,6 +207,9 @@ bool WindowContext::poll_events() {
             event.window.event == SDL_WINDOWEVENT_CLOSE &&
             event.window.windowID == SDL_GetWindowID(window_))
             return false;
+    }
+    if (window_) {
+        SDL_GetWindowSize(window_, &width_, &height_);
     }
     return true;
 }

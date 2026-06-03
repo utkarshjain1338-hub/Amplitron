@@ -72,6 +72,10 @@ bool GuiManager::initialize(int width, int height) {
     update_checker_.start_check();
 #endif
 
+    if (pedal_board_) {
+        pedal_board_->rebuild_widgets();
+    }
+
     initialized_ = true;
     return true;
 }
