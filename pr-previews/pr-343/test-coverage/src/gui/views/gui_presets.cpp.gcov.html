@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-02 05:28:28</td>
+            <td class="headerValue">2026-06-04 16:44:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -65,7 +65,7 @@
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;gui/commands/command.h&quot;</span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;gui/theme/theme.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &quot;preset_json.h&quot;</span>
-<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/cabinet_sim.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &quot;audio/effects/amp_cab/cabinet_sim.h&quot;</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;cstring&gt;</span>
 <span id="L8"><span class="lineNum">       8</span>              : #include &lt;imgui.h&gt;</span>
 <span id="L9"><span class="lineNum">       9</span>              : #include &lt;cstdio&gt;</span>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              :  * @param engine The audio engine whose current setting should be captured.</span>
 <span id="L30"><span class="lineNum">      30</span>              :  * @return PresetData representing the live engine configuration.</span>
 <span id="L31"><span class="lineNum">      31</span>              :  */</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">         156 : static PresetData capture_current_state(AudioEngine&amp; engine) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">         156 : static PresetData capture_current_state(IAudioEngine&amp; engine) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         156 :     PresetData preset;</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         156 :     preset.input_gain = engine.get_input_gain();</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         156 :     preset.output_gain = engine.get_output_gain();</span></span>
@@ -150,8 +150,8 @@
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          10 :     return true;</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">           8 : }</span></span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         140 : GuiPresets::GuiPresets(AudioEngine&amp; engine, CommandHistory&amp; history)</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         112 :     : engine_(engine), history_(history) {</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         140 : GuiPresets::GuiPresets(IAudioEngine&amp; engine, CommandHistory&amp; history, IPresetManager&amp; presets)</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         112 :     : engine_(engine), history_(history), presets_(presets) {</span></span>
 <span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">          84 :     mark_clean();</span></span>
 <span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          84 : }</span></span>
 <span id="L95"><span class="lineNum">      95</span>              : </span>
@@ -191,7 +191,7 @@
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           4 :         }</span></span>
 <span id="L130"><span class="lineNum">     130</span>              :     }</span>
 <span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          12 :     if (filename.empty()) return &quot;&quot;;</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          20 :     return PresetManager::get_presets_dir() + &quot;/&quot; + filename + &quot;.json&quot;;</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          20 :     return presets_.get_presets_directory() + &quot;/&quot; + filename + &quot;.json&quot;;</span></span>
 <span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L134"><span class="lineNum">     134</span>              : </span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          33 : void GuiPresets::refresh_presets(bool preserve_selection) {</span></span>
@@ -201,7 +201,7 @@
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           3 :         selected_path = preset_files_[selected_preset_index_];</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L141"><span class="lineNum">     141</span>              : </span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          33 :     preset_files_ = PresetManager::list_presets();</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          33 :     preset_files_ = presets_.list_presets();</span></span>
 <span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          33 :     std::sort(preset_files_.begin(), preset_files_.end());</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          33 :     selected_preset_index_ = -1;</span></span>
@@ -236,7 +236,7 @@
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         return false;</span></span>
 <span id="L175"><span class="lineNum">     175</span>              :     }</span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          16 :     if (PresetManager::save_preset(path, preset_name, description, engine_,</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC tlaBgGNC">          16 :     if (presets_.save_preset(path, preset_name, description, engine_,</span></span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          20 :                                    midi_manager_ ? midi_manager_-&gt;mappings() : std::vector&lt;MidiMapping&gt;())) {</span></span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          12 :         preset_status_msg_ = &quot;Saved: &quot; + preset_name;</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          12 :         refresh_presets(true);</span></span>
@@ -269,7 +269,7 @@
 <span id="L207"><span class="lineNum">     207</span> <span class="tlaGNC">           8 :         return true;</span></span>
 <span id="L208"><span class="lineNum">     208</span>              :     }</span>
 <span id="L209"><span class="lineNum">     209</span>              : </span>
-<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC tlaBgUNC">           0 :     preset_status_msg_ = &quot;Error: &quot; + PresetManager::last_error();</span></span>
+<span id="L210"><span class="lineNum">     210</span> <span class="tlaUNC tlaBgUNC">           0 :     preset_status_msg_ = &quot;Error: &quot; + presets_.get_last_error();</span></span>
 <span id="L211"><span class="lineNum">     211</span> <span class="tlaUNC">           0 :     return false;</span></span>
 <span id="L212"><span class="lineNum">     212</span> <span class="tlaGNC tlaBgGNC">          13 : }</span></span>
 <span id="L213"><span class="lineNum">     213</span>              : </span>
@@ -289,10 +289,10 @@
 <span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">        1002 :         for (auto&amp; p : fx-&gt;params()) snap.param_values.push_back(p.value);</span></span>
 <span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         201 :         before_state.push_back(std::move(snap));</span></span>
 <span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">         201 :     }</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          32 :     float before_in = engine_.get_input_gain();</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          24 :     float before_in = engine_.get_input_gain();</span></span>
 <span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          24 :     float before_out = engine_.get_output_gain();</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          24 :     if (PresetManager::load_preset(path, engine_, midi_manager_)) {</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          24 :     if (presets_.load_preset(path, engine_, midi_manager_)) {</span></span>
 <span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          24 :         std::vector&lt;LoadPresetCommand::EffectSnapshot&gt; after_state;</span></span>
 <span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">         255 :         for (auto&amp; fx : engine_.effects()) {</span></span>
 <span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">         231 :             LoadPresetCommand::EffectSnapshot snap;</span></span>
@@ -320,7 +320,7 @@
 <span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          24 :         return true;</span></span>
 <span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          24 :     }</span></span>
 <span id="L260"><span class="lineNum">     260</span>              : </span>
-<span id="L261"><span class="lineNum">     261</span> <span class="tlaUNC tlaBgUNC">           0 :     preset_status_msg_ = &quot;Error: &quot; + PresetManager::last_error();</span></span>
+<span id="L261"><span class="lineNum">     261</span> <span class="tlaUNC tlaBgUNC">           0 :     preset_status_msg_ = &quot;Error: &quot; + presets_.get_last_error();</span></span>
 <span id="L262"><span class="lineNum">     262</span> <span class="tlaUNC">           0 :     return false;</span></span>
 <span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC tlaBgGNC">          26 : }</span></span>
 <span id="L264"><span class="lineNum">     264</span>              : </span>
@@ -348,7 +348,7 @@
 <span id="L286"><span class="lineNum">     286</span>              : </span>
 <span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">           3 :     std::string path = preset_files_[index];</span></span>
 <span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">           3 :     std::string display = preset_name_from_path(path);</span></span>
-<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           3 :     if (std::remove(path.c_str()) == 0) {</span></span>
+<span id="L289"><span class="lineNum">     289</span> <span class="tlaGNC">           3 :     if (presets_.delete_preset(path)) {</span></span>
 <span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           3 :         preset_status_msg_ = &quot;Deleted: &quot; + display;</span></span>
 <span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">           3 :         refresh_presets(false);</span></span>
 <span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">           2 :         return true;</span></span>
@@ -362,7 +362,7 @@
 <span id="L300"><span class="lineNum">     300</span> <span class="tlaGNC">           8 :     if (factory_presets_initialized_) return;</span></span>
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">           3 :     factory_presets_initialized_ = true;</span></span>
 <span id="L302"><span class="lineNum">     302</span>              : </span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           3 :     if (!PresetManager::list_presets().empty()) return;</span></span>
+<span id="L303"><span class="lineNum">     303</span> <span class="tlaGNC">           3 :     if (!presets_.list_presets().empty()) return;</span></span>
 <span id="L304"><span class="lineNum">     304</span>              : </span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaUNC tlaBgUNC">           0 :     std::vector&lt;PresetData&gt; factory_presets;</span></span>
 <span id="L306"><span class="lineNum">     306</span>              : </span>
@@ -411,7 +411,7 @@
 <span id="L349"><span class="lineNum">     349</span> <span class="tlaUNC">           0 :     factory_presets.push_back(jazz);</span></span>
 <span id="L350"><span class="lineNum">     350</span>              : </span>
 <span id="L351"><span class="lineNum">     351</span> <span class="tlaUNC">           0 :     for (const auto&amp; preset : factory_presets) {</span></span>
-<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         PresetManager::save_preset_data(preset_path_from_name(preset.name), preset);</span></span>
+<span id="L352"><span class="lineNum">     352</span> <span class="tlaUNC">           0 :         presets_.save_preset_data(preset_path_from_name(preset.name), preset);</span></span>
 <span id="L353"><span class="lineNum">     353</span>              :     }</span>
 <span id="L354"><span class="lineNum">     354</span> <span class="tlaGNC tlaBgGNC">           2 : }</span></span>
 <span id="L355"><span class="lineNum">     355</span>              : </span>
@@ -527,7 +527,7 @@
 <span id="L465"><span class="lineNum">     465</span> <span class="tlaGNC">           3 :     if (preset_files_.empty()) {</span></span>
 <span id="L466"><span class="lineNum">     466</span> <span class="tlaGNC">           4 :         ImGui::TextColored(ImVec4(0.6f, 0.6f, 0.6f, 1.0f),</span></span>
 <span id="L467"><span class="lineNum">     467</span>              :             &quot;No presets found in '%s/' folder.\nSave a preset first, or place .json files there.&quot;,</span>
-<span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC">           5 :             PresetManager::get_presets_dir().c_str());</span></span>
+<span id="L468"><span class="lineNum">     468</span> <span class="tlaGNC">           5 :             presets_.get_presets_directory().c_str());</span></span>
 <span id="L469"><span class="lineNum">     469</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L470"><span class="lineNum">     470</span>              : </span>
 <span id="L471"><span class="lineNum">     471</span> <span class="tlaGNC">           3 :     for (int i = 0; i &lt; static_cast&lt;int&gt;(preset_files_.size()); ++i) {</span></span>
