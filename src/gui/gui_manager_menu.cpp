@@ -1,8 +1,9 @@
 #include "gui/gui_manager.h"
-#include "gui/pedal_board.h"
-#include "gui/file_dialog.h"
-#include "gui/theme.h"
+#include "gui/pedalboard/pedal_board.h"
+#include "gui/dialogs/file_dialog.h"
+#include "gui/theme/theme.h"
 #include "preset_manager.h"
+#include "audio/effects/utility/tuner.h"
 #include <imgui.h>
 #include <SDL2/SDL.h>
 #include <cstdio>
@@ -219,7 +220,7 @@ void GuiManager::render_menu_bar() {
         }
         if (ImGui::BeginMenu("Utilities")) {
             if (ImGui::MenuItem("Open Tuner", nullptr, show_tuner_)) {
-                gui_tuner_.toggle(show_tuner_);
+                set_show_tuner(!show_tuner_);
             }
             if (ImGui::MenuItem("MIDI Settings", nullptr, show_midi_)) {
                 show_midi_ = !show_midi_;
@@ -268,13 +269,10 @@ void GuiManager::render_menu_bar() {
         bool show_update = false;
         std::string update_version;
         std::string update_url;
-        {
-            std::lock_guard<std::mutex> lock(update_mutex_);
-            if (has_new_release_) {
-                show_update = true;
-                update_version = new_release_version_;
-                update_url = new_release_url_;
-            }
+        if (update_checker_.has_new_release()) {
+            show_update = true;
+            update_version = update_checker_.new_release_version();
+            update_url = update_checker_.new_release_url();
         }
 
         if (show_update) {
