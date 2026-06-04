@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">84.6&nbsp;%</td>
+            <td class="headerCovTableEntryHi">92.3&nbsp;%</td>
             <td class="headerCovTableEntry">65</td>
-            <td class="headerCovTableEntry">55</td>
+            <td class="headerCovTableEntry">60</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 16:33:06</td>
+            <td class="headerValue">2026-06-04 18:28:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -138,15 +138,15 @@
 <span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :                     int lv = (i &lt; latest_parts.size()) ? latest_parts[i] : 0;</span></span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           6 :                     int cv = (i &lt; current_parts.size()) ? current_parts[i] : 0;</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           6 :                     if (lv &gt; cv) { is_newer = true; break; }</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           6 :                     if (lv &lt; cv) { break; }</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           5 :                     if (lv &lt; cv) { break; }</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaUNC tlaBgUNC">           0 :                 }</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC tlaBgGNC">           2 :                 if (is_newer) {</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC tlaBgUNC">           0 :                     std::lock_guard&lt;std::mutex&gt; lock(update_mutex_);</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaUNC">           0 :                     new_release_version_ = latest_version;</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaUNC">           0 :                     new_release_url_ = html_url;</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaUNC">           0 :                     has_new_release_ = true;</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC tlaBgGNC">           2 :             }</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           1 :                     std::lock_guard&lt;std::mutex&gt; lock(update_mutex_);</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           1 :                     new_release_version_ = latest_version;</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           1 :                     new_release_url_ = html_url;</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           1 :                     has_new_release_ = true;</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           1 :                 }</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :             }</span></span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">           2 :         }</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaUNC tlaBgUNC">           0 :     }</span></span>
 <span id="L90"><span class="lineNum">      90</span>              : #endif</span>
