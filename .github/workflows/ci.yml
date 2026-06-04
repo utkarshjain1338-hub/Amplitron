@@ -866,3 +866,13 @@ jobs:
             merged.info
             merged-summary.txt
           retention-days: 7
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: merged.info
+          flags: cross-platform
+          name: cross-platform-coverage
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
