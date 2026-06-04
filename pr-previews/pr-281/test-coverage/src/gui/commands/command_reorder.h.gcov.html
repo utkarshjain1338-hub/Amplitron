@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 17:36:52</td>
+            <td class="headerValue">2026-06-04 12:11:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -62,7 +62,7 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
-<span id="L3"><span class="lineNum">       3</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>              : #include &quot;audio/engine/i_audio_engine.h&quot;</span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;gui/commands/command_base.h&quot;</span>
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : namespace Amplitron {</span>
@@ -80,7 +80,7 @@
 <span id="L18"><span class="lineNum">      18</span>              :    * @param from    Source index in the effect chain.</span>
 <span id="L19"><span class="lineNum">      19</span>              :    * @param to      Destination index in the effect chain.</span>
 <span id="L20"><span class="lineNum">      20</span>              :    */</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">           8 :   ReorderEffectCommand(AudioEngine &amp;engine, int from, int to)</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">           8 :   ReorderEffectCommand(IAudioEngine &amp;engine, int from, int to)</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           8 :       : engine_(engine), from_(from), to_(to) {}</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              :   /** @brief Move the effect from source to destination index. */</span>
@@ -102,7 +102,7 @@
 <span id="L40"><span class="lineNum">      40</span>              :   int to() const { return to_; }</span>
 <span id="L41"><span class="lineNum">      41</span>              : </span>
 <span id="L42"><span class="lineNum">      42</span>              : private:</span>
-<span id="L43"><span class="lineNum">      43</span>              :   AudioEngine &amp;engine_;</span>
+<span id="L43"><span class="lineNum">      43</span>              :   IAudioEngine &amp;engine_;</span>
 <span id="L44"><span class="lineNum">      44</span>              :   int from_;</span>
 <span id="L45"><span class="lineNum">      45</span>              :   int to_;</span>
 <span id="L46"><span class="lineNum">      46</span>              : };</span>

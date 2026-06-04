@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">20</td>
-            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntry">21</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 17:36:52</td>
+            <td class="headerValue">2026-06-04 12:11:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
                   <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -120,26 +120,27 @@
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              :     SpectrumDisplayMode current_mode() const { return mode_; }</span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           2 :     bool is_expanded() const { return expanded_; }</span></span>
-<span id="L61"><span class="lineNum">      61</span>              : </span>
-<span id="L62"><span class="lineNum">      62</span>              : private:</span>
-<span id="L63"><span class="lineNum">      63</span>              :     void render_vu_bar(const char* id,</span>
-<span id="L64"><span class="lineNum">      64</span>              :                        const char* label,</span>
-<span id="L65"><span class="lineNum">      65</span>              :                        float rms_level,</span>
-<span id="L66"><span class="lineNum">      66</span>              :                        float peak_hold,</span>
-<span id="L67"><span class="lineNum">      67</span>              :                        bool  clip_active,</span>
-<span id="L68"><span class="lineNum">      68</span>              :                        float clip_flash,</span>
-<span id="L69"><span class="lineNum">      69</span>              :                        ImU32 base_color,</span>
-<span id="L70"><span class="lineNum">      70</span>              :                        ImU32 peak_color);</span>
-<span id="L71"><span class="lineNum">      71</span>              : </span>
-<span id="L72"><span class="lineNum">      72</span>              :     void draw_spectrum(ImDrawList* dl,</span>
-<span id="L73"><span class="lineNum">      73</span>              :                        const ImVec2&amp; pos,</span>
-<span id="L74"><span class="lineNum">      74</span>              :                        const ImVec2&amp; size) const;</span>
-<span id="L75"><span class="lineNum">      75</span>              : </span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           6 :     bool expanded_ = true;</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           6 :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span></span>
-<span id="L78"><span class="lineNum">      78</span>              : };</span>
-<span id="L79"><span class="lineNum">      79</span>              : </span>
-<span id="L80"><span class="lineNum">      80</span>              : } // namespace Amplitron</span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          15 :     void set_expanded(bool expanded) { expanded_ = expanded; }</span></span>
+<span id="L62"><span class="lineNum">      62</span>              : </span>
+<span id="L63"><span class="lineNum">      63</span>              : private:</span>
+<span id="L64"><span class="lineNum">      64</span>              :     void render_vu_bar(const char* id,</span>
+<span id="L65"><span class="lineNum">      65</span>              :                        const char* label,</span>
+<span id="L66"><span class="lineNum">      66</span>              :                        float rms_level,</span>
+<span id="L67"><span class="lineNum">      67</span>              :                        float peak_hold,</span>
+<span id="L68"><span class="lineNum">      68</span>              :                        bool  clip_active,</span>
+<span id="L69"><span class="lineNum">      69</span>              :                        float clip_flash,</span>
+<span id="L70"><span class="lineNum">      70</span>              :                        ImU32 base_color,</span>
+<span id="L71"><span class="lineNum">      71</span>              :                        ImU32 peak_color);</span>
+<span id="L72"><span class="lineNum">      72</span>              : </span>
+<span id="L73"><span class="lineNum">      73</span>              :     void draw_spectrum(ImDrawList* dl,</span>
+<span id="L74"><span class="lineNum">      74</span>              :                        const ImVec2&amp; pos,</span>
+<span id="L75"><span class="lineNum">      75</span>              :                        const ImVec2&amp; size) const;</span>
+<span id="L76"><span class="lineNum">      76</span>              : </span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           6 :     bool expanded_ = true;</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           6 :     SpectrumDisplayMode mode_ = SpectrumDisplayMode::Output;</span></span>
+<span id="L79"><span class="lineNum">      79</span>              : };</span>
+<span id="L80"><span class="lineNum">      80</span>              : </span>
+<span id="L81"><span class="lineNum">      81</span>              : } // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

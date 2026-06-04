@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 17:36:52</td>
+            <td class="headerValue">2026-06-04 12:11:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">90.9&nbsp;%</td>
@@ -63,8 +63,8 @@
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &quot;gui/commands/command_base.h&quot;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
-<span id="L5"><span class="lineNum">       5</span>              : #include &quot;audio/effects/effect.h&quot;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/engine/i_audio_engine.h&quot;</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &quot;audio/effects/core/effect.h&quot;</span>
 <span id="L6"><span class="lineNum">       6</span>              : #include &lt;cstring&gt;</span>
 <span id="L7"><span class="lineNum">       7</span>              : #include &lt;algorithm&gt;</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
@@ -82,9 +82,9 @@
 <span id="L20"><span class="lineNum">      20</span>              :      * @param engine  Reference to the audio engine that owns the effect chain.</span>
 <span id="L21"><span class="lineNum">      21</span>              :      * @param effect  Shared pointer to the effect to add.</span>
 <span id="L22"><span class="lineNum">      22</span>              :      */</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          96 :     AddEffectCommand(AudioEngine&amp; engine, std::shared_ptr&lt;Effect&gt; effect)</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          96 :     AddEffectCommand(IAudioEngine&amp; engine, std::shared_ptr&lt;Effect&gt; effect)</span></span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          96 :         : engine_(engine), effect_(std::move(effect)) {}</span></span>
-<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span>              :  </span>
 <span id="L26"><span class="lineNum">      26</span>              :     /** @brief Append the effect to the engine's chain (before the amp if present). */</span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          81 :     bool execute() override {</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          81 :         int amp_idx = -1;</span></span>
@@ -102,7 +102,7 @@
 <span id="L40"><span class="lineNum">      40</span>              :         }</span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          81 :         return true;</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC tlaBgUNC">           0 :     }</span></span>
-<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L43"><span class="lineNum">      43</span>              :  </span>
 <span id="L44"><span class="lineNum">      44</span>              :     /** @brief Remove the previously added effect from the chain. */</span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC tlaBgGNC">          21 :     void undo() override {</span></span>
 <span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          21 :         auto&amp; fx = engine_.effects();</span></span>
@@ -113,18 +113,18 @@
 <span id="L51"><span class="lineNum">      51</span>              :             }</span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
 <span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC tlaBgGNC">           7 :     }</span></span>
-<span id="L54"><span class="lineNum">      54</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span>              :  </span>
 <span id="L55"><span class="lineNum">      55</span>              :     /** @brief Return &quot;Add Effect&quot;. */</span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          12 :     const char* description() const override { return &quot;Add Effect&quot;; }</span></span>
-<span id="L57"><span class="lineNum">      57</span>              : </span>
+<span id="L57"><span class="lineNum">      57</span>              :  </span>
 <span id="L58"><span class="lineNum">      58</span>              :     /** @brief Accessor for the wrapped effect. */</span>
 <span id="L59"><span class="lineNum">      59</span>              :     std::shared_ptr&lt;Effect&gt; effect() const { return effect_; }</span>
-<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L60"><span class="lineNum">      60</span>              :  </span>
 <span id="L61"><span class="lineNum">      61</span>              : private:</span>
-<span id="L62"><span class="lineNum">      62</span>              :     AudioEngine&amp; engine_;</span>
+<span id="L62"><span class="lineNum">      62</span>              :     IAudioEngine&amp; engine_;</span>
 <span id="L63"><span class="lineNum">      63</span>              :     std::shared_ptr&lt;Effect&gt; effect_;</span>
 <span id="L64"><span class="lineNum">      64</span>              : };</span>
-<span id="L65"><span class="lineNum">      65</span>              : </span>
+<span id="L65"><span class="lineNum">      65</span>              :  </span>
 <span id="L66"><span class="lineNum">      66</span>              : /**</span>
 <span id="L67"><span class="lineNum">      67</span>              :  * @brief Command that removes an effect from the engine's signal chain.</span>
 <span id="L68"><span class="lineNum">      68</span>              :  *</span>
@@ -138,20 +138,20 @@
 <span id="L76"><span class="lineNum">      76</span>              :      * @param engine  Reference to the audio engine.</span>
 <span id="L77"><span class="lineNum">      77</span>              :      * @param index   Chain index of the effect to remove (captured at construction).</span>
 <span id="L78"><span class="lineNum">      78</span>              :      */</span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          25 :     RemoveEffectCommand(AudioEngine&amp; engine, int index)</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          25 :     RemoveEffectCommand(IAudioEngine&amp; engine, int index)</span></span>
 <span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          20 :         : engine_(engine), index_(index) {</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          15 :         auto&amp; fx = engine_.effects();</span></span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">          19 :         if (index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt;(fx.size())) {</span></span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           9 :             effect_ = fx[index];</span></span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           3 :         }</span></span>
 <span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">          20 :     }</span></span>
-<span id="L86"><span class="lineNum">      86</span>              : </span>
+<span id="L86"><span class="lineNum">      86</span>              :  </span>
 <span id="L87"><span class="lineNum">      87</span>              :     /** @brief Remove the effect at the stored index. */</span>
 <span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">          18 :     bool execute() override {</span></span>
 <span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC">          18 :         engine_.remove_effect(index_);</span></span>
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">          18 :         return true;</span></span>
 <span id="L91"><span class="lineNum">      91</span>              :     }</span>
-<span id="L92"><span class="lineNum">      92</span>              : </span>
+<span id="L92"><span class="lineNum">      92</span>              :  </span>
 <span id="L93"><span class="lineNum">      93</span>              :     /** @brief Re-insert the captured effect at its original chain position. */</span>
 <span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">          12 :     void undo() override {</span></span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">          12 :         if (effect_) {</span></span>
@@ -164,18 +164,18 @@
 <span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">           1 :             }</span></span>
 <span id="L103"><span class="lineNum">     103</span> <span class="tlaGNC">           2 :         }</span></span>
 <span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">          12 :     }</span></span>
-<span id="L105"><span class="lineNum">     105</span>              : </span>
+<span id="L105"><span class="lineNum">     105</span>              :  </span>
 <span id="L106"><span class="lineNum">     106</span>              :     /** @brief Return &quot;Remove Effect&quot;. */</span>
 <span id="L107"><span class="lineNum">     107</span> <span class="tlaUNC tlaBgUNC">           0 :     const char* description() const override { return &quot;Remove Effect&quot;; }</span></span>
-<span id="L108"><span class="lineNum">     108</span>              : </span>
+<span id="L108"><span class="lineNum">     108</span>              :  </span>
 <span id="L109"><span class="lineNum">     109</span>              :     /** @brief Original chain index of the removed effect. */</span>
 <span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC tlaBgGNC">           6 :     int index() const { return index_; }</span></span>
-<span id="L111"><span class="lineNum">     111</span>              : </span>
+<span id="L111"><span class="lineNum">     111</span>              :  </span>
 <span id="L112"><span class="lineNum">     112</span>              :     /** @brief Accessor for the captured effect pointer. */</span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           6 :     std::shared_ptr&lt;Effect&gt; effect() const { return effect_; }</span></span>
-<span id="L114"><span class="lineNum">     114</span>              : </span>
+<span id="L114"><span class="lineNum">     114</span>              :  </span>
 <span id="L115"><span class="lineNum">     115</span>              : private:</span>
-<span id="L116"><span class="lineNum">     116</span>              :     AudioEngine&amp; engine_;</span>
+<span id="L116"><span class="lineNum">     116</span>              :     IAudioEngine&amp; engine_;</span>
 <span id="L117"><span class="lineNum">     117</span>              :     int index_;</span>
 <span id="L118"><span class="lineNum">     118</span>              :     std::shared_ptr&lt;Effect&gt; effect_;</span>
 <span id="L119"><span class="lineNum">     119</span>              : };</span>
