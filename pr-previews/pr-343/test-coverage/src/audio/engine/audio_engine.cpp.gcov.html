@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-04 16:44:36</td>
+            <td class="headerValue">2026-06-04 16:50:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">84.2&nbsp;%</td>
@@ -426,14 +426,14 @@
 <span id="L364"><span class="lineNum">     364</span>              :         </span>
 <span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC">          21 :         bool ok = backend_-&gt;set_input_device(device_index);</span></span>
 <span id="L366"><span class="lineNum">     366</span> <span class="tlaGNC">          21 :         if (!ok) {</span></span>
-<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           7 :             if (was_running) {</span></span>
+<span id="L367"><span class="lineNum">     367</span> <span class="tlaGNC">           6 :             if (was_running) {</span></span>
 <span id="L368"><span class="lineNum">     368</span> <span class="tlaUNC tlaBgUNC">           0 :                 start();</span></span>
 <span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC">           0 :             }</span></span>
-<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC tlaBgGNC">           7 :             return false;</span></span>
+<span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC tlaBgGNC">           6 :             return false;</span></span>
 <span id="L371"><span class="lineNum">     371</span>              :         }</span>
 <span id="L372"><span class="lineNum">     372</span>              :         </span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">          14 :         input_device_ = device_index;</span></span>
-<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">          14 :         if (was_running) {</span></span>
+<span id="L373"><span class="lineNum">     373</span> <span class="tlaGNC">          15 :         input_device_ = device_index;</span></span>
+<span id="L374"><span class="lineNum">     374</span> <span class="tlaGNC">          15 :         if (was_running) {</span></span>
 <span id="L375"><span class="lineNum">     375</span> <span class="tlaGNC">          10 :             if (!start()) {</span></span>
 <span id="L376"><span class="lineNum">     376</span> <span class="tlaGNC">           3 :                 last_error_ = &quot;Failed to start with new input device. Reverting.&quot;;</span></span>
 <span id="L377"><span class="lineNum">     377</span> <span class="tlaGNC">           4 :                 std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
@@ -449,7 +449,7 @@
 <span id="L387"><span class="lineNum">     387</span>              :             }</span>
 <span id="L388"><span class="lineNum">     388</span> <span class="tlaGNC">           7 :             last_error_.clear();</span></span>
 <span id="L389"><span class="lineNum">     389</span> <span class="tlaGNC">           3 :         }</span></span>
-<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">           7 :         return true;</span></span>
+<span id="L390"><span class="lineNum">     390</span> <span class="tlaGNC">           8 :         return true;</span></span>
 <span id="L391"><span class="lineNum">     391</span> <span class="tlaGNC">          10 :     }</span></span>
 <span id="L392"><span class="lineNum">     392</span>              : </span>
 <span id="L393"><span class="lineNum">     393</span> <span class="tlaGNC">          18 :     bool AudioEngine::set_output_device(int device_index)</span></span>
@@ -462,14 +462,14 @@
 <span id="L400"><span class="lineNum">     400</span>              :         </span>
 <span id="L401"><span class="lineNum">     401</span> <span class="tlaGNC">          18 :         bool ok = backend_-&gt;set_output_device(device_index);</span></span>
 <span id="L402"><span class="lineNum">     402</span> <span class="tlaGNC">          18 :         if (!ok) {</span></span>
-<span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">           6 :             if (was_running) {</span></span>
+<span id="L403"><span class="lineNum">     403</span> <span class="tlaGNC">           7 :             if (was_running) {</span></span>
 <span id="L404"><span class="lineNum">     404</span> <span class="tlaUNC tlaBgUNC">           0 :                 start();</span></span>
 <span id="L405"><span class="lineNum">     405</span> <span class="tlaUNC">           0 :             }</span></span>
-<span id="L406"><span class="lineNum">     406</span> <span class="tlaGNC tlaBgGNC">           6 :             return false;</span></span>
+<span id="L406"><span class="lineNum">     406</span> <span class="tlaGNC tlaBgGNC">           7 :             return false;</span></span>
 <span id="L407"><span class="lineNum">     407</span>              :         }</span>
 <span id="L408"><span class="lineNum">     408</span>              :         </span>
-<span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC">          12 :         output_device_ = device_index;</span></span>
-<span id="L410"><span class="lineNum">     410</span> <span class="tlaGNC">          12 :         if (was_running) {</span></span>
+<span id="L409"><span class="lineNum">     409</span> <span class="tlaGNC">          11 :         output_device_ = device_index;</span></span>
+<span id="L410"><span class="lineNum">     410</span> <span class="tlaGNC">          11 :         if (was_running) {</span></span>
 <span id="L411"><span class="lineNum">     411</span> <span class="tlaGNC">           7 :             if (!start()) {</span></span>
 <span id="L412"><span class="lineNum">     412</span> <span class="tlaGNC">           3 :                 last_error_ = &quot;Failed to start with new output device. Reverting.&quot;;</span></span>
 <span id="L413"><span class="lineNum">     413</span> <span class="tlaGNC">           4 :                 std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
@@ -485,7 +485,7 @@
 <span id="L423"><span class="lineNum">     423</span>              :             }</span>
 <span id="L424"><span class="lineNum">     424</span> <span class="tlaGNC">           4 :             last_error_.clear();</span></span>
 <span id="L425"><span class="lineNum">     425</span> <span class="tlaGNC">           2 :         }</span></span>
-<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">           6 :         return true;</span></span>
+<span id="L426"><span class="lineNum">     426</span> <span class="tlaGNC">           5 :         return true;</span></span>
 <span id="L427"><span class="lineNum">     427</span> <span class="tlaGNC">           9 :     }</span></span>
 <span id="L428"><span class="lineNum">     428</span>              : </span>
 <span id="L429"><span class="lineNum">     429</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>
