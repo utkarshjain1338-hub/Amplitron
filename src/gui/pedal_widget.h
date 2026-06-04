@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "audio/effect.h"
+#include "audio/tempo_math.h"
 #include <imgui.h>
 
 namespace Amplitron {
@@ -100,6 +101,7 @@ private:
      * @param new_val     Value after the change.
      */
     void commit_param_change(int param_index, float old_val, float new_val);
+    TapTempo pedal_tap_tempo_;
 };
 
 } // namespace Amplitron

@@ -36,6 +36,7 @@ nlohmann::json AudioEngine::serialize() {
     
     // Read atomic variables safely
     j["input_gain"] = input_gain_.load(std::memory_order_relaxed);
+    j["global_bpm"] = global_bpm_.load(std::memory_order_relaxed);
     
     auto effects_array = nlohmann::json::array();
     for (const auto& fx : dummy_effects_) {
@@ -55,6 +56,9 @@ void AudioEngine::deserialize(const nlohmann::json& j) {
     
     if (j.contains("input_gain")) {
         set_input_gain(j["input_gain"]);
+    }
+    if (j.contains("global_bpm")) {
+        set_global_bpm(j["global_bpm"]);
     }
     
     if (j.contains("effects")) {

@@ -28,6 +28,13 @@ void AudioEngine::toggle_metronome() {
 void AudioEngine::set_metronome_bpm(int bpm) {
     const int clamped = std::max(40, std::min(bpm, 240));
     metronome_bpm_state_.store(clamped, std::memory_order_relaxed);
+    global_bpm_.store(static_cast<float>(clamped), std::memory_order_relaxed);
+}
+
+void AudioEngine::set_global_bpm(float bpm) {
+    const float clamped = std::max(40.0f, std::min(bpm, 240.0f));
+    global_bpm_.store(clamped, std::memory_order_relaxed);
+    metronome_bpm_state_.store(static_cast<int>(std::round(clamped)), std::memory_order_relaxed);
 }
 
 void AudioEngine::set_metronome_volume(float volume) {

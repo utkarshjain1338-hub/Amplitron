@@ -168,6 +168,7 @@ set(APP_SOURCES
     src/audio/audio_engine_chain.cpp
     src/audio/audio_engine_process.cpp
     src/audio/audio_engine_api.cpp
+    src/audio/tempo_engine.cpp
     src/audio/recorder.cpp
     src/audio/recorder_session.cpp
     src/audio/recorder_io.cpp
@@ -516,6 +517,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/test_unsaved_preset.cpp
         tests/test_audio_graph.cpp
         tests/test_metronome.cpp
+        tests/test_tempo.cpp
         tests/test_gui_manager.cpp
         tests/test_clipboard_preset.cpp
     )
@@ -530,6 +532,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/audio_engine_chain.cpp
         src/audio/audio_engine_process.cpp
         src/audio/audio_engine_api.cpp
+        src/audio/tempo_engine.cpp
         src/audio/audio_backend_portaudio.cpp
         src/audio/audio_backend_portaudio_lifecycle.cpp
         src/audio/audio_backend_portaudio_devices.cpp

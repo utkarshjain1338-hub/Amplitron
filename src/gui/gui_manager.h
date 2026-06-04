@@ -11,6 +11,7 @@
 #include "gui/gui_snapshots.h"
 #include "gui/gui_midi.h"
 #include "midi/midi_manager.h"
+#include "audio/tempo_math.h"
 #include <thread>
 #include <mutex>
 #include <string>
@@ -93,6 +94,7 @@ private:
     bool has_new_release_ = false;
     std::string new_release_version_;
     std::string new_release_url_;
+    TapTempo master_tap_tempo_;
 };
 
 } // namespace Amplitron

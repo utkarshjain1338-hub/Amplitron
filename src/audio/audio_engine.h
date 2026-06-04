@@ -4,6 +4,7 @@
 #include "audio/effect.h"
 #include "audio/recorder.h"
 #include "audio/spsc_queue.h"
+#include "audio/tempo_engine.h"
 #include <chrono>
 
 #include "audio/audio_graph.h"
@@ -230,6 +231,16 @@ public:
     /** @brief Set the metronome BPM (atomic update). */
     void set_metronome_bpm(int bpm);
 
+    /** @brief Set the global BPM (atomic update). */
+    void set_global_bpm(float bpm);
+
+    /** @brief Return the current global BPM (atomic relaxed read). */
+    float get_global_bpm() const { return global_bpm_.load(std::memory_order_relaxed); }
+
+    /** @brief Access the built-in tempo engine. */
+    TempoEngine& tempo_engine() { return tempo_engine_; }
+    const TempoEngine& tempo_engine() const { return tempo_engine_; }
+
     /** @brief Set the metronome click volume (atomic update). */
     void set_metronome_volume(float volume);
 
@@ -321,6 +332,8 @@ private:
     std::atomic<bool> metronome_enabled_state_{false};
     std::atomic<int> metronome_bpm_state_{120};
     std::atomic<float> metronome_volume_state_{0.5f};
+    std::atomic<float> global_bpm_{120.0f};
+    TempoEngine tempo_engine_;
 
     std::atomic<float> input_level_{0.0f};
     std::atomic<float> output_level_{0.0f};
