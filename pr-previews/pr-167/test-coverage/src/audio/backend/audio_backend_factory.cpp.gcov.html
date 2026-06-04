@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">53.8&nbsp;%</td>
-            <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryLo">45.5&nbsp;%</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">5</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-04 18:07:11</td>
+            <td class="headerValue">2026-06-04 18:17:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -75,8 +75,8 @@
 <span id="L13"><span class="lineNum">      13</span>              : #else</span>
 <span id="L14"><span class="lineNum">      14</span>              : #include &quot;audio/backend/portaudio_backend.h&quot;</span>
 <span id="L15"><span class="lineNum">      15</span>              : #include &quot;audio/backend/sdl_backend.h&quot;</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">           2 : static Amplitron::BackendRegistrar&lt;Amplitron::PortAudioBackend&gt; g_portaudio_registrar(&quot;portaudio&quot;);</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 : static Amplitron::BackendRegistrar&lt;Amplitron::SdlBackend&gt; g_sdl_registrar(&quot;sdl&quot;);</span></span>
+<span id="L16"><span class="lineNum">      16</span>              : static Amplitron::BackendRegistrar&lt;Amplitron::PortAudioBackend&gt; g_portaudio_registrar(&quot;portaudio&quot;);</span>
+<span id="L17"><span class="lineNum">      17</span>              : static Amplitron::BackendRegistrar&lt;Amplitron::SdlBackend&gt; g_sdl_registrar(&quot;sdl&quot;);</span>
 <span id="L18"><span class="lineNum">      18</span>              : #ifdef WITH_JACK</span>
 <span id="L19"><span class="lineNum">      19</span>              : #include &quot;audio/backend/jack_backend.h&quot;</span>
 <span id="L20"><span class="lineNum">      20</span>              : static Amplitron::BackendRegistrar&lt;Amplitron::JackBackend&gt; g_jack_registrar(&quot;jack&quot;);</span>
@@ -85,10 +85,10 @@
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              : namespace Amplitron {</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         814 : std::unique_ptr&lt;IAudioBackend&gt; AudioBackendFactory::create_backend(const std::string&amp; type) {</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         814 :     auto backend = AudioBackendRegistry::instance().create(type);</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         814 :     if (backend) {</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         814 :         return backend;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC tlaBgGNC">         538 : std::unique_ptr&lt;IAudioBackend&gt; AudioBackendFactory::create_backend(const std::string&amp; type) {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         538 :     auto backend = AudioBackendRegistry::instance().create(type);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         538 :     if (backend) {</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         538 :         return backend;</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :     }</span>
 <span id="L31"><span class="lineNum">      31</span>              :     </span>
 <span id="L32"><span class="lineNum">      32</span>              :     // Fallback: if not found, use first available</span>
@@ -97,7 +97,7 @@
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :         return AudioBackendRegistry::instance().create(list[0]);</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :     }</span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :     return nullptr;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">         814 : }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">         538 : }</span></span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaUNC tlaBgUNC">           0 : std::vector&lt;std::string&gt; AudioBackendFactory::get_available_backends() {</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :     return AudioBackendRegistry::instance().available();</span></span>

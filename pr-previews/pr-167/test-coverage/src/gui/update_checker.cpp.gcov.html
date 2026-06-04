@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">25.5&nbsp;%</td>
-            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntryLo">27.3&nbsp;%</td>
+            <td class="headerCovTableEntry">44</td>
             <td class="headerCovTableEntry">12</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-04 18:07:11</td>
+            <td class="headerValue">2026-06-04 18:17:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">44.4&nbsp;%</td>
@@ -69,29 +69,29 @@
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : namespace Amplitron {</span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          20 : UpdateChecker::UpdateChecker() = default;</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">          10 : UpdateChecker::UpdateChecker() = default;</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          20 : UpdateChecker::~UpdateChecker() {</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          15 :     shutdown();</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          20 : }</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">          10 : UpdateChecker::~UpdateChecker() {</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          10 :     shutdown();</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          10 : }</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaUNC tlaBgUNC">           0 : void UpdateChecker::start_check() {</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :     if (!check_thread_.joinable()) {</span></span>
 <span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :         check_thread_ = std::thread([this]() { this-&gt;check_for_updates(); });</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L19"><span class="lineNum">      19</span>              :     }</span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaUNC">           0 : }</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">          15 : void UpdateChecker::shutdown() {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          15 :     shutdown_requested_ = true;</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          15 :     if (check_thread_.joinable()) {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC tlaBgGNC">          10 : void UpdateChecker::shutdown() {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          10 :     shutdown_requested_ = true;</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          10 :     if (check_thread_.joinable()) {</span></span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC tlaBgUNC">           0 :         check_thread_.join();</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC tlaBgGNC">          15 : }</span></span>
+<span id="L26"><span class="lineNum">      26</span>              :     }</span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC tlaBgGNC">          10 : }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           6 : bool UpdateChecker::has_new_release() const {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           6 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           6 :     return has_new_release_;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 : }</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           4 : bool UpdateChecker::has_new_release() const {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           4 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           4 :     return has_new_release_;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           4 : }</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC tlaBgUNC">           0 : std::string UpdateChecker::new_release_version() const {</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :     std::lock_guard&lt;std::mutex&gt; lock(mutex_);</span></span>
@@ -127,7 +127,7 @@
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaUNC">           0 :             has_new_release_ = true;</span></span>
 <span id="L66"><span class="lineNum">      66</span> <span class="tlaUNC">           0 :             new_release_version_ = result;</span></span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaUNC">           0 :             new_release_url_ = &quot;https://github.com/amplitron-dsp/Amplitron/releases/tag/&quot; + result;</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L68"><span class="lineNum">      68</span>              :         }</span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : #endif</span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaUNC">           0 : }</span></span>

@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">5.7&nbsp;%</td>
-            <td class="headerCovTableEntry">209</td>
+            <td class="headerCovTableEntryLo">6.3&nbsp;%</td>
+            <td class="headerCovTableEntry">191</td>
             <td class="headerCovTableEntry">12</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-04 18:07:11</td>
+            <td class="headerValue">2026-06-04 18:17:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">57.1&nbsp;%</td>
@@ -296,29 +296,29 @@
 <span id="L234"><span class="lineNum">     234</span>              : </span>
 <span id="L235"><span class="lineNum">     235</span>              : #endif</span>
 <span id="L236"><span class="lineNum">     236</span>              : </span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC tlaBgGNC">           6 : void signal_handler(int /*signal*/) {</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           5 :     g_running = false;</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           4 : }</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC tlaBgGNC">           4 : void signal_handler(int /*signal*/) {</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">           3 :     g_running = false;</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">           2 : }</span></span>
 <span id="L240"><span class="lineNum">     240</span>              : </span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           9 : int main(int argc, char* argv[]) {</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           6 : int main(int argc, char* argv[]) {</span></span>
 <span id="L242"><span class="lineNum">     242</span>              :     //breaks global iostream lock</span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           9 :     std::cin.tie(nullptr);</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           6 :     std::cin.tie(nullptr);</span></span>
 <span id="L244"><span class="lineNum">     244</span>              :     //CLI argument parsing</span>
-<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           9 :     Amplitron::CliOptions cli_opts = Amplitron::handle_cli_args(argc, argv);</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           6 :     Amplitron::CliOptions cli_opts = Amplitron::handle_cli_args(argc, argv);</span></span>
 <span id="L246"><span class="lineNum">     246</span>              : </span>
 <span id="L247"><span class="lineNum">     247</span>              :     #ifdef AMPLITRON_HEADLESS</span>
-<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">           6 :     cli_opts.is_headless = true;</span></span>
+<span id="L248"><span class="lineNum">     248</span> <span class="tlaGNC">           4 :     cli_opts.is_headless = true;</span></span>
 <span id="L249"><span class="lineNum">     249</span>              :     </span>
 <span id="L250"><span class="lineNum">     250</span>              :     // If the parser didn't already trigger an exit (like --help) validate the preset</span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           6 :     if (!cli_opts.exit_early &amp;&amp; cli_opts.preset_path.empty()) {</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">           4 :     if (!cli_opts.exit_early &amp;&amp; cli_opts.preset_path.empty()) {</span></span>
 <span id="L252"><span class="lineNum">     252</span> <span class="tlaUNC tlaBgUNC">           0 :         std::cerr &lt;&lt; &quot;Error: Strict headless build requires a --preset &lt;path&gt; argument.&quot; &lt;&lt; std::endl;</span></span>
 <span id="L253"><span class="lineNum">     253</span> <span class="tlaUNC">           0 :         return 1; // Return non-zero failure code</span></span>
 <span id="L254"><span class="lineNum">     254</span>              :     }</span>
 <span id="L255"><span class="lineNum">     255</span>              :     #endif</span>
 <span id="L256"><span class="lineNum">     256</span>              : </span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC tlaBgGNC">           9 :     if(cli_opts.exit_early){</span></span>
-<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">          12 :         std::cout &lt;&lt; &quot;[CLI]Application exited early :&quot; &lt;&lt; cli_opts.exit_reason &lt;&lt; std::endl;</span></span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">           9 :         return cli_opts.exit_code;</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC tlaBgGNC">           6 :     if(cli_opts.exit_early){</span></span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaGNC">           9 :         std::cout &lt;&lt; &quot;[CLI]Application exited early :&quot; &lt;&lt; cli_opts.exit_reason &lt;&lt; std::endl;</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">           6 :         return cli_opts.exit_code;</span></span>
 <span id="L260"><span class="lineNum">     260</span>              :     }</span>
 <span id="L261"><span class="lineNum">     261</span>              : </span>
 <span id="L262"><span class="lineNum">     262</span> <span class="tlaUNC tlaBgUNC">           0 :     std::signal(SIGINT, signal_handler);</span></span>
@@ -361,15 +361,15 @@
 <span id="L299"><span class="lineNum">     299</span> <span class="tlaUNC">           0 :             for(size_t i = 0; i &lt; devices.size(); ++i){</span></span>
 <span id="L300"><span class="lineNum">     300</span> <span class="tlaUNC">           0 :                 if (devices[i].name.find(cli_opts.input_device) != std::string::npos){</span></span>
 <span id="L301"><span class="lineNum">     301</span> <span class="tlaUNC">           0 :                     match_indices.push_back(i);</span></span>
-<span id="L302"><span class="lineNum">     302</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L303"><span class="lineNum">     303</span> <span class="tlaUNC">           0 :             }</span></span>
+<span id="L302"><span class="lineNum">     302</span>              :                 }</span>
+<span id="L303"><span class="lineNum">     303</span>              :             }</span>
 <span id="L304"><span class="lineNum">     304</span>              :             </span>
 <span id="L305"><span class="lineNum">     305</span> <span class="tlaUNC">           0 :             if(match_indices.empty()){</span></span>
 <span id="L306"><span class="lineNum">     306</span> <span class="tlaUNC">           0 :                 std::cerr &lt;&lt; &quot;Warning: Could not find requested input device: '&quot; &lt;&lt; cli_opts.input_device &lt;&lt; &quot;'&quot; &lt;&lt; std::endl;</span></span>
 <span id="L307"><span class="lineNum">     307</span> <span class="tlaUNC">           0 :             } else if (match_indices.size() == 1){</span></span>
 <span id="L308"><span class="lineNum">     308</span> <span class="tlaUNC">           0 :                 engine.set_input_device(devices[match_indices[0]].index);</span></span>
 <span id="L309"><span class="lineNum">     309</span> <span class="tlaUNC">           0 :                 std::cout &lt;&lt; &quot;Input routed to: &quot; &lt;&lt; devices[match_indices[0]].name &lt;&lt; std::endl;</span></span>
-<span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 :             } else {</span></span>
+<span id="L310"><span class="lineNum">     310</span>              :             } else {</span>
 <span id="L311"><span class="lineNum">     311</span> <span class="tlaUNC">           0 :                 std::cerr &lt;&lt; &quot;Warning: Ambiguous input name '&quot; &lt;&lt; cli_opts.input_device &lt;&lt; &quot;'. Multiple matches found:&quot; &lt;&lt; std::endl;</span></span>
 <span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC">           0 :                 for(int idx : match_indices){</span></span>
 <span id="L313"><span class="lineNum">     313</span> <span class="tlaUNC">           0 :                     std::cerr &lt;&lt; &quot; -- &quot; &lt;&lt; devices[idx].name &lt;&lt; std::endl;</span></span>
@@ -386,15 +386,15 @@
 <span id="L324"><span class="lineNum">     324</span> <span class="tlaUNC">           0 :             for(size_t i = 0;i &lt;devices.size(); ++i){</span></span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaUNC">           0 :                 if(devices[i].name.find(cli_opts.output_device) != std::string::npos) {</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaUNC">           0 :                     match_indices.push_back(i);</span></span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L328"><span class="lineNum">     328</span> <span class="tlaUNC">           0 :             }</span></span>
+<span id="L327"><span class="lineNum">     327</span>              :                 }</span>
+<span id="L328"><span class="lineNum">     328</span>              :             }</span>
 <span id="L329"><span class="lineNum">     329</span>              : </span>
 <span id="L330"><span class="lineNum">     330</span> <span class="tlaUNC">           0 :             if(match_indices.empty()){</span></span>
 <span id="L331"><span class="lineNum">     331</span> <span class="tlaUNC">           0 :                 std::cerr &lt;&lt; &quot;Warning: Could not find requested output device: '&quot; &lt;&lt; cli_opts.output_device &lt;&lt; &quot;'&quot; &lt;&lt; std::endl;</span></span>
 <span id="L332"><span class="lineNum">     332</span> <span class="tlaUNC">           0 :             } else if(match_indices.size() == 1){</span></span>
 <span id="L333"><span class="lineNum">     333</span> <span class="tlaUNC">           0 :                 engine.set_output_device(devices[match_indices[0]].index);</span></span>
 <span id="L334"><span class="lineNum">     334</span> <span class="tlaUNC">           0 :                 std::cout&lt;&lt; &quot;Output routed to: &quot; &lt;&lt; devices[match_indices[0]].name &lt;&lt; std::endl;</span></span>
-<span id="L335"><span class="lineNum">     335</span> <span class="tlaUNC">           0 :             } else{</span></span>
+<span id="L335"><span class="lineNum">     335</span>              :             } else{</span>
 <span id="L336"><span class="lineNum">     336</span> <span class="tlaUNC">           0 :                 std::cerr &lt;&lt; &quot;Warning: Ambiguous output name '&quot; &lt;&lt; cli_opts.output_device &lt;&lt; &quot;'. Multiple matches found:&quot; &lt;&lt;std::endl;</span></span>
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaUNC">           0 :                 for(int idx : match_indices){</span></span>
 <span id="L338"><span class="lineNum">     338</span> <span class="tlaUNC">           0 :                     std::cerr &lt;&lt; &quot; -- &quot; &lt;&lt; devices[idx].name &lt;&lt; std::endl;</span></span>
@@ -404,7 +404,7 @@
 <span id="L342"><span class="lineNum">     342</span>              :             }</span>
 <span id="L343"><span class="lineNum">     343</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L344"><span class="lineNum">     344</span>              : </span>
-<span id="L345"><span class="lineNum">     345</span> <span class="tlaUNC">           0 :     } </span></span>
+<span id="L345"><span class="lineNum">     345</span>              :     } </span>
 <span id="L346"><span class="lineNum">     346</span>              :     #ifndef AMPLITRON_HEADLESS</span>
 <span id="L347"><span class="lineNum">     347</span>              :     else {</span>
 <span id="L348"><span class="lineNum">     348</span>              :     // GUI bootup</span>
@@ -429,14 +429,14 @@
 <span id="L367"><span class="lineNum">     367</span> <span class="tlaUNC">           0 :                     std::cerr &lt;&lt; &quot;Autosave file corrupted. Discarding.&quot; &lt;&lt; std::endl;</span></span>
 <span id="L368"><span class="lineNum">     368</span> <span class="tlaUNC">           0 :                     sessionManager.clearSession();</span></span>
 <span id="L369"><span class="lineNum">     369</span> <span class="tlaUNC">           0 :                 }</span></span>
-<span id="L370"><span class="lineNum">     370</span> <span class="tlaUNC">           0 :             } else {</span></span>
+<span id="L370"><span class="lineNum">     370</span>              :             } else {</span>
 <span id="L371"><span class="lineNum">     371</span> <span class="tlaUNC">           0 :                 sessionManager.clearSession();</span></span>
 <span id="L372"><span class="lineNum">     372</span>              :             }</span>
-<span id="L373"><span class="lineNum">     373</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L373"><span class="lineNum">     373</span>              :         }</span>
 <span id="L374"><span class="lineNum">     374</span>              : </span>
 <span id="L375"><span class="lineNum">     375</span> <span class="tlaUNC">           0 :         if (std::filesystem::exists(&quot;presets&quot;)) {</span></span>
 <span id="L376"><span class="lineNum">     376</span> <span class="tlaUNC">           0 :             Amplitron::PresetManager::set_presets_dir(&quot;presets&quot;);</span></span>
-<span id="L377"><span class="lineNum">     377</span> <span class="tlaUNC">           0 :         }</span></span>
+<span id="L377"><span class="lineNum">     377</span>              :         }</span>
 <span id="L378"><span class="lineNum">     378</span>              : </span>
 <span id="L379"><span class="lineNum">     379</span> <span class="tlaUNC">           0 :         if (!gui-&gt;initialize(1280, 720)) {</span></span>
 <span id="L380"><span class="lineNum">     380</span> <span class="tlaUNC">           0 :             std::cerr &lt;&lt; &quot;Failed to initialize GUI!&quot; &lt;&lt; std::endl;</span></span>
@@ -449,7 +449,7 @@
 <span id="L387"><span class="lineNum">     387</span>              :     </span>
 <span id="L388"><span class="lineNum">     388</span> <span class="tlaUNC">           0 :     if (!engine.start()) {</span></span>
 <span id="L389"><span class="lineNum">     389</span> <span class="tlaUNC">           0 :         std::cerr &lt;&lt; &quot;Warning: Could not start audio stream.&quot; &lt;&lt; std::endl;</span></span>
-<span id="L390"><span class="lineNum">     390</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L390"><span class="lineNum">     390</span>              :     }</span>
 <span id="L391"><span class="lineNum">     391</span>              : </span>
 <span id="L392"><span class="lineNum">     392</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Amplitron is ready. Let's play!&quot; &lt;&lt; std::endl;</span></span>
 <span id="L393"><span class="lineNum">     393</span>              : #ifdef __EMSCRIPTEN__</span>
@@ -516,7 +516,7 @@
 <span id="L454"><span class="lineNum">     454</span> <span class="tlaUNC">           0 :                 } else if (line == &quot;telemetry off&quot;){</span></span>
 <span id="L455"><span class="lineNum">     455</span> <span class="tlaUNC">           0 :                     show_telemetry.store(false, std::memory_order_relaxed);</span></span>
 <span id="L456"><span class="lineNum">     456</span> <span class="tlaUNC">           0 :                     std::cout &lt;&lt; &quot;&gt;&gt; Telemetry muted. Type 'telemetry on' to resume.&quot; &lt;&lt; std::endl;</span></span>
-<span id="L457"><span class="lineNum">     457</span> <span class="tlaUNC">           0 :                 }</span></span>
+<span id="L457"><span class="lineNum">     457</span>              :                 }</span>
 <span id="L458"><span class="lineNum">     458</span> <span class="tlaUNC">           0 :                   else if (line == &quot;telemetry on&quot;){</span></span>
 <span id="L459"><span class="lineNum">     459</span> <span class="tlaUNC">           0 :                     show_telemetry.store(true, std::memory_order_relaxed);</span></span>
 <span id="L460"><span class="lineNum">     460</span> <span class="tlaUNC">           0 :                     std::cout &lt;&lt; &quot;&gt;&gt; Telemetry resumed.&quot; &lt;&lt; std::endl;</span></span>
@@ -532,13 +532,13 @@
 <span id="L470"><span class="lineNum">     470</span> <span class="tlaUNC">           0 :                                          node.pedal-&gt;get_display_name() + </span></span>
 <span id="L471"><span class="lineNum">     471</span> <span class="tlaUNC">           0 :                                          (node.pedal-&gt;is_enabled() ? &quot; (ON)\n&quot; : &quot; (BYPASSED)\n&quot;);</span></span>
 <span id="L472"><span class="lineNum">     472</span> <span class="tlaUNC">           0 :                             print_index++;</span></span>
-<span id="L473"><span class="lineNum">     473</span> <span class="tlaUNC">           0 :                         }</span></span>
+<span id="L473"><span class="lineNum">     473</span>              :                         }</span>
 <span id="L474"><span class="lineNum">     474</span>              :                     }</span>
 <span id="L475"><span class="lineNum">     475</span>              :                     </span>
 <span id="L476"><span class="lineNum">     476</span>              :                     // If no actual pedals were found in the graph</span>
 <span id="L477"><span class="lineNum">     477</span> <span class="tlaUNC">           0 :                     if (print_index == 0) {</span></span>
 <span id="L478"><span class="lineNum">     478</span> <span class="tlaUNC">           0 :                         chain_str += &quot;(Chain is empty)\n&quot;;</span></span>
-<span id="L479"><span class="lineNum">     479</span> <span class="tlaUNC">           0 :                     }</span></span>
+<span id="L479"><span class="lineNum">     479</span>              :                     }</span>
 <span id="L480"><span class="lineNum">     480</span>              : </span>
 <span id="L481"><span class="lineNum">     481</span> <span class="tlaUNC">           0 :                     chain_str += &quot;===========================&quot;;</span></span>
 <span id="L482"><span class="lineNum">     482</span> <span class="tlaUNC">           0 :                     std::cout &lt;&lt; chain_str &lt;&lt; std::endl;</span></span>
@@ -563,7 +563,7 @@
 <span id="L501"><span class="lineNum">     501</span> <span class="tlaUNC">           0 :                     std::cout &lt;&lt; dashboard &lt;&lt; std::flush;</span></span>
 <span id="L502"><span class="lineNum">     502</span> <span class="tlaUNC">           0 :                 }</span></span>
 <span id="L503"><span class="lineNum">     503</span> <span class="tlaUNC">           0 :                 loop_counter = 0;//reset timer</span></span>
-<span id="L504"><span class="lineNum">     504</span> <span class="tlaUNC">           0 :             }</span></span>
+<span id="L504"><span class="lineNum">     504</span>              :             }</span>
 <span id="L505"><span class="lineNum">     505</span> <span class="tlaUNC">           0 :         }</span></span>
 <span id="L506"><span class="lineNum">     506</span> <span class="tlaUNC">           0 :     } </span></span>
 <span id="L507"><span class="lineNum">     507</span>              :     #ifndef AMPLITRON_HEADLESS</span>
@@ -572,7 +572,7 @@
 <span id="L510"><span class="lineNum">     510</span> <span class="tlaUNC">           0 :         while(g_running &amp;&amp; gui-&gt;run_frame()){</span></span>
 <span id="L511"><span class="lineNum">     511</span> <span class="tlaUNC">           0 :             if (sessionManager.shouldSave()){</span></span>
 <span id="L512"><span class="lineNum">     512</span> <span class="tlaUNC">           0 :                 sessionManager.saveSession(engine.serialize());</span></span>
-<span id="L513"><span class="lineNum">     513</span> <span class="tlaUNC">           0 :             }</span></span>
+<span id="L513"><span class="lineNum">     513</span>              :             }</span>
 <span id="L514"><span class="lineNum">     514</span>              :         }</span>
 <span id="L515"><span class="lineNum">     515</span>              :     }</span>
 <span id="L516"><span class="lineNum">     516</span>              :     #endif</span>
@@ -588,17 +588,17 @@
 <span id="L526"><span class="lineNum">     526</span>              : #ifndef AMPLITRON_HEADLESS</span>
 <span id="L527"><span class="lineNum">     527</span> <span class="tlaUNC">           0 :     if(!cli_opts.is_headless){ </span></span>
 <span id="L528"><span class="lineNum">     528</span> <span class="tlaUNC">           0 :         gui-&gt;shutdown();</span></span>
-<span id="L529"><span class="lineNum">     529</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L529"><span class="lineNum">     529</span>              :     }</span>
 <span id="L530"><span class="lineNum">     530</span>              : #endif</span>
 <span id="L531"><span class="lineNum">     531</span>              : </span>
 <span id="L532"><span class="lineNum">     532</span> <span class="tlaUNC">           0 :     if(!cli_opts.is_headless) {</span></span>
 <span id="L533"><span class="lineNum">     533</span> <span class="tlaUNC">           0 :         sessionManager.clearSession(); </span></span>
-<span id="L534"><span class="lineNum">     534</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L534"><span class="lineNum">     534</span>              :     }</span>
 <span id="L535"><span class="lineNum">     535</span> <span class="tlaUNC">           0 :     engine.shutdown();</span></span>
 <span id="L536"><span class="lineNum">     536</span> <span class="tlaUNC">           0 :     std::cout &lt;&lt; &quot;Goodbye!&quot; &lt;&lt; std::endl;</span></span>
 <span id="L537"><span class="lineNum">     537</span>              : </span>
 <span id="L538"><span class="lineNum">     538</span> <span class="tlaUNC">           0 :     return 0;</span></span>
-<span id="L539"><span class="lineNum">     539</span> <span class="tlaGNC tlaBgGNC">           9 : }</span></span>
+<span id="L539"><span class="lineNum">     539</span> <span class="tlaGNC tlaBgGNC">           6 : }</span></span>
         </pre>
               </td>
             </tr>

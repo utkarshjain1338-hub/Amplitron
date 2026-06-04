@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">15</td>
-            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-04 18:07:11</td>
+            <td class="headerValue">2026-06-04 18:17:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -80,38 +80,38 @@
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span>              : constexpr int CURRENT_PRESET_VERSION = 2;</span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">         247 : struct PresetData {</span></span>
+<span id="L21"><span class="lineNum">      21</span>              : struct PresetData {</span>
 <span id="L22"><span class="lineNum">      22</span>              :     std::string name;</span>
 <span id="L23"><span class="lineNum">      23</span>              :     std::string description;</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         247 :     float input_gain = 0.7f;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         247 :     float output_gain = 0.8f;</span></span>
+<span id="L24"><span class="lineNum">      24</span>              :     float input_gain = 0.7f;</span>
+<span id="L25"><span class="lineNum">      25</span>              :     float output_gain = 0.8f;</span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         490 :     struct EffectData {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC tlaBgGNC">         236 :     struct EffectData {</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         std::string type;</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         236 :         bool enabled = false;</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         236 :         float mix = 1.0f;</span></span>
+<span id="L29"><span class="lineNum">      29</span>              :         bool enabled = false;</span>
+<span id="L30"><span class="lineNum">      30</span>              :         float mix = 1.0f;</span>
 <span id="L31"><span class="lineNum">      31</span>              :         std::vector&lt;std::pair&lt;std::string, float&gt;&gt; params;</span>
 <span id="L32"><span class="lineNum">      32</span>              :         std::map&lt;std::string, std::string&gt; metadata;</span>
 <span id="L33"><span class="lineNum">      33</span>              :     };</span>
 <span id="L34"><span class="lineNum">      34</span>              :     std::vector&lt;EffectData&gt; effects;</span>
 <span id="L35"><span class="lineNum">      35</span>              :     std::vector&lt;MidiMapping&gt; midi_mappings;</span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         247 :     std::string routing = &quot;linear&quot;;</span></span>
+<span id="L37"><span class="lineNum">      37</span>              :     std::string routing = &quot;linear&quot;;</span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         134 :     struct NodeData {</span></span>
+<span id="L39"><span class="lineNum">      39</span>              :     struct NodeData {</span>
 <span id="L40"><span class="lineNum">      40</span>              :         std::string id;</span>
 <span id="L41"><span class="lineNum">      41</span>              :         std::string type;</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">          98 :         float x = 0.0f;</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          98 :         float y = 0.0f;</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          98 :         bool enabled = true;</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">          98 :         float mix = 1.0f;</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">          98 :         int num_inputs = 0;</span></span>
+<span id="L42"><span class="lineNum">      42</span>              :         float x = 0.0f;</span>
+<span id="L43"><span class="lineNum">      43</span>              :         float y = 0.0f;</span>
+<span id="L44"><span class="lineNum">      44</span>              :         bool enabled = true;</span>
+<span id="L45"><span class="lineNum">      45</span>              :         float mix = 1.0f;</span>
+<span id="L46"><span class="lineNum">      46</span>              :         int num_inputs = 0;</span>
 <span id="L47"><span class="lineNum">      47</span>              :         std::vector&lt;std::pair&lt;std::string, float&gt;&gt; params;</span>
 <span id="L48"><span class="lineNum">      48</span>              :         std::map&lt;std::string, std::string&gt; metadata;</span>
 <span id="L49"><span class="lineNum">      49</span>              :     };</span>
 <span id="L50"><span class="lineNum">      50</span>              :     std::vector&lt;NodeData&gt; nodes;</span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         139 :     struct LinkData {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         138 :     struct LinkData {</span></span>
 <span id="L53"><span class="lineNum">      53</span>              :         std::string src_pin;</span>
 <span id="L54"><span class="lineNum">      54</span>              :         std::string dst_pin;</span>
 <span id="L55"><span class="lineNum">      55</span>              :     };</span>
@@ -173,7 +173,7 @@
 <span id="L111"><span class="lineNum">     111</span>              :     // Directory helpers / global config</span>
 <span id="L112"><span class="lineNum">     112</span>              :     static std::string get_presets_dir();</span>
 <span id="L113"><span class="lineNum">     113</span>              :     static void set_presets_dir(const std::string&amp; dir);</span>
-<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          24 :     static const std::string&amp; custom_presets_dir() { return custom_presets_dir_; }</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          16 :     static const std::string&amp; custom_presets_dir() { return custom_presets_dir_; }</span></span>
 <span id="L115"><span class="lineNum">     115</span>              : </span>
 <span id="L116"><span class="lineNum">     116</span>              :     static void save_config();</span>
 <span id="L117"><span class="lineNum">     117</span>              :     static void load_config();</span>
