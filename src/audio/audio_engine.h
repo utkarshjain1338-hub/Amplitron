@@ -1,16 +1,17 @@
-#include "test_framework.h"
-#include "gui/gui_manager.h"
-#include "gui/command_history.h"
-#include "gui/command.h"
-#include "audio/effects/overdrive.h"
-#include "audio/effects/delay.h"
-#include "audio/effects/reverb.h"
-#include "audio/effects/equalizer.h"
-#include "audio/effects/noise_gate.h"
-#include "audio/audio_engine.h"
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
+
+#include "audio/audio_engine.h"
+#include "audio/effects/delay.h"
+#include "audio/effects/equalizer.h"
+#include "audio/effects/noise_gate.h"
+#include "audio/effects/overdrive.h"
+#include "audio/effects/reverb.h"
+#include "gui/command.h"
+#include "gui/command_history.h"
+#include "gui/gui_manager.h"
+#include "test_framework.h"
 
 using namespace Amplitron;
 
@@ -40,9 +41,7 @@ TEST(gui_manager_constructs) {
 
 TEST(gui_manager_destructor_safe_without_init) {
     AudioEngine engine;
-    {
-        GuiManager manager(engine);
-    }
+    { GuiManager manager(engine); }
     ASSERT_TRUE(true);
 }
 
@@ -80,8 +79,7 @@ TEST(gui_manager_initialize_and_shutdown) {
     AudioEngine engine;
     GuiManager manager(engine);
     bool ok = manager.initialize(800, 600);
-    if (ok)
-        manager.shutdown();
+    if (ok) manager.shutdown();
     ASSERT_TRUE(true);
 }
 
@@ -207,8 +205,11 @@ static std::vector<int> parse_version(const std::string& v) {
     while (pos < s.size()) {
         size_t dot = s.find('.', pos);
         if (dot == std::string::npos) dot = s.size();
-        try { parts.push_back(std::stoi(s.substr(pos, dot - pos))); }
-        catch (...) { parts.push_back(0); }
+        try {
+            parts.push_back(std::stoi(s.substr(pos, dot - pos)));
+        } catch (...) {
+            parts.push_back(0);
+        }
         pos = dot + 1;
     }
     return parts;
@@ -217,15 +218,20 @@ static std::vector<int> parse_version(const std::string& v) {
 // Exact copy of the is_newer block from gui_manager_update.cpp
 static bool is_version_newer(const std::string& latest, const std::string& current) {
     if (latest.empty()) return false;
-    auto latest_parts  = parse_version(latest);
+    auto latest_parts = parse_version(latest);
     auto current_parts = parse_version(current);
     bool is_newer = false;
     size_t max_len = std::max(latest_parts.size(), current_parts.size());
     for (size_t i = 0; i < max_len; ++i) {
-        int lv = (i < latest_parts.size())  ? latest_parts[i]  : 0;
+        int lv = (i < latest_parts.size()) ? latest_parts[i] : 0;
         int cv = (i < current_parts.size()) ? current_parts[i] : 0;
-        if (lv > cv) { is_newer = true; break; }
-        if (lv < cv) { break; }
+        if (lv > cv) {
+            is_newer = true;
+            break;
+        }
+        if (lv < cv) {
+            break;
+        }
     }
     return is_newer;
 }
@@ -277,30 +283,20 @@ TEST(version_parse_non_numeric_component_yields_zero) {
     ASSERT_EQ(p[2], 3);
 }
 
-TEST(version_is_newer_major_greater) {
-    ASSERT_TRUE(is_version_newer("v2.0.0", "v1.99.99"));
-}
+TEST(version_is_newer_major_greater) { ASSERT_TRUE(is_version_newer("v2.0.0", "v1.99.99")); }
 
-TEST(version_is_newer_minor_greater) {
-    ASSERT_TRUE(is_version_newer("v1.2.0", "v1.1.99"));
-}
+TEST(version_is_newer_minor_greater) { ASSERT_TRUE(is_version_newer("v1.2.0", "v1.1.99")); }
 
-TEST(version_is_newer_patch_greater) {
-    ASSERT_TRUE(is_version_newer("v1.1.2", "v1.1.1"));
-}
+TEST(version_is_newer_patch_greater) { ASSERT_TRUE(is_version_newer("v1.1.2", "v1.1.1")); }
 
-TEST(version_is_not_newer_when_equal) {
-    ASSERT_FALSE(is_version_newer("v1.2.3", "v1.2.3"));
-}
+TEST(version_is_not_newer_when_equal) { ASSERT_FALSE(is_version_newer("v1.2.3", "v1.2.3")); }
 
 TEST(version_is_not_newer_when_older) {
     ASSERT_FALSE(is_version_newer("v1.0.0", "v1.0.1"));
     ASSERT_FALSE(is_version_newer("v0.9.9", "v1.0.0"));
 }
 
-TEST(version_is_not_newer_when_empty) {
-    ASSERT_FALSE(is_version_newer("", "v1.0.0"));
-}
+TEST(version_is_not_newer_when_empty) { ASSERT_FALSE(is_version_newer("", "v1.0.0")); }
 
 TEST(version_newer_different_component_counts) {
     ASSERT_TRUE(is_version_newer("v1.0.1", "v1.0"));
@@ -338,7 +334,8 @@ static std::string extract_html_url(const std::string& response) {
 }
 
 TEST(update_extract_tag_name_found) {
-    std::string json = R"([{"tag_name": "v1.2.3","html_url": "https://example.com/releases/v1.2.3"}])";
+    std::string json =
+        R"([{"tag_name": "v1.2.3","html_url": "https://example.com/releases/v1.2.3"}])";
     ASSERT_EQ(extract_tag_name(json), std::string("v1.2.3"));
 }
 
@@ -347,7 +344,8 @@ TEST(update_extract_tag_name_not_found) {
 }
 
 TEST(update_extract_html_url_found) {
-    std::string json = R"([{"tag_name": "v1.0.0","html_url": "https://github.com/releases/v1.0.0"}])";
+    std::string json =
+        R"([{"tag_name": "v1.0.0","html_url": "https://github.com/releases/v1.0.0"}])";
     ASSERT_EQ(extract_html_url(json), std::string("https://github.com/releases/v1.0.0"));
 }
 
@@ -355,20 +353,17 @@ TEST(update_extract_html_url_not_found) {
     ASSERT_EQ(extract_html_url(R"([{"tag_name": "v1.0.0"}])"), std::string(""));
 }
 
-TEST(update_extract_tag_name_empty_response) {
-    ASSERT_EQ(extract_tag_name(""), std::string(""));
-}
+TEST(update_extract_tag_name_empty_response) { ASSERT_EQ(extract_tag_name(""), std::string("")); }
 
-TEST(update_extract_html_url_empty_response) {
-    ASSERT_EQ(extract_html_url(""), std::string(""));
-}
+TEST(update_extract_html_url_empty_response) { ASSERT_EQ(extract_html_url(""), std::string("")); }
 
 TEST(update_extract_tag_name_unterminated_value) {
     ASSERT_EQ(extract_tag_name(R"({"tag_name": "v1.0.0)"), std::string(""));
 }
 
 TEST(update_full_flow_newer_release_detected) {
-    std::string api_response = R"([{"tag_name": "v0.1.999","html_url": "https://github.com/example/releases/tag/v0.1.999"}])";
+    std::string api_response =
+        R"([{"tag_name": "v0.1.999","html_url": "https://github.com/example/releases/tag/v0.1.999"}])";
     std::string tag = extract_tag_name(api_response);
     std::string url = extract_html_url(api_response);
     ASSERT_EQ(tag, std::string("v0.1.999"));
@@ -377,11 +372,13 @@ TEST(update_full_flow_newer_release_detected) {
 }
 
 TEST(update_full_flow_same_version_not_flagged) {
-    std::string api_response = R"([{"tag_name": "v0.1.1","html_url": "https://github.com/example/releases/tag/v0.1.1"}])";
+    std::string api_response =
+        R"([{"tag_name": "v0.1.1","html_url": "https://github.com/example/releases/tag/v0.1.1"}])";
     ASSERT_FALSE(is_version_newer(extract_tag_name(api_response), "v0.1.1"));
 }
 
 TEST(update_full_flow_older_release_not_flagged) {
-    std::string api_response = R"([{"tag_name": "v0.1.0","html_url": "https://github.com/example/releases/tag/v0.1.0"}])";
+    std::string api_response =
+        R"([{"tag_name": "v0.1.0","html_url": "https://github.com/example/releases/tag/v0.1.0"}])";
     ASSERT_FALSE(is_version_newer(extract_tag_name(api_response), "v0.1.1"));
 }

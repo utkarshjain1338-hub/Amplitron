@@ -32,7 +32,7 @@ namespace Amplitron {
 
 #ifdef AMPLITRON_HEADLESS
 std::string show_open_dialog(const std::string&, const std::string&, const std::string&) {
-    return "";
+    return g_mock_open_dialog_result;
 }
 #else
 
