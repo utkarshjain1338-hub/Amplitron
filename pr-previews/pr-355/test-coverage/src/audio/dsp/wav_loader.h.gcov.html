@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-05 10:59:48</td>
+            <td class="headerValue">2026-06-05 12:37:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -76,15 +76,13 @@
 <span id="L14"><span class="lineNum">      14</span>              : // Load a WAV file, mix down to mono, optionally resample to target_sample_rate.</span>
 <span id="L15"><span class="lineNum">      15</span>              : // Returns empty WavData (samples.empty()) on failure.</span>
 <span id="L16"><span class="lineNum">      16</span>              : // Caps IR length at max_length_samples if &gt; 0.</span>
-<span id="L17"><span class="lineNum">      17</span>              : WavData load_wav_file(const std::string&amp; filepath,</span>
-<span id="L18"><span class="lineNum">      18</span>              :                       int target_sample_rate = 0,</span>
-<span id="L19"><span class="lineNum">      19</span>              :                       int max_length_samples = 0);</span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span>              : // Simple linear-interpolation resampler (mono only).</span>
-<span id="L22"><span class="lineNum">      22</span>              : std::vector&lt;float&gt; resample_linear(const std::vector&lt;float&gt;&amp; input,</span>
-<span id="L23"><span class="lineNum">      23</span>              :                                    int from_rate, int to_rate);</span>
-<span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span>              : } // namespace Amplitron</span>
+<span id="L17"><span class="lineNum">      17</span>              : WavData load_wav_file(const std::string&amp; filepath, int target_sample_rate = 0,</span>
+<span id="L18"><span class="lineNum">      18</span>              :                       int max_length_samples = 0);</span>
+<span id="L19"><span class="lineNum">      19</span>              : </span>
+<span id="L20"><span class="lineNum">      20</span>              : // Simple linear-interpolation resampler (mono only).</span>
+<span id="L21"><span class="lineNum">      21</span>              : std::vector&lt;float&gt; resample_linear(const std::vector&lt;float&gt;&amp; input, int from_rate, int to_rate);</span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-05 10:59:48</td>
+            <td class="headerValue">2026-06-05 12:37:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -66,7 +66,7 @@
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : /** @brief Execute cmd, attempt coalescing, push to undo stack, clear redo. */</span>
 <span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         183 : void CommandHistory::execute(std::unique_ptr&lt;Command&gt; cmd) {</span></span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         183 :     if (!cmd-&gt;execute()) return; // no-op — skip history recording</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         183 :     if (!cmd-&gt;execute()) return;  // no-op — skip history recording</span></span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              :     // Try coalescing with the top of the undo stack</span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         168 :     if (!undo_stack_.empty() &amp;&amp; undo_stack_.back()-&gt;merge_with(*cmd)) {</span></span>
@@ -142,7 +142,7 @@
 <span id="L80"><span class="lineNum">      80</span>              :     }</span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         207 : }</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
-<span id="L83"><span class="lineNum">      83</span>              : } // namespace Amplitron</span>
+<span id="L83"><span class="lineNum">      83</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

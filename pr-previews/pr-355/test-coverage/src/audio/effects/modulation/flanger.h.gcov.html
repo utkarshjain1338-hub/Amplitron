@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-05 10:59:48</td>
+            <td class="headerValue">2026-06-05 12:37:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -76,7 +76,7 @@
 <span id="L14"><span class="lineNum">      14</span>              :  * Feedback through the delay line creates the classic &quot;comb filter sweep&quot; sound.</span>
 <span id="L15"><span class="lineNum">      15</span>              :  */</span>
 <span id="L16"><span class="lineNum">      16</span>              : class Flanger : public Effect {</span>
-<span id="L17"><span class="lineNum">      17</span>              : public:</span>
+<span id="L17"><span class="lineNum">      17</span>              :    public:</span>
 <span id="L18"><span class="lineNum">      18</span>              :     Flanger();</span>
 <span id="L19"><span class="lineNum">      19</span>              :     void process(float* buffer, int num_samples) override;</span>
 <span id="L20"><span class="lineNum">      20</span>              :     void process_stereo(float* left, float* right, int num_samples) override;</span>
@@ -87,7 +87,7 @@
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         225 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC tlaBgUNC">           0 :     const std::vector&lt;EffectParam&gt;&amp; params() const override { return params_; }</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span>              : private:</span>
+<span id="L28"><span class="lineNum">      28</span>              :    private:</span>
 <span id="L29"><span class="lineNum">      29</span>              :     std::vector&lt;EffectParam&gt; params_;</span>
 <span id="L30"><span class="lineNum">      30</span>              :     std::vector&lt;float&gt; delay_buffer_;</span>
 <span id="L31"><span class="lineNum">      31</span>              :     int write_pos_ = 0;</span>
@@ -98,7 +98,7 @@
 <span id="L36"><span class="lineNum">      36</span>              :     int write_pos_r_ = 0;</span>
 <span id="L37"><span class="lineNum">      37</span>              : };</span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span>              : } // namespace Amplitron</span>
+<span id="L39"><span class="lineNum">      39</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

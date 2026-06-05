@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-05 10:59:48</td>
+            <td class="headerValue">2026-06-05 12:37:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -65,23 +65,23 @@
 <span id="L3"><span class="lineNum">       3</span>              : namespace Amplitron {</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC tlaBgGNC">         588 : class IProcessor {</span></span>
-<span id="L6"><span class="lineNum">       6</span>              : public:</span>
+<span id="L6"><span class="lineNum">       6</span>              :    public:</span>
 <span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">        1255 :     virtual ~IProcessor() = default;</span></span>
-<span id="L8"><span class="lineNum">       8</span>              :     </span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              :     // Process a mono buffer in place.</span>
 <span id="L10"><span class="lineNum">      10</span>              :     virtual void process(float* buffer, int num_samples) = 0;</span>
-<span id="L11"><span class="lineNum">      11</span>              :     </span>
+<span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              :     // Stereo processing.</span>
 <span id="L13"><span class="lineNum">      13</span>              :     virtual void process_stereo(float* left, float* right, int num_samples) = 0;</span>
-<span id="L14"><span class="lineNum">      14</span>              :     </span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              :     // Update the processing sample rate.</span>
 <span id="L16"><span class="lineNum">      16</span>              :     virtual void set_sample_rate(int sample_rate) = 0;</span>
-<span id="L17"><span class="lineNum">      17</span>              :     </span>
+<span id="L17"><span class="lineNum">      17</span>              : </span>
 <span id="L18"><span class="lineNum">      18</span>              :     // Clear dynamic states.</span>
 <span id="L19"><span class="lineNum">      19</span>              :     virtual void reset() = 0;</span>
 <span id="L20"><span class="lineNum">      20</span>              : };</span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span>              : } // namespace Amplitron</span>
+<span id="L22"><span class="lineNum">      22</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
