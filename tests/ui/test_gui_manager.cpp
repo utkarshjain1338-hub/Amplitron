@@ -1,3 +1,8 @@
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
 #define private public
 #define protected public
 #include "amplitron_session.h"
@@ -194,13 +199,6 @@ TEST(gui_manager_logical_builders) {
 // =============================================================================
 // Headless Mocking Infrastructure for 100% GUI Coverage
 // =============================================================================
-
-#include <fcntl.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-#define fork() (-1)
-#define ShellExecuteA(...) (0)
 
 namespace mock_gui {
 
