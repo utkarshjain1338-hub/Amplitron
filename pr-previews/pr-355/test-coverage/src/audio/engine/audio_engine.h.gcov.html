@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-06 12:44:53</td>
+            <td class="headerValue">2026-06-09 09:15:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">96.3&nbsp;%</td>
@@ -309,147 +309,148 @@
 <span id="L247"><span class="lineNum">     247</span>              :     float get_global_bpm() const override;</span>
 <span id="L248"><span class="lineNum">     248</span>              :     void set_global_bpm(float bpm) override;</span>
 <span id="L249"><span class="lineNum">     249</span>              :     float detect_bpm() override;</span>
-<span id="L250"><span class="lineNum">     250</span>              : </span>
-<span id="L251"><span class="lineNum">     251</span>              :     /** @brief Return the current metronome enabled state (atomic relaxed read).</span>
-<span id="L252"><span class="lineNum">     252</span>              :      */</span>
-<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          18 :     bool get_metronome_enabled() const override { return metronome_-&gt;is_enabled(); }</span></span>
-<span id="L254"><span class="lineNum">     254</span>              : </span>
-<span id="L255"><span class="lineNum">     255</span>              :     /** @brief Return the current metronome BPM (atomic relaxed read). */</span>
-<span id="L256"><span class="lineNum">     256</span> <span class="tlaGNC">          18 :     int get_metronome_bpm() const override { return metronome_-&gt;get_bpm(); }</span></span>
-<span id="L257"><span class="lineNum">     257</span>              : </span>
-<span id="L258"><span class="lineNum">     258</span>              :     /** @brief Return the current metronome volume (atomic relaxed read). */</span>
-<span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">          15 :     float get_metronome_volume() const override { return metronome_-&gt;get_volume(); }</span></span>
-<span id="L260"><span class="lineNum">     260</span>              : </span>
-<span id="L261"><span class="lineNum">     261</span>              :     /**</span>
-<span id="L262"><span class="lineNum">     262</span>              :      * @brief Enqueue a parameter value change from the GUI thread (lock-free).</span>
-<span id="L263"><span class="lineNum">     263</span>              :      * @param effect_index Index of the effect in the chain.</span>
-<span id="L264"><span class="lineNum">     264</span>              :      * @param param_index  Index of the parameter within the effect.</span>
-<span id="L265"><span class="lineNum">     265</span>              :      * @param value        New parameter value.</span>
-<span id="L266"><span class="lineNum">     266</span>              :      */</span>
-<span id="L267"><span class="lineNum">     267</span>              :     void push_param_change(int effect_index, int param_index, float value) override;</span>
-<span id="L268"><span class="lineNum">     268</span>              : </span>
-<span id="L269"><span class="lineNum">     269</span>              :     /**</span>
-<span id="L270"><span class="lineNum">     270</span>              :      * @brief Enqueue a mixer input gain change from the GUI thread.</span>
-<span id="L271"><span class="lineNum">     271</span>              :      * @param node_id      ID of the Mixer node.</span>
-<span id="L272"><span class="lineNum">     272</span>              :      * @param pin_index    Index of the input pin on the mixer.</span>
-<span id="L273"><span class="lineNum">     273</span>              :      * @param gain         New gain multiplier (0.0–2.0).</span>
-<span id="L274"><span class="lineNum">     274</span>              :      */</span>
-<span id="L275"><span class="lineNum">     275</span>              :     void push_mixer_gain_change(int node_id, int pin_index, float gain) override;</span>
-<span id="L276"><span class="lineNum">     276</span>              : </span>
-<span id="L277"><span class="lineNum">     277</span>              :     /**</span>
-<span id="L278"><span class="lineNum">     278</span>              :      * @brief Enqueue an effect enabled/disabled change from the GUI thread.</span>
-<span id="L279"><span class="lineNum">     279</span>              :      * @param effect_index Index of the effect in the chain.</span>
-<span id="L280"><span class="lineNum">     280</span>              :      * @param enabled      &gt;0.5 means enabled.</span>
-<span id="L281"><span class="lineNum">     281</span>              :      */</span>
-<span id="L282"><span class="lineNum">     282</span>              :     void push_effect_enabled(int effect_index, float enabled) override;</span>
-<span id="L283"><span class="lineNum">     283</span>              : </span>
-<span id="L284"><span class="lineNum">     284</span>              :     /**</span>
-<span id="L285"><span class="lineNum">     285</span>              :      * @brief Enqueue a dry/wet mix change from the GUI thread.</span>
-<span id="L286"><span class="lineNum">     286</span>              :      * @param effect_index Index of the effect in the chain.</span>
-<span id="L287"><span class="lineNum">     287</span>              :      * @param mix          New mix value (0.0–1.0).</span>
-<span id="L288"><span class="lineNum">     288</span>              :      */</span>
-<span id="L289"><span class="lineNum">     289</span>              :     void push_effect_mix(int effect_index, float mix) override;</span>
-<span id="L290"><span class="lineNum">     290</span>              : </span>
-<span id="L291"><span class="lineNum">     291</span>              :     /** @brief Return the current CPU load fraction (0.0–1.0, atomic). */</span>
-<span id="L292"><span class="lineNum">     292</span> <span class="tlaGNC">           6 :     float get_cpu_load() const override { return cpu_load_.load(std::memory_order_relaxed); }</span></span>
-<span id="L293"><span class="lineNum">     293</span>              : </span>
-<span id="L294"><span class="lineNum">     294</span>              :     /** @brief Suggest a new buffer size based on current CPU load. */</span>
-<span id="L295"><span class="lineNum">     295</span>              :     int get_suggested_buffer_size() const override;</span>
-<span id="L296"><span class="lineNum">     296</span>              : </span>
-<span id="L297"><span class="lineNum">     297</span>              :     /** @brief Return true if automatic buffer-size tuning is enabled. */</span>
-<span id="L298"><span class="lineNum">     298</span> <span class="tlaGNC">           6 :     bool is_auto_buffer_enabled() const override { return auto_buffer_enabled_; }</span></span>
-<span id="L299"><span class="lineNum">     299</span>              : </span>
-<span id="L300"><span class="lineNum">     300</span>              :     /** @brief Enable or disable automatic buffer-size tuning. */</span>
-<span id="L301"><span class="lineNum">     301</span> <span class="tlaGNC">           3 :     void set_auto_buffer_enabled(bool enabled) override { auto_buffer_enabled_ = enabled; }</span></span>
-<span id="L302"><span class="lineNum">     302</span>              : </span>
-<span id="L303"><span class="lineNum">     303</span>              :     /** @brief Access the built-in audio recorder. */</span>
-<span id="L304"><span class="lineNum">     304</span> <span class="tlaGNC">          25 :     IRecorder&amp; recorder() override { return *recorder_; }</span></span>
-<span id="L305"><span class="lineNum">     305</span>              : </span>
-<span id="L306"><span class="lineNum">     306</span>              :     /**</span>
-<span id="L307"><span class="lineNum">     307</span>              :      * @brief Set a tuner tap that receives pre-chain audio each callback.</span>
-<span id="L308"><span class="lineNum">     308</span>              :      *</span>
-<span id="L309"><span class="lineNum">     309</span>              :      * The tap is processed before the effect chain. If its mute param is</span>
-<span id="L310"><span class="lineNum">     310</span>              :      * active it will zero the buffer, silencing the downstream chain.</span>
-<span id="L311"><span class="lineNum">     311</span>              :      * Protected by effect_mutex_.</span>
-<span id="L312"><span class="lineNum">     312</span>              :      */</span>
-<span id="L313"><span class="lineNum">     313</span>              :     void set_tuner_tap(std::shared_ptr&lt;Effect&gt; tap) override;</span>
-<span id="L314"><span class="lineNum">     314</span>              : </span>
-<span id="L315"><span class="lineNum">     315</span>              :     /** @brief Remove the tuner tap. */</span>
-<span id="L316"><span class="lineNum">     316</span>              :     void clear_tuner_tap() override;</span>
-<span id="L317"><span class="lineNum">     317</span>              : </span>
-<span id="L318"><span class="lineNum">     318</span>              :     /** @brief Return true if a tuner tap is currently installed. */</span>
-<span id="L319"><span class="lineNum">     319</span>              :     bool has_tuner_tap() const override;</span>
-<span id="L320"><span class="lineNum">     320</span>              : </span>
-<span id="L321"><span class="lineNum">     321</span>              :     /**</span>
-<span id="L322"><span class="lineNum">     322</span>              :      * @brief Run the DSP pipeline on a block of audio samples.</span>
-<span id="L323"><span class="lineNum">     323</span>              :      *</span>
-<span id="L324"><span class="lineNum">     324</span>              :      * Called by the platform backend's audio callback. Public so that</span>
-<span id="L325"><span class="lineNum">     325</span>              :      * backend compilation units (which are not class members) can invoke it.</span>
-<span id="L326"><span class="lineNum">     326</span>              :      */</span>
-<span id="L327"><span class="lineNum">     327</span>              :     void process_audio(const float* input, float* output, int frame_count) override;</span>
-<span id="L328"><span class="lineNum">     328</span>              : </span>
-<span id="L329"><span class="lineNum">     329</span>              :     // MIDI instance is managed by the GUI thread's MidiManager.</span>
-<span id="L330"><span class="lineNum">     330</span>              : </span>
-<span id="L331"><span class="lineNum">     331</span>              :    private:</span>
-<span id="L332"><span class="lineNum">     332</span>              :     // Platform backend state</span>
-<span id="L333"><span class="lineNum">     333</span>              :     std::unique_ptr&lt;IAudioBackend&gt; backend_;</span>
-<span id="L334"><span class="lineNum">     334</span>              : </span>
-<span id="L335"><span class="lineNum">     335</span>              :     bool initialized_ = false;</span>
-<span id="L336"><span class="lineNum">     336</span>              :     bool running_ = false;</span>
-<span id="L337"><span class="lineNum">     337</span>              : </span>
-<span id="L338"><span class="lineNum">     338</span>              :     int input_device_ = -1;</span>
-<span id="L339"><span class="lineNum">     339</span>              :     int output_device_ = -1;</span>
-<span id="L340"><span class="lineNum">     340</span>              :     int sample_rate_ = DEFAULT_SAMPLE_RATE;</span>
-<span id="L341"><span class="lineNum">     341</span>              :     int buffer_size_ = DEFAULT_BUFFER_SIZE;</span>
-<span id="L342"><span class="lineNum">     342</span>              :     // global transport</span>
-<span id="L343"><span class="lineNum">     343</span>              :     std::atomic&lt;float&gt; input_gain_{1.0f};</span>
-<span id="L344"><span class="lineNum">     344</span>              :     std::atomic&lt;float&gt; output_gain_{0.8f};</span>
-<span id="L345"><span class="lineNum">     345</span>              :     std::unique_ptr&lt;IMetronome&gt; metronome_;</span>
-<span id="L346"><span class="lineNum">     346</span>              : </span>
-<span id="L347"><span class="lineNum">     347</span>              :     std::atomic&lt;float&gt; input_level_{0.0f};</span>
-<span id="L348"><span class="lineNum">     348</span>              :     std::atomic&lt;float&gt; output_level_{0.0f};</span>
-<span id="L349"><span class="lineNum">     349</span>              :     std::atomic&lt;float&gt; input_rms_{0.0f};</span>
-<span id="L350"><span class="lineNum">     350</span>              :     std::atomic&lt;float&gt; output_rms_{0.0f};</span>
-<span id="L351"><span class="lineNum">     351</span>              :     std::atomic&lt;bool&gt; input_clipped_{false};</span>
-<span id="L352"><span class="lineNum">     352</span>              :     std::atomic&lt;bool&gt; output_clipped_{false};</span>
-<span id="L353"><span class="lineNum">     353</span>              : </span>
-<span id="L354"><span class="lineNum">     354</span>              :     // std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; effects_;</span>
-<span id="L355"><span class="lineNum">     355</span>              :     std::vector&lt;float&gt; process_buffer_;</span>
-<span id="L356"><span class="lineNum">     356</span>              :     std::vector&lt;float&gt; process_buffer_right_;</span>
-<span id="L357"><span class="lineNum">     357</span>              :     std::mutex effect_mutex_;</span>
-<span id="L358"><span class="lineNum">     358</span>              :     std::unique_ptr&lt;IRecorder&gt; recorder_;</span>
-<span id="L359"><span class="lineNum">     359</span>              :     std::shared_ptr&lt;Effect&gt; tuner_tap_;</span>
-<span id="L360"><span class="lineNum">     360</span>              :     std::string last_error_;</span>
-<span id="L361"><span class="lineNum">     361</span>              :     std::atomic&lt;float&gt; global_bpm_{120.0f};</span>
-<span id="L362"><span class="lineNum">     362</span>              :     std::unique_ptr&lt;TempoEngine&gt; tempo_engine_;</span>
-<span id="L363"><span class="lineNum">     363</span>              : </span>
-<span id="L364"><span class="lineNum">     364</span>              :     std::shared_ptr&lt;Effect&gt; audio_shadow_tuner_;</span>
-<span id="L365"><span class="lineNum">     365</span>              :     std::atomic&lt;bool&gt; topology_dirty_{true};</span>
-<span id="L366"><span class="lineNum">     366</span>              : </span>
-<span id="L367"><span class="lineNum">     367</span>              :     // The main graph data model (Edited by the GUI/Main thread)</span>
-<span id="L368"><span class="lineNum">     368</span>              :     AudioGraph main_graph_;</span>
-<span id="L369"><span class="lineNum">     369</span>              : </span>
-<span id="L370"><span class="lineNum">     370</span>              :     // The compiled executor (Built by the GUI thread)</span>
-<span id="L371"><span class="lineNum">     371</span>              :     std::shared_ptr&lt;AudioGraphExecutor&gt; main_executor_;</span>
-<span id="L372"><span class="lineNum">     372</span>              : </span>
-<span id="L373"><span class="lineNum">     373</span>              :     // The shadow executor (Safely copied by the Audio thread)</span>
-<span id="L374"><span class="lineNum">     374</span>              :     std::shared_ptr&lt;AudioGraphExecutor&gt; audio_shadow_executor_;</span>
-<span id="L375"><span class="lineNum">     375</span>              : </span>
-<span id="L376"><span class="lineNum">     376</span>              :     void sync_graph_with_dummy_effects(bool reset_graph = false);</span>
-<span id="L377"><span class="lineNum">     377</span>              : </span>
-<span id="L378"><span class="lineNum">     378</span>              :     AudioCommandDispatcher command_dispatcher_;</span>
-<span id="L379"><span class="lineNum">     379</span>              : </span>
-<span id="L380"><span class="lineNum">     380</span>              :     // CPU load watchdog for buffer auto-tuning</span>
-<span id="L381"><span class="lineNum">     381</span>              :     std::atomic&lt;float&gt; cpu_load_{0.0f};</span>
-<span id="L382"><span class="lineNum">     382</span>              :     std::atomic&lt;float&gt; callback_duration_us_{0.0f};</span>
-<span id="L383"><span class="lineNum">     383</span>              :     bool auto_buffer_enabled_ = false;</span>
-<span id="L384"><span class="lineNum">     384</span>              : </span>
-<span id="L385"><span class="lineNum">     385</span>              :     std::unique_ptr&lt;AnalyzerCapture&gt; analyzer_capture_;</span>
-<span id="L386"><span class="lineNum">     386</span>              : </span>
-<span id="L387"><span class="lineNum">     387</span>              :     // (MIDI instance removed - use MidiManager)</span>
-<span id="L388"><span class="lineNum">     388</span>              : };</span>
-<span id="L389"><span class="lineNum">     389</span>              : </span>
-<span id="L390"><span class="lineNum">     390</span>              : }  // namespace Amplitron</span>
+<span id="L250"><span class="lineNum">     250</span>              :     void reset_bpm_detection() override;</span>
+<span id="L251"><span class="lineNum">     251</span>              : </span>
+<span id="L252"><span class="lineNum">     252</span>              :     /** @brief Return the current metronome enabled state (atomic relaxed read).</span>
+<span id="L253"><span class="lineNum">     253</span>              :      */</span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">          18 :     bool get_metronome_enabled() const override { return metronome_-&gt;is_enabled(); }</span></span>
+<span id="L255"><span class="lineNum">     255</span>              : </span>
+<span id="L256"><span class="lineNum">     256</span>              :     /** @brief Return the current metronome BPM (atomic relaxed read). */</span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          18 :     int get_metronome_bpm() const override { return metronome_-&gt;get_bpm(); }</span></span>
+<span id="L258"><span class="lineNum">     258</span>              : </span>
+<span id="L259"><span class="lineNum">     259</span>              :     /** @brief Return the current metronome volume (atomic relaxed read). */</span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          15 :     float get_metronome_volume() const override { return metronome_-&gt;get_volume(); }</span></span>
+<span id="L261"><span class="lineNum">     261</span>              : </span>
+<span id="L262"><span class="lineNum">     262</span>              :     /**</span>
+<span id="L263"><span class="lineNum">     263</span>              :      * @brief Enqueue a parameter value change from the GUI thread (lock-free).</span>
+<span id="L264"><span class="lineNum">     264</span>              :      * @param effect_index Index of the effect in the chain.</span>
+<span id="L265"><span class="lineNum">     265</span>              :      * @param param_index  Index of the parameter within the effect.</span>
+<span id="L266"><span class="lineNum">     266</span>              :      * @param value        New parameter value.</span>
+<span id="L267"><span class="lineNum">     267</span>              :      */</span>
+<span id="L268"><span class="lineNum">     268</span>              :     void push_param_change(int effect_index, int param_index, float value) override;</span>
+<span id="L269"><span class="lineNum">     269</span>              : </span>
+<span id="L270"><span class="lineNum">     270</span>              :     /**</span>
+<span id="L271"><span class="lineNum">     271</span>              :      * @brief Enqueue a mixer input gain change from the GUI thread.</span>
+<span id="L272"><span class="lineNum">     272</span>              :      * @param node_id      ID of the Mixer node.</span>
+<span id="L273"><span class="lineNum">     273</span>              :      * @param pin_index    Index of the input pin on the mixer.</span>
+<span id="L274"><span class="lineNum">     274</span>              :      * @param gain         New gain multiplier (0.0–2.0).</span>
+<span id="L275"><span class="lineNum">     275</span>              :      */</span>
+<span id="L276"><span class="lineNum">     276</span>              :     void push_mixer_gain_change(int node_id, int pin_index, float gain) override;</span>
+<span id="L277"><span class="lineNum">     277</span>              : </span>
+<span id="L278"><span class="lineNum">     278</span>              :     /**</span>
+<span id="L279"><span class="lineNum">     279</span>              :      * @brief Enqueue an effect enabled/disabled change from the GUI thread.</span>
+<span id="L280"><span class="lineNum">     280</span>              :      * @param effect_index Index of the effect in the chain.</span>
+<span id="L281"><span class="lineNum">     281</span>              :      * @param enabled      &gt;0.5 means enabled.</span>
+<span id="L282"><span class="lineNum">     282</span>              :      */</span>
+<span id="L283"><span class="lineNum">     283</span>              :     void push_effect_enabled(int effect_index, float enabled) override;</span>
+<span id="L284"><span class="lineNum">     284</span>              : </span>
+<span id="L285"><span class="lineNum">     285</span>              :     /**</span>
+<span id="L286"><span class="lineNum">     286</span>              :      * @brief Enqueue a dry/wet mix change from the GUI thread.</span>
+<span id="L287"><span class="lineNum">     287</span>              :      * @param effect_index Index of the effect in the chain.</span>
+<span id="L288"><span class="lineNum">     288</span>              :      * @param mix          New mix value (0.0–1.0).</span>
+<span id="L289"><span class="lineNum">     289</span>              :      */</span>
+<span id="L290"><span class="lineNum">     290</span>              :     void push_effect_mix(int effect_index, float mix) override;</span>
+<span id="L291"><span class="lineNum">     291</span>              : </span>
+<span id="L292"><span class="lineNum">     292</span>              :     /** @brief Return the current CPU load fraction (0.0–1.0, atomic). */</span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">           6 :     float get_cpu_load() const override { return cpu_load_.load(std::memory_order_relaxed); }</span></span>
+<span id="L294"><span class="lineNum">     294</span>              : </span>
+<span id="L295"><span class="lineNum">     295</span>              :     /** @brief Suggest a new buffer size based on current CPU load. */</span>
+<span id="L296"><span class="lineNum">     296</span>              :     int get_suggested_buffer_size() const override;</span>
+<span id="L297"><span class="lineNum">     297</span>              : </span>
+<span id="L298"><span class="lineNum">     298</span>              :     /** @brief Return true if automatic buffer-size tuning is enabled. */</span>
+<span id="L299"><span class="lineNum">     299</span> <span class="tlaGNC">           6 :     bool is_auto_buffer_enabled() const override { return auto_buffer_enabled_; }</span></span>
+<span id="L300"><span class="lineNum">     300</span>              : </span>
+<span id="L301"><span class="lineNum">     301</span>              :     /** @brief Enable or disable automatic buffer-size tuning. */</span>
+<span id="L302"><span class="lineNum">     302</span> <span class="tlaGNC">           3 :     void set_auto_buffer_enabled(bool enabled) override { auto_buffer_enabled_ = enabled; }</span></span>
+<span id="L303"><span class="lineNum">     303</span>              : </span>
+<span id="L304"><span class="lineNum">     304</span>              :     /** @brief Access the built-in audio recorder. */</span>
+<span id="L305"><span class="lineNum">     305</span> <span class="tlaGNC">          25 :     IRecorder&amp; recorder() override { return *recorder_; }</span></span>
+<span id="L306"><span class="lineNum">     306</span>              : </span>
+<span id="L307"><span class="lineNum">     307</span>              :     /**</span>
+<span id="L308"><span class="lineNum">     308</span>              :      * @brief Set a tuner tap that receives pre-chain audio each callback.</span>
+<span id="L309"><span class="lineNum">     309</span>              :      *</span>
+<span id="L310"><span class="lineNum">     310</span>              :      * The tap is processed before the effect chain. If its mute param is</span>
+<span id="L311"><span class="lineNum">     311</span>              :      * active it will zero the buffer, silencing the downstream chain.</span>
+<span id="L312"><span class="lineNum">     312</span>              :      * Protected by effect_mutex_.</span>
+<span id="L313"><span class="lineNum">     313</span>              :      */</span>
+<span id="L314"><span class="lineNum">     314</span>              :     void set_tuner_tap(std::shared_ptr&lt;Effect&gt; tap) override;</span>
+<span id="L315"><span class="lineNum">     315</span>              : </span>
+<span id="L316"><span class="lineNum">     316</span>              :     /** @brief Remove the tuner tap. */</span>
+<span id="L317"><span class="lineNum">     317</span>              :     void clear_tuner_tap() override;</span>
+<span id="L318"><span class="lineNum">     318</span>              : </span>
+<span id="L319"><span class="lineNum">     319</span>              :     /** @brief Return true if a tuner tap is currently installed. */</span>
+<span id="L320"><span class="lineNum">     320</span>              :     bool has_tuner_tap() const override;</span>
+<span id="L321"><span class="lineNum">     321</span>              : </span>
+<span id="L322"><span class="lineNum">     322</span>              :     /**</span>
+<span id="L323"><span class="lineNum">     323</span>              :      * @brief Run the DSP pipeline on a block of audio samples.</span>
+<span id="L324"><span class="lineNum">     324</span>              :      *</span>
+<span id="L325"><span class="lineNum">     325</span>              :      * Called by the platform backend's audio callback. Public so that</span>
+<span id="L326"><span class="lineNum">     326</span>              :      * backend compilation units (which are not class members) can invoke it.</span>
+<span id="L327"><span class="lineNum">     327</span>              :      */</span>
+<span id="L328"><span class="lineNum">     328</span>              :     void process_audio(const float* input, float* output, int frame_count) override;</span>
+<span id="L329"><span class="lineNum">     329</span>              : </span>
+<span id="L330"><span class="lineNum">     330</span>              :     // MIDI instance is managed by the GUI thread's MidiManager.</span>
+<span id="L331"><span class="lineNum">     331</span>              : </span>
+<span id="L332"><span class="lineNum">     332</span>              :    private:</span>
+<span id="L333"><span class="lineNum">     333</span>              :     // Platform backend state</span>
+<span id="L334"><span class="lineNum">     334</span>              :     std::unique_ptr&lt;IAudioBackend&gt; backend_;</span>
+<span id="L335"><span class="lineNum">     335</span>              : </span>
+<span id="L336"><span class="lineNum">     336</span>              :     bool initialized_ = false;</span>
+<span id="L337"><span class="lineNum">     337</span>              :     bool running_ = false;</span>
+<span id="L338"><span class="lineNum">     338</span>              : </span>
+<span id="L339"><span class="lineNum">     339</span>              :     int input_device_ = -1;</span>
+<span id="L340"><span class="lineNum">     340</span>              :     int output_device_ = -1;</span>
+<span id="L341"><span class="lineNum">     341</span>              :     int sample_rate_ = DEFAULT_SAMPLE_RATE;</span>
+<span id="L342"><span class="lineNum">     342</span>              :     int buffer_size_ = DEFAULT_BUFFER_SIZE;</span>
+<span id="L343"><span class="lineNum">     343</span>              :     // global transport</span>
+<span id="L344"><span class="lineNum">     344</span>              :     std::atomic&lt;float&gt; input_gain_{1.0f};</span>
+<span id="L345"><span class="lineNum">     345</span>              :     std::atomic&lt;float&gt; output_gain_{0.8f};</span>
+<span id="L346"><span class="lineNum">     346</span>              :     std::unique_ptr&lt;IMetronome&gt; metronome_;</span>
+<span id="L347"><span class="lineNum">     347</span>              : </span>
+<span id="L348"><span class="lineNum">     348</span>              :     std::atomic&lt;float&gt; input_level_{0.0f};</span>
+<span id="L349"><span class="lineNum">     349</span>              :     std::atomic&lt;float&gt; output_level_{0.0f};</span>
+<span id="L350"><span class="lineNum">     350</span>              :     std::atomic&lt;float&gt; input_rms_{0.0f};</span>
+<span id="L351"><span class="lineNum">     351</span>              :     std::atomic&lt;float&gt; output_rms_{0.0f};</span>
+<span id="L352"><span class="lineNum">     352</span>              :     std::atomic&lt;bool&gt; input_clipped_{false};</span>
+<span id="L353"><span class="lineNum">     353</span>              :     std::atomic&lt;bool&gt; output_clipped_{false};</span>
+<span id="L354"><span class="lineNum">     354</span>              : </span>
+<span id="L355"><span class="lineNum">     355</span>              :     // std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; effects_;</span>
+<span id="L356"><span class="lineNum">     356</span>              :     std::vector&lt;float&gt; process_buffer_;</span>
+<span id="L357"><span class="lineNum">     357</span>              :     std::vector&lt;float&gt; process_buffer_right_;</span>
+<span id="L358"><span class="lineNum">     358</span>              :     std::mutex effect_mutex_;</span>
+<span id="L359"><span class="lineNum">     359</span>              :     std::unique_ptr&lt;IRecorder&gt; recorder_;</span>
+<span id="L360"><span class="lineNum">     360</span>              :     std::shared_ptr&lt;Effect&gt; tuner_tap_;</span>
+<span id="L361"><span class="lineNum">     361</span>              :     std::string last_error_;</span>
+<span id="L362"><span class="lineNum">     362</span>              :     std::atomic&lt;float&gt; global_bpm_{120.0f};</span>
+<span id="L363"><span class="lineNum">     363</span>              :     std::unique_ptr&lt;TempoEngine&gt; tempo_engine_;</span>
+<span id="L364"><span class="lineNum">     364</span>              : </span>
+<span id="L365"><span class="lineNum">     365</span>              :     std::shared_ptr&lt;Effect&gt; audio_shadow_tuner_;</span>
+<span id="L366"><span class="lineNum">     366</span>              :     std::atomic&lt;bool&gt; topology_dirty_{true};</span>
+<span id="L367"><span class="lineNum">     367</span>              : </span>
+<span id="L368"><span class="lineNum">     368</span>              :     // The main graph data model (Edited by the GUI/Main thread)</span>
+<span id="L369"><span class="lineNum">     369</span>              :     AudioGraph main_graph_;</span>
+<span id="L370"><span class="lineNum">     370</span>              : </span>
+<span id="L371"><span class="lineNum">     371</span>              :     // The compiled executor (Built by the GUI thread)</span>
+<span id="L372"><span class="lineNum">     372</span>              :     std::shared_ptr&lt;AudioGraphExecutor&gt; main_executor_;</span>
+<span id="L373"><span class="lineNum">     373</span>              : </span>
+<span id="L374"><span class="lineNum">     374</span>              :     // The shadow executor (Safely copied by the Audio thread)</span>
+<span id="L375"><span class="lineNum">     375</span>              :     std::shared_ptr&lt;AudioGraphExecutor&gt; audio_shadow_executor_;</span>
+<span id="L376"><span class="lineNum">     376</span>              : </span>
+<span id="L377"><span class="lineNum">     377</span>              :     void sync_graph_with_dummy_effects(bool reset_graph = false);</span>
+<span id="L378"><span class="lineNum">     378</span>              : </span>
+<span id="L379"><span class="lineNum">     379</span>              :     AudioCommandDispatcher command_dispatcher_;</span>
+<span id="L380"><span class="lineNum">     380</span>              : </span>
+<span id="L381"><span class="lineNum">     381</span>              :     // CPU load watchdog for buffer auto-tuning</span>
+<span id="L382"><span class="lineNum">     382</span>              :     std::atomic&lt;float&gt; cpu_load_{0.0f};</span>
+<span id="L383"><span class="lineNum">     383</span>              :     std::atomic&lt;float&gt; callback_duration_us_{0.0f};</span>
+<span id="L384"><span class="lineNum">     384</span>              :     bool auto_buffer_enabled_ = false;</span>
+<span id="L385"><span class="lineNum">     385</span>              : </span>
+<span id="L386"><span class="lineNum">     386</span>              :     std::unique_ptr&lt;AnalyzerCapture&gt; analyzer_capture_;</span>
+<span id="L387"><span class="lineNum">     387</span>              : </span>
+<span id="L388"><span class="lineNum">     388</span>              :     // (MIDI instance removed - use MidiManager)</span>
+<span id="L389"><span class="lineNum">     389</span>              : };</span>
+<span id="L390"><span class="lineNum">     390</span>              : </span>
+<span id="L391"><span class="lineNum">     391</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

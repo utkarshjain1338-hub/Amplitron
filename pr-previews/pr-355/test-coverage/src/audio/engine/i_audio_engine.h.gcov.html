@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-06 12:44:53</td>
+            <td class="headerValue">2026-06-09 09:15:42</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -274,13 +274,14 @@
 <span id="L212"><span class="lineNum">     212</span>              :     virtual bool has_tuner_tap() const = 0;</span>
 <span id="L213"><span class="lineNum">     213</span>              : </span>
 <span id="L214"><span class="lineNum">     214</span>              :     virtual float detect_bpm() = 0;</span>
-<span id="L215"><span class="lineNum">     215</span>              : </span>
-<span id="L216"><span class="lineNum">     216</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>
-<span id="L217"><span class="lineNum">     217</span>              :     virtual const char* get_oboe_sharing_mode_label() const = 0;</span>
-<span id="L218"><span class="lineNum">     218</span>              : #endif</span>
-<span id="L219"><span class="lineNum">     219</span>              : };</span>
-<span id="L220"><span class="lineNum">     220</span>              : </span>
-<span id="L221"><span class="lineNum">     221</span>              : }  // namespace Amplitron</span>
+<span id="L215"><span class="lineNum">     215</span>              :     virtual void reset_bpm_detection() = 0;</span>
+<span id="L216"><span class="lineNum">     216</span>              : </span>
+<span id="L217"><span class="lineNum">     217</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>
+<span id="L218"><span class="lineNum">     218</span>              :     virtual const char* get_oboe_sharing_mode_label() const = 0;</span>
+<span id="L219"><span class="lineNum">     219</span>              : #endif</span>
+<span id="L220"><span class="lineNum">     220</span>              : };</span>
+<span id="L221"><span class="lineNum">     221</span>              : </span>
+<span id="L222"><span class="lineNum">     222</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
