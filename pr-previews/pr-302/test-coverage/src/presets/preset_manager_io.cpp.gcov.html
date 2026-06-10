@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:01:08</td>
+            <td class="headerValue">2026-06-10 17:16:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -77,19 +77,19 @@
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              : namespace Amplitron {</span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          39 : std::vector&lt;std::string&gt; PresetManager::list_presets() {</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          39 :     std::vector&lt;std::string&gt; result;</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          54 : std::vector&lt;std::string&gt; PresetManager::list_presets() {</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          54 :     std::vector&lt;std::string&gt; result;</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          39 :     append_json_files(get_presets_dir(), result);</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          54 :     append_json_files(get_presets_dir(), result);</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          39 :     std::string sys_dir = get_system_presets_dir();</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          39 :     std::string user_dir = get_presets_dir();</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          39 :     if (!sys_dir.empty() &amp;&amp; dir_exists(sys_dir) &amp;&amp; sys_dir != user_dir) {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          54 :     std::string sys_dir = get_system_presets_dir();</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          54 :     std::string user_dir = get_presets_dir();</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          54 :     if (!sys_dir.empty() &amp;&amp; dir_exists(sys_dir) &amp;&amp; sys_dir != user_dir) {</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC tlaBgUNC">           0 :         append_json_files(sys_dir, result);</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC tlaBgGNC">          52 :     return result;</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          39 : }</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC tlaBgGNC">          72 :     return result;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          54 : }</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          60 : bool PresetManager::save_preset_data(const std::string &amp;filepath, const PresetData &amp;preset) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          60 :     std::string json = serializer_-&gt;serialize(preset);</span></span>
@@ -138,11 +138,11 @@
 <span id="L76"><span class="lineNum">      76</span>              : </span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          96 :         auto &amp;ui_state = GuiGraphState::get_instance();</span></span>
 <span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          96 :         if (ui_state.node_positions.count(node.id)) {</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          57 :             nd.x = ui_state.node_positions[node.id].position.x;</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          57 :             nd.y = ui_state.node_positions[node.id].position.y;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          56 :             nd.x = ui_state.node_positions[node.id].position.x;</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          56 :             nd.y = ui_state.node_positions[node.id].position.y;</span></span>
 <span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          17 :         } else {</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">          39 :             nd.x = node.x;</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          39 :             nd.y = node.y;</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">          40 :             nd.x = node.x;</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">          40 :             nd.y = node.y;</span></span>
 <span id="L84"><span class="lineNum">      84</span>              :         }</span>
 <span id="L85"><span class="lineNum">      85</span>              : </span>
 <span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">          96 :         if (node.routing_type == NodeRoutingType::Splitter) {</span></span>
@@ -531,17 +531,17 @@
 <span id="L469"><span class="lineNum">     469</span> <span class="tlaGNC">          20 :     return true;</span></span>
 <span id="L470"><span class="lineNum">     470</span> <span class="tlaGNC">         221 : }</span></span>
 <span id="L471"><span class="lineNum">     471</span>              : </span>
-<span id="L472"><span class="lineNum">     472</span> <span class="tlaGNC">           3 : bool PresetManager::delete_preset(const std::string &amp;filepath) {</span></span>
-<span id="L473"><span class="lineNum">     473</span> <span class="tlaGNC">           3 :     if (storage_-&gt;remove(filepath)) {</span></span>
-<span id="L474"><span class="lineNum">     474</span> <span class="tlaGNC">           2 :         return true;</span></span>
+<span id="L472"><span class="lineNum">     472</span> <span class="tlaGNC">           6 : bool PresetManager::delete_preset(const std::string &amp;filepath) {</span></span>
+<span id="L473"><span class="lineNum">     473</span> <span class="tlaGNC">           6 :     if (storage_-&gt;remove(filepath)) {</span></span>
+<span id="L474"><span class="lineNum">     474</span> <span class="tlaGNC">           4 :         return true;</span></span>
 <span id="L475"><span class="lineNum">     475</span>              :     }</span>
 <span id="L476"><span class="lineNum">     476</span> <span class="tlaUNC tlaBgUNC">           0 :     last_error_ = &quot;Could not delete preset file: &quot; + filepath;</span></span>
 <span id="L477"><span class="lineNum">     477</span> <span class="tlaUNC">           0 :     return false;</span></span>
-<span id="L478"><span class="lineNum">     478</span> <span class="tlaGNC tlaBgGNC">           1 : }</span></span>
+<span id="L478"><span class="lineNum">     478</span> <span class="tlaGNC tlaBgGNC">           2 : }</span></span>
 <span id="L479"><span class="lineNum">     479</span>              : </span>
 <span id="L480"><span class="lineNum">     480</span> <span class="tlaGNC">           3 : std::string PresetManager::get_last_error() const { return last_error_; }</span></span>
 <span id="L481"><span class="lineNum">     481</span>              : </span>
-<span id="L482"><span class="lineNum">     482</span> <span class="tlaGNC">          15 : std::string PresetManager::get_presets_directory() const { return get_presets_dir(); }</span></span>
+<span id="L482"><span class="lineNum">     482</span> <span class="tlaGNC">          21 : std::string PresetManager::get_presets_directory() const { return get_presets_dir(); }</span></span>
 <span id="L483"><span class="lineNum">     483</span>              : </span>
 <span id="L484"><span class="lineNum">     484</span>              : }  // namespace Amplitron</span>
         </pre>

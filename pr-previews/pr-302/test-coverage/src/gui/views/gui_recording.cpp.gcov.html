@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">70.2&nbsp;%</td>
+            <td class="headerCovTableEntryMed">88.5&nbsp;%</td>
             <td class="headerCovTableEntry">131</td>
-            <td class="headerCovTableEntry">92</td>
+            <td class="headerCovTableEntry">116</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:01:08</td>
+            <td class="headerValue">2026-06-10 17:16:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">40.0&nbsp;%</td>
@@ -74,18 +74,18 @@
 <span id="L12"><span class="lineNum">      12</span>              : </span>
 <span id="L13"><span class="lineNum">      13</span>              : namespace Amplitron {</span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC tlaBgGNC">           9 : void GuiRecording::render() {</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           9 :     const RecordingProps&amp; p = props_;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC tlaBgGNC">          42 : void GuiRecording::render() {</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          42 :     const RecordingProps&amp; p = props_;</span></span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           9 :     float font_scale = ImGui::GetFontSize() / 14.0f;</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          12 :     float base_h = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f +</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           9 :                    ImGui::GetStyle().WindowBorderSize * 2.0f;</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           9 :     float panel_height = p.is_recording ? (base_h + 80.0f) : base_h;</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          42 :     float font_scale = ImGui::GetFontSize() / 14.0f;</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          56 :     float base_h = ImGui::GetFrameHeight() + ImGui::GetStyle().WindowPadding.y * 2.0f +</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          42 :                    ImGui::GetStyle().WindowBorderSize * 2.0f;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          42 :     float panel_height = p.is_recording ? (base_h + 80.0f) : base_h;</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           9 :     ImGui::BeginChild(&quot;RecordingPanel&quot;, ImVec2(0, panel_height), true,</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          42 :     ImGui::BeginChild(&quot;RecordingPanel&quot;, ImVec2(0, panel_height), true,</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :                       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);</span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           9 :     if (p.is_recording) {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          42 :     if (p.is_recording) {</span></span>
 <span id="L27"><span class="lineNum">      27</span>              :         // ── Pause / Resume ──</span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           6 :         if (p.is_paused) {</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.2f, 1.0f));</span></span>
@@ -184,73 +184,73 @@
 <span id="L122"><span class="lineNum">     122</span>              :                       IM_COL32(70, 65, 55, 255), 4.0f);</span>
 <span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           6 :         ImGui::Dummy(ImVec2(wave_w, wave_h));</span></span>
 <span id="L124"><span class="lineNum">     124</span>              : </span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           5 :     } else if (p.has_unsaved) {</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          38 :     } else if (p.has_unsaved) {</span></span>
 <span id="L126"><span class="lineNum">     126</span>              :         // ── Unsaved recording ──</span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaUNC tlaBgUNC">           0 :         {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :             float avail = ImGui::GetContentRegionAvail().y;</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :             float row_h = ImGui::GetFrameHeight();</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :             float offset = std::max(0.0f, (avail - row_h) * 0.5f);</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + offset);</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           1 :         {</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">           3 :             float avail = ImGui::GetContentRegionAvail().y;</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           3 :             float row_h = ImGui::GetFrameHeight();</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           3 :             float offset = std::max(0.0f, (avail - row_h) * 0.5f);</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">           3 :             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + offset);</span></span>
 <span id="L132"><span class="lineNum">     132</span>              :         }</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :         float content_w = ImGui::CalcTextSize(&quot;Recording complete&quot;).x +</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaUNC">           0 :                           ImGui::CalcTextSize(&quot;  999.9 s  |  &quot;).x + 100.0f + 80.0f +</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :                           ImGui::GetStyle().ItemSpacing.x * 3.0f;</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :         float start_x = (ImGui::GetContentRegionAvail().x - content_w) * 0.5f;</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 :         if (start_x &gt; 0.0f) ImGui::SetCursorPosX(start_x);</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           5 :         float content_w = ImGui::CalcTextSize(&quot;Recording complete&quot;).x +</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           5 :                           ImGui::CalcTextSize(&quot;  999.9 s  |  &quot;).x + 100.0f + 80.0f +</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           3 :                           ImGui::GetStyle().ItemSpacing.x * 3.0f;</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           3 :         float start_x = (ImGui::GetContentRegionAvail().x - content_w) * 0.5f;</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           3 :         if (start_x &gt; 0.0f) ImGui::SetCursorPosX(start_x);</span></span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaUNC">           0 :         ImGui::TextColored(Theme::Gold(), &quot;Recording complete&quot;);</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 :         ImGui::SameLine();</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :         ImGui::Text(&quot;  %.1f s  |  &quot;, p.duration);</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :         ImGui::SameLine();</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           3 :         ImGui::TextColored(Theme::Gold(), &quot;Recording complete&quot;);</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           3 :         ImGui::SameLine();</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           3 :         ImGui::Text(&quot;  %.1f s  |  &quot;, p.duration);</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           3 :         ImGui::SameLine();</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.2f, 1.0f));</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.7f, 0.3f, 1.0f));</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC">           0 :         if (ImGui::Button(&quot;Save As...&quot;, ImVec2(100 * font_scale, 0))) {</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 :             set_state([](RecordingState&amp; st) { st.needs_save = true; });</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.2f, 1.0f));</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.7f, 0.3f, 1.0f));</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           3 :         if (ImGui::Button(&quot;Save As...&quot;, ImVec2(100 * font_scale, 0))) {</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC tlaBgUNC">           0 :             set_state([](RecordingState&amp; st) { st.needs_save = true; });</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaUNC">           0 :         ImGui::PopStyleColor(2);</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC tlaBgGNC">           3 :         ImGui::PopStyleColor(2);</span></span>
 <span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaUNC">           0 :         ImGui::SameLine();</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaUNC">           0 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.1f, 0.1f, 1.0f));</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC">           0 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.6f, 0.15f, 0.15f, 1.0f));</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :         if (ImGui::Button(&quot;Discard&quot;, ImVec2(80 * font_scale, 0))) {</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC">           0 :             if (p.on_discard) p.on_discard();</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           3 :         ImGui::SameLine();</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.1f, 0.1f, 1.0f));</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.6f, 0.15f, 0.15f, 1.0f));</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           3 :         if (ImGui::Button(&quot;Discard&quot;, ImVec2(80 * font_scale, 0))) {</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC tlaBgUNC">           0 :             if (p.on_discard) p.on_discard();</span></span>
 <span id="L157"><span class="lineNum">     157</span> <span class="tlaUNC">           0 :             set_state([](RecordingState&amp; st) { st.status_msg = &quot;Recording discarded.&quot;; });</span></span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaUNC">           0 :         ImGui::PopStyleColor(2);</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC tlaBgGNC">           3 :         ImGui::PopStyleColor(2);</span></span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaUNC">           0 :     } else {</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           1 :     } else {</span></span>
 <span id="L162"><span class="lineNum">     162</span>              :         // ── Ready ──</span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC tlaBgGNC">           1 :         {</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           3 :             float avail = ImGui::GetContentRegionAvail().y;</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           3 :             constexpr float row_h = 28.0f;</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           3 :             float offset = std::max(0.0f, (avail - row_h) * 0.5f);</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           3 :             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + offset);</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          11 :         {</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          33 :             float avail = ImGui::GetContentRegionAvail().y;</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">          33 :             constexpr float row_h = 28.0f;</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          33 :             float offset = std::max(0.0f, (avail - row_h) * 0.5f);</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          33 :             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + offset);</span></span>
 <span id="L168"><span class="lineNum">     168</span>              :         }</span>
-<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.05f, 0.05f, 1.0f));</span></span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.7f, 0.1f, 0.1f, 1.0f));</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">           3 :         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.9f, 0.15f, 0.15f, 1.0f));</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           3 :         if (ImGui::Button(&quot;REC&quot;, ImVec2(90 * font_scale, 0))) {</span></span>
+<span id="L169"><span class="lineNum">     169</span> <span class="tlaGNC">          33 :         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.05f, 0.05f, 1.0f));</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">          33 :         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.7f, 0.1f, 0.1f, 1.0f));</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          33 :         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.9f, 0.15f, 0.15f, 1.0f));</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">          33 :         if (ImGui::Button(&quot;REC&quot;, ImVec2(90 * font_scale, 0))) {</span></span>
 <span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC tlaBgUNC">           0 :             if (p.on_start) p.on_start();</span></span>
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC tlaBgGNC">           3 :         ImGui::PopStyleColor(3);</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC tlaBgGNC">          33 :         ImGui::PopStyleColor(3);</span></span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">           3 :         ImGui::SameLine();</span></span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           4 :         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), &quot;  Ready to record  |  WAV 16-bit %d Hz&quot;,</span></span>
-<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">           3 :                            p.sample_rate);</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          33 :         ImGui::SameLine();</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          44 :         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), &quot;  Ready to record  |  WAV 16-bit %d Hz&quot;,</span></span>
+<span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          33 :                            p.sample_rate);</span></span>
 <span id="L180"><span class="lineNum">     180</span>              :     }</span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">           9 :     ImGui::EndChild();</span></span>
-<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">           9 : }</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaGNC">          42 :     ImGui::EndChild();</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaGNC">          42 : }</span></span>
 <span id="L184"><span class="lineNum">     184</span>              : </span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           3 : void GuiRecording::render_save_dialog(std::function&lt;void(const std::string&amp; dest)&gt; on_save_done) {</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           3 :     if (!state_.needs_save) return;</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           3 :     state_.needs_save = false;</span></span>
+<span id="L185"><span class="lineNum">     185</span> <span class="tlaGNC">           9 : void GuiRecording::render_save_dialog(std::function&lt;void(const std::string&amp; dest)&gt; on_save_done) {</span></span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           9 :     if (!state_.needs_save) return;</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           9 :     state_.needs_save = false;</span></span>
 <span id="L188"><span class="lineNum">     188</span>              : </span>
-<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           8 :     std::string dest = show_save_dialog(&quot;recording.wav&quot;, &quot;WAV Audio&quot;, &quot;wav&quot;);</span></span>
-<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           3 :     if (!dest.empty() &amp;&amp; on_save_done) on_save_done(dest);</span></span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">          24 :     std::string dest = show_save_dialog(&quot;recording.wav&quot;, &quot;WAV Audio&quot;, &quot;wav&quot;);</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           9 :     if (!dest.empty() &amp;&amp; on_save_done) on_save_done(dest);</span></span>
+<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">           9 : }</span></span>
 <span id="L192"><span class="lineNum">     192</span>              : </span>
 <span id="L193"><span class="lineNum">     193</span>              : }  // namespace Amplitron</span>
         </pre>

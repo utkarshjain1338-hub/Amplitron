@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:01:08</td>
+            <td class="headerValue">2026-06-10 17:16:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -78,8 +78,8 @@
 <span id="L16"><span class="lineNum">      16</span>              :     const char* label = &quot;&quot;;</span>
 <span id="L17"><span class="lineNum">      17</span>              : };</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          10 : struct SnapshotsProps {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          10 :     std::array&lt;SnapshotSlotInfo, SnapshotManager::NUM_SLOTS&gt; slots{};</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">          38 : struct SnapshotsProps {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          38 :     std::array&lt;SnapshotSlotInfo, SnapshotManager::NUM_SLOTS&gt; slots{};</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              :     std::function&lt;void(int)&gt; on_recall_slot;</span>
 <span id="L23"><span class="lineNum">      23</span>              :     std::function&lt;void(int)&gt; on_save_slot;</span>
@@ -92,9 +92,9 @@
 <span id="L30"><span class="lineNum">      30</span>              :  * Receives slot state through SnapshotsProps. All mutations go through</span>
 <span id="L31"><span class="lineNum">      31</span>              :  * callbacks which are executed in GuiManager (where command history lives).</span>
 <span id="L32"><span class="lineNum">      32</span>              :  */</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           6 : class GuiSnapshots : public UIComponent&lt;SnapshotsProps&gt; {</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          20 : class GuiSnapshots : public UIComponent&lt;SnapshotsProps&gt; {</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :    public:</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          30 :     GuiSnapshots() = default;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         112 :     GuiSnapshots() = default;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span>              :     /** @brief Render the snapshot toolbar row. */</span>
 <span id="L38"><span class="lineNum">      38</span>              :     void render() override;</span>
@@ -102,8 +102,8 @@
 <span id="L40"><span class="lineNum">      40</span>              :    private:</span>
 <span id="L41"><span class="lineNum">      41</span>              :     static constexpr float STATUS_DISPLAY_SECONDS = 2.0f;</span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           6 :     char status_msg_[64] = {};</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           6 :     float status_timer_ = 0.0f;</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          23 :     char status_msg_[64] = {};</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          23 :     float status_timer_ = 0.0f;</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : };</span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              : }  // namespace Amplitron</span>

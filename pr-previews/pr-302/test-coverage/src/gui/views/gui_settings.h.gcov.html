@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:01:08</td>
+            <td class="headerValue">2026-06-10 17:16:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -77,25 +77,25 @@
 <span id="L15"><span class="lineNum">      15</span>              :     bool is_usb = false;</span>
 <span id="L16"><span class="lineNum">      16</span>              : };</span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          20 : struct SettingsProps {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC tlaBgGNC">          58 : struct SettingsProps {</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :     // Routing</span>
 <span id="L20"><span class="lineNum">      20</span>              :     std::string input_device_name;</span>
 <span id="L21"><span class="lineNum">      21</span>              :     std::string output_device_name;</span>
 <span id="L22"><span class="lineNum">      22</span>              :     std::string device_error;</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              :     // Latency</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          10 :     int buffer_size = 128;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          10 :     int sample_rate = 44100;</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          10 :     int suggested_buf = 128;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          10 :     float latency_ms = 0.0f;</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          10 :     float cpu_load = 0.0f;</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          10 :     bool auto_buf = false;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          29 :     int buffer_size = 128;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          29 :     int sample_rate = 44100;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          29 :     int suggested_buf = 128;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          29 :     float latency_ms = 0.0f;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          29 :     float cpu_load = 0.0f;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          29 :     bool auto_buf = false;</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span>              :     // Devices</span>
 <span id="L33"><span class="lineNum">      33</span>              :     std::vector&lt;AudioDeviceEntry&gt; input_devices;</span>
 <span id="L34"><span class="lineNum">      34</span>              :     std::vector&lt;AudioDeviceEntry&gt; output_devices;</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          10 :     int current_input = -1;</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          10 :     int current_output = -1;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          29 :     int current_input = -1;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          29 :     int current_output = -1;</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
 <span id="L38"><span class="lineNum">      38</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>
 <span id="L39"><span class="lineNum">      39</span>              :     const char* oboe_mode_label = &quot;&quot;;</span>
@@ -112,9 +112,9 @@
 <span id="L50"><span class="lineNum">      50</span>              : /**</span>
 <span id="L51"><span class="lineNum">      51</span>              :  * @brief Reactive Audio Settings modal component.</span>
 <span id="L52"><span class="lineNum">      52</span>              :  */</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           7 : class GuiSettings : public UIComponent&lt;SettingsProps&gt; {</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          21 : class GuiSettings : public UIComponent&lt;SettingsProps&gt; {</span></span>
 <span id="L54"><span class="lineNum">      54</span>              :    public:</span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          35 :     GuiSettings() = default;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         117 :     GuiSettings() = default;</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span>              :     /** @brief Render the settings window using internal show_ flag. */</span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaUNC tlaBgUNC">           0 :     void render() override { render(show_); }</span></span>
@@ -123,7 +123,7 @@
 <span id="L61"><span class="lineNum">      61</span>              :     void render(bool&amp; show);</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
 <span id="L63"><span class="lineNum">      63</span>              :    private:</span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC tlaBgGNC">           7 :     bool show_ = true;</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC tlaBgGNC">          24 :     bool show_ = true;</span></span>
 <span id="L65"><span class="lineNum">      65</span>              : };</span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span>              : }  // namespace Amplitron</span>

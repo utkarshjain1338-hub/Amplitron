@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:01:08</td>
+            <td class="headerValue">2026-06-10 17:16:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -72,8 +72,8 @@
 <span id="L10"><span class="lineNum">      10</span>              : // Factory amp model library</span>
 <span id="L11"><span class="lineNum">      11</span>              : // ============================================================</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         723 : const std::vector&lt;AmpModel&gt;&amp; get_amp_models() {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         482 :     static const std::vector&lt;AmpModel&gt; models = {</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         849 : const std::vector&lt;AmpModel&gt;&amp; get_amp_models() {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         566 :     static const std::vector&lt;AmpModel&gt; models = {</span></span>
 <span id="L15"><span class="lineNum">      15</span>              :         // ---------------------------------------------------------</span>
 <span id="L16"><span class="lineNum">      16</span>              :         // Clean American -- Fender Twin/Deluxe</span>
 <span id="L17"><span class="lineNum">      17</span>              :         // ---------------------------------------------------------</span>
@@ -170,72 +170,72 @@
 <span id="L108"><span class="lineNum">     108</span>              :             0.003f,</span>
 <span id="L109"><span class="lineNum">     109</span>              :             0.0f,</span>
 <span id="L110"><span class="lineNum">     110</span>              :         },</span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         485 :     };</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         723 :     return models;</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">         569 :     };</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         849 :     return models;</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaUNC tlaBgUNC">           0 : }</span></span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span>              : // ============================================================</span>
 <span id="L116"><span class="lineNum">     116</span>              : // AmpSimulator implementation</span>
 <span id="L117"><span class="lineNum">     117</span>              : // ============================================================</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC tlaBgGNC">         116 : AmpSimulator::AmpSimulator() {</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          87 :     float max_model = static_cast&lt;float&gt;(get_amp_models().size() - 1);</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         435 :     params_ = {</span></span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          58 :         {&quot;Model&quot;, 0.0f, 0.0f, max_model, 0.0f, &quot;&quot;,</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          29 :          &quot;Selects the amplifier model. Each model has unique EQ curves, gain staging, and clipping &quot;</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC tlaBgGNC">         132 : AmpSimulator::AmpSimulator() {</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          99 :     float max_model = static_cast&lt;float&gt;(get_amp_models().size() - 1);</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">         495 :     params_ = {</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          66 :         {&quot;Model&quot;, 0.0f, 0.0f, max_model, 0.0f, &quot;&quot;,</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">          33 :          &quot;Selects the amplifier model. Each model has unique EQ curves, gain staging, and clipping &quot;</span></span>
 <span id="L124"><span class="lineNum">     124</span>              :          &quot;characteristics.&quot;},</span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          29 :         {&quot;Gain&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          29 :          &quot;Preamp gain control. Drives the virtual tubes harder for more compression and &quot;</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">          33 :         {&quot;Gain&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">          33 :          &quot;Preamp gain control. Drives the virtual tubes harder for more compression and &quot;</span></span>
 <span id="L127"><span class="lineNum">     127</span>              :          &quot;distortion.&quot;},</span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          29 :         {&quot;Bass&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          29 :          &quot;Pre-distortion low-frequency trim. Adjusts the fatness and punch of the amplifier.&quot;},</span></span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          29 :         {&quot;Mid&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          29 :          &quot;Pre-distortion mid-frequency trim. Controls the core voice and 'bark' of the amplifier.&quot;},</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          29 :         {&quot;Treble&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          29 :          &quot;Pre-distortion high-frequency trim. Adjusts the brightness and bite before clipping.&quot;},</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          29 :         {&quot;Level&quot;, 0.7f, 0.0f, 1.0f, 0.7f, &quot;&quot;,</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          29 :          &quot;Master output volume of the amplifier. Does not affect the amount of distortion.&quot;},</span></span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">         406 :     };</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          87 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         174 : }</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">          33 :         {&quot;Bass&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">          33 :          &quot;Pre-distortion low-frequency trim. Adjusts the fatness and punch of the amplifier.&quot;},</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">          33 :         {&quot;Mid&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">          33 :          &quot;Pre-distortion mid-frequency trim. Controls the core voice and 'bark' of the amplifier.&quot;},</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">          33 :         {&quot;Treble&quot;, 0.0f, -6.0f, 6.0f, 0.0f, &quot;dB&quot;,</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">          33 :          &quot;Pre-distortion high-frequency trim. Adjusts the brightness and bite before clipping.&quot;},</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          33 :         {&quot;Level&quot;, 0.7f, 0.0f, 1.0f, 0.7f, &quot;&quot;,</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          33 :          &quot;Master output volume of the amplifier. Does not affect the amount of distortion.&quot;},</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">         462 :     };</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          99 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">         198 : }</span></span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         162 : void AmpSimulator::set_sample_rate(int sample_rate) {</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         162 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">         186 : void AmpSimulator::set_sample_rate(int sample_rate) {</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">         186 :     Effect::set_sample_rate(sample_rate);</span></span>
 <span id="L142"><span class="lineNum">     142</span>              :     // Snap smoothing states to current params to avoid transient on rate change</span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">         162 :     bass_trim_state_ = params_[2].value;</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">         162 :     mid_trim_state_ = params_[3].value;</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">         162 :     treble_trim_state_ = params_[4].value;</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">         162 :     gain_smoothed_ = params_[1].value;</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">         162 :     level_smoothed_ = params_[5].value;</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">         162 :     cached_model_index_ = -1;  // force recompute</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         162 :     recompute_coefficients_if_dirty();</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         162 : }</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">         186 :     bass_trim_state_ = params_[2].value;</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">         186 :     mid_trim_state_ = params_[3].value;</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">         186 :     treble_trim_state_ = params_[4].value;</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">         186 :     gain_smoothed_ = params_[1].value;</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">         186 :     level_smoothed_ = params_[5].value;</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">         186 :     cached_model_index_ = -1;  // force recompute</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         186 :     recompute_coefficients_if_dirty();</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         186 : }</span></span>
 <span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         201 : void AmpSimulator::recompute_coefficients_if_dirty() {</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         335 :     int model_idx = clamp(static_cast&lt;int&gt;(params_[0].value + 0.5f), 0,</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">         201 :                           static_cast&lt;int&gt;(get_amp_models().size()) - 1);</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">         201 :     float bass_trim = bass_trim_state_;</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         201 :     float mid_trim = mid_trim_state_;</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">         201 :     float treble_trim = treble_trim_state_;</span></span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">         201 :     float gain_knob = params_[1].value;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         225 : void AmpSimulator::recompute_coefficients_if_dirty() {</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         375 :     int model_idx = clamp(static_cast&lt;int&gt;(params_[0].value + 0.5f), 0,</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">         225 :                           static_cast&lt;int&gt;(get_amp_models().size()) - 1);</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">         225 :     float bass_trim = bass_trim_state_;</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">         225 :     float mid_trim = mid_trim_state_;</span></span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">         225 :     float treble_trim = treble_trim_state_;</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">         225 :     float gain_knob = params_[1].value;</span></span>
 <span id="L159"><span class="lineNum">     159</span>              : </span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">         210 :     if (model_idx != cached_model_index_ || bass_trim != cached_bass_ || mid_trim != cached_mid_ ||</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">         234 :     if (model_idx != cached_model_index_ || bass_trim != cached_bass_ || mid_trim != cached_mid_ ||</span></span>
 <span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          27 :         treble_trim != cached_treble_ || gain_knob != cached_gain_) {</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         174 :         const AmpModel&amp; model = get_amp_models()[model_idx];</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         232 :         low_shelf_.set_low_shelf(model.bass_freq, model.bass_gain_db + bass_trim, model.bass_q,</span></span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          58 :                                  sample_rate_);</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         232 :         mid_peak_.set_peaking(model.mid_freq, model.mid_gain_db + mid_trim, model.mid_q,</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          58 :                               sample_rate_);</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         232 :         high_shelf_.set_high_shelf(model.treble_freq, model.treble_gain_db + treble_trim,</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         174 :                                    model.treble_q, sample_rate_);</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         198 :         const AmpModel&amp; model = get_amp_models()[model_idx];</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">         264 :         low_shelf_.set_low_shelf(model.bass_freq, model.bass_gain_db + bass_trim, model.bass_q,</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          66 :                                  sample_rate_);</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         264 :         mid_peak_.set_peaking(model.mid_freq, model.mid_gain_db + mid_trim, model.mid_q,</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">          66 :                               sample_rate_);</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">         264 :         high_shelf_.set_high_shelf(model.treble_freq, model.treble_gain_db + treble_trim,</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         198 :                                    model.treble_q, sample_rate_);</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         174 :         cached_model_index_ = model_idx;</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         174 :         cached_bass_ = bass_trim;</span></span>
-<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         174 :         cached_mid_ = mid_trim;</span></span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">         174 :         cached_treble_ = treble_trim;</span></span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         174 :         cached_gain_ = gain_knob;</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          58 :     }</span></span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         201 : }</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">         198 :         cached_model_index_ = model_idx;</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">         198 :         cached_bass_ = bass_trim;</span></span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">         198 :         cached_mid_ = mid_trim;</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">         198 :         cached_treble_ = treble_trim;</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">         198 :         cached_gain_ = gain_knob;</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">          66 :     }</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         225 : }</span></span>
 <span id="L177"><span class="lineNum">     177</span>              : </span>
 <span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">          39 : void AmpSimulator::process(float* buffer, int num_samples) {</span></span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">          39 :     if (!enabled_) return;</span></span>
@@ -321,13 +321,13 @@
 <span id="L259"><span class="lineNum">     259</span> <span class="tlaGNC">        6656 :     }</span></span>
 <span id="L260"><span class="lineNum">     260</span> <span class="tlaGNC">          13 : }</span></span>
 <span id="L261"><span class="lineNum">     261</span>              : </span>
-<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">          75 : void AmpSimulator::reset() {</span></span>
-<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">          75 :     low_shelf_.reset();</span></span>
-<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">          75 :     mid_peak_.reset();</span></span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          75 :     high_shelf_.reset();</span></span>
-<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">          75 :     envelope_ = 0.0f;</span></span>
-<span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">          75 :     dc_block_.reset();</span></span>
-<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          75 : }</span></span>
+<span id="L262"><span class="lineNum">     262</span> <span class="tlaGNC">          87 : void AmpSimulator::reset() {</span></span>
+<span id="L263"><span class="lineNum">     263</span> <span class="tlaGNC">          87 :     low_shelf_.reset();</span></span>
+<span id="L264"><span class="lineNum">     264</span> <span class="tlaGNC">          87 :     mid_peak_.reset();</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">          87 :     high_shelf_.reset();</span></span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">          87 :     envelope_ = 0.0f;</span></span>
+<span id="L267"><span class="lineNum">     267</span> <span class="tlaGNC">          87 :     dc_block_.reset();</span></span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          87 : }</span></span>
 <span id="L269"><span class="lineNum">     269</span>              : </span>
 <span id="L270"><span class="lineNum">     270</span>              : }  // namespace Amplitron</span>
         </pre>
