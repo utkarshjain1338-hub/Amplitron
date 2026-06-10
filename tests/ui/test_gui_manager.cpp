@@ -719,10 +719,19 @@ TEST(gui_manager_additional_coverage_run) {
 
     // 2. gui_manager.cpp Lines 66-67 (default MIDI mappings when load config is empty)
     {
-        char* old_home = std::getenv("HOME");
-        std::cout << "[DEBUG] OLD HOME: " << (old_home ? old_home : "NULL") << std::endl;
-        setenv("HOME", "/tmp/non_existent_dir_amplitron_test", 1);
-        std::cout << "[DEBUG] NEW HOME: " << std::getenv("HOME") << std::endl;
+#ifdef _WIN32
+        const char* env_name = "APPDATA";
+#else
+        const char* env_name = "HOME";
+#endif
+        char* old_val = std::getenv(env_name);
+        std::cout << "[DEBUG] OLD " << env_name << ": " << (old_val ? old_val : "NULL") << std::endl;
+#ifdef _WIN32
+        _putenv_s(env_name, "/tmp/non_existent_dir_amplitron_test");
+#else
+        setenv(env_name, "/tmp/non_existent_dir_amplitron_test", 1);
+#endif
+        std::cout << "[DEBUG] NEW " << env_name << ": " << (std::getenv(env_name) ? std::getenv(env_name) : "NULL") << std::endl;
         std::cout << "[DEBUG] CONFIG PATH: " << MidiManager::get_config_path() << std::endl;
 
         Amplitron::AmplitronSession session;
@@ -736,10 +745,18 @@ TEST(gui_manager_additional_coverage_run) {
         std::cout << "[DEBUG] MAPPINGS SIZE AFTER INIT: " << gui.midi_manager().mappings().size()
                   << std::endl;
 
-        if (old_home) {
-            setenv("HOME", old_home, 1);
+        if (old_val) {
+#ifdef _WIN32
+            _putenv_s(env_name, old_val);
+#else
+            setenv(env_name, old_val, 1);
+#endif
         } else {
-            unsetenv("HOME");
+#ifdef _WIN32
+            _putenv_s(env_name, "");
+#else
+            unsetenv(env_name);
+#endif
         }
     }
 
