@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 17:34:58</td>
+            <td class="headerValue">2026-06-10 17:01:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -62,9 +62,9 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
-<span id="L3"><span class="lineNum">       3</span>              : #include &lt;vector&gt;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &lt;memory&gt;</span>
-<span id="L5"><span class="lineNum">       5</span>              : #include &lt;string&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>              : #include &lt;memory&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>              : #include &lt;string&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &lt;vector&gt;</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : // Forward-declare kiss_fft types to avoid exposing the C header</span>
 <span id="L8"><span class="lineNum">       8</span>              : struct kiss_fft_state;</span>
@@ -77,7 +77,7 @@
 <span id="L15"><span class="lineNum">      15</span>              : // =============================================================================</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span>              : class ConvolutionKernel {</span>
-<span id="L18"><span class="lineNum">      18</span>              : public:</span>
+<span id="L18"><span class="lineNum">      18</span>              :    public:</span>
 <span id="L19"><span class="lineNum">      19</span>              :     // Construct from time-domain IR samples.</span>
 <span id="L20"><span class="lineNum">      20</span>              :     // block_size is the audio buffer size (e.g. 64, 128, 256).</span>
 <span id="L21"><span class="lineNum">      21</span>              :     ConvolutionKernel(const std::vector&lt;float&gt;&amp; ir_samples, int block_size);</span>
@@ -100,9 +100,9 @@
 <span id="L38"><span class="lineNum">      38</span>              :     std::string source_name;  // filename only</span>
 <span id="L39"><span class="lineNum">      39</span>              :     float duration_ms = 0.0f;</span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              : private:</span>
+<span id="L41"><span class="lineNum">      41</span>              :    private:</span>
 <span id="L42"><span class="lineNum">      42</span>              :     int block_size_;</span>
-<span id="L43"><span class="lineNum">      43</span>              :     int fft_size_;        // = 2 * block_size (for linear convolution via overlap-add)</span>
+<span id="L43"><span class="lineNum">      43</span>              :     int fft_size_;  // = 2 * block_size (for linear convolution via overlap-add)</span>
 <span id="L44"><span class="lineNum">      44</span>              :     int num_partitions_;</span>
 <span id="L45"><span class="lineNum">      45</span>              :     int ir_length_;</span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
@@ -119,7 +119,7 @@
 <span id="L57"><span class="lineNum">      57</span>              : // =============================================================================</span>
 <span id="L58"><span class="lineNum">      58</span>              : </span>
 <span id="L59"><span class="lineNum">      59</span>              : class ConvolutionEngine {</span>
-<span id="L60"><span class="lineNum">      60</span>              : public:</span>
+<span id="L60"><span class="lineNum">      60</span>              :    public:</span>
 <span id="L61"><span class="lineNum">      61</span>              :     ConvolutionEngine();</span>
 <span id="L62"><span class="lineNum">      62</span>              :     ~ConvolutionEngine();</span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
@@ -134,7 +134,7 @@
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">        6050 :     bool has_kernel() const { return kernel_ != nullptr; }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span>              : private:</span>
+<span id="L75"><span class="lineNum">      75</span>              :    private:</span>
 <span id="L76"><span class="lineNum">      76</span>              :     const ConvolutionKernel* kernel_ = nullptr;</span>
 <span id="L77"><span class="lineNum">      77</span>              : </span>
 <span id="L78"><span class="lineNum">      78</span>              :     // Frequency-domain delay line (circular buffer of past input blocks in freq domain)</span>
@@ -165,7 +165,7 @@
 <span id="L103"><span class="lineNum">     103</span>              :     std::vector&lt;float&gt; direct_overlap_;  // tail from direct convolution</span>
 <span id="L104"><span class="lineNum">     104</span>              : };</span>
 <span id="L105"><span class="lineNum">     105</span>              : </span>
-<span id="L106"><span class="lineNum">     106</span>              : } // namespace Amplitron</span>
+<span id="L106"><span class="lineNum">     106</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

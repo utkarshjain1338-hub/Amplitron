@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">97.4&nbsp;%</td>
-            <td class="headerCovTableEntry">76</td>
-            <td class="headerCovTableEntry">74</td>
+            <td class="headerCovTableEntryHi">97.3&nbsp;%</td>
+            <td class="headerCovTableEntry">75</td>
+            <td class="headerCovTableEntry">73</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 17:34:58</td>
+            <td class="headerValue">2026-06-10 17:01:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">85.7&nbsp;%</td>
@@ -60,44 +60,44 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : #include &quot;gui/pedalboard/pedal_widget.h&quot;</span>
-<span id="L2"><span class="lineNum">       2</span>              : #include &quot;gui/views/gui_midi.h&quot;</span>
-<span id="L3"><span class="lineNum">       3</span>              : #include &quot;midi/midi_manager.h&quot;</span>
+<span id="L1"><span class="lineNum">       1</span>              : #include &lt;algorithm&gt;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &lt;cmath&gt;</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : #include &quot;audio/engine/audio_engine.h&quot;</span>
-<span id="L5"><span class="lineNum">       5</span>              : #include &quot;gui/theme/theme.h&quot;</span>
-<span id="L6"><span class="lineNum">       6</span>              : #include &quot;gui/components/knob.h&quot;</span>
-<span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span>              : #include &lt;cmath&gt;</span>
-<span id="L9"><span class="lineNum">       9</span>              : #include &lt;algorithm&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>              : #include &quot;gui/components/knob.h&quot;</span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &quot;gui/pedalboard/pedal_widget.h&quot;</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &quot;gui/theme/theme.h&quot;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #include &quot;gui/views/gui_midi.h&quot;</span>
+<span id="L9"><span class="lineNum">       9</span>              : #include &quot;midi/midi_manager.h&quot;</span>
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span>              : namespace Amplitron {</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         888 : void PedalWidget::render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp, bool is_tuner, bool is_ir_cab, float zoom) {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         888 :     float knob_y_start = p0.y + Theme::KNOB_Y_START * zoom;</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         888 :     if (is_ir_cab) knob_y_start = p0.y + 180 * zoom;</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         888 :     auto&amp; params = effect_-&gt;params();</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">        1182 :     int num_params = is_tuner ? 0 : static_cast&lt;int&gt;(params.size());</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         888 :     int param_offset = 0;</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         888 :     if (is_amp) {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          87 :         param_offset = 1;</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          87 :         num_params = std::max(0, num_params - 1);</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          29 :     }</span></span>
-<span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         888 :     float knob_radius    = Theme::KNOB_RADIUS * zoom;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         888 :     float knob_spacing_x = Theme::KNOB_SPACING_X * zoom;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         888 :     float knob_spacing_y = Theme::KNOB_SPACING_Y * zoom;</span></span>
-<span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         888 :     float knob_grid_left = p0.x + (pedal_width - 2.0f * knob_spacing_x) * 0.5f;</span></span>
-<span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">        3702 :     for (int i = 0; i &lt; num_params &amp;&amp; i &lt; 6; ++i) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        2814 :         int pi = i + param_offset;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">        2814 :         int col = i % 2;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        2814 :         int row = i / 2;</span></span>
-<span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        2814 :         bool is_last_alone = (i == num_params - 1) &amp;&amp; (num_params % 2 == 1);</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        2814 :         float kx = is_last_alone</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        1522 :             ? p0.x + (pedal_width - knob_spacing_x) * 0.5f</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        1938 :             : knob_grid_left + col * knob_spacing_x;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         888 : void PedalWidget::render_knobs(ImDrawList* dl, ImVec2 p0, float pedal_width, bool is_amp,</span></span>
+<span id="L14"><span class="lineNum">      14</span>              :                                bool is_tuner, bool is_ir_cab, float zoom) {</span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         888 :     float knob_y_start = p0.y + Theme::KNOB_Y_START * zoom;</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         888 :     if (is_ir_cab) knob_y_start = p0.y + 180 * zoom;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         888 :     auto&amp; params = effect_-&gt;params();</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">        1182 :     int num_params = is_tuner ? 0 : static_cast&lt;int&gt;(params.size());</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         888 :     int param_offset = 0;</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         888 :     if (is_amp) {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          87 :         param_offset = 1;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          87 :         num_params = std::max(0, num_params - 1);</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          29 :     }</span></span>
+<span id="L24"><span class="lineNum">      24</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         888 :     float knob_radius = Theme::KNOB_RADIUS * zoom;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         888 :     float knob_spacing_x = Theme::KNOB_SPACING_X * zoom;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         888 :     float knob_spacing_y = Theme::KNOB_SPACING_Y * zoom;</span></span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         888 :     float knob_grid_left = p0.x + (pedal_width - 2.0f * knob_spacing_x) * 0.5f;</span></span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        3702 :     for (int i = 0; i &lt; num_params &amp;&amp; i &lt; 6; ++i) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">        2814 :         int pi = i + param_offset;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        2814 :         int col = i % 2;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">        2814 :         int row = i / 2;</span></span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        2814 :         bool is_last_alone = (i == num_params - 1) &amp;&amp; (num_params % 2 == 1);</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        2168 :         float kx = is_last_alone ? p0.x + (pedal_width - knob_spacing_x) * 0.5f</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        1938 :                                  : knob_grid_left + col * knob_spacing_x;</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        2814 :         float ky = knob_y_start + row * knob_spacing_y;</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">        2814 :         ImVec2 knob_center = ImVec2(kx + knob_spacing_x * 0.5f, ky + knob_radius + 2 * zoom);</span></span>
@@ -116,7 +116,7 @@
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span>              :         // MIDI learn integration</span>
 <span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        2814 :         if (gui_midi_) {</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        3304 :             props.is_learning = gui_midi_-&gt;midi().is_learning() &amp;&amp;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">        3032 :             props.is_learning = gui_midi_-&gt;midi().is_learning() &amp;&amp;</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">        2384 :                                 gui_midi_-&gt;midi().learn_effect_name() == effect_-&gt;name() &amp;&amp;</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">         816 :                                 gui_midi_-&gt;midi().learn_param_name() == params[pi].name;</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">        4600 :             props.midi_info = gui_midi_-&gt;get_mapping_info(effect_-&gt;name(), params[pi].name);</span></span>
@@ -166,7 +166,7 @@
 <span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">        2814 :     }</span></span>
 <span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">         888 : }</span></span>
 <span id="L106"><span class="lineNum">     106</span>              : </span>
-<span id="L107"><span class="lineNum">     107</span>              : } // namespace Amplitron</span>
+<span id="L107"><span class="lineNum">     107</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
