@@ -31,13 +31,13 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">82.5&nbsp;%</td>
+            <td class="headerCovTableEntryMed">84.2&nbsp;%</td>
             <td class="headerCovTableEntry">120</td>
-            <td class="headerCovTableEntry">99</td>
+            <td class="headerCovTableEntry">101</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 16:59:46</td>
+            <td class="headerValue">2026-06-10 17:15:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -198,27 +198,27 @@
 <span id="L136"><span class="lineNum">     136</span>              : // ─────────────────────────────────────────────────────────────────────────────</span>
 <span id="L137"><span class="lineNum">     137</span>              : // Main panel render</span>
 <span id="L138"><span class="lineNum">     138</span>              : // ─────────────────────────────────────────────────────────────────────────────</span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           3 : void GuiAnalyzer::render() {</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           3 :     const AnalyzerProps&amp; p = props_;</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          36 : void GuiAnalyzer::render() {</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">          36 :     const AnalyzerProps&amp; p = props_;</span></span>
 <span id="L141"><span class="lineNum">     141</span>              : </span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           3 :     float panel_h = expanded_ ? 230.0f : 34.0f;</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           3 :     ImGui::BeginChild(&quot;AnalyzerPanel&quot;, ImVec2(0, panel_h), true, ImGuiWindowFlags_NoScrollbar);</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          36 :     float panel_h = expanded_ ? 230.0f : 34.0f;</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          36 :     ImGui::BeginChild(&quot;AnalyzerPanel&quot;, ImVec2(0, panel_h), true, ImGuiWindowFlags_NoScrollbar);</span></span>
 <span id="L144"><span class="lineNum">     144</span>              : </span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           3 :     ImGui::SetNextItemOpen(expanded_, ImGuiCond_Once);</span></span>
-<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">           3 :     const bool expanded = ImGui::CollapsingHeader(&quot;Real-Time Analyzer&quot;);</span></span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           3 :     if (expanded != expanded_) {</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          36 :     ImGui::SetNextItemOpen(expanded_, ImGuiCond_Once);</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC">          36 :     const bool expanded = ImGui::CollapsingHeader(&quot;Real-Time Analyzer&quot;);</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          36 :     if (expanded != expanded_) {</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC tlaBgUNC">           0 :         expanded_ = expanded;</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaUNC">           0 :         if (p.on_expanded_changed) p.on_expanded_changed(expanded_);</span></span>
 <span id="L150"><span class="lineNum">     150</span> <span class="tlaUNC">           0 :         if (p.on_set_analyzer_enabled) p.on_set_analyzer_enabled(expanded_);</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L152"><span class="lineNum">     152</span>              : </span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC tlaBgGNC">           3 :     if (!expanded_) {</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC tlaBgUNC">           0 :         ImGui::EndChild();</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :         return;</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC tlaBgGNC">          36 :     if (!expanded_) {</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">          33 :         ImGui::EndChild();</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">          33 :         return;</span></span>
 <span id="L156"><span class="lineNum">     156</span>              :     }</span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
 <span id="L158"><span class="lineNum">     158</span>              :     // ── Mode selector ──</span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC tlaBgGNC">           3 :     int mode_index = static_cast&lt;int&gt;(mode_);</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           3 :     int mode_index = static_cast&lt;int&gt;(mode_);</span></span>
 <span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           3 :     ImGui::TextUnformatted(&quot;Spectrum:&quot;);</span></span>
 <span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           3 :     ImGui::SameLine();</span></span>
 <span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           3 :     ImGui::SetNextItemWidth(150.0f);</span></span>
@@ -259,7 +259,7 @@
 <span id="L197"><span class="lineNum">     197</span> <span class="tlaGNC">           3 :     ImGui::TextColored(Theme::TextSecondary(), &quot;20 kHz&quot;);</span></span>
 <span id="L198"><span class="lineNum">     198</span>              : </span>
 <span id="L199"><span class="lineNum">     199</span> <span class="tlaGNC">           3 :     ImGui::EndChild();</span></span>
-<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">           1 : }</span></span>
+<span id="L200"><span class="lineNum">     200</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L201"><span class="lineNum">     201</span>              : </span>
 <span id="L202"><span class="lineNum">     202</span>              : }  // namespace Amplitron</span>
         </pre>

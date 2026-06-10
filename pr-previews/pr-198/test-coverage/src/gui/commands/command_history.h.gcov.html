@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 16:59:46</td>
+            <td class="headerValue">2026-06-10 17:15:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -85,8 +85,8 @@
 <span id="L23"><span class="lineNum">      23</span>              :      * @brief Construct a CommandHistory.</span>
 <span id="L24"><span class="lineNum">      24</span>              :      * @param max_depth Maximum undo stack size. Negative values are clamped to 0.</span>
 <span id="L25"><span class="lineNum">      25</span>              :      */</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         416 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         416 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         481 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         481 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     /**</span>
 <span id="L30"><span class="lineNum">      30</span>              :      * @brief Execute a command and push it onto the undo stack.</span>
@@ -124,10 +124,10 @@
 <span id="L62"><span class="lineNum">      62</span>              :     void clear();</span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
 <span id="L64"><span class="lineNum">      64</span>              :     /** @brief Return true if the undo stack is non-empty. */</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           3 :     bool can_undo() const { return !undo_stack_.empty(); }</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">         126 :     bool can_undo() const { return !undo_stack_.empty(); }</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span>              :     /** @brief Return true if the redo stack is non-empty. */</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          15 :     bool can_redo() const { return !redo_stack_.empty(); }</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">         138 :     bool can_redo() const { return !redo_stack_.empty(); }</span></span>
 <span id="L69"><span class="lineNum">      69</span>              : </span>
 <span id="L70"><span class="lineNum">      70</span>              :     /** @brief Number of commands on the undo stack. */</span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          39 :     int undo_size() const { return static_cast&lt;int&gt;(undo_stack_.size()); }</span></span>

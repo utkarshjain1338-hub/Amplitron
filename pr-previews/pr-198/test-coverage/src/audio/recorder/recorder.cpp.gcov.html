@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 16:59:46</td>
+            <td class="headerValue">2026-06-10 17:15:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -90,13 +90,13 @@
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          81 :     MKDIR(path.c_str());</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          81 : }</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1274 : Recorder::Recorder() {</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">      488376 :     for (auto&amp; v : waveform_buf_) v.store(0.0f);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         952 : }</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">        1340 : Recorder::Recorder() {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">      513513 :     for (auto&amp; v : waveform_buf_) v.store(0.0f);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        1001 : }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        2151 : Recorder::~Recorder() {</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         952 :     if (recording_) stop();</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        2151 : }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        2266 : Recorder::~Recorder() {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        1001 :     if (recording_) stop();</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        2266 : }</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           9 : std::string Recorder::get_recordings_dir() {</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : #if defined(__APPLE__)</span>
