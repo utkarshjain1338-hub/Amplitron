@@ -6,6 +6,59 @@
 #include <unistd.h>
 #endif
 
+// Pre-include standard library headers to protect them from macro poisoning
+#include <algorithm>
+#include <any>
+#include <array>
+#include <atomic>
+#include <chrono>
+#include <cmath>
+#include <codecvt>
+#include <complex>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <exception>
+#include <filesystem>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <initializer_list>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <istream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <locale>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <new>
+#include <ostream>
+#include <queue>
+#include <random>
+#include <ratio>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <streambuf>
+#include <string>
+#include <system_error>
+#include <thread>
+#include <type_traits>
+#include <typeinfo>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <vector>
+
+#include <imgui.h>
+
 #define private public
 #define protected public
 #include "amplitron_session.h"
@@ -367,6 +420,7 @@ extern std::string g_mock_open_dialog_result;
 extern std::string g_mock_folder_dialog_result;
 }  // namespace Amplitron
 
+#ifndef _WIN32
 static int mock_fork_val = -1;
 inline pid_t mock_fork() { return mock_fork_val; }
 inline int mock_pipe(int*) { return 0; }
@@ -376,6 +430,7 @@ inline int mock_close(int) { return 0; }
 inline int mock_execl(const char*, const char*, ...) { return 0; }
 inline void mock_exit(int) {}
 inline pid_t mock_waitpid(pid_t, int*, int) { return 0; }
+#endif
 
 static bool mock_serialise_current_preset_to_json_empty = false;
 
@@ -410,6 +465,7 @@ struct MockTunerWrapper {
 #define GuiManager MockGuiManager
 #define ImGui mock_gui::MockImGui
 #define ImDrawList mock_gui::MockDrawList
+#ifndef _WIN32
 #define fork mock_fork
 #define pipe mock_pipe
 #define dup2 mock_dup2
@@ -418,6 +474,7 @@ struct MockTunerWrapper {
 #define execl mock_execl
 #define _exit mock_exit
 #define waitpid mock_waitpid
+#endif
 #define gui_presets_ \
     MockPresetsWrapper { gui_presets_ }
 #define gui_tuner_ \
@@ -427,6 +484,7 @@ struct MockTunerWrapper {
 #undef GuiManager
 #undef ImGui
 #undef ImDrawList
+#ifndef _WIN32
 #undef fork
 #undef pipe
 #undef dup2
@@ -435,6 +493,7 @@ struct MockTunerWrapper {
 #undef execl
 #undef _exit
 #undef waitpid
+#endif
 #undef gui_presets_
 #undef gui_tuner_
 
@@ -482,8 +541,17 @@ class MockUpdateChecker : public UpdateChecker {
 }  // namespace Amplitron
 
 #define UpdateChecker MockUpdateChecker
+#ifdef popen
+#undef popen
+#endif
 #define popen mock_popen
+#ifdef pclose
+#undef pclose
+#endif
 #define pclose mock_pclose
+#ifdef fgets
+#undef fgets
+#endif
 #define fgets mock_fgets
 #include "gui/update_checker.cpp"
 #undef UpdateChecker
