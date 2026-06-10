@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-01 11:15:25</td>
+            <td class="headerValue">2026-06-10 16:31:59</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -63,54 +63,56 @@
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &lt;imgui.h&gt;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &lt;memory&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &lt;functional&gt;</span>
-<span id="L6"><span class="lineNum">       6</span>              : #include &lt;string&gt;</span>
-<span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span>              : namespace Amplitron {</span>
-<span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span>              : class Effect;</span>
-<span id="L11"><span class="lineNum">      11</span>              : class AudioEngine;</span>
-<span id="L12"><span class="lineNum">      12</span>              : class GuiMidi;</span>
-<span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span>              : enum class ScreenType {</span>
-<span id="L15"><span class="lineNum">      15</span>              :     Tuner,</span>
-<span id="L16"><span class="lineNum">      16</span>              :     Cabinet,</span>
-<span id="L17"><span class="lineNum">      17</span>              :     Looper,</span>
-<span id="L18"><span class="lineNum">      18</span>              :     MultiBandCompressor</span>
-<span id="L19"><span class="lineNum">      19</span>              : };</span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">          46 : struct ScreenProps {</span></span>
-<span id="L22"><span class="lineNum">      22</span>              :     ScreenType type;</span>
-<span id="L23"><span class="lineNum">      23</span>              :     std::shared_ptr&lt;Effect&gt; effect;</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          23 :     int index = 0;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          23 :     AudioEngine* engine = nullptr;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          23 :     GuiMidi* gui_midi = nullptr;</span></span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &lt;memory&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &lt;string&gt;</span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
+<span id="L9"><span class="lineNum">       9</span>              : namespace Amplitron {</span>
+<span id="L10"><span class="lineNum">      10</span>              : </span>
+<span id="L11"><span class="lineNum">      11</span>              : class Effect;</span>
+<span id="L12"><span class="lineNum">      12</span>              : class IAudioEngine;</span>
+<span id="L13"><span class="lineNum">      13</span>              : class GuiMidi;</span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
+<span id="L15"><span class="lineNum">      15</span>              : enum class ScreenType { Tuner, Cabinet, Looper, MultiBandCompressor };</span>
+<span id="L16"><span class="lineNum">      16</span>              : </span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">          66 : struct ScreenProps {</span></span>
+<span id="L18"><span class="lineNum">      18</span>              :     ScreenType type;</span>
+<span id="L19"><span class="lineNum">      19</span>              :     std::shared_ptr&lt;Effect&gt; effect;</span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          33 :     int index = 0;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          33 :     IAudioEngine* engine = nullptr;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          33 :     GuiMidi* gui_midi = nullptr;</span></span>
+<span id="L23"><span class="lineNum">      23</span>              : </span>
+<span id="L24"><span class="lineNum">      24</span>              :     // Callback events for undo-able parameter changes</span>
+<span id="L25"><span class="lineNum">      25</span>              :     std::function&lt;void(int, float, float)&gt; on_commit_param_change;  // param_index, old_val, new_val</span>
+<span id="L26"><span class="lineNum">      26</span>              : };</span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span>              :     // Callback events for undo-able parameter changes</span>
-<span id="L29"><span class="lineNum">      29</span>              :     std::function&lt;void(int, float, float)&gt; on_commit_param_change; // param_index, old_val, new_val</span>
-<span id="L30"><span class="lineNum">      30</span>              : };</span>
-<span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span>              : class ScreenComponent {</span>
-<span id="L33"><span class="lineNum">      33</span>              : public:</span>
-<span id="L34"><span class="lineNum">      34</span>              :     /**</span>
-<span id="L35"><span class="lineNum">      35</span>              :      * @brief Render a reusable screen display component for complex pedals (Tuner, Cabinet, Looper, MultiBandCompressor).</span>
-<span id="L36"><span class="lineNum">      36</span>              :      * @param dl          ImDrawList pointer to draw custom shapes.</span>
-<span id="L37"><span class="lineNum">      37</span>              :      * @param p0          Top-left corner position of the screen or display region.</span>
-<span id="L38"><span class="lineNum">      38</span>              :      * @param pedal_width Width of the pedal containing this screen.</span>
-<span id="L39"><span class="lineNum">      39</span>              :      * @param zoom        DPI zoom multiplier.</span>
-<span id="L40"><span class="lineNum">      40</span>              :      * @param props       Configuration, references, and event callbacks.</span>
-<span id="L41"><span class="lineNum">      41</span>              :      */</span>
-<span id="L42"><span class="lineNum">      42</span>              :     static void render(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom, const ScreenProps&amp; props);</span>
-<span id="L43"><span class="lineNum">      43</span>              : </span>
-<span id="L44"><span class="lineNum">      44</span>              : private:</span>
-<span id="L45"><span class="lineNum">      45</span>              :     static void render_tuner_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom, const ScreenProps&amp; props);</span>
-<span id="L46"><span class="lineNum">      46</span>              :     static void render_ir_cabinet_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom, const ScreenProps&amp; props);</span>
-<span id="L47"><span class="lineNum">      47</span>              :     static void render_looper_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom, const ScreenProps&amp; props);</span>
-<span id="L48"><span class="lineNum">      48</span>              :     static void render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom, const ScreenProps&amp; props);</span>
-<span id="L49"><span class="lineNum">      49</span>              : };</span>
-<span id="L50"><span class="lineNum">      50</span>              : </span>
-<span id="L51"><span class="lineNum">      51</span>              : } // namespace Amplitron</span>
+<span id="L28"><span class="lineNum">      28</span>              : class ScreenComponent {</span>
+<span id="L29"><span class="lineNum">      29</span>              :    public:</span>
+<span id="L30"><span class="lineNum">      30</span>              :     /**</span>
+<span id="L31"><span class="lineNum">      31</span>              :      * @brief Render a reusable screen display component for complex pedals (Tuner, Cabinet, Looper,</span>
+<span id="L32"><span class="lineNum">      32</span>              :      * MultiBandCompressor).</span>
+<span id="L33"><span class="lineNum">      33</span>              :      * @param dl          ImDrawList pointer to draw custom shapes.</span>
+<span id="L34"><span class="lineNum">      34</span>              :      * @param p0          Top-left corner position of the screen or display region.</span>
+<span id="L35"><span class="lineNum">      35</span>              :      * @param pedal_width Width of the pedal containing this screen.</span>
+<span id="L36"><span class="lineNum">      36</span>              :      * @param zoom        DPI zoom multiplier.</span>
+<span id="L37"><span class="lineNum">      37</span>              :      * @param props       Configuration, references, and event callbacks.</span>
+<span id="L38"><span class="lineNum">      38</span>              :      */</span>
+<span id="L39"><span class="lineNum">      39</span>              :     static void render(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom,</span>
+<span id="L40"><span class="lineNum">      40</span>              :                        const ScreenProps&amp; props);</span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span>              :    private:</span>
+<span id="L43"><span class="lineNum">      43</span>              :     static void render_tuner_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom,</span>
+<span id="L44"><span class="lineNum">      44</span>              :                                      const ScreenProps&amp; props);</span>
+<span id="L45"><span class="lineNum">      45</span>              :     static void render_ir_cabinet_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom,</span>
+<span id="L46"><span class="lineNum">      46</span>              :                                           const ScreenProps&amp; props);</span>
+<span id="L47"><span class="lineNum">      47</span>              :     static void render_looper_display(ImDrawList* dl, ImVec2 p0, float pedal_width, float zoom,</span>
+<span id="L48"><span class="lineNum">      48</span>              :                                       const ScreenProps&amp; props);</span>
+<span id="L49"><span class="lineNum">      49</span>              :     static void render_multiband_compressor_display(ImDrawList* dl, ImVec2 p0, float pedal_width,</span>
+<span id="L50"><span class="lineNum">      50</span>              :                                                     float zoom, const ScreenProps&amp; props);</span>
+<span id="L51"><span class="lineNum">      51</span>              : };</span>
+<span id="L52"><span class="lineNum">      52</span>              : </span>
+<span id="L53"><span class="lineNum">      53</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
