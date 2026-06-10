@@ -7,6 +7,8 @@
 #endif
 
 // Pre-include standard library headers to protect them from macro poisoning
+#include <imgui.h>
+
 #include <algorithm>
 #include <any>
 #include <array>
@@ -23,8 +25,8 @@
 #include <filesystem>
 #include <fstream>
 #include <functional>
-#include <iomanip>
 #include <initializer_list>
+#include <iomanip>
 #include <ios>
 #include <iosfwd>
 #include <iostream>
@@ -56,8 +58,6 @@
 #include <utility>
 #include <valarray>
 #include <vector>
-
-#include <imgui.h>
 
 #define private public
 #define protected public
