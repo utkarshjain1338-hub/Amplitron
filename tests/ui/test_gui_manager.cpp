@@ -889,6 +889,7 @@ TEST(gui_manager_additional_coverage_run) {
     }
 
     // 8. gui_manager_menu.cpp Lines 38-65 (open_url_safe fork branches)
+#ifndef _WIN32
     for (int fork_val : {-1, 0, 1}) {
         ScopedImGuiContext imgui;
         Amplitron::AmplitronSession session;
@@ -905,6 +906,7 @@ TEST(gui_manager_additional_coverage_run) {
         gui.render_menu_bar();
     }
     mock_fork_val = -1;
+#endif
 
     // 9. gui_manager_menu.cpp Lines 157-158 (copy preset empty failure toast)
     {
