@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 17:16:24</td>
+            <td class="headerValue">2026-06-10 17:28:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -170,22 +170,22 @@
 <span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">        4488 :     }</span></span>
 <span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">        2330 : }</span></span>
 <span id="L110"><span class="lineNum">     110</span>              : </span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        4134 : void AudioGraphExecutor::update_transport_state(float bpm) {</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">        4218 :     for (auto&amp; step : execution_plan_) {</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        4513 : void AudioGraphExecutor::update_transport_state(float bpm) {</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">        4597 :     for (auto&amp; step : execution_plan_) {</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          84 :         if (step.pedal) {</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">          39 :             step.pedal-&gt;set_transport_state(bpm);</span></span>
 <span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          13 :         }</span></span>
 <span id="L116"><span class="lineNum">     116</span>              :     }</span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">        4134 : }</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">        4513 : }</span></span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        5097 : void AudioGraphExecutor::process(const float* input, float* output, int num_samples) {</span></span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        5097 :     if (num_samples &gt; max_block_size_) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        5476 : void AudioGraphExecutor::process(const float* input, float* output, int num_samples) {</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        5476 :     if (num_samples &gt; max_block_size_) {</span></span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           9 :         std::memset(output, 0, static_cast&lt;size_t&gt;(num_samples) * sizeof(float));</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           9 :         return;</span></span>
 <span id="L123"><span class="lineNum">     123</span>              :     }</span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        5088 :     if (execution_plan_.empty()) {</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        4104 :         std::memset(output, 0, num_samples * sizeof(float));</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">        4104 :         return;</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">        5467 :     if (execution_plan_.empty()) {</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        4483 :         std::memset(output, 0, num_samples * sizeof(float));</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">        4483 :         return;</span></span>
 <span id="L127"><span class="lineNum">     127</span>              :     }</span>
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">        4200 :     for (const auto&amp; step : execution_plan_) {</span></span>
@@ -237,7 +237,7 @@
 <span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">       40384 :             }</span></span>
 <span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">         329 :         }</span></span>
 <span id="L177"><span class="lineNum">     177</span>              :     }</span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">        2161 : }</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">        2540 : }</span></span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           3 : void AudioGraphExecutor::update_mixer_gain(int node_id, int pin_index, float gain) {</span></span>
 <span id="L181"><span class="lineNum">     181</span> <span class="tlaGNC">          15 :     for (auto&amp; step : execution_plan_) {</span></span>
