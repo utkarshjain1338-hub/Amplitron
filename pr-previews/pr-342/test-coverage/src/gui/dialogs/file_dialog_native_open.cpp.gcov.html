@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 09:56:06</td>
+            <td class="headerValue">2026-06-10 10:21:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
@@ -93,13 +93,13 @@
 <span id="L31"><span class="lineNum">      31</span>              : #ifdef AMPLITRON_HEADLESS</span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC tlaBgGNC">           1 : static std::string s_mock_open_path = &quot;&quot;;</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           6 : void set_mock_open_dialog_path(const std::string &amp;path) {</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           6 :   s_mock_open_path = path;</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           6 : }</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          42 : void set_mock_open_dialog_path(const std::string &amp;path) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          42 :   s_mock_open_path = path;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">          42 : }</span></span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           9 : std::string show_open_dialog(const std::string &amp;, const std::string &amp;,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          57 : std::string show_open_dialog(const std::string &amp;, const std::string &amp;,</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                              const std::string &amp;) {</span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           9 :   return s_mock_open_path;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">          57 :   return s_mock_open_path;</span></span>
 <span id="L41"><span class="lineNum">      41</span>              : }</span>
 <span id="L42"><span class="lineNum">      42</span>              : #else</span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
