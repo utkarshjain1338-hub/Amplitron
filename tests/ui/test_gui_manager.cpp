@@ -1,7 +1,10 @@
 #include <fcntl.h>
 #include <sys/types.h>
+
+#ifndef _WIN32
 #include <sys/wait.h>
 #include <unistd.h>
+#endif
 
 #define private public
 #define protected public
