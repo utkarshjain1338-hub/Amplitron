@@ -725,13 +725,15 @@ TEST(gui_manager_additional_coverage_run) {
         const char* env_name = "HOME";
 #endif
         char* old_val = std::getenv(env_name);
-        std::cout << "[DEBUG] OLD " << env_name << ": " << (old_val ? old_val : "NULL") << std::endl;
+        std::cout << "[DEBUG] OLD " << env_name << ": " << (old_val ? old_val : "NULL")
+                  << std::endl;
 #ifdef _WIN32
         _putenv_s(env_name, "/tmp/non_existent_dir_amplitron_test");
 #else
         setenv(env_name, "/tmp/non_existent_dir_amplitron_test", 1);
 #endif
-        std::cout << "[DEBUG] NEW " << env_name << ": " << (std::getenv(env_name) ? std::getenv(env_name) : "NULL") << std::endl;
+        std::cout << "[DEBUG] NEW " << env_name << ": "
+                  << (std::getenv(env_name) ? std::getenv(env_name) : "NULL") << std::endl;
         std::cout << "[DEBUG] CONFIG PATH: " << MidiManager::get_config_path() << std::endl;
 
         Amplitron::AmplitronSession session;
