@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-03 09:13:19</td>
+            <td class="headerValue">2026-06-10 09:56:06</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -63,49 +63,50 @@
 <span id="L1"><span class="lineNum">       1</span>              : #pragma once</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
 <span id="L3"><span class="lineNum">       3</span>              : #include &lt;imgui.h&gt;</span>
-<span id="L4"><span class="lineNum">       4</span>              : #include &lt;string&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : #include &lt;functional&gt;</span>
-<span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
-<span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">         426 : struct KnobProps {</span></span>
-<span id="L10"><span class="lineNum">      10</span>              :     std::string name;</span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         213 :     float value = 0.0f;</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         213 :     float min_val = 0.0f;</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         213 :     float max_val = 1.0f;</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         213 :     float default_val = 0.0f;</span></span>
-<span id="L15"><span class="lineNum">      15</span>              :     std::string unit;</span>
-<span id="L16"><span class="lineNum">      16</span>              :     std::string tooltip;</span>
-<span id="L17"><span class="lineNum">      17</span>              : </span>
-<span id="L18"><span class="lineNum">      18</span>              :     // MIDI status</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         213 :     bool is_learning = false;</span></span>
-<span id="L20"><span class="lineNum">      20</span>              :     std::string midi_info;</span>
-<span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span>              :     // Color theme</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         213 :     ImVec4 led_color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);</span></span>
-<span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span>              :     // Callback events</span>
-<span id="L26"><span class="lineNum">      26</span>              :     std::function&lt;void(float)&gt; on_value_changed;</span>
-<span id="L27"><span class="lineNum">      27</span>              :     std::function&lt;void(float, float)&gt; on_value_committed; // old_val, new_val</span>
-<span id="L28"><span class="lineNum">      28</span>              :     std::function&lt;void()&gt; on_midi_learn_param;</span>
-<span id="L29"><span class="lineNum">      29</span>              :     std::function&lt;void()&gt; on_midi_clear_param;</span>
-<span id="L30"><span class="lineNum">      30</span>              :     std::function&lt;void()&gt; on_midi_learn_bypass;</span>
-<span id="L31"><span class="lineNum">      31</span>              :     std::function&lt;void()&gt; on_midi_clear_bypass;</span>
-<span id="L32"><span class="lineNum">      32</span>              : };</span>
-<span id="L33"><span class="lineNum">      33</span>              : </span>
-<span id="L34"><span class="lineNum">      34</span>              : class KnobComponent {</span>
-<span id="L35"><span class="lineNum">      35</span>              : public:</span>
-<span id="L36"><span class="lineNum">      36</span>              :     /**</span>
-<span id="L37"><span class="lineNum">      37</span>              :      * @brief Render a reusable parameter rotary knob.</span>
-<span id="L38"><span class="lineNum">      38</span>              :      * @param imgui_id Unique ID string for ImGui tracking.</span>
-<span id="L39"><span class="lineNum">      39</span>              :      * @param props    Configuration, current state, and callbacks.</span>
-<span id="L40"><span class="lineNum">      40</span>              :      * @param zoom     DPI / GUI zoom multiplier.</span>
-<span id="L41"><span class="lineNum">      41</span>              :      * @param center   Center coordinates where the knob should be drawn.</span>
-<span id="L42"><span class="lineNum">      42</span>              :      */</span>
-<span id="L43"><span class="lineNum">      43</span>              :     static void render(const char* imgui_id, const KnobProps&amp; props, float zoom, ImVec2 center);</span>
-<span id="L44"><span class="lineNum">      44</span>              : };</span>
-<span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span>              : } // namespace Amplitron</span>
+<span id="L6"><span class="lineNum">       6</span>              : #include &lt;string&gt;</span>
+<span id="L7"><span class="lineNum">       7</span>              : </span>
+<span id="L8"><span class="lineNum">       8</span>              : namespace Amplitron {</span>
+<span id="L9"><span class="lineNum">       9</span>              : </span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">         426 : struct KnobProps {</span></span>
+<span id="L11"><span class="lineNum">      11</span>              :     std::string name;</span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         213 :     float value = 0.0f;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         213 :     float min_val = 0.0f;</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         213 :     float max_val = 1.0f;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         213 :     float default_val = 0.0f;</span></span>
+<span id="L16"><span class="lineNum">      16</span>              :     std::string unit;</span>
+<span id="L17"><span class="lineNum">      17</span>              :     std::string tooltip;</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span>              :     // MIDI status</span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         213 :     bool is_learning = false;</span></span>
+<span id="L21"><span class="lineNum">      21</span>              :     std::string midi_info;</span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              :     // Color theme</span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         213 :     ImVec4 led_color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);</span></span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span>              :     // Callback events</span>
+<span id="L27"><span class="lineNum">      27</span>              :     std::function&lt;void(float)&gt; on_value_changed;</span>
+<span id="L28"><span class="lineNum">      28</span>              :     std::function&lt;void(float, float)&gt; on_value_committed;  // old_val, new_val</span>
+<span id="L29"><span class="lineNum">      29</span>              :     std::function&lt;void()&gt; on_midi_learn_param;</span>
+<span id="L30"><span class="lineNum">      30</span>              :     std::function&lt;void()&gt; on_midi_clear_param;</span>
+<span id="L31"><span class="lineNum">      31</span>              :     std::function&lt;void()&gt; on_midi_learn_bypass;</span>
+<span id="L32"><span class="lineNum">      32</span>              :     std::function&lt;void()&gt; on_midi_clear_bypass;</span>
+<span id="L33"><span class="lineNum">      33</span>              : };</span>
+<span id="L34"><span class="lineNum">      34</span>              : </span>
+<span id="L35"><span class="lineNum">      35</span>              : class KnobComponent {</span>
+<span id="L36"><span class="lineNum">      36</span>              :    public:</span>
+<span id="L37"><span class="lineNum">      37</span>              :     /**</span>
+<span id="L38"><span class="lineNum">      38</span>              :      * @brief Render a reusable parameter rotary knob.</span>
+<span id="L39"><span class="lineNum">      39</span>              :      * @param imgui_id Unique ID string for ImGui tracking.</span>
+<span id="L40"><span class="lineNum">      40</span>              :      * @param props    Configuration, current state, and callbacks.</span>
+<span id="L41"><span class="lineNum">      41</span>              :      * @param zoom     DPI / GUI zoom multiplier.</span>
+<span id="L42"><span class="lineNum">      42</span>              :      * @param center   Center coordinates where the knob should be drawn.</span>
+<span id="L43"><span class="lineNum">      43</span>              :      */</span>
+<span id="L44"><span class="lineNum">      44</span>              :     static void render(const char* imgui_id, const KnobProps&amp; props, float zoom, ImVec2 center);</span>
+<span id="L45"><span class="lineNum">      45</span>              : };</span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
