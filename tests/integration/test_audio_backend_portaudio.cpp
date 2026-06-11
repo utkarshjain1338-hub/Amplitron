@@ -551,16 +551,20 @@ TEST(PortAudioBackend_ExtraCoverage) {
     engine.initialize();
 
     g_mock_pa_get_device_info = [](int) -> const PaDeviceInfo* { return nullptr; };
-    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*, const PaStreamParameters*,
-                               double, unsigned long, PaStreamFlags, PaStreamCallback*,
-                               void*) -> PaError { return paNotInitialized; };
+    g_mock_pa_open_stream = [](PaStream** stream, const PaStreamParameters* input_params,
+                               const PaStreamParameters* output_params, double sample_rate,
+                               unsigned long frames_per_buffer, PaStreamFlags stream_flags,
+                               PaStreamCallback* stream_callback,
+                               void* user_data) -> PaError { return paNotInitialized; };
 
     ASSERT_FALSE(engine.start());
 
     // 2. Force Pa_GetHostApiInfo to return nullptr during auto_detect_devices
     g_mock_pa_get_host_api_info = [](int) -> const PaHostApiInfo* { return nullptr; };
     engine.shutdown();
-    engine.initialize();
+    ASSERT_TRUE(engine.initialize());
+    ASSERT_EQ(engine.get_input_device(), 0);
+    ASSERT_EQ(engine.get_output_device(), 1);
 }
 #else
 #include "test_framework.h"

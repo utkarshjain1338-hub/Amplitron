@@ -1090,7 +1090,7 @@ TEST(audio_graph_split_merge_disconnects) {
     ASSERT_TRUE(output_audio[0] == 0.0f);  // No output
 }
 
-TEST(AudioGraph_ExtraBranches) {
+TEST(audio_graph_extra_branches) {
     AudioGraph graph;
 
     // 1. restore_node()
@@ -1115,13 +1115,33 @@ TEST(AudioGraph_ExtraBranches) {
     graph.restore_link(
         link1);  // Restoring a link that creates a cycle (source output -> self input)
 
+    // Verify the cycle link (id 50) was rejected and is absent
+    bool found_link_50 = false;
+    for (const auto &link : graph.get_links()) {
+        if (link.id == 50) {
+            found_link_50 = true;
+            break;
+        }
+    }
+    ASSERT_FALSE(found_link_50);
+
     // 3. restore_input_pin()
     // - Index >= 0, idx <= size
     graph.restore_input_pin(10, 103, 1, 0.5f);
+    auto *n10 = graph.find_node(10);
+    ASSERT_TRUE(n10 != nullptr);
+    ASSERT_EQ(n10->input_pin_ids.size(), 3u);
+    ASSERT_EQ(n10->input_pin_ids[1], 103);
+
     // - Index >= 0, idx > size
     graph.restore_input_pin(10, 104, 10, 0.5f);
-    // - Index < 0
+    ASSERT_EQ(n10->input_pin_ids.size(), 4u);
+    ASSERT_EQ(n10->input_pin_ids[3], 104);
+
+    // - Index < 0 (adds pin to back in current implementation)
     graph.restore_input_pin(10, 105, -1, 0.5f);
+    ASSERT_EQ(n10->input_pin_ids.size(), 5u);
+    ASSERT_EQ(n10->input_pin_ids[4], 105);
 
     // 4. restore_output_pin()
     // - Index >= 0, idx <= size
@@ -1131,8 +1151,16 @@ TEST(AudioGraph_ExtraBranches) {
     splitter_node.output_pin_ids = {301, 302};
     graph.restore_node(splitter_node);
     graph.restore_output_pin(20, 303, 1);
-    // - Index out of bounds
+
+    auto *n20 = graph.find_node(20);
+    ASSERT_TRUE(n20 != nullptr);
+    ASSERT_EQ(n20->output_pin_ids.size(), 3u);
+    ASSERT_EQ(n20->output_pin_ids[1], 303);
+
+    // - Index out of bounds (adds pin to back in current implementation)
     graph.restore_output_pin(20, 304, 99);
+    ASSERT_EQ(n20->output_pin_ids.size(), 4u);
+    ASSERT_EQ(n20->output_pin_ids[3], 304);
 
     // 5. add_output_pin()
     // - Splitter up to 8 pins

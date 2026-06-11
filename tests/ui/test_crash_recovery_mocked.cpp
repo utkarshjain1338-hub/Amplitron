@@ -28,12 +28,15 @@ inline int mock_SDL_ShowMessageBox(const SDL_MessageBoxData* messageboxdata, int
     return g_mock_sdl_show_messagebox_return;
 }
 
-// Redirect SDL calls in the header to our mocks
+// Redirect SDL calls in the header to our mocks.
+// SDL.h must be included before these macros are defined and before including
+// gui/crash_recovery_ui.h so the macro redirection applies, and crash_recovery_ui.h
+// must not re-include SDL.h in a way that bypasses the macros; also note that the test
+// undefines AMPLITRON_HEADLESS to exercise non-headless code paths.
 #define SDL_WasInit mock_SDL_WasInit
 #define SDL_InitSubSystem mock_SDL_InitSubSystem
 #define SDL_ShowMessageBox mock_SDL_ShowMessageBox
 
-// Undefine AMPLITRON_HEADLESS to compile the non-headless paths
 #undef AMPLITRON_HEADLESS
 
 namespace mocked {
