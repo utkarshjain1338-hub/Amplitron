@@ -542,6 +542,28 @@ TEST(PortAudioDevices_DevicesCoverage) {
     MockGuard guard;
     Amplitron::PortAudioTestSaboteur::devices_coverage();
 }
+
+TEST(PortAudioBackend_ExtraCoverage) {
+    MockGuard guard;
+    
+    // 1. Force Pa_OpenStream to fail and Pa_GetDeviceInfo to return nullptr
+    AudioEngine engine;
+    engine.initialize();
+
+    g_mock_pa_get_device_info = [](int) -> const PaDeviceInfo* { return nullptr; };
+    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*,
+                              const PaStreamParameters*, double, unsigned long,
+                              PaStreamFlags, PaStreamCallback*, void*) -> PaError {
+        return paNotInitialized;
+    };
+
+    ASSERT_FALSE(engine.start());
+
+    // 2. Force Pa_GetHostApiInfo to return nullptr during auto_detect_devices
+    g_mock_pa_get_host_api_info = [](int) -> const PaHostApiInfo* { return nullptr; };
+    engine.shutdown();
+    engine.initialize();
+}
 #else
 #include "test_framework.h"
 TEST(AudioBackend_PortAudio_NotAvailable) { ASSERT_TRUE(true); }

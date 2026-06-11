@@ -11,7 +11,7 @@
 
 namespace Amplitron {
 
-static void sdl_audio_callback(void* userdata, Uint8* stream, int len) {
+void sdl_audio_callback(void* userdata, Uint8* stream, int len) {
     auto* be = static_cast<SdlBackend*>(userdata);
     auto* engine = be->get_engine();
     if (!engine) return;
