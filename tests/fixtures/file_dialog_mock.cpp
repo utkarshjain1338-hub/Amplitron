@@ -116,6 +116,7 @@ int MOCK_pclose(FILE* stream) {
     return g_exit_status;
 }
 
+#ifdef __APPLE__
 int MOCK_execl(const char* path, const char* arg0, ...) {
     va_list args;
     va_start(args, arg0);
@@ -136,5 +137,6 @@ int MOCK_execl(const char* path, const char* arg0, ...) {
     _exit(g_exit_status);
     return 0;
 }
+#endif
 #endif
 }

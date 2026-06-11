@@ -917,8 +917,12 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         target_compile_definitions(amplitron-tests PRIVATE
             "popen=MOCK_popen"
             "pclose=MOCK_pclose"
-            "execl=MOCK_execl"
         )
+        if(APPLE)
+            target_compile_definitions(amplitron-tests PRIVATE
+                "execl=MOCK_execl"
+            )
+        endif()
     endif()
 
     if(WITH_JACK AND UNIX AND NOT APPLE)

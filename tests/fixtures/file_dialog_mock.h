@@ -28,6 +28,8 @@ void WINAPI MOCK_CoTaskMemFree(LPVOID pv);
 #else
 FILE* MOCK_popen(const char* command, const char* type);
 int MOCK_pclose(FILE* stream);
+#ifdef __APPLE__
 int MOCK_execl(const char* path, const char* arg0, ...);
+#endif
 #endif
 }
