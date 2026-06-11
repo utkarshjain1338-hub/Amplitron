@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">87.5&nbsp;%</td>
@@ -81,12 +81,12 @@
 <span id="L19"><span class="lineNum">      19</span>              : class StandardEffectProcessor : public INodeProcessor {</span>
 <span id="L20"><span class="lineNum">      20</span>              :    public:</span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">        1078 :     explicit StandardEffectProcessor(std::shared_ptr&lt;Effect&gt; pedal) : pedal_(std::move(pedal)) {}</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         200 :     void process(const float* input, float* output, int num_samples) override {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         200 :         std::memcpy(output, input, static_cast&lt;size_t&gt;(num_samples) * sizeof(float));</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         200 :         if (pedal_) {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         200 :             pedal_-&gt;process(output, num_samples);</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         174 :         }</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         200 :     }</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         318 :     void process(const float* input, float* output, int num_samples) override {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         318 :         std::memcpy(output, input, static_cast&lt;size_t&gt;(num_samples) * sizeof(float));</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         318 :         if (pedal_) {</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         318 :             pedal_-&gt;process(output, num_samples);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         292 :         }</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         318 :     }</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :    private:</span>
 <span id="L30"><span class="lineNum">      30</span>              :     std::shared_ptr&lt;Effect&gt; pedal_;</span>
@@ -94,9 +94,9 @@
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">        1287 : class PassthroughProcessor : public INodeProcessor {</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :    public:</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        3338 :     void process(const float* input, float* output, int num_samples) override {</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        3338 :         std::memcpy(output, input, static_cast&lt;size_t&gt;(num_samples) * sizeof(float));</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        3338 :     }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        3456 :     void process(const float* input, float* output, int num_samples) override {</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">        3456 :         std::memcpy(output, input, static_cast&lt;size_t&gt;(num_samples) * sizeof(float));</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        3456 :     }</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : };</span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span>              : class AudioGraphExecutor {</span>

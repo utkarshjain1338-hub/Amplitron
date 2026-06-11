@@ -31,18 +31,18 @@
             <td class="headerValue">merged.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">98.2&nbsp;%</td>
             <td class="headerCovTableEntry">272</td>
-            <td class="headerCovTableEntry">272</td>
+            <td class="headerCovTableEntry">267</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">62.1&nbsp;%</td>
+            <td class="headerCovTableEntryLo">60.3&nbsp;%</td>
             <td class="headerCovTableEntry">58</td>
-            <td class="headerCovTableEntry">36</td>
+            <td class="headerCovTableEntry">35</td>
           </tr>
                   <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -330,13 +330,13 @@
 <span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          33 :     if (show_save_preset_) gui_presets_.render_save_popup(show_save_preset_);</span></span>
 <span id="L269"><span class="lineNum">     269</span> <span class="tlaGNC">          33 :     if (show_load_preset_) gui_presets_.render_load_popup(show_load_preset_);</span></span>
 <span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">          33 :     if (gui_recording_.needs_save_dialog()) {</span></span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           9 :         gui_recording_.render_save_dialog([this](const std::string&amp; dest) {</span></span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">           3 :             auto&amp; rec = engine_.recorder();</span></span>
-<span id="L273"><span class="lineNum">     273</span> <span class="tlaGNC">           3 :             if (rec.save_to(dest)) {</span></span>
-<span id="L274"><span class="lineNum">     274</span> <span class="tlaGNC">           3 :                 rec.write_metadata(dest, engine_);</span></span>
-<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">           1 :             }</span></span>
-<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">           3 :         });</span></span>
-<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">           8 :         gui_recording_.render_save_dialog([this](const std::string&amp; dest) {</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaUNC tlaBgUNC">           0 :             auto&amp; rec = engine_.recorder();</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaUNC">           0 :             if (rec.save_to(dest)) {</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaUNC">           0 :                 rec.write_metadata(dest, engine_);</span></span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaUNC">           0 :             }</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaUNC">           0 :         });</span></span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaGNC tlaBgGNC">           2 :     }</span></span>
 <span id="L278"><span class="lineNum">     278</span> <span class="tlaGNC">          33 :     if (show_tuner_) {</span></span>
 <span id="L279"><span class="lineNum">     279</span> <span class="tlaGNC">           8 :         gui_tuner_.set_props(build_tuner_props());</span></span>
 <span id="L280"><span class="lineNum">     280</span> <span class="tlaGNC">           6 :         bool current_show = show_tuner_;</span></span>

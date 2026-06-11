@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -119,13 +119,10 @@
 <span id="L57"><span class="lineNum">      57</span>              :     // 8192 is a power of 2 (allows fast bitwise wrapping) and fits easily in L1 cache</span>
 <span id="L58"><span class="lineNum">      58</span>              :     std::array&lt;float, 8192&gt; hann_lut_;</span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
-<span id="L60"><span class="lineNum">      60</span>              :     // Cached pitch ratio to avoid per-sample pow()</span>
-<span id="L61"><span class="lineNum">      61</span>              :     float ratio_ = 1.0f;</span>
+<span id="L60"><span class="lineNum">      60</span>              :     float read_linear(float phase) const;</span>
+<span id="L61"><span class="lineNum">      61</span>              : };</span>
 <span id="L62"><span class="lineNum">      62</span>              : </span>
-<span id="L63"><span class="lineNum">      63</span>              :     float read_linear(float phase) const;</span>
-<span id="L64"><span class="lineNum">      64</span>              : };</span>
-<span id="L65"><span class="lineNum">      65</span>              : </span>
-<span id="L66"><span class="lineNum">      66</span>              : }  // namespace Amplitron</span>
+<span id="L63"><span class="lineNum">      63</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>

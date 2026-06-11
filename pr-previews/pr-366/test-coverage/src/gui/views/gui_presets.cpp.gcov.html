@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -174,13 +174,13 @@
 <span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">         183 :     saved_state_valid_ = true;</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">         183 : }</span></span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          74 : std::string GuiPresets::preset_name_from_path(const std::string&amp; filepath) const {</span></span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          74 :     size_t slash = filepath.find_last_of(&quot;/\\&quot;);</span></span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          74 :     std::string name = (slash == std::string::npos) ? filepath : filepath.substr(slash + 1);</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          74 :     if (name.size() &gt; 5 &amp;&amp; name.substr(name.size() - 5) == &quot;.json&quot;) {</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          74 :         name = name.substr(0, name.size() - 5);</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">          72 : std::string GuiPresets::preset_name_from_path(const std::string&amp; filepath) const {</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">          72 :     size_t slash = filepath.find_last_of(&quot;/\\&quot;);</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">          72 :     std::string name = (slash == std::string::npos) ? filepath : filepath.substr(slash + 1);</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">          72 :     if (name.size() &gt; 5 &amp;&amp; name.substr(name.size() - 5) == &quot;.json&quot;) {</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">          72 :         name = name.substr(0, name.size() - 5);</span></span>
 <span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          24 :     }</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          74 :     return name;</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">          72 :     return name;</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">          24 : }</span></span>
 <span id="L123"><span class="lineNum">     123</span>              : </span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">          12 : std::string GuiPresets::preset_path_from_name(const std::string&amp; preset_name) const {</span></span>
@@ -196,18 +196,18 @@
 <span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">          20 :     return presets_.get_presets_directory() + &quot;/&quot; + filename + &quot;.json&quot;;</span></span>
 <span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L136"><span class="lineNum">     136</span>              : </span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          45 : void GuiPresets::refresh_presets(bool preserve_selection) {</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          45 :     std::string selected_path;</span></span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          46 :     if (preserve_selection &amp;&amp; selected_preset_index_ &gt;= 0 &amp;&amp;</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">          42 : void GuiPresets::refresh_presets(bool preserve_selection) {</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          42 :     std::string selected_path;</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          43 :     if (preserve_selection &amp;&amp; selected_preset_index_ &gt;= 0 &amp;&amp;</span></span>
 <span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           3 :         selected_preset_index_ &lt; static_cast&lt;int&gt;(preset_files_.size())) {</span></span>
 <span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           3 :         selected_path = preset_files_[selected_preset_index_];</span></span>
 <span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           1 :     }</span></span>
 <span id="L143"><span class="lineNum">     143</span>              : </span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          45 :     preset_files_ = presets_.list_presets();</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          45 :     std::sort(preset_files_.begin(), preset_files_.end());</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          42 :     preset_files_ = presets_.list_presets();</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          42 :     std::sort(preset_files_.begin(), preset_files_.end());</span></span>
 <span id="L146"><span class="lineNum">     146</span>              : </span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          45 :     selected_preset_index_ = -1;</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          45 :     if (!selected_path.empty()) {</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          42 :     selected_preset_index_ = -1;</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          42 :     if (!selected_path.empty()) {</span></span>
 <span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">           3 :         for (int i = 0; i &lt; static_cast&lt;int&gt;(preset_files_.size()); ++i) {</span></span>
 <span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">           3 :             if (preset_files_[i] == selected_path) {</span></span>
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           3 :                 selected_preset_index_ = i;</span></span>
@@ -215,16 +215,16 @@
 <span id="L153"><span class="lineNum">     153</span>              :             }</span>
 <span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC tlaBgUNC">           0 :         }</span></span>
 <span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC tlaBgGNC">           1 :     }</span></span>
-<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          45 :     if (selected_preset_index_ &lt; 0 &amp;&amp; !preset_files_.empty()) {</span></span>
-<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">          41 :         selected_preset_index_ = 0;</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaGNC">          42 :     if (selected_preset_index_ &lt; 0 &amp;&amp; !preset_files_.empty()) {</span></span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">          39 :         selected_preset_index_ = 0;</span></span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">          13 :     }</span></span>
 <span id="L159"><span class="lineNum">     159</span>              : </span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">          60 :     if (selected_preset_index_ &gt;= 0 &amp;&amp;</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          44 :         selected_preset_index_ &lt; static_cast&lt;int&gt;(preset_files_.size())) {</span></span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          44 :         std::snprintf(preset_name_buf_, sizeof(preset_name_buf_), &quot;%s&quot;,</span></span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          74 :                       preset_name_from_path(preset_files_[selected_preset_index_]).c_str());</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">          56 :     if (selected_preset_index_ &gt;= 0 &amp;&amp;</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">          42 :         selected_preset_index_ &lt; static_cast&lt;int&gt;(preset_files_.size())) {</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">          42 :         std::snprintf(preset_name_buf_, sizeof(preset_name_buf_), &quot;%s&quot;,</span></span>
+<span id="L163"><span class="lineNum">     163</span> <span class="tlaGNC">          70 :                       preset_name_from_path(preset_files_[selected_preset_index_]).c_str());</span></span>
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">          14 :     }</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">          45 : }</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">          42 : }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
 <span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          15 : bool GuiPresets::save_named_preset(const std::string&amp; preset_name, const std::string&amp; description) {</span></span>
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          15 :     if (preset_name.empty()) {</span></span>

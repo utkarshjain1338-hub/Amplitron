@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">96.3&nbsp;%</td>
@@ -166,11 +166,11 @@
 <span id="L104"><span class="lineNum">     104</span>              : </span>
 <span id="L105"><span class="lineNum">     105</span>              :     /** @brief Return the current input device index (delegates to backend so auto-detection is</span>
 <span id="L106"><span class="lineNum">     106</span>              :      * reflected). */</span>
-<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          18 :     int get_input_device() const override { return backend_ ? backend_-&gt;get_input_device() : -1; }</span></span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">          20 :     int get_input_device() const override { return backend_ ? backend_-&gt;get_input_device() : -1; }</span></span>
 <span id="L108"><span class="lineNum">     108</span>              : </span>
 <span id="L109"><span class="lineNum">     109</span>              :     /** @brief Return the current output device index (delegates to backend so auto-detection is</span>
 <span id="L110"><span class="lineNum">     110</span>              :      * reflected). */</span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          18 :     int get_output_device() const override { return backend_ ? backend_-&gt;get_output_device() : -1; }</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">          20 :     int get_output_device() const override { return backend_ ? backend_-&gt;get_output_device() : -1; }</span></span>
 <span id="L112"><span class="lineNum">     112</span>              : </span>
 <span id="L113"><span class="lineNum">     113</span>              :     /** @brief Return the human-readable input device name. */</span>
 <span id="L114"><span class="lineNum">     114</span>              :     std::string get_input_device_name() const override;</span>
@@ -194,7 +194,7 @@
 <span id="L132"><span class="lineNum">     132</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L133"><span class="lineNum">     133</span>              :     // =========================================================================</span>
 <span id="L134"><span class="lineNum">     134</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC tlaBgGNC">        2826 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() override { return dummy_effects_; }</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC tlaBgGNC">        2823 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() override { return dummy_effects_; }</span></span>
 <span id="L136"><span class="lineNum">     136</span>              : </span>
 <span id="L137"><span class="lineNum">     137</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx) override;</span>
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          42 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) override {</span></span>
@@ -221,10 +221,10 @@
 <span id="L159"><span class="lineNum">     159</span>              :     void set_sample_rate(int rate) override;</span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
 <span id="L161"><span class="lineNum">     161</span>              :     /** @brief Return the current buffer size in samples. */</span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         131 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         128 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
 <span id="L164"><span class="lineNum">     164</span>              :     /** @brief Return the current sample rate in Hz. */</span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         281 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         278 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
 <span id="L167"><span class="lineNum">     167</span>              :     /** @brief Return true if the audio stream is actively running. */</span>
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         828 :     bool is_running() const override { return running_; }</span></span>
@@ -286,10 +286,10 @@
 <span id="L224"><span class="lineNum">     224</span>              :     void set_output_gain(float gain) override;</span>
 <span id="L225"><span class="lineNum">     225</span>              : </span>
 <span id="L226"><span class="lineNum">     226</span>              :     /** @brief Return the current input gain (atomic relaxed read). */</span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">         755 :     float get_input_gain() const override { return input_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">         752 :     float get_input_gain() const override { return input_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L228"><span class="lineNum">     228</span>              : </span>
 <span id="L229"><span class="lineNum">     229</span>              :     /** @brief Return the current output gain (atomic relaxed read). */</span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         699 :     float get_output_gain() const override { return output_gain_.load(std::memory_order_relaxed); }</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">         696 :     float get_output_gain() const override { return output_gain_.load(std::memory_order_relaxed); }</span></span>
 <span id="L231"><span class="lineNum">     231</span>              : </span>
 <span id="L232"><span class="lineNum">     232</span>              :     /** @brief Toggle the metronome on/off (atomic update). */</span>
 <span id="L233"><span class="lineNum">     233</span>              :     void toggle_metronome() override;</span>
@@ -352,7 +352,7 @@
 <span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">           3 :     void set_auto_buffer_enabled(bool enabled) override { auto_buffer_enabled_ = enabled; }</span></span>
 <span id="L291"><span class="lineNum">     291</span>              : </span>
 <span id="L292"><span class="lineNum">     292</span>              :     /** @brief Access the built-in audio recorder. */</span>
-<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">         193 :     IRecorder&amp; recorder() override { return *recorder_; }</span></span>
+<span id="L293"><span class="lineNum">     293</span> <span class="tlaGNC">         190 :     IRecorder&amp; recorder() override { return *recorder_; }</span></span>
 <span id="L294"><span class="lineNum">     294</span>              : </span>
 <span id="L295"><span class="lineNum">     295</span>              :     /**</span>
 <span id="L296"><span class="lineNum">     296</span>              :      * @brief Set a tuner tap that receives pre-chain audio each callback.</span>

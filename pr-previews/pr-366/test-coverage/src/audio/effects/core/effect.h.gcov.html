@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">88.9&nbsp;%</td>
@@ -100,7 +100,7 @@
 <span id="L38"><span class="lineNum">      38</span>              :     virtual void reset() override = 0;</span>
 <span id="L39"><span class="lineNum">      39</span>              : </span>
 <span id="L40"><span class="lineNum">      40</span>              :     // Tempo broadcast receiver.</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         206 :     virtual void set_transport_state(float /*bpm*/) {}</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         324 :     virtual void set_transport_state(float /*bpm*/) {}</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span>              :     // Display name used by the pedal board and preset serialization.</span>
 <span id="L44"><span class="lineNum">      44</span>              :     virtual const char* name() const override = 0;</span>
@@ -112,10 +112,10 @@
 <span id="L50"><span class="lineNum">      50</span>              :     virtual const std::vector&lt;EffectParam&gt;&amp; params() const override = 0;</span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC tlaBgGNC">         699 :     void set_enabled(bool enabled) { enabled_ = enabled; }</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        2247 :     bool is_enabled() const { return enabled_; }</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        2244 :     bool is_enabled() const { return enabled_; }</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         546 :     void set_mix(float mix) { mix_.store(clamp(mix, 0.0f, 1.0f), std::memory_order_relaxed); }</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1056 :     float get_mix() const { return mix_.load(std::memory_order_relaxed); }</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1053 :     float get_mix() const { return mix_.load(std::memory_order_relaxed); }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span>              :     virtual std::shared_ptr&lt;Effect&gt; clone() const;</span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>

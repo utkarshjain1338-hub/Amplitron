@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">71.4&nbsp;%</td>
@@ -542,15 +542,15 @@
 <span id="L480"><span class="lineNum">     480</span> <span class="tlaGNC">           8 :         int loop_counter = 0;</span></span>
 <span id="L481"><span class="lineNum">     481</span>              : </span>
 <span id="L482"><span class="lineNum">     482</span>              :         // headless loop</span>
-<span id="L483"><span class="lineNum">     483</span> <span class="tlaGNC">          39 :         while (g_running) {</span></span>
-<span id="L484"><span class="lineNum">     484</span> <span class="tlaGNC">          27 :             std::this_thread::sleep_for(std::chrono::milliseconds(100));</span></span>
-<span id="L485"><span class="lineNum">     485</span> <span class="tlaGNC">          27 :             std::vector&lt;std::string&gt; pending_commands;</span></span>
+<span id="L483"><span class="lineNum">     483</span> <span class="tlaGNC">          40 :         while (g_running) {</span></span>
+<span id="L484"><span class="lineNum">     484</span> <span class="tlaGNC">          28 :             std::this_thread::sleep_for(std::chrono::milliseconds(100));</span></span>
+<span id="L485"><span class="lineNum">     485</span> <span class="tlaGNC">          28 :             std::vector&lt;std::string&gt; pending_commands;</span></span>
 <span id="L486"><span class="lineNum">     486</span> <span class="tlaGNC">           9 :             {</span></span>
-<span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">          27 :                 std::lock_guard&lt;std::mutex&gt; lock(cli_mutex);</span></span>
-<span id="L488"><span class="lineNum">     488</span> <span class="tlaGNC">          27 :                 std::swap(pending_commands, cli_commands);</span></span>
-<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">          27 :             }</span></span>
+<span id="L487"><span class="lineNum">     487</span> <span class="tlaGNC">          28 :                 std::lock_guard&lt;std::mutex&gt; lock(cli_mutex);</span></span>
+<span id="L488"><span class="lineNum">     488</span> <span class="tlaGNC">          28 :                 std::swap(pending_commands, cli_commands);</span></span>
+<span id="L489"><span class="lineNum">     489</span> <span class="tlaGNC">          28 :             }</span></span>
 <span id="L490"><span class="lineNum">     490</span>              : </span>
-<span id="L491"><span class="lineNum">     491</span> <span class="tlaGNC">          51 :             for (const std::string&amp; line : pending_commands) {</span></span>
+<span id="L491"><span class="lineNum">     491</span> <span class="tlaGNC">          52 :             for (const std::string&amp; line : pending_commands) {</span></span>
 <span id="L492"><span class="lineNum">     492</span> <span class="tlaGNC">          24 :                 if (line.find(&quot;gain &quot;) == 0) {</span></span>
 <span id="L493"><span class="lineNum">     493</span> <span class="tlaGNC">           1 :                     try {</span></span>
 <span id="L494"><span class="lineNum">     494</span> <span class="tlaGNC">           4 :                         float val = std::stof(line.substr(5));</span></span>
@@ -611,7 +611,7 @@
 <span id="L549"><span class="lineNum">     549</span>              :                 }</span>
 <span id="L550"><span class="lineNum">     550</span>              :             }</span>
 <span id="L551"><span class="lineNum">     551</span>              :             // telemetry logic(activates every 10s)</span>
-<span id="L552"><span class="lineNum">     552</span> <span class="tlaGNC">          27 :             if (++loop_counter &gt;= 100) {</span></span>
+<span id="L552"><span class="lineNum">     552</span> <span class="tlaGNC">          28 :             if (++loop_counter &gt;= 100) {</span></span>
 <span id="L553"><span class="lineNum">     553</span> <span class="tlaUNC tlaBgUNC">           0 :                 if (show_telemetry.load(std::memory_order_relaxed)) {</span></span>
 <span id="L554"><span class="lineNum">     554</span> <span class="tlaUNC">           0 :                     float dsp_load = engine.get_cpu_load() * 100.0f;</span></span>
 <span id="L555"><span class="lineNum">     555</span> <span class="tlaUNC">           0 :                     float in_peak = engine.get_input_level();</span></span>
@@ -628,7 +628,7 @@
 <span id="L566"><span class="lineNum">     566</span> <span class="tlaUNC">           0 :                 }</span></span>
 <span id="L567"><span class="lineNum">     567</span> <span class="tlaUNC">           0 :                 loop_counter = 0;  // reset timer</span></span>
 <span id="L568"><span class="lineNum">     568</span> <span class="tlaUNC">           0 :             }</span></span>
-<span id="L569"><span class="lineNum">     569</span> <span class="tlaGNC tlaBgGNC">          27 :         }</span></span>
+<span id="L569"><span class="lineNum">     569</span> <span class="tlaGNC tlaBgGNC">          28 :         }</span></span>
 <span id="L570"><span class="lineNum">     570</span> <span class="tlaGNC">          12 :     }</span></span>
 <span id="L571"><span class="lineNum">     571</span>              : #ifndef AMPLITRON_HEADLESS</span>
 <span id="L572"><span class="lineNum">     572</span>              :     else {</span>

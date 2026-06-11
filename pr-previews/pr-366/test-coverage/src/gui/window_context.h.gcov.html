@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:30:27</td>
+            <td class="headerValue">2026-06-11 21:33:00</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -93,14 +93,16 @@
 <span id="L31"><span class="lineNum">      31</span>              :     void load_icon();</span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span>              :     SDL_Window* window_ = nullptr;</span>
-<span id="L34"><span class="lineNum">      34</span>              :     SDL_GLContext gl_context_ = nullptr;</span>
-<span id="L35"><span class="lineNum">      35</span>              :     int width_ = 1280;</span>
-<span id="L36"><span class="lineNum">      36</span>              :     int height_ = 720;</span>
-<span id="L37"><span class="lineNum">      37</span>              :     float dpi_scale_ = 1.0f;</span>
-<span id="L38"><span class="lineNum">      38</span>              :     bool initialized_ = false;</span>
-<span id="L39"><span class="lineNum">      39</span>              : };</span>
-<span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span>              : }  // namespace Amplitron</span>
+<span id="L34"><span class="lineNum">      34</span>              : #ifndef AMPLITRON_HEADLESS</span>
+<span id="L35"><span class="lineNum">      35</span>              :     SDL_GLContext gl_context_ = nullptr;</span>
+<span id="L36"><span class="lineNum">      36</span>              : #endif</span>
+<span id="L37"><span class="lineNum">      37</span>              :     int width_ = 1280;</span>
+<span id="L38"><span class="lineNum">      38</span>              :     int height_ = 720;</span>
+<span id="L39"><span class="lineNum">      39</span>              :     float dpi_scale_ = 1.0f;</span>
+<span id="L40"><span class="lineNum">      40</span>              :     bool initialized_ = false;</span>
+<span id="L41"><span class="lineNum">      41</span>              : };</span>
+<span id="L42"><span class="lineNum">      42</span>              : </span>
+<span id="L43"><span class="lineNum">      43</span>              : }  // namespace Amplitron</span>
         </pre>
               </td>
             </tr>
