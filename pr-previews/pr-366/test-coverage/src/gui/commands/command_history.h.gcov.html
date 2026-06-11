@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:23:56</td>
+            <td class="headerValue">2026-06-11 20:30:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -85,8 +85,8 @@
 <span id="L23"><span class="lineNum">      23</span>              :      * @brief Construct a CommandHistory.</span>
 <span id="L24"><span class="lineNum">      24</span>              :      * @param max_depth Maximum undo stack size. Negative values are clamped to 0.</span>
 <span id="L25"><span class="lineNum">      25</span>              :      */</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         505 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         505 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         529 :     explicit CommandHistory(int max_depth = DEFAULT_MAX_DEPTH)</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         529 :         : max_depth_(max_depth &lt; 0 ? 0 : max_depth) {}</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     /**</span>
 <span id="L30"><span class="lineNum">      30</span>              :      * @brief Execute a command and push it onto the undo stack.</span>

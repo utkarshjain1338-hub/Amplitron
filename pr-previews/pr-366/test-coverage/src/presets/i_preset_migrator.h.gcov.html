@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:23:56</td>
+            <td class="headerValue">2026-06-11 20:30:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -70,9 +70,9 @@
 <span id="L8"><span class="lineNum">       8</span>              :  * @brief Interface for migrating preset configurations across versions.</span>
 <span id="L9"><span class="lineNum">       9</span>              :  * Satisfies Single Responsibility Principle (SRP) and Dependency Inversion Principle (DIP).</span>
 <span id="L10"><span class="lineNum">      10</span>              :  */</span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">         166 : class IPresetMigrator {</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">         172 : class IPresetMigrator {</span></span>
 <span id="L12"><span class="lineNum">      12</span>              :    public:</span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         504 :     virtual ~IPresetMigrator() = default;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         522 :     virtual ~IPresetMigrator() = default;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              :     virtual std::string migrate(const std::string&amp; raw_json) = 0;</span>
 <span id="L15"><span class="lineNum">      15</span>              : };</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>

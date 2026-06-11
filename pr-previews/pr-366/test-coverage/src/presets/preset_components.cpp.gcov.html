@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:23:56</td>
+            <td class="headerValue">2026-06-11 20:30:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">75.0&nbsp;%</td>
@@ -72,8 +72,8 @@
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">          60 : std::string PresetSerializer::serialize(const PresetData&amp; preset) { return to_json_ext(preset); }</span></span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          60 : bool PresetSerializer::deserialize(const std::string&amp; json_str, PresetData&amp; preset) {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          60 :     return from_json_ext(json_str, preset);</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          72 : bool PresetSerializer::deserialize(const std::string&amp; json_str, PresetData&amp; preset) {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">          72 :     return from_json_ext(json_str, preset);</span></span>
 <span id="L15"><span class="lineNum">      15</span>              : }</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          60 : bool PresetStorage::save(const std::string&amp; filepath, const std::string&amp; data) {</span></span>
@@ -84,13 +84,13 @@
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          34 :     return true;</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          60 : }</span></span>
 <span id="L24"><span class="lineNum">      24</span>              : </span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          66 : std::string PresetStorage::load(const std::string&amp; filepath) {</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          66 :     std::ifstream file(filepath);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          70 :     if (!file.is_open()) return &quot;&quot;;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          80 :     std::string data((std::istreambuf_iterator&lt;char&gt;(file)), std::istreambuf_iterator&lt;char&gt;());</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          60 :     file.close();</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          60 :     return data;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          86 : }</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          81 : std::string PresetStorage::load(const std::string&amp; filepath) {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          81 :     std::ifstream file(filepath);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          87 :     if (!file.is_open()) return &quot;&quot;;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          96 :     std::string data((std::istreambuf_iterator&lt;char&gt;(file)), std::istreambuf_iterator&lt;char&gt;());</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          72 :     file.close();</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          72 :     return data;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         105 : }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC tlaBgUNC">           0 : std::vector&lt;std::string&gt; PresetStorage::list() {</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :     std::vector&lt;std::string&gt; result;</span></span>
@@ -132,8 +132,8 @@
 <span id="L70"><span class="lineNum">      70</span> <span class="tlaUNC">           0 :     return false;</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC tlaBgGNC">           2 : }</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          60 : std::string PresetMigrator::migrate(const std::string&amp; raw_json) {</span></span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          60 :     return PresetManager::apply_migrations(raw_json);</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          72 : std::string PresetMigrator::migrate(const std::string&amp; raw_json) {</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          72 :     return PresetManager::apply_migrations(raw_json);</span></span>
 <span id="L75"><span class="lineNum">      75</span>              : }</span>
 <span id="L76"><span class="lineNum">      76</span>              : </span>
 <span id="L77"><span class="lineNum">      77</span>              : }  // namespace Amplitron</span>

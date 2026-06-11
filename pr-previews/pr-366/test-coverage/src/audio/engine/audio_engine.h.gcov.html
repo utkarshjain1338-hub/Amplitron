@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 20:23:56</td>
+            <td class="headerValue">2026-06-11 20:30:27</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">96.3&nbsp;%</td>
@@ -179,7 +179,7 @@
 <span id="L117"><span class="lineNum">     117</span>              :     std::string get_output_device_name() const override;</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
 <span id="L119"><span class="lineNum">     119</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        1753 :     AudioGraph&amp; graph() override { return main_graph_; }</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        1780 :     AudioGraph&amp; graph() override { return main_graph_; }</span></span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaUNC tlaBgUNC">           0 :     const AudioGraph&amp; graph() const override { return main_graph_; }</span></span>
 <span id="L122"><span class="lineNum">     122</span>              : </span>
 <span id="L123"><span class="lineNum">     123</span>              : #ifdef AMPLITRON_TESTS</span>
@@ -221,10 +221,10 @@
 <span id="L159"><span class="lineNum">     159</span>              :     void set_sample_rate(int rate) override;</span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
 <span id="L161"><span class="lineNum">     161</span>              :     /** @brief Return the current buffer size in samples. */</span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         110 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         131 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
 <span id="L164"><span class="lineNum">     164</span>              :     /** @brief Return the current sample rate in Hz. */</span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         260 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         281 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
 <span id="L167"><span class="lineNum">     167</span>              :     /** @brief Return true if the audio stream is actively running. */</span>
 <span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         828 :     bool is_running() const override { return running_; }</span></span>
