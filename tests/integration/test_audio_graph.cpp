@@ -1092,7 +1092,7 @@ TEST(audio_graph_split_merge_disconnects) {
 
 TEST(AudioGraph_ExtraBranches) {
     AudioGraph graph;
-    
+
     // 1. restore_node()
     DSPNode node1;
     node1.id = 10;
@@ -1102,8 +1102,8 @@ TEST(AudioGraph_ExtraBranches) {
     node1.output_pin_ids = {201};
     node1.input_gains = {1.0f, 1.0f};
     graph.restore_node(node1);
-    
-    auto* found = graph.find_node(10);
+
+    auto *found = graph.find_node(10);
     ASSERT_TRUE(found != nullptr);
     ASSERT_EQ(found->id, 10);
 
@@ -1112,8 +1112,9 @@ TEST(AudioGraph_ExtraBranches) {
     link1.id = 50;
     link1.source_pin_id = 201;
     link1.dest_pin_id = 102;
-    graph.restore_link(link1); // Restoring a link that creates a cycle (source output -> self input)
-    
+    graph.restore_link(
+        link1);  // Restoring a link that creates a cycle (source output -> self input)
+
     // 3. restore_input_pin()
     // - Index >= 0, idx <= size
     graph.restore_input_pin(10, 103, 1, 0.5f);
@@ -1121,7 +1122,7 @@ TEST(AudioGraph_ExtraBranches) {
     graph.restore_input_pin(10, 104, 10, 0.5f);
     // - Index < 0
     graph.restore_input_pin(10, 105, -1, 0.5f);
-    
+
     // 4. restore_output_pin()
     // - Index >= 0, idx <= size
     DSPNode splitter_node;
@@ -1132,15 +1133,15 @@ TEST(AudioGraph_ExtraBranches) {
     graph.restore_output_pin(20, 303, 1);
     // - Index out of bounds
     graph.restore_output_pin(20, 304, 99);
-    
+
     // 5. add_output_pin()
     // - Splitter up to 8 pins
-    ASSERT_TRUE(graph.add_output_pin(20)); // 5th pin
-    ASSERT_TRUE(graph.add_output_pin(20)); // 6th pin
-    ASSERT_TRUE(graph.add_output_pin(20)); // 7th pin
-    ASSERT_TRUE(graph.add_output_pin(20)); // 8th pin
-    ASSERT_FALSE(graph.add_output_pin(20)); // fails at 9
-    
+    ASSERT_TRUE(graph.add_output_pin(20));   // 5th pin
+    ASSERT_TRUE(graph.add_output_pin(20));   // 6th pin
+    ASSERT_TRUE(graph.add_output_pin(20));   // 7th pin
+    ASSERT_TRUE(graph.add_output_pin(20));   // 8th pin
+    ASSERT_FALSE(graph.add_output_pin(20));  // fails at 9
+
     // 6. remove_output_pin()
     // - By specific pin ID
     ASSERT_TRUE(graph.remove_output_pin(20, 301));
@@ -1153,7 +1154,7 @@ TEST(AudioGraph_ExtraBranches) {
     link2.dest_pin_id = 101;
     graph.restore_link(link2);
     ASSERT_FALSE(graph.remove_output_pin(20, 302));
-    
+
     // 7. remove_input_pin()
     // - Fail when linked
     ASSERT_FALSE(graph.remove_input_pin(10, 101));
@@ -1161,10 +1162,10 @@ TEST(AudioGraph_ExtraBranches) {
     ASSERT_TRUE(graph.remove_input_pin(10, 105));
     // - Success by default index -1
     ASSERT_TRUE(graph.remove_input_pin(10, -1));
-    
+
     // 8. set_mixer_input_gain() for invalid node/pin
     graph.set_mixer_input_gain(99, 0, 0.5f);
-    
+
     // 9. update_transport_state() with pedal
     AudioGraphExecutor executor;
     AudioGraph graph2;
@@ -1176,4 +1177,3 @@ TEST(AudioGraph_ExtraBranches) {
     executor.compile(graph2);
     executor.update_transport_state(125.0f);
 }
-

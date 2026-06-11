@@ -1,4 +1,5 @@
 #include <SDL.h>
+
 #include <cstdlib>
 #include <vector>
 
@@ -63,26 +64,30 @@ TEST(SdlBackend_LifecycleAndCallback) {
     SDL_QueueAudio(cap_dev, input_data.data(), input_data.size() * sizeof(float));
 
     std::vector<float> output_buffer(1024, 0.0f);
-    int bytes_len = 512 * 2 * sizeof(float); // 512 stereo frames = 1024 floats = 4096 bytes
-    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()), bytes_len);
+    int bytes_len = 512 * 2 * sizeof(float);  // 512 stereo frames = 1024 floats = 4096 bytes
+    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()),
+                                  bytes_len);
 
     // 2. Test callback with junk/excess queue clearing
     std::vector<float> excess_input(4096 * 4, 1.0f);
     SDL_QueueAudio(cap_dev, excess_input.data(), excess_input.size() * sizeof(float));
-    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()), bytes_len);
+    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()),
+                                  bytes_len);
 
     // 3. Test callback with insufficient queued data (triggers partial memset)
     SDL_ClearQueuedAudio(cap_dev);
     std::vector<float> short_input(100, 1.0f);
     SDL_QueueAudio(cap_dev, short_input.data(), short_input.size() * sizeof(float));
-    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()), bytes_len);
+    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()),
+                                  bytes_len);
 
     // 4. Test callback when capture device is missing (cap_dev = 0, should memset 0)
     // We can simulate this by calling callback with userdata that has capture_device = 0.
     // However, the capture device is private in SdlBackend. But we can stop the backend,
     // which resets capture_device_ to 0, and then call callback (with engine still set).
     backend.stop();
-    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()), bytes_len);
+    Amplitron::sdl_audio_callback(&backend, reinterpret_cast<Uint8*>(output_buffer.data()),
+                                  bytes_len);
 
     // Cleanup
     backend.shutdown();

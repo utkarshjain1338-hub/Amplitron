@@ -33,8 +33,21 @@ namespace Amplitron {
 #ifdef AMPLITRON_HEADLESS
 static std::string s_mock_open_path = "";
 
-void set_mock_open_dialog_path(const std::string &path) { s_mock_open_path = path; }
+#ifdef AMPLITRON_TEST_NATIVE_DIALOGS
+namespace TestMocks {
+void set_mock_result(const std::string &path);
+}
+#endif
 
+void set_mock_open_dialog_path(const std::string &path) {
+    s_mock_open_path = path;
+#ifdef AMPLITRON_TEST_NATIVE_DIALOGS
+    TestMocks::set_mock_result(path);
+#endif
+}
+#endif
+
+#if defined(AMPLITRON_HEADLESS) && !defined(AMPLITRON_TEST_NATIVE_DIALOGS)
 std::string show_open_dialog(const std::string &, const std::string &, const std::string &) {
     return s_mock_open_path;
 }

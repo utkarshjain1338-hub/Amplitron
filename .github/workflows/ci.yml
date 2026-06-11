@@ -65,7 +65,15 @@ jobs:
           ninja -j$(nproc)
 
       - name: Run Tests
-        run: cd build && ./amplitron-tests
+        run: cd build && ./amplitron-tests --junitxml=junit.xml
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/junit.xml
+          report_type: test_results
 
       - name: Install Smoke Test
         env:
@@ -174,7 +182,15 @@ jobs:
           ninja -j$(sysctl -n hw.ncpu)
 
       - name: Run Tests
-        run: cd build && ./amplitron-tests
+        run: cd build && ./amplitron-tests --junitxml=junit.xml
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/junit.xml
+          report_type: test_results
 
       - name: Install Smoke Test
         env:
@@ -384,6 +400,14 @@ jobs:
           CI: true
         run: npx playwright test
 
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: tests/web/junit.xml
+          report_type: test_results
+
       - name: Upload Playwright HTML report
         if: always()
         uses: actions/upload-artifact@v7
@@ -475,7 +499,15 @@ jobs:
 
       - name: Run Tests
         shell: msys2 {0}
-        run: cd build && ./amplitron-tests.exe
+        run: cd build && ./amplitron-tests.exe --junitxml=junit.xml
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/junit.xml
+          report_type: test_results
 
       - name: Install Smoke Test
         shell: msys2 {0}

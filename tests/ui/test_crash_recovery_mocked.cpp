@@ -38,7 +38,7 @@ inline int mock_SDL_ShowMessageBox(const SDL_MessageBoxData* messageboxdata, int
 
 namespace mocked {
 #include "gui/crash_recovery_ui.h"
-} // namespace mocked
+}  // namespace mocked
 
 #include "test_framework.h"
 
@@ -65,7 +65,7 @@ TEST(crash_recovery_already_initialized_restore) {
 
     ASSERT_TRUE(result);
     ASSERT_TRUE(g_mock_sdl_was_init_called);
-    ASSERT_FALSE(g_mock_sdl_init_subsystem_called); // should not initialize again
+    ASSERT_FALSE(g_mock_sdl_init_subsystem_called);  // should not initialize again
     ASSERT_TRUE(g_mock_sdl_show_messagebox_called);
 }
 
@@ -73,7 +73,7 @@ TEST(crash_recovery_already_initialized_discard) {
     reset_mocks();
     g_mock_sdl_was_init_return = SDL_INIT_VIDEO;
     g_mock_sdl_show_messagebox_return = 0;
-    g_mock_sdl_show_messagebox_buttonid = 0; // "Discard"
+    g_mock_sdl_show_messagebox_buttonid = 0;  // "Discard"
 
     bool result = mocked::promptRestoreSession();
 
@@ -85,22 +85,22 @@ TEST(crash_recovery_already_initialized_discard) {
 
 TEST(crash_recovery_not_initialized_init_fail) {
     reset_mocks();
-    g_mock_sdl_was_init_return = 0; // not initialized
-    g_mock_sdl_init_subsystem_return = -1; // init fails
+    g_mock_sdl_was_init_return = 0;         // not initialized
+    g_mock_sdl_init_subsystem_return = -1;  // init fails
 
     bool result = mocked::promptRestoreSession();
 
     ASSERT_FALSE(result);
     ASSERT_TRUE(g_mock_sdl_was_init_called);
     ASSERT_TRUE(g_mock_sdl_init_subsystem_called);
-    ASSERT_FALSE(g_mock_sdl_show_messagebox_called); // should exit early
+    ASSERT_FALSE(g_mock_sdl_show_messagebox_called);  // should exit early
 }
 
 TEST(crash_recovery_not_initialized_init_success_show_fail) {
     reset_mocks();
     g_mock_sdl_was_init_return = 0;
-    g_mock_sdl_init_subsystem_return = 0; // init succeeds
-    g_mock_sdl_show_messagebox_return = -1; // show message box fails
+    g_mock_sdl_init_subsystem_return = 0;    // init succeeds
+    g_mock_sdl_show_messagebox_return = -1;  // show message box fails
 
     bool result = mocked::promptRestoreSession();
 

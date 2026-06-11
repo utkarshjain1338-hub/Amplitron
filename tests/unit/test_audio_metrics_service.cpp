@@ -1,7 +1,8 @@
-#include "audio/engine/audio_metrics_service.h"
-#include "audio/engine/audio_engine.h"
-#include "test_framework.h"
 #include <algorithm>
+
+#include "audio/engine/audio_engine.h"
+#include "audio/engine/audio_metrics_service.h"
+#include "test_framework.h"
 
 using namespace Amplitron;
 using namespace TestFramework;
@@ -16,7 +17,8 @@ class MockAudioEngineForMetrics : public AudioEngine {
     bool consume_output_clipped() override { return output_clipped_; }
     uint64_t get_analyzer_sequence() const override { return seq_; }
     int get_sample_rate() const override { return sample_rate_; }
-    bool copy_analyzer_snapshot(float* input_dest, float* output_dest, int sample_count) const override {
+    bool copy_analyzer_snapshot(float* input_dest, float* output_dest,
+                                int sample_count) const override {
         if (copy_snapshot_success_) {
             std::fill(input_dest, input_dest + sample_count, 1.0f);
             std::fill(output_dest, output_dest + sample_count, 2.0f);

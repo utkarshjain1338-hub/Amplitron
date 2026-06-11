@@ -1,13 +1,13 @@
 #include <csignal>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <thread>
-#include <fstream>
+#include <vector>
 
-#include "test_framework.h"
 #include "../fixtures/portaudio_mock.h"
+#include "test_framework.h"
 
 using namespace Amplitron;
 using namespace TestFramework;
@@ -75,8 +75,8 @@ static void setup_main_pa_mocks() {
     g_mock_pa_get_default_input_device = []() { return 0; };
     g_mock_pa_get_default_output_device = []() { return 2; };
     g_mock_pa_open_stream = [](PaStream** stream, const PaStreamParameters*,
-                              const PaStreamParameters*, double, unsigned long,
-                              PaStreamFlags, PaStreamCallback*, void*) -> PaError {
+                               const PaStreamParameters*, double, unsigned long, PaStreamFlags,
+                               PaStreamCallback*, void*) -> PaError {
         *stream = (PaStream*)0x1234;
         return paNoError;
     };
@@ -187,16 +187,9 @@ TEST(main_headless_full_execution) {
     ofs.close();
 
     // 2. Prepare command arguments with matching inputs/outputs (single match)
-    char* argv[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)preset_path.c_str(),
-        (char*)"--input",
-        (char*)"Guitar",
-        (char*)"--output",
-        (char*)"Speakers",
-        (char*)"--headless"
-    };
+    char* argv[] = {(char*)"amplitron", (char*)"--preset",  (char*)preset_path.c_str(),
+                    (char*)"--input",   (char*)"Guitar",    (char*)"--output",
+                    (char*)"Speakers",  (char*)"--headless"};
 
     // Redirect stdin/stdout/stderr
     std::streambuf* old_in = std::cin.rdbuf();
@@ -220,9 +213,7 @@ TEST(main_headless_full_execution) {
 
     // 3. Spin up app_main in a background thread
     int exit_code = -999;
-    std::thread main_thread([&exit_code, &argv]() {
-        exit_code = app_main(8, argv);
-    });
+    std::thread main_thread([&exit_code, &argv]() { exit_code = app_main(8, argv); });
 
     // 4. Let it execute the loop for a short duration
     std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -246,12 +237,8 @@ TEST(main_headless_full_execution) {
 }
 
 TEST(main_headless_preset_not_found) {
-    char* argv[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)"nonexistent_preset_file.json",
-        (char*)"--headless"
-    };
+    char* argv[] = {(char*)"amplitron", (char*)"--preset", (char*)"nonexistent_preset_file.json",
+                    (char*)"--headless"};
 
     std::streambuf* old_out = std::cout.rdbuf();
     std::streambuf* old_err = std::cerr.rdbuf();
@@ -268,10 +255,7 @@ TEST(main_headless_preset_not_found) {
 }
 
 TEST(main_headless_strict_requirement) {
-    char* argv[] = {
-        (char*)"amplitron",
-        (char*)"--headless"
-    };
+    char* argv[] = {(char*)"amplitron", (char*)"--headless"};
 
     std::streambuf* old_out = std::cout.rdbuf();
     std::streambuf* old_err = std::cerr.rdbuf();
@@ -305,16 +289,12 @@ TEST(main_headless_routing_warnings_and_failures) {
     ofs.close();
 
     // 1. Test ambiguous matches (matches multiple) and warnings (matches 0)
-    char* argv[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)preset_path.c_str(),
-        (char*)"--input",
-        (char*)"Mock",          // Matches in1 and in2
-        (char*)"--output",
-        (char*)"NonExistent",   // Matches 0
-        (char*)"--headless"
-    };
+    char* argv[] = {(char*)"amplitron",   (char*)"--preset", (char*)preset_path.c_str(),
+                    (char*)"--input",
+                    (char*)"Mock",  // Matches in1 and in2
+                    (char*)"--output",
+                    (char*)"NonExistent",  // Matches 0
+                    (char*)"--headless"};
 
     std::streambuf* old_in = std::cin.rdbuf();
     std::streambuf* old_out = std::cout.rdbuf();
@@ -330,9 +310,7 @@ TEST(main_headless_routing_warnings_and_failures) {
     g_running = true;
 
     int exit_code = -999;
-    std::thread main_thread([&exit_code, &argv]() {
-        exit_code = app_main(8, argv);
-    });
+    std::thread main_thread([&exit_code, &argv]() { exit_code = app_main(8, argv); });
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
     g_running = false;
@@ -349,16 +327,12 @@ TEST(main_headless_routing_warnings_and_failures) {
     ASSERT_TRUE(ss_err.str().find("Could not find requested output device") != std::string::npos);
 
     // 2. Test ambiguous output matches and input warning (matches 0)
-    char* argv2[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)preset_path.c_str(),
-        (char*)"--input",
-        (char*)"NonExistent",   // Matches 0
-        (char*)"--output",
-        (char*)"Mock",          // Matches out1 and out2
-        (char*)"--headless"
-    };
+    char* argv2[] = {(char*)"amplitron",   (char*)"--preset", (char*)preset_path.c_str(),
+                     (char*)"--input",
+                     (char*)"NonExistent",  // Matches 0
+                     (char*)"--output",
+                     (char*)"Mock",  // Matches out1 and out2
+                     (char*)"--headless"};
 
     std::stringstream ss_in2, ss_out2, ss_err2;
     std::cin.rdbuf(ss_in2.rdbuf());
@@ -367,9 +341,7 @@ TEST(main_headless_routing_warnings_and_failures) {
 
     g_running = true;
 
-    std::thread main_thread2([&exit_code, &argv2]() {
-        exit_code = app_main(8, argv2);
-    });
+    std::thread main_thread2([&exit_code, &argv2]() { exit_code = app_main(8, argv2); });
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
     g_running = false;
@@ -395,12 +367,8 @@ TEST(main_audio_failures) {
     // 1. Force initialize() to fail
     g_mock_pa_initialize = []() -> PaError { return paNotInitialized; };
 
-    char* argv[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)"not_used.json",
-        (char*)"--headless"
-    };
+    char* argv[] = {(char*)"amplitron", (char*)"--preset", (char*)"not_used.json",
+                    (char*)"--headless"};
 
     std::streambuf* old_in = std::cin.rdbuf();
     std::streambuf* old_out = std::cout.rdbuf();
@@ -435,12 +403,8 @@ TEST(main_audio_failures) {
     })";
     ofs.close();
 
-    char* argv2[] = {
-        (char*)"amplitron",
-        (char*)"--preset",
-        (char*)preset_path.c_str(),
-        (char*)"--headless"
-    };
+    char* argv2[] = {(char*)"amplitron", (char*)"--preset", (char*)preset_path.c_str(),
+                     (char*)"--headless"};
 
     std::stringstream ss_in2, ss_out2, ss_err2;
     std::cin.rdbuf(ss_in2.rdbuf());
@@ -449,9 +413,7 @@ TEST(main_audio_failures) {
 
     g_running = true;
 
-    std::thread main_thread([&exit_code, &argv2]() {
-        exit_code = app_main(4, argv2);
-    });
+    std::thread main_thread([&exit_code, &argv2]() { exit_code = app_main(4, argv2); });
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
     g_running = false;

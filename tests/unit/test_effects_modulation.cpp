@@ -361,4 +361,3 @@ TEST_F(EffectsTest, phaser_process_stereo) {
     ph.set_enabled(false);
     ph.process_stereo(left, right, BUFFER_SIZE);
 }
-

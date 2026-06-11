@@ -545,17 +545,15 @@ TEST(PortAudioDevices_DevicesCoverage) {
 
 TEST(PortAudioBackend_ExtraCoverage) {
     MockGuard guard;
-    
+
     // 1. Force Pa_OpenStream to fail and Pa_GetDeviceInfo to return nullptr
     AudioEngine engine;
     engine.initialize();
 
     g_mock_pa_get_device_info = [](int) -> const PaDeviceInfo* { return nullptr; };
-    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*,
-                              const PaStreamParameters*, double, unsigned long,
-                              PaStreamFlags, PaStreamCallback*, void*) -> PaError {
-        return paNotInitialized;
-    };
+    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*, const PaStreamParameters*,
+                               double, unsigned long, PaStreamFlags, PaStreamCallback*,
+                               void*) -> PaError { return paNotInitialized; };
 
     ASSERT_FALSE(engine.start());
 

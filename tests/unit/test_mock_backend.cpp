@@ -151,17 +151,18 @@ TEST(AudioEngine_DeviceControlAndFailures) {
     ASSERT_FALSE(engine.set_output_device(1));
     engine.stop();
 
-    // 4. Reversion failures (when was_running is true, device set succeeds, but start fails, then revert fails)
+    // 4. Reversion failures (when was_running is true, device set succeeds, but start fails, then
+    // revert fails)
     engine.start();
     mock->set_input_ok = true;
-    mock->start_fail_count = 2; // fails first start, and second start during revert
+    mock->start_fail_count = 2;  // fails first start, and second start during revert
     ASSERT_FALSE(engine.set_input_device(0));
 
     // Reset and try output reversion failure
     mock->start_fail_count = 0;
     engine.start();
     mock->set_output_ok = true;
-    mock->start_fail_count = 2; // fails first start, and second start during revert
+    mock->start_fail_count = 2;  // fails first start, and second start during revert
     ASSERT_FALSE(engine.set_output_device(1));
 
     // 5. restart() failure path
@@ -171,4 +172,3 @@ TEST(AudioEngine_DeviceControlAndFailures) {
     engine.shutdown();
     engine.clear_backend_for_test();
 }
-

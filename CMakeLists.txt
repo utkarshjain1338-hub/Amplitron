@@ -853,6 +853,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
             src/gui/dialogs/file_dialog_native.cpp
             src/gui/dialogs/file_dialog_native_open.cpp
             src/gui/dialogs/file_dialog_native_folder.cpp
+            tests/fixtures/file_dialog_mock.cpp
         )
     endif()
 
@@ -886,6 +887,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         AMPLITRON_VERSION="${AMPLITRON_VERSION}"
         AMPLITRON_HEADLESS
         AMPLITRON_TESTS
+        AMPLITRON_TEST_NATIVE_DIALOGS
         SDL_MAIN_HANDLED
         "Pa_GetDeviceCount=MOCK_Pa_GetDeviceCount"
         "Pa_GetDeviceInfo=MOCK_Pa_GetDeviceInfo"
@@ -901,6 +903,23 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         "Pa_GetStreamInfo=MOCK_Pa_GetStreamInfo"
         "Pa_Initialize=MOCK_Pa_Initialize"
     )
+
+    if(WIN32)
+        target_compile_definitions(amplitron-tests PRIVATE
+            "GetOpenFileNameA=MOCK_GetOpenFileNameA"
+            "GetSaveFileNameA=MOCK_GetSaveFileNameA"
+            "SHBrowseForFolderA=MOCK_SHBrowseForFolderA"
+            "SHGetPathFromIDListA=MOCK_SHGetPathFromIDListA"
+            "SHGetFolderPathA=MOCK_SHGetFolderPathA"
+            "CoTaskMemFree=MOCK_CoTaskMemFree"
+        )
+    else()
+        target_compile_definitions(amplitron-tests PRIVATE
+            "popen=MOCK_popen"
+            "pclose=MOCK_pclose"
+            "execl=MOCK_execl"
+        )
+    endif()
 
     if(WITH_JACK AND UNIX AND NOT APPLE)
         target_compile_definitions(amplitron-tests PRIVATE

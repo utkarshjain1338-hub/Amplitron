@@ -132,10 +132,9 @@ TEST(AudioBackend_Jack_ClientOpenFailure) {
 TEST(AudioBackend_Jack_ClientOpenFailureWithStatus) {
     g_mock_jack_client_open_fail = true;
     g_mock_jack_status = static_cast<jack_status_t>(
-        JackFailure | JackInvalidOption | JackNameNotUnique | JackServerStarted |
-        JackServerFailed | JackServerError | JackNoSuchClient | JackLoadFailure |
-        JackInitFailure | JackShmFailure | JackVersionError | JackBackendError |
-        JackClientZombie);
+        JackFailure | JackInvalidOption | JackNameNotUnique | JackServerStarted | JackServerFailed |
+        JackServerError | JackNoSuchClient | JackLoadFailure | JackInitFailure | JackShmFailure |
+        JackVersionError | JackBackendError | JackClientZombie);
 
     AudioEngine engine;
     auto backend = std::make_unique<JackBackend>();

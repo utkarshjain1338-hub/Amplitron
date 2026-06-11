@@ -29,7 +29,7 @@
 
 namespace Amplitron {
 
-#ifdef AMPLITRON_HEADLESS
+#if defined(AMPLITRON_HEADLESS) && !defined(AMPLITRON_TEST_NATIVE_DIALOGS)
 std::string show_folder_dialog(const std::string&) { return g_mock_folder_dialog_result; }
 #else
 

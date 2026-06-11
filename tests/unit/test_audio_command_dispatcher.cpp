@@ -1,7 +1,8 @@
-#include "audio/engine/audio_command_dispatcher.h"
 #include <memory>
 #include <vector>
+
 #include "audio/effects/core/effect.h"
+#include "audio/engine/audio_command_dispatcher.h"
 #include "audio/engine/audio_graph.h"
 #include "audio/engine/audio_graph_executor.h"
 #include "test_framework.h"
@@ -78,7 +79,8 @@ TEST(AudioCommandDispatcher_DrainCommands) {
     dispatcher.push_input_gain(0.2f);
     dispatcher.push_output_gain(0.3f);
 
-    // 6. Unknown command / failure to lookup completely (effect_index out of bounds for dummy_effects)
+    // 6. Unknown command / failure to lookup completely (effect_index out of bounds for
+    // dummy_effects)
     dispatcher.push_param_change(99, 0, 1.0f);
 
     dispatcher.drain_commands(input_gain, output_gain, executor, main_graph, dummy_effects);
