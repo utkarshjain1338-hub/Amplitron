@@ -17,6 +17,7 @@ extern "C" {
 #ifdef _WIN32
 // clang-format off
 #include <windows.h>
+#include <commdlg.h>
 #include <shlobj.h>
 // clang-format on
 // Use standard calling convention declarations matching Win32 APIs
