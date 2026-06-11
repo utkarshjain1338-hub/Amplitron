@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -81,16 +81,16 @@
 <span id="L19"><span class="lineNum">      19</span>              : // Mapping management</span>
 <span id="L20"><span class="lineNum">      20</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         214 : void MidiManager::add_mapping(const MidiMapping&amp; mapping) {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         210 : void MidiManager::add_mapping(const MidiMapping&amp; mapping) {</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :     // Remove any existing mapping with the same CC + channel</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         352 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         144 :         if (it-&gt;cc_number == mapping.cc_number &amp;&amp; it-&gt;midi_channel == mapping.midi_channel) {</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         342 :     for (auto it = mappings_.begin(); it != mappings_.end(); ++it) {</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         138 :         if (it-&gt;cc_number == mapping.cc_number &amp;&amp; it-&gt;midi_channel == mapping.midi_channel) {</span></span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           6 :             mappings_.erase(it);</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           6 :             break;</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         }</span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          44 :     }</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         214 :     mappings_.push_back(mapping);</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         214 : }</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         210 :     mappings_.push_back(mapping);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         210 : }</span></span>
 <span id="L32"><span class="lineNum">      32</span>              : </span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          12 : void MidiManager::remove_mapping(int index) {</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          12 :     if (index &gt;= 0 &amp;&amp; index &lt; static_cast&lt;int&gt;(mappings_.size())) {</span></span>
@@ -111,37 +111,37 @@
 <span id="L49"><span class="lineNum">      49</span>              : </span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">          66 : void MidiManager::clear_mappings() { mappings_.clear(); }</span></span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">          10 : void MidiManager::install_default_mappings() {</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">          10 :     MidiMapping cc7;</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          10 :     cc7.cc_number = 7;</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          10 :     cc7.midi_channel = -1;</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">          10 :     cc7.target_type = MidiTargetType::OutputGain;</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          10 :     cc7.mode = MidiMappingMode::Continuous;</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          10 :     add_mapping(cc7);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           9 : void MidiManager::install_default_mappings() {</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           9 :     MidiMapping cc7;</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           9 :     cc7.cc_number = 7;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           9 :     cc7.midi_channel = -1;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           9 :     cc7.target_type = MidiTargetType::OutputGain;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           9 :     cc7.mode = MidiMappingMode::Continuous;</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           9 :     add_mapping(cc7);</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          10 :     MidiMapping cc11;</span></span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          10 :     cc11.cc_number = 11;</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          10 :     cc11.midi_channel = -1;</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          10 :     cc11.target_type = MidiTargetType::InputGain;</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          10 :     cc11.mode = MidiMappingMode::Continuous;</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          10 :     add_mapping(cc11);</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           9 :     MidiMapping cc11;</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           9 :     cc11.cc_number = 11;</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           9 :     cc11.midi_channel = -1;</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           9 :     cc11.target_type = MidiTargetType::InputGain;</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           9 :     cc11.mode = MidiMappingMode::Continuous;</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           9 :     add_mapping(cc11);</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          10 :     MidiMapping cc64;</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          10 :     cc64.cc_number = 64;</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          10 :     cc64.midi_channel = -1;</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          10 :     cc64.target_type = MidiTargetType::EffectBypass;</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          10 :     cc64.mode = MidiMappingMode::Toggle;</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          10 :     cc64.effect_name = &quot;AmpSimulator&quot;;</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          10 :     add_mapping(cc64);</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           9 :     MidiMapping cc64;</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           9 :     cc64.cc_number = 64;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           9 :     cc64.midi_channel = -1;</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           9 :     cc64.target_type = MidiTargetType::EffectBypass;</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           9 :     cc64.mode = MidiMappingMode::Toggle;</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           9 :     cc64.effect_name = &quot;AmpSimulator&quot;;</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           9 :     add_mapping(cc64);</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          10 :     MidiMapping cc74;</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          10 :     cc74.cc_number = 74;</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          10 :     cc74.midi_channel = -1;</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          10 :     cc74.target_type = MidiTargetType::EffectParam;</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          10 :     cc74.mode = MidiMappingMode::Continuous;</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">          10 :     cc74.effect_name = &quot;WahPedal&quot;;</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">          10 :     cc74.param_name = &quot;Sweep&quot;;</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">          10 :     add_mapping(cc74);</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           9 :     MidiMapping cc74;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           9 :     cc74.cc_number = 74;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           9 :     cc74.midi_channel = -1;</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           9 :     cc74.target_type = MidiTargetType::EffectParam;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           9 :     cc74.mode = MidiMappingMode::Continuous;</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           9 :     cc74.effect_name = &quot;WahPedal&quot;;</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           9 :     cc74.param_name = &quot;Sweep&quot;;</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           9 :     add_mapping(cc74);</span></span>
 <span id="L83"><span class="lineNum">      83</span>              : </span>
 <span id="L84"><span class="lineNum">      84</span>              : #ifdef __EMSCRIPTEN__</span>
 <span id="L85"><span class="lineNum">      85</span>              :     // Web-specific MIDI defaults</span>
@@ -186,7 +186,7 @@
 <span id="L124"><span class="lineNum">     124</span>              :     cc64_bypass.effect_name = &quot;AmpSimulator&quot;;</span>
 <span id="L125"><span class="lineNum">     125</span>              :     add_mapping(cc64_bypass);</span>
 <span id="L126"><span class="lineNum">     126</span>              : #endif</span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          22 : }</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">          18 : }</span></span>
 <span id="L128"><span class="lineNum">     128</span>              : </span>
 <span id="L129"><span class="lineNum">     129</span>              : // ---------------------------------------------------------------------------</span>
 <span id="L130"><span class="lineNum">     130</span>              : // MIDI Learn</span>
@@ -200,11 +200,11 @@
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          51 :     learn_param_name_ = param_name;</span></span>
 <span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">          51 : }</span></span>
 <span id="L140"><span class="lineNum">     140</span>              : </span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          27 : void MidiManager::cancel_learn() {</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          27 :     learn_active_ = false;</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          27 :     learn_effect_name_.clear();</span></span>
-<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          27 :     learn_param_name_.clear();</span></span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          27 : }</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">          30 : void MidiManager::cancel_learn() {</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">          30 :     learn_active_ = false;</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">          30 :     learn_effect_name_.clear();</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">          30 :     learn_param_name_.clear();</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">          30 : }</span></span>
 <span id="L146"><span class="lineNum">     146</span>              : </span>
 <span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">          36 : std::string MidiManager::learn_status() const {</span></span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">          46 :     if (!learn_active_) return &quot;&quot;;</span></span>

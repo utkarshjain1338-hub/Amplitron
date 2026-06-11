@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -78,7 +78,7 @@
 <span id="L16"><span class="lineNum">      16</span>              :     void process_stereo(float* left, float* right, int num_samples) override;</span>
 <span id="L17"><span class="lineNum">      17</span>              :     void set_sample_rate(int sample_rate) override;</span>
 <span id="L18"><span class="lineNum">      18</span>              :     void reset() override;</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">         326 :     const char* name() const override { return &quot;Reverb&quot;; }</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC tlaBgGNC">         419 :     const char* name() const override { return &quot;Reverb&quot;; }</span></span>
 <span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           3 :     const char* type_id() const override { return &quot;Reverb&quot;; }</span></span>
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         209 :     std::vector&lt;EffectParam&gt;&amp; params() override { return params_; }</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 :     const std::vector&lt;EffectParam&gt;&amp; params() const override { return params_; }</span></span>
@@ -90,18 +90,18 @@
 <span id="L28"><span class="lineNum">      28</span>              :     static constexpr int NUM_COMBS = 4;</span>
 <span id="L29"><span class="lineNum">      29</span>              :     static constexpr int NUM_ALLPASS = 2;</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         400 :     struct CombFilter {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         408 :     struct CombFilter {</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :         std::vector&lt;float&gt; buffer;</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         400 :         int write_pos = 0;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         400 :         float feedback = 0.0f;</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         400 :         float lp_state = 0.0f;</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         400 :         float damp = 0.5f;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         408 :         int write_pos = 0;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         408 :         float feedback = 0.0f;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         408 :         float lp_state = 0.0f;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         408 :         float damp = 0.5f;</span></span>
 <span id="L37"><span class="lineNum">      37</span>              :     };</span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         200 :     struct AllpassFilter {</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         204 :     struct AllpassFilter {</span></span>
 <span id="L40"><span class="lineNum">      40</span>              :         std::vector&lt;float&gt; buffer;</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         200 :         int write_pos = 0;</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         200 :         float feedback = 0.5f;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         204 :         int write_pos = 0;</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         204 :         float feedback = 0.5f;</span></span>
 <span id="L43"><span class="lineNum">      43</span>              :     };</span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
 <span id="L45"><span class="lineNum">      45</span>              :     std::array&lt;CombFilter, NUM_COMBS&gt; combs_;</span>

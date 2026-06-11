@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
@@ -80,33 +80,33 @@
 <span id="L18"><span class="lineNum">      18</span>              : // Max total delay: 15ms base + 7ms depth = 22ms. Size to 30ms for safety.</span>
 <span id="L19"><span class="lineNum">      19</span>              : static constexpr float MAX_DELAY_MS = 30.0f;</span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         100 : Flanger::Flanger() {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         325 :     params_ = {</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          75 :         {&quot;Rate&quot;, 0.3f, 0.05f, 5.0f, 0.3f, &quot;Hz&quot;,</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          25 :          &quot;LFO speed. Slow rates create a dreamy sweep; fast rates push toward vibrato territory.&quot;},</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          25 :         {&quot;Depth&quot;, 2.0f, 0.1f, 7.0f, 2.0f, &quot;ms&quot;,</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          25 :          &quot;Modulation depth in milliseconds. Controls the width of the delay time sweep around the &quot;</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         104 : Flanger::Flanger() {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         338 :     params_ = {</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          78 :         {&quot;Rate&quot;, 0.3f, 0.05f, 5.0f, 0.3f, &quot;Hz&quot;,</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          26 :          &quot;LFO speed. Slow rates create a dreamy sweep; fast rates push toward vibrato territory.&quot;},</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          26 :         {&quot;Depth&quot;, 2.0f, 0.1f, 7.0f, 2.0f, &quot;ms&quot;,</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          26 :          &quot;Modulation depth in milliseconds. Controls the width of the delay time sweep around the &quot;</span></span>
 <span id="L27"><span class="lineNum">      27</span>              :          &quot;base delay.&quot;},</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          25 :         {&quot;Delay&quot;, 1.0f, 0.1f, 10.0f, 1.0f, &quot;ms&quot;,</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          25 :          &quot;Base delay time. Short values (&lt; 2ms) create tight comb filtering; longer values soften &quot;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          26 :         {&quot;Delay&quot;, 1.0f, 0.1f, 10.0f, 1.0f, &quot;ms&quot;,</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          26 :          &quot;Base delay time. Short values (&lt; 2ms) create tight comb filtering; longer values soften &quot;</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :          &quot;the effect.&quot;},</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          25 :         {&quot;Feedback&quot;, 0.7f, -0.95f, 0.95f, 0.7f, &quot;&quot;,</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          25 :          &quot;Feedback amount. Positive values add metallic resonance; negative values create a &quot;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          26 :         {&quot;Feedback&quot;, 0.7f, -0.95f, 0.95f, 0.7f, &quot;&quot;,</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          26 :          &quot;Feedback amount. Positive values add metallic resonance; negative values create a &quot;</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :          &quot;hollow, phasey character.&quot;},</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          25 :         {&quot;Mix&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          25 :          &quot;Dry/wet blend. At 0.5 the comb filter notches are deepest for the classic flanger &quot;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          26 :         {&quot;Mix&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          26 :          &quot;Dry/wet blend. At 0.5 the comb filter notches are deepest for the classic flanger &quot;</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :          &quot;sound.&quot;},</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         325 :     };</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          75 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         150 : }</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         338 :     };</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">          78 :     set_sample_rate(DEFAULT_SAMPLE_RATE);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         156 : }</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         144 : void Flanger::set_sample_rate(int sample_rate) {</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         144 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         144 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * MAX_DELAY_MS * 0.001f) + 2;</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         144 :     delay_buffer_.assign(max_delay_samples_, 0.0f);</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         144 :     delay_buffer_r_.assign(max_delay_samples_, 0.0f);</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         144 :     reset();</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         144 : }</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         150 : void Flanger::set_sample_rate(int sample_rate) {</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         150 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         150 :     max_delay_samples_ = static_cast&lt;int&gt;(sample_rate * MAX_DELAY_MS * 0.001f) + 2;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         150 :     delay_buffer_.assign(max_delay_samples_, 0.0f);</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         150 :     delay_buffer_r_.assign(max_delay_samples_, 0.0f);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         150 :     reset();</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         150 : }</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
 <span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         102 : void Flanger::process(float* buffer, int num_samples) {</span></span>
 <span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         102 :     if (!enabled_) return;</span></span>
@@ -207,13 +207,13 @@
 <span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 : }</span></span>
 <span id="L147"><span class="lineNum">     147</span>              : </span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC tlaBgGNC">         258 : void Flanger::reset() {</span></span>
-<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         258 :     std::fill(delay_buffer_.begin(), delay_buffer_.end(), 0.0f);</span></span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         258 :     std::fill(delay_buffer_r_.begin(), delay_buffer_r_.end(), 0.0f);</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         258 :     write_pos_ = 0;</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         258 :     write_pos_r_ = 0;</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         258 :     lfo_phase_ = 0.0f;</span></span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">         258 : }</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC tlaBgGNC">         267 : void Flanger::reset() {</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaGNC">         267 :     std::fill(delay_buffer_.begin(), delay_buffer_.end(), 0.0f);</span></span>
+<span id="L150"><span class="lineNum">     150</span> <span class="tlaGNC">         267 :     std::fill(delay_buffer_r_.begin(), delay_buffer_r_.end(), 0.0f);</span></span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">         267 :     write_pos_ = 0;</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">         267 :     write_pos_r_ = 0;</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">         267 :     lfo_phase_ = 0.0f;</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">         267 : }</span></span>
 <span id="L155"><span class="lineNum">     155</span>              : </span>
 <span id="L156"><span class="lineNum">     156</span>              : }  // namespace Amplitron</span>
         </pre>

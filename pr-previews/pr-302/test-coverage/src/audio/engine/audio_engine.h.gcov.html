@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">96.3&nbsp;%</td>
@@ -179,7 +179,7 @@
 <span id="L117"><span class="lineNum">     117</span>              :     std::string get_output_device_name() const override;</span>
 <span id="L118"><span class="lineNum">     118</span>              : </span>
 <span id="L119"><span class="lineNum">     119</span>              :     /** @brief Direct access to the effect chain vector (GUI thread only). */</span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        1150 :     AudioGraph&amp; graph() override { return main_graph_; }</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">        1753 :     AudioGraph&amp; graph() override { return main_graph_; }</span></span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaUNC tlaBgUNC">           0 :     const AudioGraph&amp; graph() const override { return main_graph_; }</span></span>
 <span id="L122"><span class="lineNum">     122</span>              : </span>
 <span id="L123"><span class="lineNum">     123</span>              : #ifdef AMPLITRON_TESTS</span>
@@ -194,7 +194,7 @@
 <span id="L132"><span class="lineNum">     132</span>              :     // while the DAG-based AudioGraph is being migrated.</span>
 <span id="L133"><span class="lineNum">     133</span>              :     // =========================================================================</span>
 <span id="L134"><span class="lineNum">     134</span>              :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt; dummy_effects_;</span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC tlaBgGNC">        2598 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() override { return dummy_effects_; }</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC tlaBgGNC">        2826 :     std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; effects() override { return dummy_effects_; }</span></span>
 <span id="L136"><span class="lineNum">     136</span>              : </span>
 <span id="L137"><span class="lineNum">     137</span>              :     void add_effect(std::shared_ptr&lt;Effect&gt; fx) override;</span>
 <span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">          42 :     void add_initial_effects(const std::vector&lt;std::shared_ptr&lt;Effect&gt;&gt;&amp; fxs) override {</span></span>
@@ -221,13 +221,13 @@
 <span id="L159"><span class="lineNum">     159</span>              :     void set_sample_rate(int rate) override;</span>
 <span id="L160"><span class="lineNum">     160</span>              : </span>
 <span id="L161"><span class="lineNum">     161</span>              :     /** @brief Return the current buffer size in samples. */</span>
-<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         101 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">         105 :     int get_buffer_size() const override { return buffer_size_; }</span></span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
 <span id="L164"><span class="lineNum">     164</span>              :     /** @brief Return the current sample rate in Hz. */</span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         252 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">         255 :     int get_sample_rate() const override { return sample_rate_; }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
 <span id="L167"><span class="lineNum">     167</span>              :     /** @brief Return true if the audio stream is actively running. */</span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         714 :     bool is_running() const override { return running_; }</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">         828 :     bool is_running() const override { return running_; }</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
 <span id="L170"><span class="lineNum">     170</span>              :     /** @brief Test-only helper to bypass hardware startup constraints */</span>
 <span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          15 :     void set_running_for_testing(bool running) { running_ = running; }</span></span>
@@ -236,7 +236,7 @@
 <span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          36 :     float get_input_level() const override { return input_level_.load(); }</span></span>
 <span id="L175"><span class="lineNum">     175</span>              : </span>
 <span id="L176"><span class="lineNum">     176</span>              :     /** @brief Return the most recent output peak level (0.0–1.0, atomic). */</span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         348 :     float get_output_level() const override { return output_level_.load(); }</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">         462 :     float get_output_level() const override { return output_level_.load(); }</span></span>
 <span id="L178"><span class="lineNum">     178</span>              : </span>
 <span id="L179"><span class="lineNum">     179</span>              :     /** @brief Return the most recent input RMS level (0.0–1.0, atomic). */</span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">          42 :     float get_input_rms() const override { return input_rms_.load(std::memory_order_relaxed); }</span></span>

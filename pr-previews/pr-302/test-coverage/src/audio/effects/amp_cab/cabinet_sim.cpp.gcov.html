@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">91.7&nbsp;%</td>
@@ -71,55 +71,55 @@
 <span id="L9"><span class="lineNum">       9</span>              : </span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;CabinetSim&gt; reg(&quot;Cabinet&quot;);</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         156 : CabinetSim::CabinetSim() {</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         273 :     params_ = {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         117 :         {&quot;Type&quot;, 0.0f, 0.0f, 2.0f, 0.0f, &quot;&quot;,</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          39 :          &quot;Speaker cabinet type. 0 = 1x12 (bright/focused), 1 = 2x12 (balanced), 2 = 4x12 (huge &quot;</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         160 : CabinetSim::CabinetSim() {</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         280 :     params_ = {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         120 :         {&quot;Type&quot;, 0.0f, 0.0f, 2.0f, 0.0f, &quot;&quot;,</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          40 :          &quot;Speaker cabinet type. 0 = 1x12 (bright/focused), 1 = 2x12 (balanced), 2 = 4x12 (huge &quot;</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :          &quot;low-end).&quot;},</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          39 :         {&quot;Bright&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          39 :          &quot;Simulates microphone placement. Higher values add a high-frequency resonance peak for &quot;</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          40 :         {&quot;Bright&quot;, 0.5f, 0.0f, 1.0f, 0.5f, &quot;&quot;,</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          40 :          &quot;Simulates microphone placement. Higher values add a high-frequency resonance peak for &quot;</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :          &quot;more cut.&quot;},</span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         234 :     };</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         240 :     };</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              :     // Default LP at ~5kHz (speaker rolloff)</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         117 :     lp_.b0 = 0.067455f;</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         117 :     lp_.b1 = 0.134911f;</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         117 :     lp_.b2 = 0.067455f;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         117 :     lp_.a1 = -1.14298f;</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         117 :     lp_.a2 = 0.41280f;</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         120 :     lp_.b0 = 0.067455f;</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         120 :     lp_.b1 = 0.134911f;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         120 :     lp_.b2 = 0.067455f;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         120 :     lp_.a1 = -1.14298f;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         120 :     lp_.a2 = 0.41280f;</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :     // Default HP at ~80Hz (low cut)</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         117 :     hp_.b0 = 0.99262f;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         117 :     hp_.b1 = -1.98524f;</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         117 :     hp_.b2 = 0.99262f;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         117 :     hp_.a1 = -1.98519f;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         117 :     hp_.a2 = 0.98529f;</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         120 :     hp_.b0 = 0.99262f;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         120 :     hp_.b1 = -1.98524f;</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         120 :     hp_.b2 = 0.99262f;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         120 :     hp_.a1 = -1.98519f;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">         120 :     hp_.a2 = 0.98529f;</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
 <span id="L36"><span class="lineNum">      36</span>              :     // Resonance peak ~2kHz</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         117 :     peak_.b0 = 1.05f;</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         117 :     peak_.b1 = -1.65f;</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         117 :     peak_.b2 = 0.65f;</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         117 :     peak_.a1 = -1.65f;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         117 :     peak_.a2 = 0.70f;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         120 :     peak_.b0 = 1.05f;</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         120 :     peak_.b1 = -1.65f;</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         120 :     peak_.b2 = 0.65f;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         120 :     peak_.a1 = -1.65f;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         120 :     peak_.a2 = 0.70f;</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         156 :     bright_smooth_ = params_[1].value;</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         117 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         117 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         117 :     dry_buffer_.reserve(1024);</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         273 : }</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         160 :     bright_smooth_ = params_[1].value;</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         120 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         120 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         120 :     dry_buffer_.reserve(1024);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         280 : }</span></span>
 <span id="L48"><span class="lineNum">      48</span>              : </span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         156 : CabinetSim::~CabinetSim() {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         160 : CabinetSim::~CabinetSim() {</span></span>
 <span id="L50"><span class="lineNum">      50</span>              :     // Clean up any unconsumed pending kernel</span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         117 :     ConvolutionKernel* pending = pending_kernel_.exchange(nullptr);</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         117 :     delete pending;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         120 :     ConvolutionKernel* pending = pending_kernel_.exchange(nullptr);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         120 :     delete pending;</span></span>
 <span id="L53"><span class="lineNum">      53</span>              : </span>
 <span id="L54"><span class="lineNum">      54</span>              :     // Clean up active kernel</span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         117 :     delete active_kernel_;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         120 :     delete active_kernel_;</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span>              :     // Clean up old garbage kernel</span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         117 :     const ConvolutionKernel* old = old_kernel_to_delete_.exchange(nullptr);</span></span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">         117 :     delete old;</span></span>
-<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         156 : }</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">         120 :     const ConvolutionKernel* old = old_kernel_to_delete_.exchange(nullptr);</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">         120 :     delete old;</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">         160 : }</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
 <span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          69 : int CabinetSim::max_ir_samples() const {</span></span>
 <span id="L63"><span class="lineNum">      63</span>              :     // 500ms at current sample rate</span>
@@ -226,17 +226,17 @@
 <span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">        6039 :     pending_block_size_.store(0);</span></span>
 <span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        6039 : }</span></span>
 <span id="L166"><span class="lineNum">     166</span>              : </span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          75 : void CabinetSim::set_sample_rate(int sample_rate) {</span></span>
-<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          75 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">          78 : void CabinetSim::set_sample_rate(int sample_rate) {</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">          78 :     Effect::set_sample_rate(sample_rate);</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">          75 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          75 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">          78 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L171"><span class="lineNum">     171</span> <span class="tlaGNC">          78 :     bright_alpha_ = 1.0f - std::exp(-1.0f / (sr * 0.01f));</span></span>
 <span id="L172"><span class="lineNum">     172</span>              : </span>
 <span id="L173"><span class="lineNum">     173</span>              :     // Reload IR at new sample rate if one is loaded</span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          75 :     if (!ir_path_.empty()) {</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">          78 :     if (!ir_path_.empty()) {</span></span>
 <span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           9 :         load_ir(ir_path_);</span></span>
 <span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           3 :     }</span></span>
-<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          75 : }</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaGNC">          78 : }</span></span>
 <span id="L178"><span class="lineNum">     178</span>              : </span>
 <span id="L179"><span class="lineNum">     179</span> <span class="tlaGNC">        6042 : void CabinetSim::process(float* buffer, int num_samples) {</span></span>
 <span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">        6042 :     if (!enabled_) return;</span></span>
@@ -287,16 +287,16 @@
 <span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">      514568 :     }</span></span>
 <span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">        2014 : }</span></span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          39 : void CabinetSim::reset() {</span></span>
-<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">          39 :     lp_.reset();</span></span>
-<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          39 :     hp_.reset();</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          39 :     peak_.reset();</span></span>
-<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          39 :     conv_engine_.reset();</span></span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          39 :     bright_smooth_ = params_[1].value;</span></span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          39 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">          42 : void CabinetSim::reset() {</span></span>
+<span id="L229"><span class="lineNum">     229</span> <span class="tlaGNC">          42 :     lp_.reset();</span></span>
+<span id="L230"><span class="lineNum">     230</span> <span class="tlaGNC">          42 :     hp_.reset();</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC">          42 :     peak_.reset();</span></span>
+<span id="L232"><span class="lineNum">     232</span> <span class="tlaGNC">          42 :     conv_engine_.reset();</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">          42 :     bright_smooth_ = params_[1].value;</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">          42 :     if (dry_buffer_.capacity() &lt; 1024) {</span></span>
 <span id="L235"><span class="lineNum">     235</span> <span class="tlaUNC tlaBgUNC">           0 :         dry_buffer_.reserve(1024);</span></span>
 <span id="L236"><span class="lineNum">     236</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC tlaBgGNC">          39 : }</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC tlaBgGNC">          42 : }</span></span>
 <span id="L238"><span class="lineNum">     238</span>              : </span>
 <span id="L239"><span class="lineNum">     239</span>              : }  // namespace Amplitron</span>
         </pre>

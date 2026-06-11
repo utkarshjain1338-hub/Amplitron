@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -116,7 +116,7 @@
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           2 :         return;</span></span>
 <span id="L55"><span class="lineNum">      55</span>              :     }</span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          46 :     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          48 :     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           9 :         if (shutdown_requested_) return;</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          14 :         result += buffer.data();</span></span>
 <span id="L60"><span class="lineNum">      60</span>              :     }</span>
@@ -129,10 +129,10 @@
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           4 :             has_new_release_ = true;</span></span>
 <span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           4 :             new_release_version_ = result;</span></span>
 <span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           4 :             new_release_url_ = &quot;https://github.com/amplitron-dsp/Amplitron/releases/tag/&quot; + result;</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           2 :         }</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           1 :         }</span></span>
 <span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           7 :     }</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : #endif</span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          26 : }</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">          25 : }</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : </span>
 <span id="L75"><span class="lineNum">      75</span>              : }  // namespace Amplitron</span>
         </pre>

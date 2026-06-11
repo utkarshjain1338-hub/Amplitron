@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-11 07:15:49</td>
+            <td class="headerValue">2026-06-11 08:17:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -72,49 +72,49 @@
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC tlaBgGNC">           2 : static EffectRegistrar&lt;Looper&gt; reg(&quot;Looper&quot;);</span></span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         136 : Looper::Looper() {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         238 :     params_ = {</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         102 :         {&quot;Loop Level&quot;, 0.80f, 0.0f, 1.0f, 0.80f, &quot;&quot;,</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          34 :          &quot;Playback volume of the recorded loop mixed with live input.&quot;},</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          34 :         {&quot;Crossfade&quot;, 5.0f, 0.0f, 20.0f, 5.0f, &quot;ms&quot;,</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          34 :          &quot;Crossfade length at the loop boundary to reduce clicks/pops.&quot;},</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         204 :     };</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         102 :     ensure_capacity();</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         102 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         102 :     loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         102 :     crossfade_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         102 :     reset();</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         238 : }</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">         140 : Looper::Looper() {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         245 :     params_ = {</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         105 :         {&quot;Loop Level&quot;, 0.80f, 0.0f, 1.0f, 0.80f, &quot;&quot;,</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          35 :          &quot;Playback volume of the recorded loop mixed with live input.&quot;},</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          35 :         {&quot;Crossfade&quot;, 5.0f, 0.0f, 20.0f, 5.0f, &quot;ms&quot;,</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          35 :          &quot;Crossfade length at the loop boundary to reduce clicks/pops.&quot;},</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         210 :     };</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         105 :     ensure_capacity();</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         105 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         105 :     loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">         105 :     crossfade_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         105 :     reset();</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         245 : }</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          57 : void Looper::set_sample_rate(int sample_rate) {</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          57 :     Effect::set_sample_rate(sample_rate);</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          57 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          57 :     loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          57 :     crossfade_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          57 :     ensure_capacity();</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          57 :     reset();</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          57 : }</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          60 : void Looper::set_sample_rate(int sample_rate) {</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          60 :     Effect::set_sample_rate(sample_rate);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          60 :     const float sr = static_cast&lt;float&gt;(std::max(sample_rate_, 1));</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">          60 :     loop_level_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          60 :     crossfade_alpha_ = 1.0f - std::exp(-1.0f / (sr * kLoopLevelSmoothingSeconds));</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          60 :     ensure_capacity();</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          60 :     reset();</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          60 : }</span></span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         159 : void Looper::ensure_capacity() {</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         159 :     const int sr = std::max(sample_rate_, 1);</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         159 :     const int cap = std::max(sr * kMaxSeconds, 1);</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         159 :     if (cap == max_samples_) return;</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         117 :     max_samples_ = cap;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         117 :     buffer_l_.assign(static_cast&lt;size_t&gt;(max_samples_), 0.0f);</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         117 :     buffer_r_.assign(static_cast&lt;size_t&gt;(max_samples_), 0.0f);</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          53 : }</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">         165 : void Looper::ensure_capacity() {</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         165 :     const int sr = std::max(sample_rate_, 1);</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         165 :     const int cap = std::max(sr * kMaxSeconds, 1);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         165 :     if (cap == max_samples_) return;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         120 :     max_samples_ = cap;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         120 :     buffer_l_.assign(static_cast&lt;size_t&gt;(max_samples_), 0.0f);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         120 :     buffer_r_.assign(static_cast&lt;size_t&gt;(max_samples_), 0.0f);</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          55 : }</span></span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         216 : void Looper::reset() {</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         216 :     state_rt_ = State::Empty;</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         216 :     has_loop_rt_ = false;</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         216 :     record_pos_ = 0;</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         216 :     playhead_ = 0;</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         216 :     loop_length_ = 0;</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         216 :     loop_level_smoothed_ = clamp(params_[0].value, 0.0f, 1.0f);</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         216 :     crossfade_ms_smoothed_ = clamp(params_[1].value, 0.0f, 20.0f);</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         216 :     pending_commands_.store(0, std::memory_order_relaxed);</span></span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         216 :     publish_ui_snapshot();</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         216 : }</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">         225 : void Looper::reset() {</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">         225 :     state_rt_ = State::Empty;</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">         225 :     has_loop_rt_ = false;</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">         225 :     record_pos_ = 0;</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">         225 :     playhead_ = 0;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">         225 :     loop_length_ = 0;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">         225 :     loop_level_smoothed_ = clamp(params_[0].value, 0.0f, 1.0f);</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">         225 :     crossfade_ms_smoothed_ = clamp(params_[1].value, 0.0f, 20.0f);</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">         225 :     pending_commands_.store(0, std::memory_order_relaxed);</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">         225 :     publish_ui_snapshot();</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         225 : }</span></span>
 <span id="L56"><span class="lineNum">      56</span>              : </span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">          90 : void Looper::request_record_toggle() {</span></span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">          90 :     pending_commands_.fetch_or(CmdRecordToggle, std::memory_order_relaxed);</span></span>
@@ -135,12 +135,12 @@
 <span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">         285 :     return std::clamp(xf, 0, std::max(loop_length_ / 2, 0));</span></span>
 <span id="L74"><span class="lineNum">      74</span>              : }</span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         570 : void Looper::publish_ui_snapshot() {</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         570 :     ui_state_.store(static_cast&lt;uint32_t&gt;(state_rt_), std::memory_order_relaxed);</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         570 :     ui_has_loop_.store(has_loop_rt_ ? 1 : 0, std::memory_order_relaxed);</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         570 :     ui_loop_length_samples_.store(loop_length_, std::memory_order_relaxed);</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         570 :     ui_playhead_samples_.store(playhead_, std::memory_order_relaxed);</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         570 : }</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         579 : void Looper::publish_ui_snapshot() {</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         579 :     ui_state_.store(static_cast&lt;uint32_t&gt;(state_rt_), std::memory_order_relaxed);</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         579 :     ui_has_loop_.store(has_loop_rt_ ? 1 : 0, std::memory_order_relaxed);</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         579 :     ui_loop_length_samples_.store(loop_length_, std::memory_order_relaxed);</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">         579 :     ui_playhead_samples_.store(playhead_, std::memory_order_relaxed);</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         579 : }</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
 <span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           9 : void Looper::clear_loop_rt() {</span></span>
 <span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           9 :     has_loop_rt_ = false;</span></span>
