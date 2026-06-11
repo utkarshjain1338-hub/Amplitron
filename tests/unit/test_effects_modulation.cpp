@@ -284,3 +284,81 @@ TEST_F(EffectsTest, chorus_calculates_correct_rate_from_bpm) {
     // At 120 BPM, the LFO rate should be 2.0 Hz (120 / 60)
     ASSERT_NEAR(ch.params()[0].value, 2.0f, 0.01f);
 }
+
+TEST_F(EffectsTest, chorus_process_stereo) {
+    Chorus ch;
+    ch.set_sample_rate(SR);
+    ch.reset();
+
+    float left[BUFFER_SIZE];
+    float right[BUFFER_SIZE];
+    for (int i = 0; i < BUFFER_SIZE; ++i) {
+        left[i] = std::sin(2.0f * 3.14159265f * 440.0f * i / SR);
+        right[i] = std::sin(2.0f * 3.14159265f * 880.0f * i / SR);
+    }
+
+    ch.process_stereo(left, right, BUFFER_SIZE);
+
+    ASSERT_TRUE(is_finite(left, BUFFER_SIZE));
+    ASSERT_TRUE(is_finite(right, BUFFER_SIZE));
+
+    ch.set_enabled(false);
+    ch.process_stereo(left, right, BUFFER_SIZE);
+}
+
+TEST_F(EffectsTest, chorus_set_transport_state_edge_cases) {
+    Chorus ch;
+    ch.set_sample_rate(SR);
+    ch.reset();
+
+    // Invalid BPM values
+    ch.set_transport_state(-10.0f);
+    ch.set_transport_state(NAN);
+
+    // Repeated BPM values
+    ch.set_transport_state(120.0f);
+    ch.set_transport_state(120.0f);
+}
+
+TEST_F(EffectsTest, flanger_process_stereo) {
+    Flanger fl;
+    fl.set_sample_rate(SR);
+    fl.reset();
+
+    float left[BUFFER_SIZE];
+    float right[BUFFER_SIZE];
+    for (int i = 0; i < BUFFER_SIZE; ++i) {
+        left[i] = std::sin(2.0f * 3.14159265f * 440.0f * i / SR);
+        right[i] = std::sin(2.0f * 3.14159265f * 880.0f * i / SR);
+    }
+
+    fl.process_stereo(left, right, BUFFER_SIZE);
+
+    ASSERT_TRUE(is_finite(left, BUFFER_SIZE));
+    ASSERT_TRUE(is_finite(right, BUFFER_SIZE));
+
+    fl.set_enabled(false);
+    fl.process_stereo(left, right, BUFFER_SIZE);
+}
+
+TEST_F(EffectsTest, phaser_process_stereo) {
+    Phaser ph;
+    ph.set_sample_rate(SR);
+    ph.reset();
+
+    float left[BUFFER_SIZE];
+    float right[BUFFER_SIZE];
+    for (int i = 0; i < BUFFER_SIZE; ++i) {
+        left[i] = std::sin(2.0f * 3.14159265f * 440.0f * i / SR);
+        right[i] = std::sin(2.0f * 3.14159265f * 880.0f * i / SR);
+    }
+
+    ph.process_stereo(left, right, BUFFER_SIZE);
+
+    ASSERT_TRUE(is_finite(left, BUFFER_SIZE));
+    ASSERT_TRUE(is_finite(right, BUFFER_SIZE));
+
+    ph.set_enabled(false);
+    ph.process_stereo(left, right, BUFFER_SIZE);
+}
+
