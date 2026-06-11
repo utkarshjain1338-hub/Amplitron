@@ -405,8 +405,8 @@ bool PresetManager::graph_from_json(const std::string &json, AudioGraph &graph) 
             }
             if (existing_id != -1) {
                 graph.set_node_position(existing_id, node.x, node.y);
-                GuiGraphState::get_instance().node_positions[existing_id] = {ImVec2(node.x, node.y),
-                                                                             false, ImVec2(0.0f, 0.0f)};
+                GuiGraphState::get_instance().node_positions[existing_id] = {
+                    ImVec2(node.x, node.y), false, ImVec2(0.0f, 0.0f)};
                 node_id_map[node.id] = existing_id;
                 continue;
             }
@@ -426,7 +426,8 @@ bool PresetManager::graph_from_json(const std::string &json, AudioGraph &graph) 
         if (node_name == "Input") graph.set_node_as_input(new_id, true);
         if (node_name == "Output" || node_name == "Amp Sim") graph.set_node_as_output(new_id, true);
 
-        GuiGraphState::get_instance().node_positions[new_id] = {ImVec2(node.x, node.y), false, ImVec2(0.0f, 0.0f)};
+        GuiGraphState::get_instance().node_positions[new_id] = {ImVec2(node.x, node.y), false,
+                                                                ImVec2(0.0f, 0.0f)};
 
         node_id_map[node.id] = new_id;
     }

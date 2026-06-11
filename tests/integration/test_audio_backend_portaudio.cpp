@@ -551,9 +551,8 @@ TEST(PortAudioBackend_ExtraCoverage) {
     engine.initialize();
 
     g_mock_pa_get_device_info = [](int) -> const PaDeviceInfo* { return nullptr; };
-    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*,
-                               const PaStreamParameters*, double, unsigned long,
-                               PaStreamFlags, PaStreamCallback*,
+    g_mock_pa_open_stream = [](PaStream**, const PaStreamParameters*, const PaStreamParameters*,
+                               double, unsigned long, PaStreamFlags, PaStreamCallback*,
                                void*) -> PaError { return paNotInitialized; };
 
     ASSERT_FALSE(engine.start());
