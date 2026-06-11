@@ -744,6 +744,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/unit/test_mock_backend.cpp
         tests/unit/test_audio_backend_registry.cpp
         tests/unit/test_audio_backend_sdl.cpp
+        tests/unit/test_audio_metrics_service.cpp
+        tests/unit/test_audio_command_dispatcher.cpp
         tests/unit/test_oboe_ring_buffer.cpp
         tests/unit/test_effects_dynamics.cpp
         tests/unit/test_effects_saturation.cpp

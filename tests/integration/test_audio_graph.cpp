@@ -1089,3 +1089,91 @@ TEST(audio_graph_split_merge_disconnects) {
     executor.process(input_audio.data(), output_audio.data(), 64);
     ASSERT_TRUE(output_audio[0] == 0.0f);  // No output
 }
+
+TEST(AudioGraph_ExtraBranches) {
+    AudioGraph graph;
+    
+    // 1. restore_node()
+    DSPNode node1;
+    node1.id = 10;
+    node1.name = "Node1";
+    node1.routing_type = NodeRoutingType::Mixer;
+    node1.input_pin_ids = {101, 102};
+    node1.output_pin_ids = {201};
+    node1.input_gains = {1.0f, 1.0f};
+    graph.restore_node(node1);
+    
+    auto* found = graph.find_node(10);
+    ASSERT_TRUE(found != nullptr);
+    ASSERT_EQ(found->id, 10);
+
+    // 2. restore_link()
+    GraphLink link1;
+    link1.id = 50;
+    link1.source_pin_id = 201;
+    link1.dest_pin_id = 102;
+    graph.restore_link(link1); // Restoring a link that creates a cycle (source output -> self input)
+    
+    // 3. restore_input_pin()
+    // - Index >= 0, idx <= size
+    graph.restore_input_pin(10, 103, 1, 0.5f);
+    // - Index >= 0, idx > size
+    graph.restore_input_pin(10, 104, 10, 0.5f);
+    // - Index < 0
+    graph.restore_input_pin(10, 105, -1, 0.5f);
+    
+    // 4. restore_output_pin()
+    // - Index >= 0, idx <= size
+    DSPNode splitter_node;
+    splitter_node.id = 20;
+    splitter_node.routing_type = NodeRoutingType::Splitter;
+    splitter_node.output_pin_ids = {301, 302};
+    graph.restore_node(splitter_node);
+    graph.restore_output_pin(20, 303, 1);
+    // - Index out of bounds
+    graph.restore_output_pin(20, 304, 99);
+    
+    // 5. add_output_pin()
+    // - Splitter up to 8 pins
+    ASSERT_TRUE(graph.add_output_pin(20)); // 5th pin
+    ASSERT_TRUE(graph.add_output_pin(20)); // 6th pin
+    ASSERT_TRUE(graph.add_output_pin(20)); // 7th pin
+    ASSERT_TRUE(graph.add_output_pin(20)); // 8th pin
+    ASSERT_FALSE(graph.add_output_pin(20)); // fails at 9
+    
+    // 6. remove_output_pin()
+    // - By specific pin ID
+    ASSERT_TRUE(graph.remove_output_pin(20, 301));
+    // - By default index -1
+    ASSERT_TRUE(graph.remove_output_pin(20, -1));
+    // - Fail when linked
+    GraphLink link2;
+    link2.id = 60;
+    link2.source_pin_id = 302;
+    link2.dest_pin_id = 101;
+    graph.restore_link(link2);
+    ASSERT_FALSE(graph.remove_output_pin(20, 302));
+    
+    // 7. remove_input_pin()
+    // - Fail when linked
+    ASSERT_FALSE(graph.remove_input_pin(10, 101));
+    // - Success by specific ID
+    ASSERT_TRUE(graph.remove_input_pin(10, 105));
+    // - Success by default index -1
+    ASSERT_TRUE(graph.remove_input_pin(10, -1));
+    
+    // 8. set_mixer_input_gain() for invalid node/pin
+    graph.set_mixer_input_gain(99, 0, 0.5f);
+    
+    // 9. update_transport_state() with pedal
+    AudioGraphExecutor executor;
+    AudioGraph graph2;
+    auto effect = EffectFactory::instance().create("Overdrive");
+    int fx_node = graph2.add_node("Overdrive", NodeRoutingType::StandardEffect, effect);
+    graph2.set_node_as_input(fx_node, true);
+    graph2.set_node_as_output(fx_node, true);
+    ASSERT_TRUE(graph2.rebuild_topology());
+    executor.compile(graph2);
+    executor.update_transport_state(125.0f);
+}
+
