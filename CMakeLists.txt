@@ -776,6 +776,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         tests/ui/test_gui_manager.cpp
         tests/ui/test_pedal_board.cpp
         tests/ui/test_crash_recovery.cpp
+        tests/ui/test_crash_recovery_mocked.cpp
         tests/ui/test_gui_commands.cpp
         tests/ui/test_spectrum_analyzer.cpp
         tests/ui/test_gui_presets.cpp
