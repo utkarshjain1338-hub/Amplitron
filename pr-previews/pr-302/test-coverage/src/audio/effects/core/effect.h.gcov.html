@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">88.9&nbsp;%</td>
@@ -79,9 +79,9 @@
 <span id="L17"><span class="lineNum">      17</span>              : namespace Amplitron {</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span>              : // Common interface for all mono/stereo audio effects in the pedal chain.</span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">        1339 : class Effect : public IProcessor, public IParameterizable, public ISerializable, public IMetadata {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">        1345 : class Effect : public IProcessor, public IParameterizable, public ISerializable, public IMetadata {</span></span>
 <span id="L21"><span class="lineNum">      21</span>              :    public:</span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">        1431 :     virtual ~Effect() = default;</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">        1437 :     virtual ~Effect() = default;</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              :     // Process a mono buffer in place.</span>
 <span id="L25"><span class="lineNum">      25</span>              :     virtual void process(float* buffer, int num_samples) override = 0;</span>
@@ -94,7 +94,7 @@
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 :     }</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :     // Update the processing sample rate before audio starts or after device changes.</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        2250 :     virtual void set_sample_rate(int sample_rate) override { sample_rate_ = sample_rate; }</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">        2259 :     virtual void set_sample_rate(int sample_rate) override { sample_rate_ = sample_rate; }</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span>              :     // Clear delay lines, envelopes, filters, and other effect state.</span>
 <span id="L38"><span class="lineNum">      38</span>              :     virtual void reset() override = 0;</span>
@@ -112,10 +112,10 @@
 <span id="L50"><span class="lineNum">      50</span>              :     virtual const std::vector&lt;EffectParam&gt;&amp; params() const override = 0;</span>
 <span id="L51"><span class="lineNum">      51</span>              : </span>
 <span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC tlaBgGNC">         681 :     void set_enabled(bool enabled) { enabled_ = enabled; }</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        1992 :     bool is_enabled() const { return enabled_; }</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">        1848 :     bool is_enabled() const { return enabled_; }</span></span>
 <span id="L54"><span class="lineNum">      54</span>              : </span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">         543 :     void set_mix(float mix) { mix_.store(clamp(mix, 0.0f, 1.0f), std::memory_order_relaxed); }</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1050 :     float get_mix() const { return mix_.load(std::memory_order_relaxed); }</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1053 :     float get_mix() const { return mix_.load(std::memory_order_relaxed); }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span>              :     virtual std::shared_ptr&lt;Effect&gt; clone() const;</span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
@@ -175,9 +175,9 @@
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">          18 :     }</span></span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
 <span id="L115"><span class="lineNum">     115</span>              :    protected:</span>
-<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         671 :     int sample_rate_ = DEFAULT_SAMPLE_RATE;</span></span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">         671 :     std::atomic&lt;bool&gt; enabled_{true};</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         671 :     std::atomic&lt;float&gt; mix_{1.0f};</span></span>
+<span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         674 :     int sample_rate_ = DEFAULT_SAMPLE_RATE;</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">         674 :     std::atomic&lt;bool&gt; enabled_{true};</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">         674 :     std::atomic&lt;float&gt; mix_{1.0f};</span></span>
 <span id="L119"><span class="lineNum">     119</span>              : </span>
 <span id="L120"><span class="lineNum">     120</span>              :     // Wet/dry mix helper</span>
 <span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">           6 :     void apply_mix(const float* dry, float* wet, int num_samples) {</span></span>

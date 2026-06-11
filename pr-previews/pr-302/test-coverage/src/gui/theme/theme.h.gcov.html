@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -148,12 +148,12 @@
 <span id="L86"><span class="lineNum">      86</span>              : constexpr ImU32 PEDAL_BYPASS_OVERLAY = IM_COL32(0, 0, 0, 90);  // dim overlay when bypassed</span>
 <span id="L87"><span class="lineNum">      87</span>              : </span>
 <span id="L88"><span class="lineNum">      88</span>              : // --- ImVec4 helpers (for ImGui style and TextColored) ---</span>
-<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC tlaBgGNC">         611 : inline ImVec4 Gold() { return ImVec4(0.78f, 0.66f, 0.29f, 1.0f); }</span></span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaGNC tlaBgGNC">         563 : inline ImVec4 Gold() { return ImVec4(0.78f, 0.66f, 0.29f, 1.0f); }</span></span>
 <span id="L90"><span class="lineNum">      90</span> <span class="tlaGNC">           9 : inline ImVec4 GoldDim() { return ImVec4(0.63f, 0.51f, 0.22f, 1.0f); }</span></span>
 <span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">         158 : inline ImVec4 GoldHot() { return ImVec4(0.90f, 0.78f, 0.39f, 1.0f); }</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         453 : inline ImVec4 TextPrimary() { return ImVec4(0.86f, 0.84f, 0.80f, 1.0f); }</span></span>
-<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">        3441 : inline ImVec4 TextSecondary() { return ImVec4(0.53f, 0.53f, 0.53f, 1.0f); }</span></span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">        3371 : inline ImVec4 TextDim() { return ImVec4(0.40f, 0.40f, 0.40f, 1.0f); }</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">         360 : inline ImVec4 TextPrimary() { return ImVec4(0.86f, 0.84f, 0.80f, 1.0f); }</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">        3054 : inline ImVec4 TextSecondary() { return ImVec4(0.53f, 0.53f, 0.53f, 1.0f); }</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">        3020 : inline ImVec4 TextDim() { return ImVec4(0.40f, 0.40f, 0.40f, 1.0f); }</span></span>
 <span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">          22 : inline ImVec4 Live() { return ImVec4(0.20f, 0.78f, 0.31f, 1.0f); }</span></span>
 <span id="L96"><span class="lineNum">      96</span> <span class="tlaGNC">         215 : inline ImVec4 Stopped() { return ImVec4(0.78f, 0.20f, 0.20f, 1.0f); }</span></span>
 <span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">          30 : inline ImVec4 RecBlink(float t) {</span></span>
@@ -169,27 +169,27 @@
 <span id="L107"><span class="lineNum">     107</span>              : //   ms  -&gt; &quot;250 ms&quot;</span>
 <span id="L108"><span class="lineNum">     108</span>              : //   s   -&gt; &quot;1.20 s&quot;</span>
 <span id="L109"><span class="lineNum">     109</span>              : //   other / none -&gt; &quot;1.5&quot; or &quot;1.5 unit&quot;</span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">       10176 : inline std::string formatParameterValue(float value, const std::string&amp; unit) {</span></span>
-<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        3392 :     char buf[64];</span></span>
-<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">       10176 :     if (unit == &quot;Hz&quot;) {</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">        9825 : inline std::string formatParameterValue(float value, const std::string&amp; unit) {</span></span>
+<span id="L111"><span class="lineNum">     111</span> <span class="tlaGNC">        3275 :     char buf[64];</span></span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaGNC">        9825 :     if (unit == &quot;Hz&quot;) {</span></span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">         804 :         if (value &gt;= 1000.0f)</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaGNC">         444 :             snprintf(buf, sizeof(buf), &quot;%.1f kHz&quot;, value / 1000.0f);</span></span>
 <span id="L115"><span class="lineNum">     115</span>              :         else</span>
 <span id="L116"><span class="lineNum">     116</span> <span class="tlaGNC">         360 :             snprintf(buf, sizeof(buf), &quot;%.0f Hz&quot;, value);</span></span>
-<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">        9640 :     } else if (unit == &quot;dB&quot;) {</span></span>
-<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">        3081 :         snprintf(buf, sizeof(buf), &quot;%.1f dB&quot;, value);</span></span>
-<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        7318 :     } else if (unit == &quot;%&quot; || unit == &quot;pct&quot;) {</span></span>
+<span id="L117"><span class="lineNum">     117</span> <span class="tlaGNC">        9289 :     } else if (unit == &quot;dB&quot;) {</span></span>
+<span id="L118"><span class="lineNum">     118</span> <span class="tlaGNC">        2973 :         snprintf(buf, sizeof(buf), &quot;%.1f dB&quot;, value);</span></span>
+<span id="L119"><span class="lineNum">     119</span> <span class="tlaGNC">        7039 :     } else if (unit == &quot;%&quot; || unit == &quot;pct&quot;) {</span></span>
 <span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">          12 :         snprintf(buf, sizeof(buf), &quot;%.0f%%&quot;, value);</span></span>
-<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">        6283 :     } else if (unit == &quot;ms&quot;) {</span></span>
+<span id="L121"><span class="lineNum">     121</span> <span class="tlaGNC">        6040 :     } else if (unit == &quot;ms&quot;) {</span></span>
 <span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">        1986 :         snprintf(buf, sizeof(buf), &quot;%.1f ms&quot;, value);</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        4955 :     } else if (unit == &quot;s&quot;) {</span></span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">        4712 :     } else if (unit == &quot;s&quot;) {</span></span>
 <span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           6 :         snprintf(buf, sizeof(buf), &quot;%.2f s&quot;, value);</span></span>
-<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        4289 :     } else if (!unit.empty()) {</span></span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">        1956 :         snprintf(buf, sizeof(buf), &quot;%.1f %s&quot;, value, unit.c_str());</span></span>
-<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         652 :     } else {</span></span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">        2331 :         snprintf(buf, sizeof(buf), &quot;%.1f&quot;, value);</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">        4046 :     } else if (!unit.empty()) {</span></span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaGNC">        1899 :         snprintf(buf, sizeof(buf), &quot;%.1f %s&quot;, value, unit.c_str());</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">         633 :     } else {</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">        2145 :         snprintf(buf, sizeof(buf), &quot;%.1f&quot;, value);</span></span>
 <span id="L129"><span class="lineNum">     129</span>              :     }</span>
-<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">       13568 :     return std::string(buf);</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">       13100 :     return std::string(buf);</span></span>
 <span id="L131"><span class="lineNum">     131</span>              : }</span>
 <span id="L132"><span class="lineNum">     132</span>              : </span>
 <span id="L133"><span class="lineNum">     133</span>              : // --- Spacing / Layout ---</span>
@@ -303,9 +303,9 @@
 <span id="L241"><span class="lineNum">     241</span>              :     ImVec4 led_color;</span>
 <span id="L242"><span class="lineNum">     242</span>              : };</span>
 <span id="L243"><span class="lineNum">     243</span>              : </span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">        1086 : inline const EffectColorEntry* get_effect_color(const char* effect_name) {</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">        1032 : inline const EffectColorEntry* get_effect_color(const char* effect_name) {</span></span>
 <span id="L245"><span class="lineNum">     245</span>              :     // Warm-toned pedal colors that complement the Amplitron palette</span>
-<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">         362 :     static const EffectColorEntry table[] = {</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaGNC">         344 :     static const EffectColorEntry table[] = {</span></span>
 <span id="L247"><span class="lineNum">     247</span>              :         {&quot;Distortion&quot;, ImVec4(0.45f, 0.14f, 0.10f, 1.0f), ImVec4(1.0f, 0.30f, 0.20f, 1.0f)},</span>
 <span id="L248"><span class="lineNum">     248</span>              :         {&quot;Overdrive&quot;, ImVec4(0.45f, 0.34f, 0.12f, 1.0f), ImVec4(0.95f, 0.75f, 0.20f, 1.0f)},</span>
 <span id="L249"><span class="lineNum">     249</span>              :         {&quot;Delay&quot;, ImVec4(0.12f, 0.22f, 0.38f, 1.0f), ImVec4(0.35f, 0.60f, 0.95f, 1.0f)},</span>
@@ -324,14 +324,14 @@
 <span id="L262"><span class="lineNum">     262</span>              :         {&quot;Pitch Shifter&quot;, ImVec4(0.32f, 0.12f, 0.32f, 1.0f), ImVec4(0.85f, 0.40f, 0.85f, 1.0f)},</span>
 <span id="L263"><span class="lineNum">     263</span>              :         {&quot;Tuner&quot;, ImVec4(0.12f, 0.24f, 0.30f, 1.0f), ImVec4(0.40f, 0.85f, 0.95f, 1.0f)},</span>
 <span id="L264"><span class="lineNum">     264</span>              :     };</span>
-<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">        8391 :     for (const auto&amp; entry : table) {</span></span>
-<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">        8301 :         if (std::strcmp(effect_name, entry.name) == 0) return &amp;entry;</span></span>
+<span id="L265"><span class="lineNum">     265</span> <span class="tlaGNC">        8328 :     for (const auto&amp; entry : table) {</span></span>
+<span id="L266"><span class="lineNum">     266</span> <span class="tlaGNC">        8235 :         if (std::strcmp(effect_name, entry.name) == 0) return &amp;entry;</span></span>
 <span id="L267"><span class="lineNum">     267</span>              :     }</span>
 <span id="L268"><span class="lineNum">     268</span>              :     // Default fallback</span>
 <span id="L269"><span class="lineNum">     269</span>              :     static const EffectColorEntry fallback = {&quot;Default&quot;, ImVec4(0.20f, 0.19f, 0.17f, 1.0f),</span>
 <span id="L270"><span class="lineNum">     270</span>              :                                               ImVec4(0.78f, 0.66f, 0.29f, 1.0f)};</span>
-<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">          60 :     return &amp;fallback;</span></span>
-<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">         362 : }</span></span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaGNC">          62 :     return &amp;fallback;</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">         344 : }</span></span>
 <span id="L273"><span class="lineNum">     273</span>              : </span>
 <span id="L274"><span class="lineNum">     274</span>              : }  // namespace Amplitron</span>
         </pre>

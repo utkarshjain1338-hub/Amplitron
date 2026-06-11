@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">92.9&nbsp;%</td>
@@ -68,15 +68,15 @@
 <span id="L6"><span class="lineNum">       6</span>              : </span>
 <span id="L7"><span class="lineNum">       7</span>              : namespace Amplitron {</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">         294 : void AudioEngine::set_input_gain(float gain) {</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         294 :     command_dispatcher_.push_input_gain(gain);</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         294 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         294 : }</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">         297 : void AudioEngine::set_input_gain(float gain) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         297 :     command_dispatcher_.push_input_gain(gain);</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">         297 :     input_gain_.store(gain, std::memory_order_relaxed);</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">         297 : }</span></span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         246 : void AudioEngine::set_output_gain(float gain) {</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         246 :     command_dispatcher_.push_output_gain(gain);</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         246 :     output_gain_.store(gain, std::memory_order_relaxed);</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         246 : }</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         249 : void AudioEngine::set_output_gain(float gain) {</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         249 :     command_dispatcher_.push_output_gain(gain);</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         249 :     output_gain_.store(gain, std::memory_order_relaxed);</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">         249 : }</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          15 : void AudioEngine::toggle_metronome() { metronome_-&gt;toggle(); }</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
@@ -121,7 +121,7 @@
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">          12 :     analyzer_capture_-&gt;set_analyzer_enabled(enabled);</span></span>
 <span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L61"><span class="lineNum">      61</span>              : </span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          63 : bool AudioEngine::is_analyzer_enabled() const { return analyzer_capture_-&gt;is_analyzer_enabled(); }</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">          66 : bool AudioEngine::is_analyzer_enabled() const { return analyzer_capture_-&gt;is_analyzer_enabled(); }</span></span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
 <span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          36 : uint64_t AudioEngine::get_analyzer_sequence() const {</span></span>
 <span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          36 :     return analyzer_capture_-&gt;get_analyzer_sequence();</span></span>

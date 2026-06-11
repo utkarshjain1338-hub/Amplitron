@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -79,43 +79,43 @@
 <span id="L17"><span class="lineNum">      17</span>              :     static_assert(std::is_trivially_copyable&lt;T&gt;::value, &quot;T must be trivially copyable&quot;);</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
 <span id="L19"><span class="lineNum">      19</span>              :    public:</span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">       60905 :     SPSCQueue() : head_(0), tail_(0) {}</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC tlaBgGNC">       61429 :     SPSCQueue() : head_(0), tail_(0) {}</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span>              :     // Called from the producer (GUI) thread.</span>
 <span id="L23"><span class="lineNum">      23</span>              :     // Returns false if the queue is full (message dropped by caller).</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         780 :     bool try_push(const T&amp; item) {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         780 :         const size_t h = head_.load(std::memory_order_relaxed);</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         780 :         const size_t next = (h + 1) &amp; kMask;</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">        1040 :         if (next == tail_.load(std::memory_order_acquire)) {</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">         786 :     bool try_push(const T&amp; item) {</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         786 :         const size_t h = head_.load(std::memory_order_relaxed);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">         786 :         const size_t next = (h + 1) &amp; kMask;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">        1048 :         if (next == tail_.load(std::memory_order_acquire)) {</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           2 :             return false;  // full</span></span>
 <span id="L29"><span class="lineNum">      29</span>              :         }</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         777 :         buf_[h] = item;</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         777 :         head_.store(next, std::memory_order_release);</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         777 :         return true;</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         260 :     }</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         783 :         buf_[h] = item;</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">         783 :         head_.store(next, std::memory_order_release);</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         783 :         return true;</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         262 :     }</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : </span>
 <span id="L35"><span class="lineNum">      35</span>              :     // Called from the consumer (audio) thread.</span>
 <span id="L36"><span class="lineNum">      36</span>              :     // Returns false if the queue is empty.</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        4456 :     bool try_pop(T&amp; item) {</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        4456 :         const size_t t = tail_.load(std::memory_order_relaxed);</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        5684 :         if (t == head_.load(std::memory_order_acquire)) {</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">        3130 :             return false;  // empty</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">        4303 :     bool try_pop(T&amp; item) {</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">        4303 :         const size_t t = tail_.load(std::memory_order_relaxed);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">        5531 :         if (t == head_.load(std::memory_order_acquire)) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">        2977 :             return false;  // empty</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :         }</span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">         147 :         item = buf_[t];</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">         147 :         tail_.store((t + 1) &amp; kMask, std::memory_order_release);</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">         147 :         return true;</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        2000 :     }</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">        1847 :     }</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
 <span id="L47"><span class="lineNum">      47</span>              :     // Inspect the front item without consuming it (consumer thread only).</span>
 <span id="L48"><span class="lineNum">      48</span>              :     // Returns false if the queue is empty.</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">        4271 :     bool try_peek(T&amp; item) const {</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">        4271 :         const size_t t = tail_.load(std::memory_order_relaxed);</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">        5437 :         if (t == head_.load(std::memory_order_acquire)) {</span></span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">        3063 :             return false;  // empty</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">        4120 :     bool try_peek(T&amp; item) const {</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">        4120 :         const size_t t = tail_.load(std::memory_order_relaxed);</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">        5286 :         if (t == head_.load(std::memory_order_acquire)) {</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">        2912 :             return false;  // empty</span></span>
 <span id="L53"><span class="lineNum">      53</span>              :         }</span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">          63 :         item = buf_[t];</span></span>
 <span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">          63 :         return true;</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1939 :     }</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">        1788 :     }</span></span>
 <span id="L57"><span class="lineNum">      57</span>              : </span>
 <span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           6 :     size_t try_pop_all(std::vector&lt;T&gt;&amp; out_vec) {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           6 :         size_t count = 0;</span></span>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryMed">84.2&nbsp;%</td>
@@ -73,34 +73,34 @@
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              : namespace Amplitron {</span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">        1609 : AudioEngine::AudioEngine(std::unique_ptr&lt;IRecorder&gt; recorder, std::unique_ptr&lt;IMetronome&gt; metronome)</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         634 :     : metronome_(std::move(metronome)),</span></span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         634 :       recorder_(std::move(recorder)),</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">        1908 :       analyzer_capture_(std::make_unique&lt;AnalyzerCapture&gt;()) {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         959 :     if (!recorder_) recorder_ = std::make_unique&lt;Recorder&gt;();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         959 :     if (!metronome_) metronome_ = std::make_unique&lt;Metronome&gt;();</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">        1619 : AudioEngine::AudioEngine(std::unique_ptr&lt;IRecorder&gt; recorder, std::unique_ptr&lt;IMetronome&gt; metronome)</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         638 :     : metronome_(std::move(metronome)),</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">         638 :       recorder_(std::move(recorder)),</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">        1920 :       analyzer_capture_(std::make_unique&lt;AnalyzerCapture&gt;()) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         965 :     if (!recorder_) recorder_ = std::make_unique&lt;Recorder&gt;();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         965 :     if (!metronome_) metronome_ = std::make_unique&lt;Metronome&gt;();</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         959 :     process_buffer_.resize(16384, 0.0f);</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         959 :     process_buffer_right_.resize(16384, 0.0f);</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         965 :     process_buffer_.resize(16384, 0.0f);</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">         965 :     process_buffer_right_.resize(16384, 0.0f);</span></span>
 <span id="L23"><span class="lineNum">      23</span>              : #if defined(AMPLITRON_ANDROID_OBOE)</span>
 <span id="L24"><span class="lineNum">      24</span>              :     backend_ = AudioBackendFactory::create_backend(&quot;oboe&quot;);</span>
 <span id="L25"><span class="lineNum">      25</span>              : #elif defined(__EMSCRIPTEN__) || (defined(__APPLE__) &amp;&amp; TARGET_OS_IPHONE)</span>
 <span id="L26"><span class="lineNum">      26</span>              :     backend_ = AudioBackendFactory::create_backend(&quot;sdl&quot;);</span>
 <span id="L27"><span class="lineNum">      27</span>              : #else</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         959 :     backend_ = AudioBackendFactory::create_backend(&quot;portaudio&quot;);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         965 :     backend_ = AudioBackendFactory::create_backend(&quot;portaudio&quot;);</span></span>
 <span id="L29"><span class="lineNum">      29</span>              : #endif</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         959 :     metronome_-&gt;set_sample_rate(sample_rate_);</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         965 :     metronome_-&gt;set_sample_rate(sample_rate_);</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span>              :     // Pre-allocate the graph memory pools immediately on startup</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         959 :     main_executor_ = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">         965 :     main_executor_ = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :     // Assuming standard values, use your engine's actual sample rate / block size variables here</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         959 :     main_executor_-&gt;prepare(48000, 512, 32);</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">         965 :     main_executor_-&gt;prepare(48000, 512, 32);</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
 <span id="L37"><span class="lineNum">      37</span>              :     // Seed the shadow executor so the audio thread has something safe to read instantly</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         959 :     audio_shadow_executor_ = main_executor_;</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         959 : }</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">         965 :     audio_shadow_executor_ = main_executor_;</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         965 : }</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">        1999 : AudioEngine::~AudioEngine() { shutdown(); }</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">        2014 : AudioEngine::~AudioEngine() { shutdown(); }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span>              : // --- Serialization Methods ---</span>
 <span id="L44"><span class="lineNum">      44</span>              : </span>
@@ -219,22 +219,22 @@
 <span id="L157"><span class="lineNum">     157</span>              :         }</span>
 <span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC tlaBgGNC">          41 : }</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">        1704 : void AudioEngine::commit_graph_changes() {</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">        1704 :     std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">        1719 : void AudioEngine::commit_graph_changes() {</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">        1719 :     std::lock_guard&lt;std::mutex&gt; lock(effect_mutex_);</span></span>
 <span id="L162"><span class="lineNum">     162</span>              : </span>
 <span id="L163"><span class="lineNum">     163</span>              :     // 1. Create a brand new executor (so we don't mutate memory the audio thread is currently</span>
 <span id="L164"><span class="lineNum">     164</span>              :     // reading)</span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        1704 :     auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">        1704 :     int safe_block_size = std::max(buffer_size_, 8192);</span></span>
-<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">        1704 :     new_executor-&gt;prepare(sample_rate_, safe_block_size, 32);</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">        1719 :     auto new_executor = std::make_shared&lt;AudioGraphExecutor&gt;();</span></span>
+<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">        1719 :     int safe_block_size = std::max(buffer_size_, 8192);</span></span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">        1719 :     new_executor-&gt;prepare(sample_rate_, safe_block_size, 32);</span></span>
 <span id="L168"><span class="lineNum">     168</span>              : </span>
 <span id="L169"><span class="lineNum">     169</span>              :     // 2. Compile the latest UI graph into the new executor</span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">        1704 :     new_executor-&gt;compile(main_graph_);</span></span>
+<span id="L170"><span class="lineNum">     170</span> <span class="tlaGNC">        1719 :     new_executor-&gt;compile(main_graph_);</span></span>
 <span id="L171"><span class="lineNum">     171</span>              : </span>
 <span id="L172"><span class="lineNum">     172</span>              :     // 3. Promote it to the main slot. The audio thread will grab it on the next try_lock!</span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">        1704 :     main_executor_ = new_executor;</span></span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">        1704 :     topology_dirty_.store(true, std::memory_order_release);</span></span>
-<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">        1704 : }</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">        1719 :     main_executor_ = new_executor;</span></span>
+<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">        1719 :     topology_dirty_.store(true, std::memory_order_release);</span></span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">        1719 : }</span></span>
 <span id="L176"><span class="lineNum">     176</span>              : </span>
 <span id="L177"><span class="lineNum">     177</span>              : #ifdef AMPLITRON_TESTS</span>
 <span id="L178"><span class="lineNum">     178</span>              : class NonOwningBackendWrapper : public IAudioBackend {</span>
@@ -284,21 +284,21 @@
 <span id="L222"><span class="lineNum">     222</span> <span class="tlaGNC">           3 : void AudioEngine::clear_backend_for_test() { backend_ = nullptr; }</span></span>
 <span id="L223"><span class="lineNum">     223</span>              : #endif</span>
 <span id="L224"><span class="lineNum">     224</span>              : </span>
-<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         861 : bool AudioEngine::initialize() {</span></span>
-<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">         861 :     if (backend_) {</span></span>
-<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">         861 :         initialized_ = backend_-&gt;initialize(this);</span></span>
-<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         861 :         return initialized_;</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaGNC">         867 : bool AudioEngine::initialize() {</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaGNC">         867 :     if (backend_) {</span></span>
+<span id="L227"><span class="lineNum">     227</span> <span class="tlaGNC">         867 :         initialized_ = backend_-&gt;initialize(this);</span></span>
+<span id="L228"><span class="lineNum">     228</span> <span class="tlaGNC">         867 :         return initialized_;</span></span>
 <span id="L229"><span class="lineNum">     229</span>              :     }</span>
 <span id="L230"><span class="lineNum">     230</span> <span class="tlaUNC tlaBgUNC">           0 :     return false;</span></span>
-<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC tlaBgGNC">         290 : }</span></span>
+<span id="L231"><span class="lineNum">     231</span> <span class="tlaGNC tlaBgGNC">         292 : }</span></span>
 <span id="L232"><span class="lineNum">     232</span>              : </span>
-<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">        1793 : void AudioEngine::shutdown() {</span></span>
-<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">        1793 :     stop();</span></span>
-<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">        1793 :     if (backend_) {</span></span>
-<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">        1790 :         backend_-&gt;shutdown();</span></span>
-<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         603 :     }</span></span>
-<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">        1793 :     initialized_ = false;</span></span>
-<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">        1793 : }</span></span>
+<span id="L233"><span class="lineNum">     233</span> <span class="tlaGNC">        1805 : void AudioEngine::shutdown() {</span></span>
+<span id="L234"><span class="lineNum">     234</span> <span class="tlaGNC">        1805 :     stop();</span></span>
+<span id="L235"><span class="lineNum">     235</span> <span class="tlaGNC">        1805 :     if (backend_) {</span></span>
+<span id="L236"><span class="lineNum">     236</span> <span class="tlaGNC">        1802 :         backend_-&gt;shutdown();</span></span>
+<span id="L237"><span class="lineNum">     237</span> <span class="tlaGNC">         607 :     }</span></span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaGNC">        1805 :     initialized_ = false;</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaGNC">        1805 : }</span></span>
 <span id="L240"><span class="lineNum">     240</span>              : </span>
 <span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">          71 : bool AudioEngine::start() {</span></span>
 <span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">          71 :     if (!initialized_ || running_) return false;</span></span>
@@ -342,12 +342,12 @@
 <span id="L280"><span class="lineNum">     280</span> <span class="tlaUNC tlaBgUNC">           0 :     return false;</span></span>
 <span id="L281"><span class="lineNum">     281</span> <span class="tlaGNC tlaBgGNC">          31 : }</span></span>
 <span id="L282"><span class="lineNum">     282</span>              : </span>
-<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">        1846 : void AudioEngine::stop() {</span></span>
-<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">        1846 :     if (backend_) {</span></span>
-<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">        1843 :         backend_-&gt;stop();</span></span>
-<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">         625 :     }</span></span>
-<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">        1846 :     running_ = false;</span></span>
-<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">        1846 : }</span></span>
+<span id="L283"><span class="lineNum">     283</span> <span class="tlaGNC">        1858 : void AudioEngine::stop() {</span></span>
+<span id="L284"><span class="lineNum">     284</span> <span class="tlaGNC">        1858 :     if (backend_) {</span></span>
+<span id="L285"><span class="lineNum">     285</span> <span class="tlaGNC">        1855 :         backend_-&gt;stop();</span></span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">         629 :     }</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">        1858 :     running_ = false;</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaGNC">        1858 : }</span></span>
 <span id="L289"><span class="lineNum">     289</span>              : </span>
 <span id="L290"><span class="lineNum">     290</span> <span class="tlaGNC">          18 : bool AudioEngine::restart() {</span></span>
 <span id="L291"><span class="lineNum">     291</span> <span class="tlaGNC">          18 :     stop();</span></span>
@@ -386,14 +386,14 @@
 <span id="L324"><span class="lineNum">     324</span>              : </span>
 <span id="L325"><span class="lineNum">     325</span> <span class="tlaGNC">          23 :     bool ok = backend_-&gt;set_input_device(device_index);</span></span>
 <span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          23 :     if (!ok) {</span></span>
-<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           8 :         if (was_running) {</span></span>
+<span id="L327"><span class="lineNum">     327</span> <span class="tlaGNC">           7 :         if (was_running) {</span></span>
 <span id="L328"><span class="lineNum">     328</span> <span class="tlaUNC tlaBgUNC">           0 :             start();</span></span>
 <span id="L329"><span class="lineNum">     329</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC tlaBgGNC">           8 :         return false;</span></span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC tlaBgGNC">           7 :         return false;</span></span>
 <span id="L331"><span class="lineNum">     331</span>              :     }</span>
 <span id="L332"><span class="lineNum">     332</span>              : </span>
-<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">          15 :     input_device_ = device_index;</span></span>
-<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">          15 :     if (was_running) {</span></span>
+<span id="L333"><span class="lineNum">     333</span> <span class="tlaGNC">          16 :     input_device_ = device_index;</span></span>
+<span id="L334"><span class="lineNum">     334</span> <span class="tlaGNC">          16 :     if (was_running) {</span></span>
 <span id="L335"><span class="lineNum">     335</span> <span class="tlaGNC">          10 :         if (!start()) {</span></span>
 <span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">           3 :             last_error_ = &quot;Failed to start with new input device. Reverting.&quot;;</span></span>
 <span id="L337"><span class="lineNum">     337</span> <span class="tlaGNC">           4 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
@@ -409,7 +409,7 @@
 <span id="L347"><span class="lineNum">     347</span>              :         }</span>
 <span id="L348"><span class="lineNum">     348</span> <span class="tlaGNC">           7 :         last_error_.clear();</span></span>
 <span id="L349"><span class="lineNum">     349</span> <span class="tlaGNC">           3 :     }</span></span>
-<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           7 :     return true;</span></span>
+<span id="L350"><span class="lineNum">     350</span> <span class="tlaGNC">           8 :     return true;</span></span>
 <span id="L351"><span class="lineNum">     351</span> <span class="tlaGNC">          10 : }</span></span>
 <span id="L352"><span class="lineNum">     352</span>              : </span>
 <span id="L353"><span class="lineNum">     353</span> <span class="tlaGNC">          20 : bool AudioEngine::set_output_device(int device_index) {</span></span>
@@ -421,14 +421,14 @@
 <span id="L359"><span class="lineNum">     359</span>              : </span>
 <span id="L360"><span class="lineNum">     360</span> <span class="tlaGNC">          20 :     bool ok = backend_-&gt;set_output_device(device_index);</span></span>
 <span id="L361"><span class="lineNum">     361</span> <span class="tlaGNC">          20 :     if (!ok) {</span></span>
-<span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">           7 :         if (was_running) {</span></span>
+<span id="L362"><span class="lineNum">     362</span> <span class="tlaGNC">           8 :         if (was_running) {</span></span>
 <span id="L363"><span class="lineNum">     363</span> <span class="tlaUNC tlaBgUNC">           0 :             start();</span></span>
 <span id="L364"><span class="lineNum">     364</span> <span class="tlaUNC">           0 :         }</span></span>
-<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC tlaBgGNC">           7 :         return false;</span></span>
+<span id="L365"><span class="lineNum">     365</span> <span class="tlaGNC tlaBgGNC">           8 :         return false;</span></span>
 <span id="L366"><span class="lineNum">     366</span>              :     }</span>
 <span id="L367"><span class="lineNum">     367</span>              : </span>
-<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          13 :     output_device_ = device_index;</span></span>
-<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          13 :     if (was_running) {</span></span>
+<span id="L368"><span class="lineNum">     368</span> <span class="tlaGNC">          12 :     output_device_ = device_index;</span></span>
+<span id="L369"><span class="lineNum">     369</span> <span class="tlaGNC">          12 :     if (was_running) {</span></span>
 <span id="L370"><span class="lineNum">     370</span> <span class="tlaGNC">           7 :         if (!start()) {</span></span>
 <span id="L371"><span class="lineNum">     371</span> <span class="tlaGNC">           3 :             last_error_ = &quot;Failed to start with new output device. Reverting.&quot;;</span></span>
 <span id="L372"><span class="lineNum">     372</span> <span class="tlaGNC">           4 :             std::cerr &lt;&lt; &quot;[Amplitron] &quot; &lt;&lt; last_error_ &lt;&lt; std::endl;</span></span>
@@ -444,7 +444,7 @@
 <span id="L382"><span class="lineNum">     382</span>              :         }</span>
 <span id="L383"><span class="lineNum">     383</span> <span class="tlaGNC">           4 :         last_error_.clear();</span></span>
 <span id="L384"><span class="lineNum">     384</span> <span class="tlaGNC">           2 :     }</span></span>
-<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           6 :     return true;</span></span>
+<span id="L385"><span class="lineNum">     385</span> <span class="tlaGNC">           5 :     return true;</span></span>
 <span id="L386"><span class="lineNum">     386</span> <span class="tlaGNC">           9 : }</span></span>
 <span id="L387"><span class="lineNum">     387</span>              : </span>
 <span id="L388"><span class="lineNum">     388</span>              : #ifdef AMPLITRON_ANDROID_OBOE</span>

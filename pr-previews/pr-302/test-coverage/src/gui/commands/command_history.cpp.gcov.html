@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -65,20 +65,20 @@
 <span id="L3"><span class="lineNum">       3</span>              : namespace Amplitron {</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : /** @brief Execute cmd, attempt coalescing, push to undo stack, clear redo. */</span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         237 : void CommandHistory::execute(std::unique_ptr&lt;Command&gt; cmd) {</span></span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         237 :     if (!cmd-&gt;execute()) return;  // no-op — skip history recording</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">         240 : void CommandHistory::execute(std::unique_ptr&lt;Command&gt; cmd) {</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">         240 :     if (!cmd-&gt;execute()) return;  // no-op — skip history recording</span></span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              :     // Try coalescing with the top of the undo stack</span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         222 :     if (!undo_stack_.empty() &amp;&amp; undo_stack_.back()-&gt;merge_with(*cmd)) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">         225 :     if (!undo_stack_.empty() &amp;&amp; undo_stack_.back()-&gt;merge_with(*cmd)) {</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :         // Merged into existing top — no new entry needed</span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC tlaBgUNC">           0 :     } else {</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         222 :         undo_stack_.push_back(std::move(cmd));</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         222 :         trim();</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         225 :         undo_stack_.push_back(std::move(cmd));</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">         225 :         trim();</span></span>
 <span id="L15"><span class="lineNum">      15</span>              :     }</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
 <span id="L17"><span class="lineNum">      17</span>              :     // New action invalidates the redo branch</span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         222 :     redo_stack_.clear();</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          79 : }</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">         225 :     redo_stack_.clear();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          80 : }</span></span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              : /** @brief Push an already-applied command; attempt coalescing, clear redo. */</span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          66 : void CommandHistory::push_executed(std::unique_ptr&lt;Command&gt; cmd) {</span></span>
@@ -136,11 +136,11 @@
 <span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">          45 : }</span></span>
 <span id="L75"><span class="lineNum">      75</span>              : </span>
 <span id="L76"><span class="lineNum">      76</span>              : /** @brief Remove oldest undo entries until stack size &lt;= max_depth_. */</span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         282 : void CommandHistory::trim() {</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         318 :     while (static_cast&lt;int&gt;(undo_stack_.size()) &gt; max_depth_) {</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         285 : void CommandHistory::trim() {</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         321 :     while (static_cast&lt;int&gt;(undo_stack_.size()) &gt; max_depth_) {</span></span>
 <span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          36 :         undo_stack_.erase(undo_stack_.begin());</span></span>
 <span id="L80"><span class="lineNum">      80</span>              :     }</span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         282 : }</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">         285 : }</span></span>
 <span id="L82"><span class="lineNum">      82</span>              : </span>
 <span id="L83"><span class="lineNum">      83</span>              : }  // namespace Amplitron</span>
         </pre>

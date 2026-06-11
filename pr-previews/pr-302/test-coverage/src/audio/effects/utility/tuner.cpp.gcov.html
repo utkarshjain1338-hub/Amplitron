@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -78,29 +78,29 @@
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          30 :     return NOTE_NAMES[note_index];</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">          11 : }</span></span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         189 : TunerPedal::TunerPedal() {</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         333 :     params_ = {</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         138 :         {&quot;Mute&quot;, 1.0f, 0.0f, 1.0f, 1.0f, &quot;&quot;,</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          48 :          &quot;When fully engaged (1.0), the tuner silences the audio output while you tune.&quot;},</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          48 :         {&quot;A4 Ref&quot;, 440.0f, 430.0f, 450.0f, 440.0f, &quot;Hz&quot;,</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          48 :          &quot;Calibration frequency for the note A4. Default is standard 440Hz.&quot;},</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         324 :     };</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          93 :     yin_buffer_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         141 :     yin_buf_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         141 :     yin_d_.resize(YIN_BUFFER_SIZE / 2, 0.0f);</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         186 :     recalc_update_interval();</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         330 : }</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">         193 : TunerPedal::TunerPedal() {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">         340 :     params_ = {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">         141 :         {&quot;Mute&quot;, 1.0f, 0.0f, 1.0f, 1.0f, &quot;&quot;,</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          49 :          &quot;When fully engaged (1.0), the tuner silences the audio output while you tune.&quot;},</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          49 :         {&quot;A4 Ref&quot;, 440.0f, 430.0f, 450.0f, 440.0f, &quot;Hz&quot;,</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          49 :          &quot;Calibration frequency for the note A4. Default is standard 440Hz.&quot;},</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">         331 :     };</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          95 :     yin_buffer_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">         144 :     yin_buf_.resize(YIN_BUFFER_SIZE, 0.0f);</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">         144 :     yin_d_.resize(YIN_BUFFER_SIZE / 2, 0.0f);</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">         190 :     recalc_update_interval();</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">         337 : }</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          51 : void TunerPedal::set_sample_rate(int sample_rate) {</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          51 :     sample_rate_ = sample_rate;</span></span>
 <span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          68 :     recalc_update_interval();</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">          51 : }</span></span>
 <span id="L36"><span class="lineNum">      36</span>              : </span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         192 : void TunerPedal::recalc_update_interval() {</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">         195 : void TunerPedal::recalc_update_interval() {</span></span>
 <span id="L38"><span class="lineNum">      38</span>              :     // ~15 updates per second for responsive display</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         192 :     update_interval_ = sample_rate_ / 15;</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         192 :     if (update_interval_ &lt; YIN_BUFFER_SIZE) update_interval_ = YIN_BUFFER_SIZE;</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         130 : }</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">         195 :     update_interval_ = sample_rate_ / 15;</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">         195 :     if (update_interval_ &lt; YIN_BUFFER_SIZE) update_interval_ = YIN_BUFFER_SIZE;</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">         132 : }</span></span>
 <span id="L42"><span class="lineNum">      42</span>              : </span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">          51 : void TunerPedal::reset() {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">          51 :     std::fill(yin_buffer_.begin(), yin_buffer_.end(), 0.0f);</span></span>

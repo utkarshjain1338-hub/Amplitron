@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-06-10 18:16:35</td>
+            <td class="headerValue">2026-06-11 07:15:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryLo">50.0&nbsp;%</td>
@@ -72,9 +72,9 @@
 <span id="L10"><span class="lineNum">      10</span>              :  * @brief Interface for serializing and deserializing preset configurations.</span>
 <span id="L11"><span class="lineNum">      11</span>              :  * Satisfies Single Responsibility Principle (SRP) and Dependency Inversion Principle (DIP).</span>
 <span id="L12"><span class="lineNum">      12</span>              :  */</span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         163 : class IPresetSerializer {</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">         165 : class IPresetSerializer {</span></span>
 <span id="L14"><span class="lineNum">      14</span>              :    public:</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         495 :     virtual ~IPresetSerializer() = default;</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">         501 :     virtual ~IPresetSerializer() = default;</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :     virtual std::string serialize(const PresetData&amp; preset) = 0;</span>
 <span id="L17"><span class="lineNum">      17</span>              :     virtual bool deserialize(const std::string&amp; json_str, PresetData&amp; preset) = 0;</span>
 <span id="L18"><span class="lineNum">      18</span>              : };</span>
