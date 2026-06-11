@@ -73,7 +73,7 @@ TEST_F(FileDialogNativeTest, ShowOpenDialogNativeSanitization) {
     const auto& cmds = Amplitron::TestMocks::get_executed_commands();
     ASSERT_GE(cmds.size(), 1UL);
     // Linux sanitizes single quotes for shell
-    ASSERT_NE(cmds[0].find("Prompt \"with\" '\\''quotes'\u0027 \\"), std::string::npos);
+    ASSERT_NE(cmds[0].find("Prompt \"with\" '\\''quotes'\\'' \\"), std::string::npos);
 #endif
 }
 

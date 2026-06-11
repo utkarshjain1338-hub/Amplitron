@@ -113,7 +113,7 @@ int MOCK_pclose(FILE* stream) {
         fclose(stream);
         unlink("dialog_mock_temp.txt");
     }
-    return g_exit_status;
+    return (g_exit_status & 0xff) << 8;
 }
 
 #ifdef __APPLE__

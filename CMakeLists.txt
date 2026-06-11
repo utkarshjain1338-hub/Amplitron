@@ -904,16 +904,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         "Pa_Initialize=MOCK_Pa_Initialize"
     )
 
-    if(WIN32)
-        target_compile_definitions(amplitron-tests PRIVATE
-            "GetOpenFileNameA=MOCK_GetOpenFileNameA"
-            "GetSaveFileNameA=MOCK_GetSaveFileNameA"
-            "SHBrowseForFolderA=MOCK_SHBrowseForFolderA"
-            "SHGetPathFromIDListA=MOCK_SHGetPathFromIDListA"
-            "SHGetFolderPathA=MOCK_SHGetFolderPathA"
-            "CoTaskMemFree=MOCK_CoTaskMemFree"
-        )
-    else()
+    if(NOT WIN32)
         target_compile_definitions(amplitron-tests PRIVATE
             "popen=MOCK_popen"
             "pclose=MOCK_pclose"
