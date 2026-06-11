@@ -16,15 +16,24 @@ static Uint32 g_mock_sdl_queued_audio_size = 0;
 
 extern "C" {
 int SDL_QueueAudio(SDL_AudioDeviceID dev, const void* data, Uint32 len) {
+    (void)dev;
+    (void)data;
     g_mock_sdl_queued_audio_size += len;
     return 0;
 }
 
-Uint32 SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev) { return g_mock_sdl_queued_audio_size; }
+Uint32 SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev) {
+    (void)dev;
+    return g_mock_sdl_queued_audio_size;
+}
 
-void SDL_ClearQueuedAudio(SDL_AudioDeviceID dev) { g_mock_sdl_queued_audio_size = 0; }
+void SDL_ClearQueuedAudio(SDL_AudioDeviceID dev) {
+    (void)dev;
+    g_mock_sdl_queued_audio_size = 0;
+}
 
 Uint32 SDL_DequeueAudio(SDL_AudioDeviceID dev, void* data, Uint32 len) {
+    (void)dev;
     Uint32 got = g_mock_sdl_queued_audio_size < len ? g_mock_sdl_queued_audio_size : len;
     if (got > 0) {
         if (data) {

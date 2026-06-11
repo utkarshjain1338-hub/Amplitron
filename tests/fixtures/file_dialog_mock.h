@@ -15,8 +15,10 @@ const std::vector<std::string>& get_executed_commands();
 
 extern "C" {
 #ifdef _WIN32
-#include <shlobj.h>
+// clang-format off
 #include <windows.h>
+#include <shlobj.h>
+// clang-format on
 // Use standard calling convention declarations matching Win32 APIs
 BOOL WINAPI MOCK_GetOpenFileNameA(LPOPENFILENAMEA ofn);
 BOOL WINAPI MOCK_GetSaveFileNameA(LPOPENFILENAMEA ofn);

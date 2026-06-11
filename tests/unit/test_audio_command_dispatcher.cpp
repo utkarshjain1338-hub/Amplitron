@@ -16,7 +16,7 @@ class MockEffectForDispatcher : public Effect {
         params_.push_back({"Param1", 5.0f, 0.0f, 10.0f, 5.0f, "Hz", "Tooltip1"});
     }
 
-    void process(float* buffer, int num_samples) override {}
+    void process(float*, int) override {}
     void reset() override {}
     const char* name() const override { return "MockEffectForDispatcher"; }
     const char* type_id() const override { return "MockEffectForDispatcher"; }

@@ -97,6 +97,7 @@ void WINAPI MOCK_CoTaskMemFree(LPVOID pv) {
 #else
 
 FILE* MOCK_popen(const char* command, const char* type) {
+    (void)type;
     g_executed_commands.push_back(command);
     if (g_popen_fail) {
         return nullptr;
@@ -118,9 +119,11 @@ int MOCK_pclose(FILE* stream) {
 
 #ifdef __APPLE__
 int MOCK_execl(const char* path, const char* arg0, ...) {
+    (void)path;
     va_list args;
     va_start(args, arg0);
     const char* flag = va_arg(args, const char*);
+    (void)flag;
     const char* script = va_arg(args, const char*);
     if (script) {
         FILE* f = fopen("dialog_mock_script.txt", "w");

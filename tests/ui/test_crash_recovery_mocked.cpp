@@ -10,17 +10,17 @@ static bool g_mock_sdl_init_subsystem_called = false;
 static bool g_mock_sdl_show_messagebox_called = false;
 
 // Mock implementations
-inline Uint32 mock_SDL_WasInit(Uint32 flags) {
+inline Uint32 mock_SDL_WasInit(Uint32 /*flags*/) {
     g_mock_sdl_was_init_called = true;
     return g_mock_sdl_was_init_return;
 }
 
-inline int mock_SDL_InitSubSystem(Uint32 flags) {
+inline int mock_SDL_InitSubSystem(Uint32 /*flags*/) {
     g_mock_sdl_init_subsystem_called = true;
     return g_mock_sdl_init_subsystem_return;
 }
 
-inline int mock_SDL_ShowMessageBox(const SDL_MessageBoxData* messageboxdata, int* buttonid) {
+inline int mock_SDL_ShowMessageBox(const SDL_MessageBoxData* /*messageboxdata*/, int* buttonid) {
     g_mock_sdl_show_messagebox_called = true;
     if (buttonid) {
         *buttonid = g_mock_sdl_show_messagebox_buttonid;

@@ -17,7 +17,9 @@ using namespace TestFramework;
 // That rewrite would overwrite our own `#define main app_main` and leave
 // app_main undeclared — causing the Windows CI build error. Define
 // SDL_MAIN_HANDLED here, before any SDL headers are transitively included.
+#ifndef SDL_MAIN_HANDLED
 #define SDL_MAIN_HANDLED
+#endif
 
 // Redefine main → app_main to avoid a linker conflict with the test runner's
 // own main(), then include the production entry-point for black-box testing.

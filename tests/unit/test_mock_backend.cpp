@@ -94,11 +94,11 @@ class ConfigurableMockAudioBackend : public MockAudioBackend {
     bool set_output_ok = true;
     int start_fail_count = 0;
 
-    bool set_input_device(int idx) override {
+    bool set_input_device(int) override {
         input_device_set = true;
         return set_input_ok;
     }
-    bool set_output_device(int idx) override {
+    bool set_output_device(int) override {
         output_device_set = true;
         return set_output_ok;
     }
