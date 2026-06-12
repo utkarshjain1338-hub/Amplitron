@@ -463,8 +463,9 @@ jobs:
       - name: Build
         shell: msys2 {0}
         run: |
-          export CCACHE_DIR="$GITHUB_WORKSPACE/.ccache"
-          export CCACHE_MAXSIZE=200M
+          export CCACHE_DIR="$(cygpath -u "$GITHUB_WORKSPACE")/.ccache"
+          export CCACHE_MAXSIZE=500M
+          export CCACHE_COMPRESS=1
           mkdir -p "$CCACHE_DIR"
           if [ "${{ github.event_name }}" = "pull_request" ] || [ "${{ github.ref }}" = "refs/heads/main" ]; then
             BUILD_TYPE=RelWithDebInfo
