@@ -2,9 +2,10 @@
  * @file test_gui_snapshots.cpp
  * @brief Headless UI tests for GuiSnapshots view component.
  */
-#include <memory>
-#include <iostream>
 #include <imgui_internal.h>
+
+#include <iostream>
+#include <memory>
 
 #include "audio/effects/distortion/overdrive.h"
 #include "gui/commands/command_history.h"
@@ -147,7 +148,7 @@ TEST_F(PresetTest, gui_snapshots_context_menu_interactions) {
     io.MouseDown[1] = false;
     io.MouseClicked[1] = false;
     advance_frame();
-    gs.render(); // Popup opens
+    gs.render();  // Popup opens
 
     // Allow popup to render layouts
     advance_frame();
@@ -185,7 +186,7 @@ TEST_F(PresetTest, gui_snapshots_context_menu_interactions) {
     io.MouseDown[1] = false;
     io.MouseClicked[1] = false;
     advance_frame();
-    gs.render(); // Popup opens
+    gs.render();  // Popup opens
 
     advance_frame();
     gs.render();

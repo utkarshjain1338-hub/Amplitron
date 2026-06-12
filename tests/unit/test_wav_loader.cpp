@@ -198,4 +198,3 @@ TEST(WavLoader_StereoMixdown) {
     ASSERT_NEAR(wav.samples[0], 1500.f / 32767.f, 1e-4f);
     ASSERT_NEAR(wav.samples[1], 3500.f / 32767.f, 1e-4f);
 }
-

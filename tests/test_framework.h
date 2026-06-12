@@ -30,8 +30,9 @@ inline bool assert_eq_values(const A& a, const B& b) {
     if constexpr (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>) {
         using Common = std::common_type_t<A, B>;
         return static_cast<Common>(a) == static_cast<Common>(b);
+    } else {
+        return a == b;
     }
-    return a == b;
 }
 
 struct TestResult {

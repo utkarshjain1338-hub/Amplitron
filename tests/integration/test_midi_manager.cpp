@@ -1495,11 +1495,12 @@ TEST(midi_persist_load_config_valid_json_succeeds) {
 
 namespace Amplitron {
 struct TestAccessor {
-    static void call_midi_callback(MidiManager& mgr, double timestamp, std::vector<unsigned char>* message) {
+    static void call_midi_callback(MidiManager& mgr, double timestamp,
+                                   std::vector<unsigned char>* message) {
         MidiManager::midi_callback(timestamp, message, &mgr);
     }
 };
-}
+}  // namespace Amplitron
 
 TEST(midi_manager_direct_callback_tests) {
     MidiManager mgr;
@@ -1508,19 +1509,17 @@ TEST(midi_manager_direct_callback_tests) {
     // 1. Mismatch status event (not CC, e.g. Note On 0x90)
     std::vector<unsigned char> note_on = {0x90, 60, 127};
     Amplitron::TestAccessor::call_midi_callback(mgr, 0.0, &note_on);
-    
+
     // 2. Short message (size < 3)
     std::vector<unsigned char> short_msg = {0xB0, 7};
     Amplitron::TestAccessor::call_midi_callback(mgr, 0.0, &short_msg);
-    
+
     // 3. Null message pointer
     Amplitron::TestAccessor::call_midi_callback(mgr, 0.0, nullptr);
 
     // 4. Valid CC message
     std::vector<unsigned char> valid_cc = {0xB0, 7, 100};
     Amplitron::TestAccessor::call_midi_callback(mgr, 0.0, &valid_cc);
-    
+
     mgr.shutdown();
 }
-
-
