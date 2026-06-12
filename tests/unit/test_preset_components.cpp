@@ -61,6 +61,8 @@ TEST_F(PresetTest, test_preset_storage_lifecycle_and_list) {
     ASSERT_FALSE(remove_fail);
 
     // Save to invalid path should fail
-    bool invalid_save = storage.save("/invalid_dir_xyz_123/preset.json", "{}");
+    std::filesystem::path invalid_path =
+        std::filesystem::temp_directory_path() / "nonexistent_xyz" / "preset.json";
+    bool invalid_save = storage.save(invalid_path.string(), "{}");
     ASSERT_FALSE(invalid_save);
 }
