@@ -65,9 +65,6 @@ jobs:
             ..
           ninja -j$(nproc)
 
-      - name: Run Tests
-        run: cd build && ./amplitron-tests --junitxml=junit.xml
-
       - name: Install Smoke Test
         env:
           INSTALL_PREFIX: ${{ runner.temp }}/amplitron-install
@@ -84,6 +81,9 @@ jobs:
           test ! -e "$INSTALL_PREFIX/bin/Amplitron"
           test ! -e "$INSTALL_PREFIX/share/amplitron"
           test ! -e "$INSTALL_PREFIX/bin/assets"
+
+      - name: Run Tests
+        run: cd build && ./amplitron-tests --junitxml=junit.xml
 
       - name: Generate Linux Coverage
         if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
@@ -177,9 +177,6 @@ jobs:
             ..
           ninja -j$(sysctl -n hw.ncpu)
 
-      - name: Run Tests
-        run: cd build && ./amplitron-tests --junitxml=junit.xml
-
       - name: Install Smoke Test
         env:
           INSTALL_PREFIX: ${{ runner.temp }}/amplitron-install
@@ -196,6 +193,9 @@ jobs:
           test ! -e "$INSTALL_PREFIX/bin/Amplitron"
           test ! -e "$INSTALL_PREFIX/share/amplitron"
           test ! -e "$INSTALL_PREFIX/bin/assets"
+
+      - name: Run Tests
+        run: cd build && ./amplitron-tests --junitxml=junit.xml
 
       - name: Generate macOS Coverage
         if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
@@ -489,10 +489,6 @@ jobs:
           ninja -j$NUMBER_OF_PROCESSORS
           ccache -s
 
-      - name: Run Tests
-        shell: msys2 {0}
-        run: cd build && ./amplitron-tests.exe --junitxml=junit.xml
-
       - name: Install Smoke Test
         shell: msys2 {0}
         env:
@@ -513,6 +509,10 @@ jobs:
           test ! -e "$INSTALL_PREFIX/bin/Amplitron.exe"
           test ! -e "$INSTALL_PREFIX/share/amplitron"
           test ! -e "$INSTALL_PREFIX/bin/assets"
+
+      - name: Run Tests
+        shell: msys2 {0}
+        run: cd build && ./amplitron-tests.exe --junitxml=junit.xml
 
       - name: Generate Windows Coverage
         if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
