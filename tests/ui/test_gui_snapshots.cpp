@@ -17,15 +17,6 @@
 
 using namespace Amplitron;
 
-static inline void advance_frame() {
-    ImGui::End();
-    ImGui::Render();
-    ImGui::NewFrame();
-    ImGui::SetNextWindowPos(ImVec2(0, 0));
-    ImGui::SetNextWindowSize(ImVec2(1024, 768));
-    ImGui::Begin("TestWindow");
-}
-
 TEST_F(PresetTest, gui_snapshots_render_lifecycle) {
     ScopedImGuiContext imgui;
     GuiSnapshots gs;

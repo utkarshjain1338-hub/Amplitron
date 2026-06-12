@@ -950,6 +950,8 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         target_link_libraries(amplitron-tests PRIVATE dl pthread)
     endif()
 
+    set_target_properties(amplitron-tests PROPERTIES UNITY_BUILD OFF)
+
     # Copy presets into build directory alongside the executable
     add_custom_target(copy_presets ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory

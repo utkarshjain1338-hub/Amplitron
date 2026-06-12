@@ -1,3 +1,4 @@
+#include "test_fixtures.h"
 #include "test_framework.h"
 
 // Set a local hook definition to open up internal serialization blocks for test suite coverage
@@ -1492,19 +1493,6 @@ TEST(midi_persist_load_config_valid_json_succeeds) {
     // If the parser successfully hit the successful loops, we expect at least 1 mapping
     ASSERT_GE(static_cast<int>(mgr.mappings().size()), 1);
 }
-
-namespace Amplitron {
-struct TestAccessor {
-    static void call_midi_callback(MidiManager& mgr, double timestamp,
-                                   std::vector<unsigned char>* message) {
-        MidiManager::midi_callback(timestamp, message, &mgr);
-    }
-    static size_t get_queue_size(const MidiManager& mgr) { return mgr.midi_queue_.size(); }
-    static bool pop_queue(MidiManager& mgr, MidiEvent& event) {
-        return mgr.midi_queue_.try_pop(event);
-    }
-};
-}  // namespace Amplitron
 
 TEST(midi_manager_direct_callback_tests) {
     MidiManager mgr;
