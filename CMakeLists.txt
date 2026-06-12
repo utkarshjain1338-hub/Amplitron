@@ -641,7 +641,6 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         # kiss_fft (BSD-3 bundled)
         ${KISS_FFT_SOURCES}
         # Desktop MIDI — identical between both targets regardless of backend
-        src/midi/midi_manager.cpp
         src/midi/midi_manager_mapping.cpp
         src/midi/midi_manager_persist.cpp
     )
@@ -683,6 +682,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         ${BACKEND_SOURCES}
         ${DIALOG_SOURCES}
         ${IMGUI_SOURCES}
+        src/midi/midi_manager.cpp
         $<TARGET_OBJECTS:amplitron_core>
         $<$<PLATFORM_ID:Windows>:${WIN_RC}>
     )
@@ -815,6 +815,7 @@ else() # NOT EMSCRIPTEN, ANDROID, or IOS
         src/audio/backend/audio_backend_factory.cpp
         src/audio/backend/portaudio_backend.cpp
         src/audio/backend/sdl_backend.cpp
+        src/midi/midi_manager.cpp
     )
 
     if(WITH_JACK AND UNIX AND NOT APPLE)

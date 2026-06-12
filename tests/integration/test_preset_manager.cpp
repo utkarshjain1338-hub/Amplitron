@@ -14,7 +14,12 @@
 #include "audio/engine/audio_engine.h"
 #include "gui/state/gui_graph_state.h"
 #include "midi/midi_manager.h"
+#define private public
+#define protected public
 #include "preset_manager.h"
+#include "presets/preset_manager_impl.h"
+#undef private
+#undef protected
 #include "test_fixtures.h"
 #include "test_framework.h"
 
@@ -1557,3 +1562,118 @@ TEST(PresetManagerIO, SavePresetIncludesCabinetIrMetadata) {
     std::remove(ir_path.c_str());
     engine.shutdown();
 }
+
+TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
+    // 1. Escaping in save_config and load_config
+    // Create a path containing backslashes and double quotes
+    std::string test_dir = "presets/escape_\"test\"_\\dir\\";
+    std::filesystem::create_directories(test_dir);
+    register_temp_dir(test_dir);
+    
+    PresetManager::set_presets_dir(test_dir);
+    PresetManager::save_config();
+
+    // Verify config escaping
+    std::string config_path = PresetManager::get_config_path();
+    std::string config_content = read_file(config_path);
+    ASSERT_TRUE(config_content.find("\\\"test\\\"") != std::string::npos);
+    ASSERT_TRUE(config_content.find("\\\\dir\\\\") != std::string::npos);
+
+    // Clear and reload config
+    PresetManager::set_presets_dir("");
+    PresetManager::load_config();
+    std::string loaded_dir = PresetManager::get_presets_dir();
+    ASSERT_EQ(loaded_dir, test_dir);
+
+    // Clean up
+    std::remove(config_path.c_str());
+
+    // 2. Exception on set_presets_dir (permission-denied path)
+    PresetManager::set_presets_dir("/unwritable_root_path/presets_dir");
+
+    // 3. load_config parsing failures
+    {
+        // Missing key
+        std::ofstream f(config_path);
+        f << "{\"wrong_key\": \"value\"}";
+        f.close();
+        PresetManager::set_presets_dir("");
+        PresetManager::load_config();
+        ASSERT_NE(PresetManager::get_presets_dir(), "value");
+
+        // Missing colon
+        f.open(config_path);
+        f << "{\"presets_dir\" \"value\"}";
+        f.close();
+        PresetManager::set_presets_dir("");
+        PresetManager::load_config();
+        ASSERT_NE(PresetManager::get_presets_dir(), "value");
+
+        // Missing open quote
+        f.open(config_path);
+        f << "{\"presets_dir\": value\"}";
+        f.close();
+        PresetManager::set_presets_dir("");
+        PresetManager::load_config();
+        ASSERT_NE(PresetManager::get_presets_dir(), "value");
+
+        // Unclosed quote / escapes in load_config
+        f.open(config_path);
+        f << "{\"presets_dir\": \"val\\\\n\\\\\\\\\\\\\\\"unclosed}";
+        f.close();
+        PresetManager::set_presets_dir("");
+        PresetManager::load_config();
+        
+        std::remove(config_path.c_str());
+    }
+}
+
+TEST(PresetManagerDirs, AppleBundlePresetsExists) {
+    std::filesystem::create_directories("Resources/presets");
+    
+    // Call get_bundled_presets_dir()
+    std::string bundled = Amplitron::get_bundled_presets_dir();
+    // It should find and return the Resources path on Apple!
+    ASSERT_TRUE(bundled.find("Resources/presets") != std::string::npos);
+    
+    // Cleanup
+    std::filesystem::remove_all("Resources");
+}
+
+TEST(PresetManagerDirs, GetPresetsDirUnwritableFallback) {
+    // 1. Custom presets dir fail to create MKDIR
+    PresetManager::custom_presets_dir_ = "/invalid_unwritable_path/presets";
+    std::string path = PresetManager::get_presets_dir();
+    ASSERT_NE(path, "/invalid_unwritable_path/presets");
+
+    // 2. Exception/failure on user_dir creation
+#ifdef _WIN32
+    [[maybe_unused]] ScopedEnvVar env_appdata("APPDATA", "/invalid_dir");
+#else
+    [[maybe_unused]] ScopedEnvVar env_home("HOME", "/invalid_dir");
+#endif
+    PresetManager::custom_presets_dir_ = "";
+    std::string fallback_path = PresetManager::get_presets_dir();
+    ASSERT_EQ(fallback_path, "presets");
+}
+
+TEST(PresetManagerIO, SaveFactoryPresetsUnreadableSource) {
+    std::filesystem::create_directories("presets");
+    std::string bad_file = "presets/bad_unreadable_file_test.json";
+    
+    std::ofstream f(bad_file);
+    f << "{}";
+    f.close();
+    
+    // Remove read permissions
+    std::filesystem::permissions(bad_file, std::filesystem::perms::none);
+    
+    // Attempt to save factory presets; it should skip the unreadable bad_file gracefully
+    PresetManager::save_factory_presets("test_dest_unreadable");
+    
+    // Restore permissions for cleanup
+    std::filesystem::permissions(bad_file, std::filesystem::perms::owner_all);
+    std::remove(bad_file.c_str());
+    std::filesystem::remove_all("test_dest_unreadable");
+}
+
