@@ -1,15 +1,25 @@
+#include <algorithm>
+#include <array>
+#include <atomic>
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 #include <fstream>
+#include <functional>
+#include <memory>
+#include <mutex>
+#include <nlohmann/json.hpp>
+#include <string>
 #include <vector>
+
+#include "test_framework.h"
 
 #define private public
 #define protected public
 #include "audio/effects/amp_cab/cabinet_sim.h"
 #undef private
 #undef protected
-#include "test_framework.h"
 
 using namespace Amplitron;
 using namespace TestFramework;
@@ -318,7 +328,7 @@ TEST(CabinetSim_IR_AdvancedSwapAndMismatch) {
     cab.set_sample_rate(48000);
     ASSERT_TRUE(cab.load_ir(path1));
     cab.set_enabled(true);
-    
+
     // 1. Test wet/dry mixing
     cab.set_mix(0.5f);
     std::vector<float> buf(256, 1.0f);
@@ -329,7 +339,7 @@ TEST(CabinetSim_IR_AdvancedSwapAndMismatch) {
     std::string path2 = "test_cabinet_ir2.wav";
     ASSERT_TRUE(write_wav_mono_pcm16(path2, {0.5f, -0.5f}, 48000));
     ASSERT_TRUE(cab.load_ir(path2));
-    
+
     std::vector<float> buf2(256, 1.0f);
     cab.process(buf2.data(), 256);
 
@@ -342,7 +352,7 @@ TEST(CabinetSim_IR_AdvancedSwapAndMismatch) {
     // Clear IR to swap to null and delete kernel 2
     cab.clear_ir();
     cab.process(buf2.data(), 256);
-    
+
     // Trigger sweep deletion on the GUI thread
     ASSERT_FALSE(cab.has_ir());
 

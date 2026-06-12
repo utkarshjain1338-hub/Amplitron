@@ -42,7 +42,10 @@ class MockRtMidiIn {
         if (g_mock_rtmidi_should_fail_close) throw RtMidiError("Mock close failure");
         g_mock_rtmidi_port_open = false;
     }
-    void cancelCallback() { g_mock_rtmidi_callback = nullptr; g_mock_rtmidi_user_data = nullptr; }
+    void cancelCallback() {
+        g_mock_rtmidi_callback = nullptr;
+        g_mock_rtmidi_user_data = nullptr;
+    }
 };
 
 #define RtMidiIn MockRtMidiIn

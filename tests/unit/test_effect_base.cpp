@@ -177,16 +177,21 @@ TEST(effects_metadata_and_type_id) {
 }
 
 class TestFallbackEffect : public Effect {
-public:
+   public:
     void process(float*, int) override {}
     void reset() override {}
     const char* name() const override { return "TestFallback"; }
-    std::vector<EffectParam>& params() override { static std::vector<EffectParam> p; return p; }
-    const std::vector<EffectParam>& params() const override { static const std::vector<EffectParam> p; return p; }
+    std::vector<EffectParam>& params() override {
+        static std::vector<EffectParam> p;
+        return p;
+    }
+    const std::vector<EffectParam>& params() const override {
+        static const std::vector<EffectParam> p;
+        return p;
+    }
 };
 
 TEST(effect_base_type_id_fallback) {
     TestFallbackEffect fx;
     ASSERT_EQ(std::string(fx.type_id()), "TestFallback");
 }
-

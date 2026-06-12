@@ -59,13 +59,9 @@ int SDL_InitSubSystem(Uint32 flags) {
     return 0;
 }
 
-void SDL_QuitSubSystem(Uint32 flags) {
-    (void)flags;
-}
+void SDL_QuitSubSystem(Uint32 flags) { (void)flags; }
 
-const char* SDL_GetError(void) {
-    return g_mock_sdl_error.c_str();
-}
+const char* SDL_GetError(void) { return g_mock_sdl_error.c_str(); }
 
 SDL_AudioDeviceID SDL_OpenAudioDevice(const char* device, int iscapture,
                                       const SDL_AudioSpec* desired, SDL_AudioSpec* obtained,
@@ -79,7 +75,7 @@ SDL_AudioDeviceID SDL_OpenAudioDevice(const char* device, int iscapture,
         if (obtained && desired) {
             *obtained = *desired;
         }
-        return 2; // Capture device ID
+        return 2;  // Capture device ID
     } else {
         if (g_mock_sdl_open_audio_device_fail_out) {
             return 0;
@@ -87,13 +83,11 @@ SDL_AudioDeviceID SDL_OpenAudioDevice(const char* device, int iscapture,
         if (obtained && desired) {
             *obtained = *desired;
         }
-        return 1; // Playback/output device ID
+        return 1;  // Playback/output device ID
     }
 }
 
-void SDL_CloseAudioDevice(SDL_AudioDeviceID dev) {
-    (void)dev;
-}
+void SDL_CloseAudioDevice(SDL_AudioDeviceID dev) { (void)dev; }
 
 void SDL_PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on) {
     (void)dev;
@@ -264,7 +258,7 @@ TEST(SdlBackend_LifecycleAndCallback) {
 
 TEST(SdlBackend_FailurePathsAndDeviceSelection) {
     MockAudioEngine engine;
-    
+
     // 1. Initialization failure
     g_mock_sdl_init_subsystem_result = -1;
     g_mock_sdl_error = "Mock Init SubSystem Failure";
@@ -297,12 +291,13 @@ TEST(SdlBackend_FailurePathsAndDeviceSelection) {
         backend.stop();
     }
 
-    // 4. Preferred device detection (Case B: Devices with no matching keywords, including a null name)
+    // 4. Preferred device detection (Case B: Devices with no matching keywords, including a null
+    // name)
     {
         Amplitron::SdlBackend backend;
         ASSERT_TRUE(backend.initialize(&engine));
         g_mock_sdl_num_audio_devices = 2;
-        g_mock_sdl_device_names = { nullptr, "Internal Microphone" };
+        g_mock_sdl_device_names = {nullptr, "Internal Microphone"};
         g_mock_sdl_last_opened_device = nullptr;
         ASSERT_TRUE(backend.start());
         ASSERT_EQ(g_mock_sdl_last_opened_device, nullptr);
@@ -314,7 +309,7 @@ TEST(SdlBackend_FailurePathsAndDeviceSelection) {
         Amplitron::SdlBackend backend;
         ASSERT_TRUE(backend.initialize(&engine));
         g_mock_sdl_num_audio_devices = 3;
-        g_mock_sdl_device_names = { "Internal Microphone", "Focusrite Scarlett 2i2", "iRig Pro" };
+        g_mock_sdl_device_names = {"Internal Microphone", "Focusrite Scarlett 2i2", "iRig Pro"};
         g_mock_sdl_last_opened_device = nullptr;
         ASSERT_TRUE(backend.start());
         ASSERT_NE(g_mock_sdl_last_opened_device, nullptr);
@@ -334,4 +329,3 @@ TEST(SdlBackend_FailurePathsAndDeviceSelection) {
         g_mock_sdl_open_audio_device_fail_cap = false;
     }
 }
-

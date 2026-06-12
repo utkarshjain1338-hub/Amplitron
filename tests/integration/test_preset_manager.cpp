@@ -5,6 +5,10 @@
 #include <filesystem>
 #include <fstream>
 
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
+
 #include "audio/effects/amp_cab/cabinet_sim.h"
 #include "audio/effects/delay_reverb/reverb.h"
 #include "audio/effects/distortion/overdrive.h"
@@ -1569,7 +1573,7 @@ TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
     std::string test_dir = "presets/escape_\"test\"_\\dir\\";
     std::filesystem::create_directories(test_dir);
     register_temp_dir(test_dir);
-    
+
     PresetManager::set_presets_dir(test_dir);
     PresetManager::save_config();
 
@@ -1623,22 +1627,38 @@ TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
         f.close();
         PresetManager::set_presets_dir("");
         PresetManager::load_config();
-        
+
         std::remove(config_path.c_str());
     }
 }
 
+#ifdef __APPLE__
 TEST(PresetManagerDirs, AppleBundlePresetsExists) {
-    std::filesystem::create_directories("Resources/presets");
-    
+    char exe_path[4096];
+    uint32_t size = sizeof(exe_path);
+    std::string target_dir;
+    if (_NSGetExecutablePath(exe_path, &size) == 0) {
+        std::string exe_str = exe_path;
+        size_t last_slash = exe_str.find_last_of("/");
+        if (last_slash != std::string::npos) {
+            target_dir = exe_str.substr(0, last_slash) + "/../Resources/presets";
+        }
+    }
+    if (target_dir.empty()) {
+        target_dir = "Resources/presets";
+    }
+
+    std::filesystem::create_directories(target_dir);
+
     // Call get_bundled_presets_dir()
     std::string bundled = Amplitron::get_bundled_presets_dir();
     // It should find and return the Resources path on Apple!
     ASSERT_TRUE(bundled.find("Resources/presets") != std::string::npos);
-    
+
     // Cleanup
-    std::filesystem::remove_all("Resources");
+    std::filesystem::remove_all(std::filesystem::path(target_dir).parent_path());
 }
+#endif
 
 TEST(PresetManagerDirs, GetPresetsDirUnwritableFallback) {
     // 1. Custom presets dir fail to create MKDIR
@@ -1660,20 +1680,19 @@ TEST(PresetManagerDirs, GetPresetsDirUnwritableFallback) {
 TEST(PresetManagerIO, SaveFactoryPresetsUnreadableSource) {
     std::filesystem::create_directories("presets");
     std::string bad_file = "presets/bad_unreadable_file_test.json";
-    
+
     std::ofstream f(bad_file);
     f << "{}";
     f.close();
-    
+
     // Remove read permissions
     std::filesystem::permissions(bad_file, std::filesystem::perms::none);
-    
+
     // Attempt to save factory presets; it should skip the unreadable bad_file gracefully
     PresetManager::save_factory_presets("test_dest_unreadable");
-    
+
     // Restore permissions for cleanup
     std::filesystem::permissions(bad_file, std::filesystem::perms::owner_all);
     std::remove(bad_file.c_str());
     std::filesystem::remove_all("test_dest_unreadable");
 }
-

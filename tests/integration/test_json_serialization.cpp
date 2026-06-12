@@ -743,7 +743,7 @@ TEST(json_adl_roundtrip_graph_and_midi) {
     PresetData original;
     original.name = "ADL Graph Test";
     original.routing = "graph";
-    
+
     PresetData::NodeData node;
     node.id = "n1";
     node.type = "Overdrive";
@@ -778,7 +778,7 @@ TEST(json_adl_roundtrip_graph_and_midi) {
     // 3. Assertions
     ASSERT_EQ(restored.name, original.name);
     ASSERT_EQ(restored.routing, std::string("graph"));
-    
+
     ASSERT_EQ(restored.nodes.size(), 1u);
     ASSERT_EQ(restored.nodes[0].id, "n1");
     ASSERT_EQ(restored.nodes[0].type, "Overdrive");
@@ -800,4 +800,3 @@ TEST(json_adl_roundtrip_graph_and_midi) {
     ASSERT_EQ(restored.midi_mappings[0].effect_name, "Overdrive");
     ASSERT_EQ(restored.midi_mappings[0].param_name, "Drive");
 }
-

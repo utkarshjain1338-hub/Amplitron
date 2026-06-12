@@ -1547,7 +1547,8 @@ TEST(midi_manager_mock_init_and_port_ops) {
     {
         MidiManager mgr;
         bool ok = mgr.initialize();
-        // Since enumeration throws an exception inside get_available_ports, initialize should handle it and succeed (though no ports auto-opened)
+        // Since enumeration throws an exception inside get_available_ports, initialize should
+        // handle it and succeed (though no ports auto-opened)
         ASSERT_TRUE(ok);
         ASSERT_EQ(static_cast<int>(mgr.get_available_ports().size()), 0);
     }
@@ -1615,8 +1616,9 @@ TEST(midi_manager_error_handling_edge_cases) {
         MidiManager mgr;
         mgr.initialize();
         auto ports = mgr.get_available_ports();
-        // Since getPortName(1) throws, only "Mock MIDI Port" should be returned, or the catch block executes
-        // and get_available_ports prints error and returns what it gathered so far (which is size 1).
+        // Since getPortName(1) throws, only "Mock MIDI Port" should be returned, or the catch block
+        // executes and get_available_ports prints error and returns what it gathered so far (which
+        // is size 1).
         ASSERT_EQ(static_cast<int>(ports.size()), 1);
         ASSERT_EQ(ports[0], "Mock MIDI Port");
     }
@@ -1640,8 +1642,7 @@ TEST(midi_manager_error_handling_edge_cases) {
         MidiManager mgr;
         mgr.initialize();
         mgr.open_port(0);
-        mgr.close_port(); // Should not throw/crash because it catches the close failure
+        mgr.close_port();  // Should not throw/crash because it catches the close failure
     }
     g_mock_rtmidi_should_fail_close = false;
 }
-

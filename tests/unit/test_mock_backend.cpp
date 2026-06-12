@@ -195,12 +195,18 @@ TEST(AudioEngine_DeviceControlAndFailures) {
 }
 
 class SimpleMockEffect : public Effect {
-public:
+   public:
     void process(float*, int) override {}
     void reset() override {}
     const char* name() const override { return "SimpleMock"; }
-    std::vector<EffectParam>& params() override { static std::vector<EffectParam> p; return p; }
-    const std::vector<EffectParam>& params() const override { static const std::vector<EffectParam> p; return p; }
+    std::vector<EffectParam>& params() override {
+        static std::vector<EffectParam> p;
+        return p;
+    }
+    const std::vector<EffectParam>& params() const override {
+        static const std::vector<EffectParam> p;
+        return p;
+    }
 };
 
 TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
@@ -222,7 +228,7 @@ TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
     ASSERT_TRUE(engine.is_running());
 
     // 3. set_buffer_size: failure/revert when running
-    mock->start_fail_count = 1; // Fails the first start() call, reversion start() succeeds
+    mock->start_fail_count = 1;  // Fails the first start() call, reversion start() succeeds
     engine.set_buffer_size(1024);
     ASSERT_EQ(engine.get_buffer_size(), 512);
     ASSERT_TRUE(engine.is_running());
@@ -245,7 +251,7 @@ TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
     ASSERT_TRUE(engine.is_running());
 
     // 6. set_sample_rate: failure/revert when running with tuner tap and graph node
-    mock->start_fail_count = 1; // Fails first start(), reversion start() succeeds
+    mock->start_fail_count = 1;  // Fails first start(), reversion start() succeeds
     engine.set_sample_rate(96000);
     ASSERT_EQ(engine.get_sample_rate(), 48000);
     ASSERT_TRUE(engine.is_running());
@@ -257,4 +263,3 @@ TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
 
     engine.shutdown();
 }
-

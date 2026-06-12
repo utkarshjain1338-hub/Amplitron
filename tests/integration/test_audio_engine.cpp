@@ -499,10 +499,10 @@ TEST_F(AudioEngineTest, PushMixerGainChangeDrainsSuccessfully) {
 }
 
 class ResetTrackingMockTunerEffect : public Effect {
-public:
+   public:
     bool reset_called = false;
     int sample_rate_received = 0;
-    
+
     void process(float*, int) override {}
     void reset() override { reset_called = true; }
     void set_sample_rate(int sr) override {
@@ -523,14 +523,14 @@ public:
 TEST_F(AudioEngineTest, TunerTapSampleRateAndReset) {
     auto tap = std::make_shared<ResetTrackingMockTunerEffect>();
     engine.set_tuner_tap(tap);
-    
+
     // Changing sample rate on engine should update tap's sample rate
     engine.set_sample_rate(44100);
     ASSERT_EQ(tap->sample_rate_received, 44100);
-    
+
     // Check that tap was reset
     ASSERT_TRUE(tap->reset_called);
-    
+
     engine.clear_tuner_tap();
 }
 
@@ -539,11 +539,10 @@ TEST_F(AudioEngineTest, ProcessAudioResizesInternalBuffersWhenFrameCountExceedsC
     const int large_frame_count = 17000;
     std::vector<float> in(large_frame_count, 0.5f);
     std::vector<float> out(large_frame_count * 2, 0.0f);
-    
+
     engine.process_audio(in.data(), out.data(), large_frame_count);
-    
+
     // Check that the internal buffers resized accordingly
     ASSERT_GE(engine.process_buffer_.size(), static_cast<size_t>(large_frame_count));
     ASSERT_GE(engine.process_buffer_right_.size(), static_cast<size_t>(large_frame_count));
 }
-

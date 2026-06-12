@@ -224,10 +224,10 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     auto& graph = engine.graph();
 
     // 1. Verify description string for all commands
-    AddGraphNodeCommand cmd_add(engine, "Test", NodeRoutingType::Splitter, nullptr, ImVec2(0,0));
+    AddGraphNodeCommand cmd_add(engine, "Test", NodeRoutingType::Splitter, nullptr, ImVec2(0, 0));
     ASSERT_EQ(std::string("Add Node"), cmd_add.description());
 
-    RemoveGraphNodeCommand cmd_rem(engine, 1, NodeRoutingType::Splitter, ImVec2(0,0));
+    RemoveGraphNodeCommand cmd_rem(engine, 1, NodeRoutingType::Splitter, ImVec2(0, 0));
     ASSERT_EQ(std::string("Remove Node"), cmd_rem.description());
 
     AddGraphLinkCommand cmd_add_link(engine, 1, 2);
@@ -238,7 +238,7 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     RemoveGraphLinkCommand cmd_rem_link(engine, dummy_link);
     ASSERT_EQ(std::string("Remove Link"), cmd_rem_link.description());
 
-    MoveGraphNodeCommand cmd_move(1, ImVec2(0,0), ImVec2(10,10));
+    MoveGraphNodeCommand cmd_move(1, ImVec2(0, 0), ImVec2(10, 10));
     ASSERT_EQ(std::string("Move Node"), cmd_move.description());
 
     // 2. Setup nodes for Splitter and Mixer tests
@@ -259,14 +259,16 @@ TEST(CommandGraph_DynamicPinAndDescription) {
 
     // 3. Test Splitter auto-adds output pin when all are linked
     // Link 1: S1(outA) -> N1(in)
-    auto link1 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[0], node1->input_pin_ids[0]);
+    auto link1 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[0],
+                                                       node1->input_pin_ids[0]);
     history.execute(std::move(link1));
-    ASSERT_EQ(splitter->output_pin_ids.size(), 2u); // still 2
+    ASSERT_EQ(splitter->output_pin_ids.size(), 2u);  // still 2
 
     // Link 2: S1(outB) -> N2(in)
-    auto link2 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[1], node2->input_pin_ids[0]);
+    auto link2 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[1],
+                                                       node2->input_pin_ids[0]);
     history.execute(std::move(link2));
-    ASSERT_EQ(splitter->output_pin_ids.size(), 3u); // now 3!
+    ASSERT_EQ(splitter->output_pin_ids.size(), 3u);  // now 3!
 
     // Undo Link 2 - should revert Splitter output pins to 2
     history.undo();
@@ -278,14 +280,16 @@ TEST(CommandGraph_DynamicPinAndDescription) {
 
     // 4. Test Mixer auto-adds input pin when all are linked
     // Link 3: N1(out) -> M1(inA)
-    auto link3 = std::make_unique<AddGraphLinkCommand>(engine, node1->output_pin_ids[0], mixer->input_pin_ids[0]);
+    auto link3 = std::make_unique<AddGraphLinkCommand>(engine, node1->output_pin_ids[0],
+                                                       mixer->input_pin_ids[0]);
     history.execute(std::move(link3));
-    ASSERT_EQ(mixer->input_pin_ids.size(), 2u); // still 2
+    ASSERT_EQ(mixer->input_pin_ids.size(), 2u);  // still 2
 
     // Link 4: N2(out) -> M1(inB)
-    auto link4 = std::make_unique<AddGraphLinkCommand>(engine, node2->output_pin_ids[0], mixer->input_pin_ids[1]);
+    auto link4 = std::make_unique<AddGraphLinkCommand>(engine, node2->output_pin_ids[0],
+                                                       mixer->input_pin_ids[1]);
     history.execute(std::move(link4));
-    ASSERT_EQ(mixer->input_pin_ids.size(), 3u); // now 3!
+    ASSERT_EQ(mixer->input_pin_ids.size(), 3u);  // now 3!
 
     // Undo Link 4 - should revert Mixer input pins to 2
     history.undo();
@@ -299,7 +303,8 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     // We have 3 output pins on S1 and 3 input pins on M1. Let's link S1(outC) -> N3(in)
     // S1 has 3 output pins, 2 are linked. Occupied count will become 3 after linking outC.
     // So Splitter output pins will grow to 4.
-    auto link5 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[2], node3->input_pin_ids[0]);
+    auto link5 = std::make_unique<AddGraphLinkCommand>(engine, splitter->output_pin_ids[2],
+                                                       node3->input_pin_ids[0]);
     history.execute(std::move(link5));
     ASSERT_EQ(splitter->output_pin_ids.size(), 4u);
 
@@ -321,14 +326,18 @@ TEST(CommandGraph_DynamicPinAndDescription) {
 
     // 6. Test RemoveGraphNodeCommand auto-removes empty Mixer pins and restores on Undo
     // First, let's link N3(out) -> M1(inC)
-    // M1 has 3 input pins, 2 are linked (N1, N2). Linking N3 will occupy all 3, growing Mixer inputs to 4.
-    auto link6 = std::make_unique<AddGraphLinkCommand>(engine, node3->output_pin_ids[0], mixer->input_pin_ids[2]);
+    // M1 has 3 input pins, 2 are linked (N1, N2). Linking N3 will occupy all 3, growing Mixer
+    // inputs to 4.
+    auto link6 = std::make_unique<AddGraphLinkCommand>(engine, node3->output_pin_ids[0],
+                                                       mixer->input_pin_ids[2]);
     history.execute(std::move(link6));
     ASSERT_EQ(mixer->input_pin_ids.size(), 4u);
 
     // Now remove node N3. This should sever link N3(out) -> M1(inC), leaving M1 with an empty pin.
-    // Since M1 input count is > 2, it should auto-remove the empty pin, shrinking Mixer inputs back to 3.
-    auto rem_node = std::make_unique<RemoveGraphNodeCommand>(engine, n3, NodeRoutingType::StandardEffect, ImVec2(0,0));
+    // Since M1 input count is > 2, it should auto-remove the empty pin, shrinking Mixer inputs back
+    // to 3.
+    auto rem_node = std::make_unique<RemoveGraphNodeCommand>(
+        engine, n3, NodeRoutingType::StandardEffect, ImVec2(0, 0));
     history.execute(std::move(rem_node));
 
     // Verify node N3 is gone and Mixer inputs shrunk to 3
@@ -342,4 +351,3 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     history.redo();
     ASSERT_EQ(mixer->input_pin_ids.size(), 3u);
 }
-
