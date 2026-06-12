@@ -38,9 +38,13 @@ TEST_F(PresetTest, test_preset_storage_lifecycle_and_list) {
     auto files = storage.list();
     bool found = false;
     for (const auto& f : files) {
-        if (f == test_preset_path) {
-            found = true;
-            break;
+        try {
+            if (std::filesystem::equivalent(f, test_preset_path)) {
+                found = true;
+                break;
+            }
+        } catch (...) {
+            // Path comparison failed or file does not exist
         }
     }
     ASSERT_TRUE(found);
