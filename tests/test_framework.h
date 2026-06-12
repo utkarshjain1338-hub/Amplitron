@@ -58,13 +58,16 @@ class TestSuite {
         tests_.push_back({name, std::move(fn)});
     }
 
-    int run(const std::string& junit_path = "") {
+    int run(const std::string& junit_path = "", const std::string& filter = "") {
         int passed = 0, failed = 0;
         std::cout << "\n========================================" << std::endl;
         std::cout << "  AMPLITRON TEST SUITE" << std::endl;
         std::cout << "========================================\n" << std::endl;
 
         for (auto& [name, fn] : tests_) {
+            if (!filter.empty() && name.find(filter) == std::string::npos) {
+                continue;
+            }
             current_test_ = name;
             current_failed_ = false;
             try {

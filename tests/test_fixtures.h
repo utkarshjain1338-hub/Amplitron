@@ -21,6 +21,7 @@ class ScopedImGuiContext {
     ScopedImGuiContext() {
         ctx_ = ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
+        io.IniFilename = nullptr;
         io.DisplaySize = ImVec2(1024, 768);
         io.DeltaTime = 1.0f / 60.0f;
 
