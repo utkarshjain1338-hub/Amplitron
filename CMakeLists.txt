@@ -51,24 +51,27 @@ endif()
 # Single-header C++17 JSON library used for preset serialization /
 # deserialization.  We disable nlohmann's own tests and install rules so
 # they don't pollute the Amplitron build.
+#
+# NOTE: We intentionally bypass find_package() here. The system or conda
+# environment may provide an older nlohmann version that is incompatible with
+# GCC 13 ABI (causing sstream/any redeclaration errors). Always fetching a
+# known-good v3.11.3 ensures cross-platform ABI compatibility.
 
 # Suppress cmake_minimum_required deprecation warnings from fetched deps
 set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
-find_package(nlohmann_json QUIET)
-if(NOT nlohmann_json_FOUND)
-    include(FetchContent)
-    FetchContent_Declare(
-        nlohmann_json
-        GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG        v3.11.3
-        GIT_SHALLOW    TRUE
-    )
-    set(JSON_BuildTests OFF CACHE INTERNAL "Disable nlohmann/json tests")
-    set(JSON_Install    OFF CACHE INTERNAL "Disable nlohmann/json install")
-    FetchContent_MakeAvailable(nlohmann_json)
-endif()
+include(FetchContent)
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.11.3
+    GIT_SHALLOW    TRUE
+)
+set(JSON_BuildTests OFF CACHE INTERNAL "Disable nlohmann/json tests")
+set(JSON_Install    OFF CACHE INTERNAL "Disable nlohmann/json install")
+FetchContent_MakeAvailable(nlohmann_json)
 # ---------------------------------------------------------------------------
+
 
 find_package(GTest QUIET)
 if(NOT TARGET GTest::gtest AND NOT EMSCRIPTEN AND NOT ANDROID AND NOT IOS)

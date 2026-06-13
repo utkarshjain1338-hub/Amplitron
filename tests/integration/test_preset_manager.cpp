@@ -4,6 +4,7 @@
 #include <cstring>
 #include <filesystem>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
@@ -284,12 +285,8 @@ TEST_F(PresetTest, set_presets_dir_copies_bundled_presets) {
     std::string test_dir = "presets/test_new_presets_dir_detailed";
     register_temp_dir(test_dir);
 
-    // Remove if it exists from a previous run
-#ifdef _WIN32
-    system(("rmdir /s /q \"" + test_dir + "\" >nul 2>&1").c_str());
-#else
-    system(("rm -rf \"" + test_dir + "\" 2>/dev/null").c_str());
-#endif
+    std::error_code ec;
+    std::filesystem::remove_all(test_dir, ec);
 
     // Set the presets directory to our test directory
     PresetManager::set_presets_dir(test_dir);
@@ -1143,11 +1140,8 @@ TEST(PresetManagerDirs, PresetsDirCreatesIfMissing) {
     std::string test_dir = "presets/test_auto_create_dir";
 
     // Remove any previous run artifacts
-#ifdef _WIN32
-    system(("rmdir /s /q \"" + test_dir + "\" >nul 2>&1").c_str());
-#else
-    system(("rm -rf \"" + test_dir + "\" 2>/dev/null").c_str());
-#endif
+    std::error_code ec;
+    std::filesystem::remove_all(test_dir, ec);
 
     PresetManager::set_presets_dir(test_dir);
     ASSERT_TRUE(std::filesystem::exists(test_dir));

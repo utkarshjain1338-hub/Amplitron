@@ -1,10 +1,6 @@
 #include "audio/backend/audio_backend.h"
 #include "audio/effects/core/effect.h"
-#define private public
-#define protected public
 #include "audio/engine/audio_engine.h"
-#undef private
-#undef protected
 #include "test_framework.h"
 
 using namespace Amplitron;
@@ -221,8 +217,8 @@ TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
 
     // 2. set_buffer_size: success when running and triggers buffer resize
     engine.start();
-    engine.process_buffer_.resize(0);
-    engine.process_buffer_right_.resize(0);
+    engine.test_process_buffer().resize(0);
+    engine.test_process_buffer_right().resize(0);
     engine.set_buffer_size(512);
     ASSERT_EQ(engine.get_buffer_size(), 512);
     ASSERT_TRUE(engine.is_running());
@@ -243,8 +239,8 @@ TEST(AudioEngine_SetBufferSizeAndSampleRateReversion) {
     engine.add_effect(fx);
     engine.set_tuner_tap(fx);
 
-    engine.process_buffer_.resize(0);
-    engine.process_buffer_right_.resize(0);
+    engine.test_process_buffer().resize(0);
+    engine.test_process_buffer_right().resize(0);
     engine.start();
     engine.set_sample_rate(48000);
     ASSERT_EQ(engine.get_sample_rate(), 48000);

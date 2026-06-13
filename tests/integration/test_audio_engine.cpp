@@ -4,13 +4,10 @@
 #include <memory>
 #include <vector>
 
+#include <nlohmann/json.hpp>
 #include "audio/effects/distortion/distortion.h"
 #include "audio/effects/distortion/overdrive.h"
-#define private public
-#define protected public
 #include "audio/engine/audio_engine.h"
-#undef private
-#undef protected
 #include "test_fixtures.h"
 #include "test_framework.h"
 #include "test_mocks.h"
@@ -429,27 +426,27 @@ TEST_F(AudioEngineTest, multiple_buffer_size_changes) {
 TEST_F(AudioEngineTest, SuggestedBufferSizeLoadBranches) {
     // 1. High CPU load, should double buffer size
     engine.set_buffer_size(256);
-    engine.cpu_load_.store(0.85f);
+    engine.test_cpu_load().store(0.85f);
     ASSERT_EQ(engine.get_suggested_buffer_size(), 512);
 
     // 2. High CPU load, but already at MAX_BUFFER_SIZE (512)
     engine.set_buffer_size(512);
-    engine.cpu_load_.store(0.85f);
+    engine.test_cpu_load().store(0.85f);
     ASSERT_EQ(engine.get_suggested_buffer_size(), 512);
 
     // 3. Low CPU load, should half buffer size
     engine.set_buffer_size(512);
-    engine.cpu_load_.store(0.15f);
+    engine.test_cpu_load().store(0.15f);
     ASSERT_EQ(engine.get_suggested_buffer_size(), 256);
 
     // 4. Low CPU load, but already at MIN_BUFFER_SIZE (32)
     engine.set_buffer_size(32);
-    engine.cpu_load_.store(0.15f);
+    engine.test_cpu_load().store(0.15f);
     ASSERT_EQ(engine.get_suggested_buffer_size(), 32);
 
     // 5. Moderate CPU load, should suggest current buffer size
     engine.set_buffer_size(256);
-    engine.cpu_load_.store(0.5f);
+    engine.test_cpu_load().store(0.5f);
     ASSERT_EQ(engine.get_suggested_buffer_size(), 256);
 }
 
@@ -479,7 +476,7 @@ TEST_F(AudioEngineTest, PushMixerGainChangeDrainsSuccessfully) {
 
     // Check that Mixer gain changed in executor
     bool gain_updated = false;
-    for (const auto& step : engine.audio_shadow_executor_->execution_plan_) {
+    for (const auto& step : engine.test_audio_shadow_executor()->test_execution_plan()) {
         if (step.node_id == mixer_id) {
             for (const auto& src : step.input_sources) {
                 if (src.pin_index == 0) {
@@ -543,6 +540,6 @@ TEST_F(AudioEngineTest, ProcessAudioResizesInternalBuffersWhenFrameCountExceedsC
     engine.process_audio(in.data(), out.data(), large_frame_count);
 
     // Check that the internal buffers resized accordingly
-    ASSERT_GE(engine.process_buffer_.size(), static_cast<size_t>(large_frame_count));
-    ASSERT_GE(engine.process_buffer_right_.size(), static_cast<size_t>(large_frame_count));
+    ASSERT_GE(engine.test_process_buffer().size(), static_cast<size_t>(large_frame_count));
+    ASSERT_GE(engine.test_process_buffer_right().size(), static_cast<size_t>(large_frame_count));
 }
