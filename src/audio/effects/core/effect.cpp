@@ -1,5 +1,6 @@
 #include "audio/effects/core/effect.h"
 
+#include <nlohmann/json.hpp>
 #include "audio/effects/core/effect_factory.h"
 
 namespace Amplitron {
@@ -12,6 +13,29 @@ std::shared_ptr<Effect> Effect::clone() const {
         new_effect->set_mix(mix_);
     }
     return new_effect;
+}
+
+nlohmann::json Effect::get_params() const {
+    nlohmann::json j;
+    const auto& p_list = params();
+    for (const auto& p : p_list) {
+        j[p.name] = p.value;
+    }
+    j["enabled"] = enabled_.load();
+    j["mix"] = mix_.load(std::memory_order_relaxed);
+    return j;
+}
+
+void Effect::set_params(const nlohmann::json& j) {
+    if (j.contains("enabled")) enabled_.store(j["enabled"].get<bool>());
+    if (j.contains("mix")) mix_.store(j["mix"].get<float>(), std::memory_order_relaxed);
+
+    auto& p_list = params();
+    for (auto& p : p_list) {
+        if (j.contains(p.name)) {
+            p.value = j[p.name];
+        }
+    }
 }
 
 }  // namespace Amplitron

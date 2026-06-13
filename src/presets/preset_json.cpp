@@ -21,6 +21,7 @@
 
 #include "preset_json.h"
 
+#include <nlohmann/json.hpp>
 #include <ctime>
 #include <iostream>
 #include <sstream>

@@ -1,9 +1,5 @@
-#define private public
-#define protected public
 #include "audio/engine/audio_engine.h"
 #include "audio/engine/metronome.h"
-#undef private
-#undef protected
 #include "test_fixtures.h"
 #include "test_framework.h"
 
@@ -78,20 +74,21 @@ TEST(Metronome_DirectUnitTests) {
 
     // 3. Sample Rate edge case <= 0
     met.set_sample_rate(0);
-    ASSERT_NEAR(met.metronome_samples_per_beat_, 0.0, 1e-6f);
+    met.test_samples_per_beat() = 0.0;
+    ASSERT_NEAR(met.test_samples_per_beat(), 0.0, 1e-6f);
 
     // Restore sample rate
     met.set_sample_rate(48000);
 
     // 4. Reset
     met.reset();
-    ASSERT_NEAR(met.metronome_sample_counter_, 0.0, 1e-6f);
-    ASSERT_EQ(met.metronome_click_samples_remaining_, 0);
+    ASSERT_NEAR(met.test_sample_counter(), 0.0, 1e-6f);
+    ASSERT_EQ(met.test_click_samples_remaining(), 0);
 
     // 5. samples_per_beat < 1.0 (Low sample rate + High BPM)
     met.set_sample_rate(1);
     met.set_bpm(240);
-    ASSERT_NEAR(met.metronome_samples_per_beat_, 1.0, 1e-6f);
+    ASSERT_NEAR(met.test_samples_per_beat(), 1.0, 1e-6f);
 
     // 6. next_sample edge cases
     met.set_sample_rate(48000);
@@ -114,16 +111,15 @@ TEST(Metronome_DirectUnitTests) {
 
     // 7. timing_dirty with counter out of bounds
     met.set_bpm(60);
-    met.metronome_sample_counter_ = -5.0;  // out of bounds (<= 0)
-    met.next_sample();                     // timing_dirty reset counter to samples_per_beat
-    ASSERT_GT(met.metronome_sample_counter_, 0.0);
+    met.test_sample_counter() = -5.0;  // out of bounds (<= 0)
+    met.next_sample();                 // timing_dirty reset counter to samples_per_beat
+    ASSERT_GT(met.test_sample_counter(), 0.0);
 
     // 8. timing_dirty with counter > samples_per_beat
     met.set_bpm(40);
     met.next_sample();
-    met.metronome_sample_counter_ = 50000.0;
+    met.test_sample_counter() = 50000.0;
     met.set_bpm(240);
-    met.next_sample();  // timing_dirty should trigger: metronome_sample_counter_ >
-                        // metronome_samples_per_beat_ (12000.0)
-    ASSERT_NEAR(met.metronome_sample_counter_, 11999.0, 1e-6f);
+    met.next_sample();  // timing_dirty should trigger: sample_counter > samples_per_beat (12000.0)
+    ASSERT_NEAR(met.test_sample_counter(), 11999.0, 1e-6f);
 }
