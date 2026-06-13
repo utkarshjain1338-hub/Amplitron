@@ -1,4 +1,6 @@
 #pragma once
+#include <imgui.h>
+
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -7,8 +9,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-
-#include <imgui.h>
 
 #include "audio/engine/audio_engine.h"
 #include "test_framework.h"

@@ -254,17 +254,13 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     // 3. Test Splitter auto-adds output pin when all are linked
     // Link 1: S1(outA) -> N1(in)
     auto link1 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(s1)->output_pin_ids[0],
-        graph.find_node(n1)->input_pin_ids[0]);
+        engine, graph.find_node(s1)->output_pin_ids[0], graph.find_node(n1)->input_pin_ids[0]);
     history.execute(std::move(link1));
     ASSERT_EQ(graph.find_node(s1)->output_pin_ids.size(), 2u);  // still 2
 
     // Link 2: S1(outB) -> N2(in)
     auto link2 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(s1)->output_pin_ids[1],
-        graph.find_node(n2)->input_pin_ids[0]);
+        engine, graph.find_node(s1)->output_pin_ids[1], graph.find_node(n2)->input_pin_ids[0]);
     history.execute(std::move(link2));
     ASSERT_EQ(graph.find_node(s1)->output_pin_ids.size(), 3u);  // now 3!
 
@@ -279,17 +275,13 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     // 4. Test Mixer auto-adds input pin when all are linked
     // Link 3: N1(out) -> M1(inA)
     auto link3 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(n1)->output_pin_ids[0],
-        graph.find_node(m1)->input_pin_ids[0]);
+        engine, graph.find_node(n1)->output_pin_ids[0], graph.find_node(m1)->input_pin_ids[0]);
     history.execute(std::move(link3));
     ASSERT_EQ(graph.find_node(m1)->input_pin_ids.size(), 2u);  // still 2
 
     // Link 4: N2(out) -> M1(inB)
     auto link4 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(n2)->output_pin_ids[0],
-        graph.find_node(m1)->input_pin_ids[1]);
+        engine, graph.find_node(n2)->output_pin_ids[0], graph.find_node(m1)->input_pin_ids[1]);
     history.execute(std::move(link4));
     ASSERT_EQ(graph.find_node(m1)->input_pin_ids.size(), 3u);  // now 3!
 
@@ -306,9 +298,7 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     // S1 has 3 output pins, 2 are linked. Occupied count will become 3 after linking outC.
     // So Splitter output pins will grow to 4.
     auto link5 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(s1)->output_pin_ids[2],
-        graph.find_node(n3)->input_pin_ids[0]);
+        engine, graph.find_node(s1)->output_pin_ids[2], graph.find_node(n3)->input_pin_ids[0]);
     history.execute(std::move(link5));
     ASSERT_EQ(graph.find_node(s1)->output_pin_ids.size(), 4u);
 
@@ -333,9 +323,7 @@ TEST(CommandGraph_DynamicPinAndDescription) {
     // M1 has 3 input pins, 2 are linked (N1, N2). Linking N3 will occupy all 3, growing Mixer
     // inputs to 4.
     auto link6 = std::make_unique<AddGraphLinkCommand>(
-        engine,
-        graph.find_node(n3)->output_pin_ids[0],
-        graph.find_node(m1)->input_pin_ids[2]);
+        engine, graph.find_node(n3)->output_pin_ids[0], graph.find_node(m1)->input_pin_ids[2]);
     history.execute(std::move(link6));
     ASSERT_EQ(graph.find_node(m1)->input_pin_ids.size(), 4u);
 

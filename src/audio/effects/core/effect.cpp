@@ -1,5 +1,6 @@
 #include "audio/effects/core/effect.h"
 
+#include <algorithm>
 #include <nlohmann/json.hpp>
 
 #include "audio/effects/core/effect_factory.h"
@@ -29,12 +30,16 @@ nlohmann::json Effect::get_params() const {
 
 void Effect::set_params(const nlohmann::json& j) {
     if (j.contains("enabled")) enabled_.store(j["enabled"].get<bool>());
-    if (j.contains("mix")) mix_.store(j["mix"].get<float>(), std::memory_order_relaxed);
+    if (j.contains("mix")) {
+        float m = j["mix"].get<float>();
+        mix_.store(std::clamp(m, 0.0f, 1.0f), std::memory_order_relaxed);
+    }
 
     auto& p_list = params();
     for (auto& p : p_list) {
         if (j.contains(p.name)) {
-            p.value = j[p.name];
+            float v = j[p.name].get<float>();
+            p.value = std::clamp(v, p.min_val, p.max_val);
         }
     }
 }

@@ -1565,7 +1565,7 @@ TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
     // 1. Escaping in save_config and load_config
     // Create a path containing backslashes (and double quotes on non-Windows platforms)
 #ifdef _WIN32
-    std::string test_dir = "presets/escape_test_\\dir\\";
+    std::string test_dir = "presets\\escape_test_dir";
 #else
     std::string test_dir = "presets/escape_\"test\"_\\dir\\";
 #endif
@@ -1580,8 +1580,10 @@ TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
     std::string config_content = read_file(config_path);
 #ifndef _WIN32
     ASSERT_TRUE(config_content.find("\\\"test\\\"") != std::string::npos);
-#endif
     ASSERT_TRUE(config_content.find("\\\\dir\\\\") != std::string::npos);
+#else
+    ASSERT_TRUE(config_content.find("presets\\\\escape_test_dir") != std::string::npos);
+#endif
 
     // Clear and reload config
     PresetManager::set_presets_dir("");
@@ -1662,14 +1664,19 @@ TEST(PresetManagerDirs, AppleBundlePresetsExists) {
 
 TEST(PresetManagerDirs, GetPresetsDirUnwritableFallback) {
     // 1. Custom presets dir fail to create MKDIR
+#ifdef _WIN32
+    PresetManager::custom_presets_dir_ = "Q:\\invalid_unwritable_path\\presets";
+    std::string path = PresetManager::get_presets_dir();
+    ASSERT_NE(path, "Q:\\invalid_unwritable_path\\presets");
+
+    // 2. Exception/failure on user_dir creation
+    [[maybe_unused]] ScopedEnvVar env_appdata("APPDATA", "Q:\\invalid_dir");
+#else
     PresetManager::custom_presets_dir_ = "/invalid_unwritable_path/presets";
     std::string path = PresetManager::get_presets_dir();
     ASSERT_NE(path, "/invalid_unwritable_path/presets");
 
     // 2. Exception/failure on user_dir creation
-#ifdef _WIN32
-    [[maybe_unused]] ScopedEnvVar env_appdata("APPDATA", "/invalid_dir");
-#else
     [[maybe_unused]] ScopedEnvVar env_home("HOME", "/invalid_dir");
 #endif
     PresetManager::custom_presets_dir_ = "";

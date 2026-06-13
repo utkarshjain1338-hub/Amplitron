@@ -57,8 +57,6 @@ endif()
 # GCC 13 ABI (causing sstream/any redeclaration errors). Always fetching a
 # known-good v3.11.3 ensures cross-platform ABI compatibility.
 
-# Suppress cmake_minimum_required deprecation warnings from fetched deps
-set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -69,7 +67,11 @@ FetchContent_Declare(
 )
 set(JSON_BuildTests OFF CACHE INTERNAL "Disable nlohmann/json tests")
 set(JSON_Install    OFF CACHE INTERNAL "Disable nlohmann/json install")
+# Suppress cmake_minimum_required deprecation warnings from nlohmann/json
+set(OLD_CMAKE_WARN_DEPRECATED ${CMAKE_WARN_DEPRECATED})
+set(CMAKE_WARN_DEPRECATED OFF)
 FetchContent_MakeAvailable(nlohmann_json)
+set(CMAKE_WARN_DEPRECATED ${OLD_CMAKE_WARN_DEPRECATED})
 # ---------------------------------------------------------------------------
 
 

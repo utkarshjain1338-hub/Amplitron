@@ -2,9 +2,8 @@
 #include <cmath>
 #include <filesystem>
 #include <memory>
-#include <vector>
-
 #include <nlohmann/json.hpp>
+#include <vector>
 
 #include "audio/effects/distortion/distortion.h"
 #include "audio/effects/distortion/overdrive.h"

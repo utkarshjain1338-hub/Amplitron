@@ -23,10 +23,9 @@
 
 #include <ctime>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
-
-#include <nlohmann/json.hpp>
 
 #include "midi/midi_manager.h"
 

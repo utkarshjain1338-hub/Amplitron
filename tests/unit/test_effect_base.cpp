@@ -1,9 +1,8 @@
 #include <cmath>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-
-#include <nlohmann/json.hpp>
 
 #include "audio/effects/core/effect.h"
 #include "audio/effects/core/effect_factory.h"
