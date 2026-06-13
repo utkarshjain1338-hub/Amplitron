@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <nlohmann/json.hpp>
+
 #include "audio/effects/core/effect.h"
 #include "audio/effects/core/effect_factory.h"
 #include "test_framework.h"

@@ -21,11 +21,12 @@
 
 #include "preset_json.h"
 
-#include <nlohmann/json.hpp>
 #include <ctime>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+
+#include <nlohmann/json.hpp>
 
 #include "midi/midi_manager.h"
 

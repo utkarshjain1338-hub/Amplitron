@@ -1,6 +1,7 @@
 #include "audio/effects/core/effect.h"
 
 #include <nlohmann/json.hpp>
+
 #include "audio/effects/core/effect_factory.h"
 
 namespace Amplitron {
