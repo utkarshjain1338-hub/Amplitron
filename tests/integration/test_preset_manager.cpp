@@ -1563,8 +1563,12 @@ TEST(PresetManagerIO, SavePresetIncludesCabinetIrMetadata) {
 
 TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
     // 1. Escaping in save_config and load_config
-    // Create a path containing backslashes and double quotes
+    // Create a path containing backslashes (and double quotes on non-Windows platforms)
+#ifdef _WIN32
+    std::string test_dir = "presets/escape_test_\\dir\\";
+#else
     std::string test_dir = "presets/escape_\"test\"_\\dir\\";
+#endif
     std::filesystem::create_directories(test_dir);
     register_temp_dir(test_dir);
 
@@ -1574,7 +1578,9 @@ TEST_F(PresetTest, AdvancedPresetManagerEdgeCases) {
     // Verify config escaping
     std::string config_path = PresetManager::get_config_path();
     std::string config_content = read_file(config_path);
+#ifndef _WIN32
     ASSERT_TRUE(config_content.find("\\\"test\\\"") != std::string::npos);
+#endif
     ASSERT_TRUE(config_content.find("\\\\dir\\\\") != std::string::npos);
 
     // Clear and reload config
